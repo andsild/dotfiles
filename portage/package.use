@@ -72,3 +72,9 @@ app-admin/syslog-ng -ssl
 
 # I do not know why, but this fixes build errors (Error 2)
 media-gfx/imagemagick perl
+# required by dev-texlive/texlive-xetex-2012
+# required by dev-python/matplotlib-1.4.2[latex]
+# required by dev-python/ipython-2.2.0[matplotlib]
+# required by @selected
+# required by @world (argument)
+=app-text/texlive-core-2014-r1 xetex

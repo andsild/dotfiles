@@ -1,1 +1,0 @@
-/home/others/shomeb/a/andesil/dotfiles/gdb/.gdbinit

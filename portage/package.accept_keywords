@@ -424,3 +424,37 @@ dev-texlive/texlive-latexrecommended ~amd64
 # required by dev-texlive/texlive-latexextra-2014
 # required by texlive-latexextra (argument)
 =dev-texlive/texlive-pictures-2014 ~amd64
+# required by dev-haskell/extra-1.46.1-r1::haskell
+# required by dev-haskell/ipprint-0.5::haskell
+# required by ipprint (argument)
+=dev-haskell/bzlib-0.5.0.5 ~amd64
+# required by dev-haskell/extra-1.46.1-r1::haskell
+# required by dev-haskell/ipprint-0.5::haskell
+# required by ipprint (argument)
+=dev-haskell/puremd5-2.1.2.1 ~amd64
+# required by dev-haskell/puremd5-2.1.2.1::haskell
+# required by dev-haskell/extra-1.46.1-r1::haskell
+# required by dev-haskell/ipprint-0.5::haskell
+# required by ipprint (argument)
+=dev-haskell/crypto-api-0.13.2 ~amd64
+# required by dev-haskell/ipprint-0.5::haskell
+# required by ipprint (argument)
+=dev-haskell/extra-1.46.1-r1 ~amd64
+# required by ipprint (argument)
+=dev-haskell/ipprint-0.5 ~amd64
+# required by dev-haskell/extra-1.46.1-r1::haskell
+# required by dev-haskell/ipprint-0.5::haskell
+# required by ipprint (argument)
+=dev-haskell/unixutils-1.52.4 ~amd64
+# required by dev-haskell/crypto-api-0.13.2::haskell
+# required by dev-haskell/puremd5-2.1.2.1::haskell
+# required by dev-haskell/extra-1.46.1-r1::haskell
+# required by dev-haskell/ipprint-0.5::haskell
+# required by ipprint (argument)
+=dev-haskell/tagged-0.7.3 ~amd64
+# required by dev-haskell/crypto-api-0.13.2::haskell
+# required by dev-haskell/puremd5-2.1.2.1::haskell
+# required by dev-haskell/extra-1.46.1-r1::haskell
+# required by dev-haskell/ipprint-0.5::haskell
+# required by ipprint (argument)
+=dev-haskell/entropy-0.3.6 ~amd64
