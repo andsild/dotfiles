@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Misc
+alias annoying="find -type f -print0 | grep --color=never -Ez '[^/]{5}$' | xargs -0 "
+#alias ghc="/usr/bin/ghc -dynamic -fPIC"
+
+# Commonly used flags
+alias ls='ls --color=auto --human-readable --classify -C'
+alias lt='ls --sort=time'
+alias la='ls -A'
+alias ll='ls -al'
+alias l='ls'
+
+alias df="df --human-readable"
+alias du="du --human-readable"
+alias free="free --human"
+
+alias bc='bc --mathlib --quiet'
+
+alias mv='mv --verbose --interactive'
+alias rmdir='rmdir --verbose'
+alias mkdir='mkdir --verbose'
+
+alias gdb="gdb --quiet"
+alias grep="grep --color=always"
+# alias less="less --no-init --LINE-NUMBERS --QUIET"
+alias less='vim -u $HOME/.vim/less.vim'
+
+alias tudu='tudu -f "${HOME:-/home/andesil}/Dropbox/.tudu.xml"'
+
+# Commonly used lazyness
+alias check="aspell check -d en_US"
+alias ds="echo 100000 | sudo tee /proc/sys/fs/inotify/max_user_watches \
+	 && setsid dropbox start"
+alias fb="fbcmd notices | head ; fbcmd inbox | head"
+alias face="screen"
+alias g="sudo equo i"
+alias irc="setsid iiUp && vim -S ~/irc/irc.session.vim"
+alias m="make"
+alias killfuck="for job in $(jobs -p); do kill -9 ${job}; done "
+alias no="setxkbmap no"
+alias paste="xclip -o && echo"
+alias py="ipython"
+alias search="equo s"
+alias upd="sudo equo update && sudo equo upgrade"
+alias us="setxkbmap us"
+
+# Commonly used folders
+alias www='cd /var/www/'
+alias ai='cd "/home/andesil/Homework/AiProg/Ex1"'
+alias it='cd "/home/andesil/Homework/IT3010/Research/"'
+
+
+# EOF
+# alias samba='sudo   mount -t cifs //192.168.137.1/obteam2 samba/ -o user=asildnes,domain=SYSCOPERU,noperm'
+function samba()
+{
+    echo ${1}
+    sudo   mount -t cifs //${1}/obteam2 samba/ -o user=asildnes,domain=SYSCOPERU,noperm
+}

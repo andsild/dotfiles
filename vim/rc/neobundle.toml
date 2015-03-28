@@ -1,0 +1,507 @@
+#  Neobundle.toml
+
+# filetypes = 'all' means that the plugin will always be loaded, otherwise not
+
+# most of these plugins are configured in plugins.rc.vim,
+# some of the more extensive (like neocomplete.vim) are configured in
+# plugins/neocomplete.vim
+
+[[plugins]]
+repository = 'Shougo/tabpagebuffer.vim'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'Shougo/neomru.vim'
+filetypes = 'all'
+
+#[[plugins]]
+#repository = 'Yggdroot/indentLine'
+#filetypes = 'all'
+
+[[plugins]]
+repository = 'Shougo/unite-sudo'
+
+# lets you use visual blocks like visual blockwise
+# e.g. vapATEXT" will append the work "TEXT" at the end of
+# each line in the "ap" region
+#
+[[plugins]]
+repository = 'kana/vim-niceblock'
+mappings = '<Plug>'
+
+# show the local changes from git repo in the gutter
+[[plugins]]
+repository  = 'airblade/vim-gitgutter'
+filetypes = ['python', 'sh']  # its neat, but not asynchronous. Therefore, on
+                        # large files, it lags.  Hence the filtypes restriction
+
+[[plugins]]
+repository = 'Shougo/echodoc.vim'
+insert = 1
+
+#[[plugins]]
+#repository = 'Shougo/neocomplcache.vim'
+#insert = 1
+
+[[plugins]]
+repository = 'Shougo/neocomplete.vim'
+depends = 'Shougo/context_filetype.vim'
+insert = 1
+
+[[plugins]]
+repository = 'Shougo/neosnippet.vim'
+depends = ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim']
+insert = 1
+filetypes = 'snippet'
+unite_sources = ['neosnippet', 'neosnippet/user', 'neosnippet/runtime']
+
+[[plugins]]
+repository = 'Shougo/unite.vim'
+depends = 'Shougo/neomru.vim'
+
+  [plugins.commands]
+  name = 'Unite'
+  complete = 'customlist,unite#complete_source'
+
+[[plugins]]
+repository = 'Shougo/unite-build'
+
+[[plugins]]
+repository = 'Shougo/neossh.vim'
+filetypes = 'vimfiler'
+sources = 'ssh'
+
+[[plugins]]
+repository = 'Shougo/neossh.vim'
+filetypes = 'vimshell'
+
+[[plugins]]
+repository = 'ujihisa/vimshell-ssh'
+filetypes = 'vimshell'
+
+[[plugins]]
+repository = 'Shougo/vimfiler.vim'
+depends = 'Shougo/unite.vim'
+mappings = '<Plug>'
+explorer = 1
+
+  [plugins.commands]
+  name = ['VimFiler', 'Edit', 'Write']
+  complete = 'customlist,vimfiler#complete'
+
+[[plugins]]
+repository = 'Shougo/vimshell.vim'
+mappings = '<Plug>'
+
+  [plugins.commands]
+  name = 'VimShell'
+  complete = 'customlist,vimshell#complete'
+
+[[plugins]]
+repository = 'yomi322/vim-gitcomplete'
+filetypes = 'vimshell'
+
+[[plugins]]
+repository = 'Shougo/vinarise.vim'
+
+  [plugins.commands]
+  name = 'Vinarise'
+  complete = 'file'
+
+# [[plugins]]
+# repository = 'vim-jp/vital.vim'
+# commands = 'Vitalize'
+
+[[plugins]]
+repository = 'Shougo/junkfile.vim'
+unite_sources = 'junkfile'
+
+[[plugins]]
+repository = 'Shougo/unite-outline'
+
+[[plugins]]
+repository = 'hail2u/vim-css3-syntax'
+
+[[plugins]]
+repository = 'ctrlpvim/ctrlp.vim'
+
+# Parses HTML and stuff
+#
+[[plugins]]
+repository = 'mattn/webapi-vim'
+
+[[plugins]]
+repository = 'thinca/vim-fontzoom'
+gui = 1
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'thinca/vim-prettyprint'
+commands = 'PP'
+
+[[plugins]]
+repository = 'thinca/vim-qfreplace'
+filetypes = ['unite', 'quickfix']
+
+# Quickly run a file with a preview window
+#
+[[plugins]]
+repository = 'thinca/vim-quickrun'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'thinca/vim-scouter'
+
+[[plugins]]
+repository = 'thinca/vim-ref'
+unite_sources = 'ref'
+
+[[plugins]]
+repository = 'thinca/vim-unite-history'
+
+[[plugins]]
+repository = 'vim-ruby/vim-ruby'
+mappings = '<Plug>'
+filetypes = 'ruby'
+
+[[plugins]]
+repository = 'basyura/J6uil.vim'
+function_prefix = 'J6uil'
+unite_sources = 'J6uil'
+depends = 'mattn/webapi-vim'
+
+  [plugins.commands]
+  name = 'J6uil'
+  complete = 'custom,J6uil#complete#room'
+
+[[plugins]]
+repository = 'Shougo/unite-help'
+
+[[plugins]]
+repository = 'tsukkee/unite-tag'
+
+[[plugins]]
+repository = 'tyru/caw.vim'
+filetypes = 'all'
+mappings = '<Plug>'
+
+# Extensively used plugin for auto-completion. Leave alone
+#
+[[plugins]]
+repository = 'tyru/eskk.vim'
+mappings = [['i', '<Plug>']]
+
+# Opening up browsers: visual-block select a URL and "gz"
+#
+[[plugins]]
+repository = 'tyru/open-browser.vim'
+mappings = '<Plug>'
+
+# Nice auto-stuff for haskell
+#
+[[plugins]]
+repository = 'eagletmt/neco-ghc'
+filetypes = 'haskell'
+
+# see "man look" - used for auto-complete
+[[plugins]]
+repository = 'ujihisa/neco-look'
+insert = 1
+filetypes = 'haskell'
+
+[[plugins]]
+repository = 'ujihisa/unite-colorscheme'
+
+[[plugins]]
+repository = 'osyo-manga/unite-quickfix'
+
+[[plugins]]
+repository = 'osyo-manga/unite-filetype'
+
+[[plugins]]
+repository = 'kana/vim-tabpagecd'
+unite_sources = 'tab'
+
+# scrolling faster
+#
+[[plugins]]
+repository = 'rhysd/accelerated-jk'
+mappings = '<Plug>(accelerated_jk_'
+
+[[plugins]]
+repository = 'vim-jp/autofmt'
+mappings = [['x', 'gq']]
+
+[[plugins]]
+repository = 'supermomonga/unite-kawaii-calc'
+
+[[plugins]]
+repository = 'godlygeek/csapprox'
+terminal = 1
+
+[[plugins]]
+repository = 'thinca/vim-guicolorscheme'
+terminal = 1
+
+# repeat commands also from plugins, not just builtin commands
+#
+[[plugins]]
+repository = 'tpope/vim-repeat'
+mappings = '.'
+
+# better matchings with %
+#
+[[plugins]]
+repository = 'matchit.zip'
+mappings = [['nxo', '%', 'g%']]
+
+[[plugins]]
+repository = 'jiangmiao/simple-javascript-indenter'
+filetypes = 'javascript'
+
+[[plugins]]
+repository = 'jelera/vim-javascript-syntax'
+filetypes = 'javascript'
+
+[[plugins]]
+repository = 'hynek/vim-python-pep8-indent'
+filetypes = 'python'
+
+# remaps "w" and "b" motions, intended to be more clever
+#
+[[plugins]]
+repository = 'bkad/CamelCaseMotion'
+mappings = '<Plug>'
+
+# something to do with library support
+#
+[[plugins]]
+repository = 'aharisu/vim-gdev'
+filetypes = 'scheme'
+
+# syntax files for cpp c-std11
+#
+[[plugins]]
+repository = 'vim-jp/cpp-vim'
+filetypes = 'cpp'
+
+[[plugins]]
+repository = 'thinca/vim-ft-diff_fold'
+filetypes = 'diff'
+
+[[plugins]]
+repository = 'nsf/gocode'
+rtp = 'vim'
+filetypes = 'go'
+
+[[plugins]]
+repository = 'thinca/vim-ft-help_fold'
+filetypes = 'help'
+
+[[plugins]]
+repository = 'elzr/vim-json'
+filetypes = 'json'
+
+[[plugins]]
+repository = 'tyru/open-browser.vim'
+functions = 'openbrowser#open'
+
+[[plugins]]
+repository = 'kana/vim-filetype-haskell'
+filetypes = 'haskell'
+
+# Syntax files for D programming
+#
+[[plugins]]
+repository = 'JesseKPhillips/d.vim'
+filetypes = 'd'
+
+# nice plugin for selecting windows
+#
+[[plugins]]
+repository = 't9md/vim-choosewin'
+mappings = '<Plug>'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'fatih/vim-go'
+filetypes = 'go'
+
+[[plugins]]
+repository = 'lambdalisue/vim-fullscreen'
+gui = 1
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'todesking/ruby_hl_lvar.vim'
+filetypes = 'ruby'
+
+[[plugins]]
+repository = 'syngan/vim-vimlint'
+depends = 'ynkdir/vim-vimlparser'
+
+# Operators
+[[plugins]]
+repository = 'kana/vim-operator-user'
+functions = 'operator#user#define'
+
+[[plugins]]
+repository = 'kana/vim-operator-replace'
+depends = 'vim-operator-user'
+mappings = [['nx', '<Plug>(operator-replace)']]
+
+# Use "sa" to highlight a region, and surround the region
+# e.g. "saaW("
+[[plugins]]
+repository = 'rhysd/vim-operator-surround'
+depends = 'vim-operator-user'
+mappings = '<Plug>'
+filetypes = "all"
+
+# Concealing in vim is to replace text with unicode symbols.
+# eg. instead of "&&" you put "⋀".
+# the plugin below allows you to put the cursor over the unicode symbol,
+# but still copy the original "&&" instead of the concealment ("⋀")
+[[plugins]]
+repository = 'chikatoike/concealedyank.vim'
+mappings = [['x', '<Plug>(operator-concealedyank)']]
+
+# Textobjs
+[[plugins]]
+repository = 'kana/vim-textobj-user'
+
+[[plugins]]
+repository = 'osyo-manga/vim-textobj-multiblock'
+depends = 'vim-textobj-user'
+mappings = [['ox', '<Plug>']]
+
+[[plugins]]
+repository = 'saihoooooooo/glowshi-ft.vim'
+mappings = '<Plug>'
+
+[[plugins]]
+repository = 'Rykka/riv.vim'
+filetypes = 'rst'
+
+[[plugins]]
+repository = 'rcmdnk/vim-markdown'
+filetypes = ['markdown', 'mkd']
+
+[[plugins]]
+repository = 'kannokanno/previm'
+filetypes = ['markdown', 'rst', 'mkd']
+depends = 'tyru/open-browser.vim'
+
+[[plugins]]
+repository = 'Kocha/vim-unite-tig'
+
+# [[plugins]]
+# repository = 'osyo-manga/vim-jplus'
+# mappings = '<Plug>'
+
+[[plugins]]
+repository = 'osyo-manga/unite-vimpatches'
+
+[[plugins]]
+repository = 'katono/rogue.vim'
+commands = 'Rogue'
+
+[[plugins]]
+repository = 'junegunn/vim-easy-align'
+mappings = '<Plug>(EasyAlign)'
+
+[[plugins]]
+repository = 'sorah/unite-ghq'
+
+[[plugins]]
+repository = 'thinca/vim-themis'
+filetypes = 'vim'
+
+[[plugins]]
+repository = 'osyo-manga/vim-monster'
+filetypes = 'ruby'
+
+[[plugins]]
+repository = 'cespare/vim-toml'
+filetypes = 'toml'
+
+
+# The command that executes when you type "S" in vim. really nice
+#
+[[plugins]]
+repository = 't9md/vim-smalls'
+mappings = ['<Plug>(smalls)', '<Plug>(smalls-)']
+filetypes = 'all'
+
+[[plugins]]
+repository = 'majutsushi/tagbar'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'rstacruz/sparkup'
+
+[[plugins]]
+repository = 'nosami/Omnisharp'
+filetypes = 'cs'
+depends = ['tpope/vim-dispatch', 'ctrlpvim/ctrlp.vim', 'scrooloose/syntastic']
+   [plugins.build]
+    windows = '"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x86 && C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"'
+    mac =    'xbuild server/OmniSharp.sln'
+    unix =   'xbuild server/OmniSharp.sln'
+
+[[plugins]]
+repository = 'tpope/vim-dispatch'
+
+[[plugins]]
+repository = 'scrooloose/syntastic'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'joedicastro/dbext.vim'
+filetypes = 'sql'
+
+[[plugins]]
+repository = 'tpope/vim-fugitive.git'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'gregsexton/gitv'
+depends = 'tpope/vim-fugitive'
+filetypes = 'all'
+
+
+[[plugins]]
+repository = 'fabi1cazenave/suckless.vim.git'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'https://github.com/kshenoy/vim-signature.git'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'https://github.com/ehamberg/vim-cute-python.git'
+filetypes = 'python'
+
+[[plugins]]
+repository = 'https://github.com/enomsg/vim-haskellConcealPlus.git'
+filetypes = 'haskell'
+
+[[plugins]]
+repository = 'https://github.com/calebsmith/vim-lambdify.git'
+filetypes = ['ruby', 'javascript', 'scheme', 'erlang']
+
+[[plugins]]
+repository = 'https://github.com/tpope/vim-unimpaired.git'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'https://github.com/davidhalter/jedi-vim.git'
+filetypes = 'python'
+
+[[plugins]]
+repository = 'https://github.com/junegunn/vim-github-dashboard.git'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'https://github.com/suan/vim-instant-markdown.git'
+filetypes = 'markdown'

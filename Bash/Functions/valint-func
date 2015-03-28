@@ -1,0 +1,15 @@
+#!/bin/bash
+#: Title        : validINT
+#: Date         : 2010-00-00
+#: Author       : Anders Sildnes
+#: Version      : 1.0
+#: Desctiption  : a function to check whether an int actually is an int...
+#: Options   	: $# should be values to check
+
+valint()  #@ USAGE: valint INTEGER
+{
+  case ${1#-} in
+    *[!0-9]*) false;;
+    *) true ;;
+  esac
+}

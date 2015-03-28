@@ -1,0 +1,8 @@
+set from = "andsild@gmail.com"
+set imap_pass = "<your password here>"
+set realname = "Anders Sildnes"
+set imap_user = "andsild@gmail.com"
+set smtp_url = "smtp://andsild@smtp.gmail.com:587/"
+	# TODO: edit   ^^^^^^^
+
+set smtp_pass = "<your password here>"

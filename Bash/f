@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+function f()
+{
+	if [ -z "${1}" ]
+	then
+		die "please specify a file name to search for"
+	fi
+
+	find "${PWD:-/}" -iname "*${1}*" 2>/dev/null
+}
+
+f "${1}"
+
+# EOF

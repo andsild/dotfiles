@@ -1,0 +1,36 @@
+#!/bin/bash
+#: Title        : notat
+#: Date         : 2010-00-00
+#: Author       : Anders Sildnes
+#: Version      : 1.0
+#: Desctiption  : Åpne en tekstfil i vim med tesktnavn som
+		# DATO, med overskfit TEKST
+#: Options   	: TESKT som overskrift
+
+#@ usage: notat <hva notatet handler om>
+notat()
+{
+	# Hvis ingen $ARGS er gitt
+	if test -z "$1"
+	then
+		printf "%s\n" "Helst skirve en tittel ass..."
+		return 1
+	fi
+
+	local dato=$(date +%m%d%y)	 # dagens dato
+	local filnavn="${dato:-NOTAT}_notat.txt" # filnavn: dato_notat.txt
+
+	## ekisterer filen fra før?
+	if [ -e "${filnavn}" ]
+	then
+		printf "\nDet eksisterer allerede en fil med navn %s\n\n" "${filnavn:-ERROR}"
+		return 1
+	fi
+
+	date >> $filnavn # Sett inn dato i notatet
+	toilet $1 >> $filnavn # Print en pen overskrift
+
+	vim -c 'execute "normal Go"'  $filnavn # åpne vim med notatet
+}
+
+cd ${HOME} && notat ${1}

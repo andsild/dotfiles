@@ -1,0 +1,30 @@
+$include /etc/inputrc
+
+set visible-stats on
+
+set editing-mode vi
+$if mode=vi
+
+set blink-matching-paren on
+
+# Lines below specify for command mode
+set keymap vi-command
+"P":yank-last-arg
+"p":yank-last-arg
+
+Control-l: clear-screen
+
+# Command in insert mode
+set keymap vi-insert
+Control-l: clear-screen
+"\e[A": history-search-backward
+
+"jj": vi-movement-mode
+"\C-w": backward-kill-word
+"\C-p": history-search-backward
+
+
+
+$endif
+
+set completion-ignore-case on

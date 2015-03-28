@@ -1,0 +1,6 @@
+pd()
+{
+	popd
+} > /dev/null
+
+pd

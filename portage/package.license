@@ -1,0 +1,11 @@
+# required by adobe-flash (argument)
+>=www-plugins/adobe-flash-11.2.202.425 AdobeFlash-11.x
+# required by www-plugins/chrome-binary-plugins (argument)
+>=www-plugins/chrome-binary-plugins-40.0.2214.69_beta1:beta google-chrome
+# required by skype (argument)
+>=net-im/skype-4.3.0.37-r5 skype-4.0.0.7-copyright
+# required by google-chrome (argument)
+>=www-client/google-chrome-40.0.2214.91_p1 google-chrome
+# required by @selected
+# required by @world (argument)
+>=www-plugins/chrome-binary-plugins-41.0.2272.101_p1:stable google-chrome

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+function lookup()
+{
+	if [ -z "${1}" ]
+	then
+		printf "%s\n" "usage: lookup word"
+		exit
+	fi
+
+	eval local word='"${1}"'
+
+    wn ${word} -framv -over -simsv -holon
+} 
+
+lookup "${1}"

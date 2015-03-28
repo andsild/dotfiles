@@ -1,0 +1,22 @@
+#!/bin/bash
+#: Title        : uinfo
+#: Date         : 2010-00-00
+#: Author       : Anders Sildnes
+#: Version      : 1.0
+#: Desctiption  : Printf infomartion about the environment
+#: Options      : $1 should be a file that the info is dumped into (default to terminal)
+
+uinfo()
+{
+    local NOT_ASSIGNED="No value assigned"
+      printf "%12s: %s\n" \
+        USER    "${USER:-   ${NOT_ASSIGNED}}" \
+        PWD     "${PWD:-    ${NOT_ASSIGNED}}" \
+        COLUMNS "${COLUMNS:-${NOT_ASSIGNED}}" \
+        LINES   "${LINES:-  ${NOT_ASSIGNED}}" \
+        SHELL   "${SHELL:-  ${NOT_ASSIGNED}}" \
+        HOME    "${HOME:-   ${NOT_ASSIGNED}}" \
+        TERM    "${TERM:-   ${NOT_ASSIGNED}}"
+} > ${1:-/dev/fd/1}
+
+uinfo

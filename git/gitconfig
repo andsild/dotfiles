@@ -1,0 +1,11 @@
+[credential]
+	helper = cache --timeout=3600
+[user]
+	name = asildnes
+	email = anders.sildnes@sysco.no
+[merge]
+	tool = vimdiff
+[push]
+	default = simple
+[core]
+	excludesfile = ~/dotfiles/git/gitexclude

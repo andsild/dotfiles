@@ -1,0 +1,24 @@
+#!/bin/bash
+
+function pdf()
+{
+	if [ -z "${1}" ]
+	then
+		printf "%s\n" "usage: pdf <document or pdf>"
+		exit
+	fi
+
+	eval local file='"${1}"'
+
+	if [ "${file##*.}" == "doc" ]
+	then
+		unoconv -fpdf "${file}";
+		echo "${file}"
+		zathura "${file%%.*}.pdf" &
+		exit
+	fi
+
+	zathura "${file}" &
+} 2>/dev/null
+
+pdf "${1}"

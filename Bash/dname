@@ -1,0 +1,12 @@
+#!/bin/bash
+#: Title        : dname 
+#: Date         : 2010-00-00
+#: Author       : Anders Sildnes
+#: Version      : 1.0
+#: Desctiption  : print the directory path to a directory or folder
+#: Options	: $1 needs to be a file
+
+case $1 in
+	*/*) printf "%s\n" "${1%/*}" ;;
+	*) [ -e "$1" ] && printf "%s\n" "$PWD" || echo 'error: bad argument' ;;
+esac

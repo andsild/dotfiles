@@ -1,0 +1,26 @@
+#: Nifty functions to be used in a lot of programs..
+
+#@ DESCRIPTION: print error msg and exit with a given ret value
+die() #@ USAGE: die STAUTS [MESSAGE]
+{
+	error=$1
+	shift
+	[ -n "$*" ] && printf "%s\n" "$*" >&2
+	exit "$error"
+}
+
+#@ DESCRIPTION: print usage information..
+#@ REQUIRES: $scriptname
+usage() #@ USAGE: usage
+{
+	printf "%s - %s\n" "${scriptname:-${0}}" "${description:-<arguments>}"
+	printf "USAGE: %s\n" "${usage:-${0}}"
+}
+
+#@ DESCRIPTION: print version information..
+#@ REQUIRES: $scriptname, $author, and $version
+version() #@ USAGE: version
+{
+	printf "%s version %s\n" "$scriptname" "${version:-1.0}"
+	printf "by %s, %d\n" "$author" "${date_of_creation%%-*}"
+}

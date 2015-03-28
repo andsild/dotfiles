@@ -1,0 +1,16 @@
+#!/bin/bash
+varlist=""
+badPath="/bin/Debug"
+goodPath="/bin/Release"
+for var in "$@"
+do
+    grep "bin/Debug/" -q <<<${var}
+    if [ $? -eq 0 ]
+    then
+        var="$(sed "s#${badPath}#${goodPath}#" <<<${var} )"
+    fi
+    varlist="${varlist} ${var}"
+done
+
+# exec /usr/bin/mono --debug $MONO_OPTIONS /usr/lib/mono/4.5/nunit-console.exe "$@"
+exec /usr/bin/mono --debug $MONO_OPTIONS /usr/lib/mono/4.5/nunit-console.exe ${varlist}

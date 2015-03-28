@@ -1,0 +1,25 @@
+#!/bin/bash
+#: Title        : spinner 
+#: Date         : 2010-00-00
+#: Author       : Anders Sildnes
+#: Version      : 1.0
+#: Desctiption  : a busy-indicator while waiting for input
+#: Options   		:
+
+function spinner
+{
+	spinner="\|/-"
+	chars=1
+	delay=.15
+	prompt="press any key..."
+	clearline="\e[K"
+	CR="\r"
+	
+	until read -sn1 -t$delay -p "$prompt" var
+	do
+		printf "	%.${chars}s$CR" "$spinner"
+		temp=${spinner#?}
+		spinner=$temp${spinner%"$temp"}
+	done
+	printf "$CR$clearline"
+}

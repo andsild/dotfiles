@@ -1,0 +1,14 @@
+#!/bin/bash
+#: Title        : validname
+#: Date         : 2010-00-00
+#: Author       : Anders Sildnes
+#: Version      : 1.0
+#: Desctiption  : check if a variable name is valid - nifty in for loops.
+#: Options   		:
+
+validname()
+{
+	case $1 in
+		[!a-zA-Z_]* | *[!a-zA-z0-9_]* ) return 1;;
+	esac
+}

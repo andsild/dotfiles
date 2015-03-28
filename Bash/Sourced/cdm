@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Oh, this scripts should not be invoked by making availible through PATH,
+# rather, it should be sourced as part of env. This is because of 
+# the invocation of "dirs -l -p", which needs dirs from env to function correctly
+
+source "${HOME}/dotfiles/Bash/Functions/menu"
+
+function cdm() #@ select new directory from a menu of those already visited
+{
+	local IFS=$'\n' item  # IFS only separates strings on newlines
+	
+	for dir in $(dirs -l -p) # For every directory on the stack
+	do
+		[ "${dir}" = "${PWD}" ] && continue # If directory on stack is the current directory, ignore
+		
+		case ${item[*]} in
+#			*"${dir}:"*) continue ;;
+			# Append entry to list
+			*) menulabel="${dir}" ; command="cd '${dir}'" ; item+=( "${menulabel}:${command}" ) ;;
+		esac
+	done
+	
+	# Make a menu with all the entries from our popped stack
+	menu "${item[@]}" Quit:
+}
+
+# EOF

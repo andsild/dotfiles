@@ -1,0 +1,12 @@
+#!/bin/bash
+
+function p()
+{
+	# Show a list of processes, 
+	#	default all processes that matches for user-name
+	ps aux | grep ${1:-${USER}}
+} > ${1:-/dev/fd/1}
+
+p
+
+# EOF

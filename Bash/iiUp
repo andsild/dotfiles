@@ -1,0 +1,41 @@
+#!/bin/bash
+
+IRCFOLDER="${HOME}/irc"
+USER="${USER:-andesil}"
+FULLNAME="Anders Sildnes"
+
+declare -A SERVER
+declare -A CHANNEL
+
+SERVER[0]="hjem.carlsen.nl"
+    CHANNEL["${SERVER[0]}"]="#asciifag"
+SERVER[1]="irc.freenode.net"
+    CHANNEL["${SERVER[1]}"]="#iugntnu"
+
+function connect()
+{
+    ii -i ${IRCFOLDER} -s ${1} -n "${2}" -f "${3}"
+}
+
+function loop()
+{
+    # listen to changes in IRC output
+    while inotifywait -qre modify ${IRCFOLDER}/${1}/${2}/out
+    do
+        # dzen2: [b]ack[g]round, -p <timeout> -xs <screen> 
+        tail --lines=1 "${IRCFOLDER}/${1}/${2}/out" | dzen2 -bg red -p 2 -xs 2
+    done 
+}
+
+for server in ${SERVER[@]}
+do
+    connect "${server}" "${USER}" "${FULLNAME}" &
+    sleep 33 # omg
+    for channel in ${CHANNEL["${server}"]}
+    do
+        printf "/j %s\n" "${channel}" > "${IRCFOLDER}/${server}/in"
+        loop "${server}" "${channel}" &
+    done
+done
+
+# EOF

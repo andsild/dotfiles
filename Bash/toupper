@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Print stdin as upper characters
+printf "%s\n" "${1:LOLOLOL}" | tr 'a-z' 'A-Z'

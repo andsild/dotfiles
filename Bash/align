@@ -1,0 +1,44 @@
+#!/bin/bash
+
+IFS=$'\n' # read lines separated by newline
+sepChar="${1:-=}" # the character to align around
+
+# Read the data
+inData=""
+while read -r input
+do
+    inData="$(printf "%s\n%s" "${inData}" "${input}")"
+done
+
+# (Instead of properly learning eval..)
+# Prepare the awk command before calling it
+# I do the variable cmd to expand parameters in the cmd argtext
+cmd="
+BEGIN { val=0 } \
+    { c=index(\$0, \"${sepChar}\"); val = (val > c) ? val : c;}
+END { print val }
+"
+max="$(printf "%s\n" "${inData}" | awk "${cmd}")"
+max=$(( ${max} - 1))
+
+# not fast, doing this for fun
+# The logic is:
+# if the line matches the sepChar
+# split the line into two bits: LHS and RHS
+    # since there might be multiple sepChar on one line, I did the for loop
+    # to take the entire RHS and format it as one string
+# Print, using ${max} from above to render
+cmd="
+    \$0 ~ /${sepChar}/ {
+    c=split(\$0, ret, \"${sepChar}\");
+    string=\"\"
+    for(i in ret)
+        { if(i==2) { gsub(/^[ ]+/,\"\",ret[2]); string=ret[2]; }
+      if(i>2) { string=string \"${sepChar}\" ret[i] }
+    }
+    printf \"%-${max}s%s %s\n\", ret[1], \"${sepChar}\", string;
+}
+"
+printf "%s\n" "${inData}" | awk "${cmd}"
+
+# EOF

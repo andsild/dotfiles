@@ -1,0 +1,6 @@
+#!/bin/sh
+
+
+export XKL_XMODMAP_DISABLE = 1
+
+exec wmii

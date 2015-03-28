@@ -1,0 +1,27 @@
+#!/bin/bash
+#: Title        : Audio-cd
+#: Date         : 2013-00-00
+#: Author       : Anders Sildnes
+#: Version      : 1.0
+#: Desctiption  : I always forget the commands to do CD-stuff in *nix. \
+#		  This script simplifies management of audio cd's
+#: Options   	: specified through the menu
+
+source ${HOME}/dotfiles/Bash/Functions/menu
+
+audiocd()
+{
+	local formatCd="Format audio cd (clear all tracks):sudo cdrecord blank=all dev=/dev/cdrom -verbose"
+	local    ripCd="Import tracks from CD:abcde"
+	local burnToCd="Burn ALL FILES in \$PWD to CD:cdrecord dev=/dev/cdrom -pad -audio *"
+	local lk3b="Launch k3b:k3b"
+
+	local opts=( "$formatCd" "$ripCd" "$burnToCd" "$lk3b" )
+
+	printf "\n\n"
+
+	menu "${opts[@]}" Quit:
+
+}
+
+audiocd

@@ -1,0 +1,4 @@
+*.autosave
+build/*/*
+*.log
+*passwd*

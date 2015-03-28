@@ -1,0 +1,53 @@
+#!/bin/bash
+
+menu() #@ Display a menu where each entry maps to a command
+       #- Params are expected to be in the format <menulabel>:<command>
+       #-		  			  ^^^^^^^^^^^^^^^^^^^^^ 
+       #- | 			Note the colon symbol at line above
+{
+	local IFS=$' \t\n' # Separate strings on tabs and newlines
+	local num n=1 opt item cmd
+	
+	printf "\n"
+
+	for item in "$@" # For every item given in params
+	do
+		printf "	%3d. %s\n" "$n" "${item%%:*}" # Display a line, containing only the menu-label
+		n=$(( $n + 1 ))
+	done
+
+	printf "\n"
+
+	# If we have less than 10 menu-entries
+	if [ $# -lt 10 ]
+	then
+		# .. That means user only needs to enter a single digit.
+		# Therefore, permit readin without pressing the enter key
+		opt=-sn1
+	fi
+
+	# Read in user input"
+	read -p " (1 to $#) ==> " ${opt} num
+
+	# Evaluate user-input for validity
+	case ${num} in
+		[qQ0] | "" ) return ;; # User hits exit-key(s)
+		*[!0-9]* | 0*) 	       # User entered a non-number character
+			printf "\aInvalid response: %s\n" "$num" >&2
+			return 1
+			;;
+	esac
+	
+	printf "\n"
+
+	# If the number is in a valid range for this menu
+	if [ "$num" -le "$#" ]
+	then
+		eval "${!num#*:}" # Execute the command associated with the entry
+	else # Number out of range
+		printf "\aInvalid response: %s\n" "$num" >&2
+		return 1
+	fi
+}
+
+# EOF
