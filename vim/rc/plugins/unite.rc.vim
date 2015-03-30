@@ -2,6 +2,12 @@
 " unite.vim
 "
 
+" When writing custom menus, keep in mind that by choosing the 
+" menu-entries (candidates) in a smart way, you also make it easier to quickly
+" use the menu. For example, the openfile menu has each entry by their
+" own key ([M]RU, [F]iles, [G]it files), making it easy to quickly access
+" each entry by only one keystroke
+
 " For unite-menu.
 let g:unite_source_menu_menus = {}
 
@@ -146,7 +152,7 @@ function! s:unite_my_settings() "{{{
     nnoremap <silent><buffer><expr> r     unite#do_action('rename')
   endif
 
-  nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+  " nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
   nnoremap <silent><buffer><expr> !     unite#do_action('start')
   nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
         \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
@@ -336,34 +342,34 @@ if neobundle#tap('dbext.vim')
 if neobundle#tap('Omnisharp')
 
         let g:unite_source_menu_menus.omnisharp = {
-                \ 'description' : '            Omnisharp commands
-                    \                                [Space]os',
+                \ 'description' : '            Omnisharp commands (intellisense)
+                    \                                [Space]i',
             \}
         let g:unite_source_menu_menus.omnisharp.command_candidates = [
-            \['-> BuildAsync',
-                \'exe "OmniSharpBuildAsync"'],
-            \['-> CodeFormat',
-                \'exe "OmniSharpCodeFormat"'],
-            \['-> FindImplementations',
-                \'exe "OmniSharpFindImplementations"'],
-            \['-> FindSymbol',
-                \'exe "OmniSharpFindSymbol"'],
-            \['-> FindUsages',
-                \'exe "OmniSharpFindUsages"'],
-            \['-> OmniSharpFixUsings',
-                \'exe "OmniSharpFixUsings"'],
-            \['-> GetCodeActions',
+            \['-> Actions',
                 \'exe "OmniSharpGetCodeActions"'],
-            \['-> GotoDefinition',
+            \['-> Build',
+                \'exe "OmniSharpBuildAsync"'],
+            \['-> Definition',
                 \'exe "OmniSharpGotoDefinition"'],
+            \['-> Format',
+                \'exe "OmniSharpCodeFormat"'],
+            \['-> Implementations',
+                \'exe "OmniSharpFindImplementations"'],
+            \['-> Organize imports',
+                \'exe "OmniSharpFixUsings"'],
+            \['-> Symbol',
+                \'exe "OmniSharpFindSymbol"'],
+            \['-> Usages',
+                \'exe "OmniSharpFindUsages"'],
             \['-> Rename',
                 \'exe "OmniSharpRename"'],
-            \['-> RunAllTests',
+            \['-> Tests',
                 \'exe "OmniSharpRunAllTests"'],
-            \['-> RunLastTests',
+            \['-> LastTests',
                 \'exe "OmniSharpRunLastTests"'],
         \]
-        nnoremap <silent> [Space]os :Unite menu:omnisharp -silent -winheight=25 -start-insert<CR>
+        nnoremap <silent> [Space]i :Unite menu:omnisharp -silent -winheight=25 -start-insert<CR>
 
     call neobundle#untap()
 endif
@@ -381,4 +387,21 @@ let g:unite_source_menu_menus.diff.command_candidates = [
     \['-> Diffupdate',
         \'exe "diffupdate"'],
 \]
-nnoremap <silent> [Space]d :Unite menu:diff -silent -winheight=10 <CR>
+nnoremap <silent> [Space]di :Unite menu:diff -silent -winheight=10 <CR>
+
+
+let g:unite_source_menu_menus.openfile = {
+        \ 'description' : '            open a file
+            \                                [Space]d',
+    \}
+let g:unite_source_menu_menus.openfile.command_candidates = [
+    \['-> Files',
+        \'Unite -start-insert file file/new buffer_tab'],
+    \['-> Git files',
+        \'Unite -start-insert file_rec/git'],
+    \['-> Buffers',
+        \'Unite -start-insert buffer'],
+    \['-> MRU',
+        \'Unite -start-insert file_mru'],
+\]
+nnoremap <silent> [Space]o :Unite -start-insert menu:openfile -silent -winheight=10 <CR>

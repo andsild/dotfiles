@@ -1,6 +1,17 @@
 # VIM
 Welcome to my wonderland...
 
+## Roadmap
+Starting as of now, I've decided to start migrating FROM vim. This is because
+    I miss the concept of "an application should do one thing, and do it well".
+* Portage is much better at package management than vim will ever be
+* Tiling is much better done in wmii
+* vim cannot do asynchronous operations? So why bother making it in vim? - use
+fg and FIFO queues.
+
+I will keep using vim because it is great for text editing (I think). I will
+just try to grow independent of any plugin that communicates with other processes.
+
 # Workflow
 It takes some time to get used to Unite (i.e., the menus that pop up "all the
 time"). However, once you become a master, it can really benefit your workflow.
@@ -68,5 +79,3 @@ Vim sucks. It doesn't come with
 However, nothing is perfect. Vim has a great community. And because vimscript
 is so messy compared to other languages, it means that most vim users tend to use
 hacky and IMO, sexy solutions. At least for personal usage :)
-
-

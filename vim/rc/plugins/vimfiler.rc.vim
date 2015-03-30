@@ -50,8 +50,8 @@ function! s:vimfiler_my_settings() "{{{
   call vimfiler#set_execute_file('txt', 'vim')
 
   " Overwrite settings.
-  nnoremap <silent><buffer> J
-        \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+  " nnoremap <silent><buffer> J
+  "       \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
   " Call sendto.
   " nnoremap <buffer> - <C-u>:Unite sendto<CR>
   " setlocal cursorline

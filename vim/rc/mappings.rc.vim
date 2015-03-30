@@ -140,24 +140,33 @@ nnoremap ;t :tabe<CR>
 nnoremap ;v :vsplit<CR>
 nnoremap ;s :split<CR>
 
+nnoremap [Space]h
+    \ :Unite history/unite <CR>
+
+" nnoremap <silent> [Space]aa \
+"     \ :Unite -start-insert -default-action=cd directory_mru <CR>
+" nnoremap <silent> [Space]dc \
+"     \ :Unite -default-action=tabnew_lcd directory_mru <CR>
+
 "Open files
 " windows doesn't (per this config) have all the features (such as file_rec/async)
 "
 " ...actually; the one in linux isnt that good either. The display lags and you
 " to wait. The mru will have to do..
-if has('win16') || has('win32') || has('win64')
-    nnoremap <silent> [Space]of
-        \ :Unite -start-insert file file/new buffer_tab <CR>
-else
-    nnoremap <silent> [Space]of
-        \ :Unite -start-insert file file/new buffer_tab <CR>
-        " \ :Unite -start-insert buffer file_rec/async file/new file_mru<CR>
-endif
-nnoremap <silent> [Space]og
-    \ :Unite -start-insert file_rec/git<CR>
-    " \ :Unite -start-insert buffer file_rec/async file/new file_mru<CR>
-nnoremap <silent> [Space]m
-        \ :Unite file_mru <CR>
+" if has('win16') || has('win32') || has('win64')
+"     nnoremap <silent> [Space]of
+"         \ :Unite -start-insert file file/new buffer_tab <CR>
+" else
+"     nnoremap <silent> [Space]of
+"         \ :Unite -start-insert file file/new buffer_tab <CR>
+"         " \ :Unite -start-insert buffer file_rec/async file/new file_mru<CR>
+" endif
+" nnoremap <silent> [Space]og
+"     \ :Unite -start-insert file_rec/git<CR>
+"     " \ :Unite -start-insert buffer file_rec/async file/new file_mru<CR>
+" nnoremap <silent> [Space]m
+"         \ :Unite file_mru <CR>
+"
 
 function! GetBufferList()
   redir =>buflist
@@ -209,6 +218,7 @@ function ToggleColorScheme()
     syntax enable
   endif
 endfunction
+
 " Toggle  colorscheme
 nnoremap <silent> <Leader>cs
       \ :call ToggleColorScheme()<CR>
@@ -226,19 +236,19 @@ nnoremap <Leader>w
 nnoremap [Space]w :w<CR>
 
 " Change current directory.
-nnoremap <silent> [Space]cd :<C-u>call <SID>cd_buffer_dir()<CR>
-function! s:cd_buffer_dir() "{{{
-  let filetype = getbufvar(bufnr('%'), '&filetype')
-  if filetype ==# 'vimfiler'
-    let dir = getbufvar(bufnr('%'), 'vimfiler').current_dir
-  elseif filetype ==# 'vimshell'
-    let dir = getbufvar(bufnr('%'), 'vimshell').save_dir
-  else
-    let dir = isdirectory(bufname('%')) ? bufname('%') : fnamemodify(bufname('%'), ':p:h')
-  endif
-
-  cd `=dir`
-endfunction"}}}
+" nnoremap <silent> [Space]cd :<C-u>call <SID>cd_buffer_dir()<CR>
+" function! s:cd_buffer_dir() "{{{
+"   let filetype = getbufvar(bufnr('%'), '&filetype')
+"   if filetype ==# 'vimfiler'
+"     let dir = getbufvar(bufnr('%'), 'vimfiler').current_dir
+"   elseif filetype ==# 'vimshell'
+"     let dir = getbufvar(bufnr('%'), 'vimshell').save_dir
+"   else
+"     let dir = isdirectory(bufname('%')) ? bufname('%') : fnamemodify(bufname('%'), ':p:h')
+"   endif
+"
+"   cd `=dir`
+" endfunction"}}}
 
 " Delete windows ^M codes.
 nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm
@@ -574,4 +584,4 @@ vnoremap <C-r> "hy:%s/<C-r>h//g<left><left><left>
 imap jj <Esc>
 imap kk <Esc>
 
-nnoremap <Leader>d :<C-u>call <SID>CustomBufferDelete(1)<CR>
+nnoremap ;d :<C-u>call <SID>CustomBufferDelete(1)<CR>

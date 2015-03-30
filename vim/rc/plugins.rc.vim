@@ -53,6 +53,11 @@ if neobundle#tap('vimshell.vim') "{{{
   " <C-Space>: switch to vimshell.
   nmap <C-@>  <Plug>(vimshell_switch)
   nnoremap !  q:VimShellExecute<Space>
+
+
+ let g:vimshell_no_default_keymappings=0
+
+
 "  nnoremap [Space]i  q:VimShellInteractive<Space>
 "  nnoremap [Space]t  q:VimShellTerminal<Space>
 
@@ -75,8 +80,8 @@ if neobundle#tap('unite.vim') "{{{
   nmap    ;u [unite]
   xmap    ;u [unite]
 
-  nnoremap <silent> [Space]ou
-        \ :<C-u>Unite outline -no-start-insert -resume<CR>
+  " nnoremap <silent> [Space]ou
+  "       \ :<C-u>Unite outline -no-start-insert -resume<CR>
   " nnoremap <silent> ;t
   "       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
   nnoremap [Space]t
@@ -178,7 +183,7 @@ if neobundle#tap('vimfiler.vim') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('eskk.vim') "{{{
+if neobundle#tap('eskk.vim')
   imap <C-j>     <Plug>(eskk:toggle)
 
   let neobundle#hooks.on_source =
@@ -481,8 +486,8 @@ if neobundle#tap('syntastic')
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
     let g:syntastic_check_on_wq = 0
-    let g:syntastic_quiet_messages = { "type": "style",
-                                    \  "level": "warnings" }
+    " let g:syntastic_quiet_messages = { "type": "style",
+    "                                 \  "level": "warnings" }
     let g:syntastic_auto_loc_list = 1
 
     " until further ado, the semantic and issues checker is broken.
@@ -530,4 +535,7 @@ if neobundle#tap('jedi-vim')
     call neobundle#untap()
 endif
 
-let g:haddock_browser="/usr/bin/uzbl-browser"
+if neobundle#tap('vim-latex-live-preview')
+    let g:livepreview_previewer = 'zathura'
+    call neobundle#untap()
+endif

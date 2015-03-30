@@ -39,9 +39,9 @@ filetypes = ['python', 'sh']  # its neat, but not asynchronous. Therefore, on
 repository = 'Shougo/echodoc.vim'
 insert = 1
 
-#[[plugins]]
-#repository = 'Shougo/neocomplcache.vim'
-#insert = 1
+[[plugins]]
+repository = 'Shougo/neocomplcache.vim'
+insert = 1
 
 [[plugins]]
 repository = 'Shougo/neocomplete.vim'
@@ -505,3 +505,7 @@ filetypes = 'all'
 [[plugins]]
 repository = 'https://github.com/suan/vim-instant-markdown.git'
 filetypes = 'markdown'
+
+[[plugins]]
+repository = 'xuhdev/vim-latex-live-preview.git'
+filetypes = 'tex'
