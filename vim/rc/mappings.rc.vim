@@ -139,6 +139,17 @@ nnoremap <silent> <Leader>.
 nnoremap ;t :tabe<CR>
 nnoremap ;v :vsplit<CR>
 nnoremap ;s :split<CR>
+nnoremap ;n :call SplitVim()<CR>
+function! SplitVim()
+    let x = getpos('.')
+    if strlen(expand("%:p"))
+        silent exe ' !setsid gvim ' . expand("%:p") . ' +' . x[1] .
+                    \ ' -c "cd ' . getcwd() .
+                    \ ' | normal 0 ' . x[2] . 'lzz " '
+    else
+        echo 'nnooo  '
+    endif
+endfunction
 
 nnoremap [Space]h
     \ :Unite history/unite <CR>
@@ -210,7 +221,7 @@ nnoremap <silent> [Space]k
 " Toggle cursorline.
 nnoremap <silent> <Leader>cl
       \ :<C-u>call ToggleOption('cursorline')<CR>
-function ToggleColorScheme()
+function! ToggleColorScheme()
   if exists("g:syntax_on") 
     syntax off
   else
@@ -506,12 +517,6 @@ nnoremap <silent> [Window]y
       \ :<C-u>echo map(synstack(line('.'), col('.')),
       \     'synIDattr(v:val, "name")')<CR>
 
-" Search.
-nnoremap ;n  ;
-nnoremap ;m  ,
-
-" nnoremap <silent> q :<C-u>call <sid>smart_close()<CR>
-
 " Toggle options. "{{{
 function! ToggleOption(option_name)
   execute 'setlocal' a:option_name.'!'
@@ -552,11 +557,11 @@ nnoremap } }zz
 nnoremap { {zz
 
 " command W w
-command Q q
+command! Q q
 " command Wq wq
-command WQ wq
-command Wall wall
-command WAll wall
+command! WQ wq
+command! Wall wall
+command! WAll wall
 
 nnoremap <Leader>p "+p
 nnoremap <Leader>f :%s/^$/AB0\.1/g <bar> v/[0-9\-]\./d <bar> %s/AB0\.1//g <bar> %s/^\s\+//g <bar> %s/\v( ){1,10}/ /g <bar> %s/\s\+$//

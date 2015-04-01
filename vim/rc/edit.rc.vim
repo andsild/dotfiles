@@ -20,7 +20,10 @@ set modeline
 
 " Use clipboard register.
 if has('unnamedplus')
-  set clipboard& clipboard+=unnamedplus
+  " set clipboard& clipboard+=unnamedplus
+  " I prefer to always use the clipboard.
+  " Use registers 0-9 or named registers to start juggling content.
+  set clipboard=unnamedplus
 else
   set clipboard& clipboard+=unnamed
 endif

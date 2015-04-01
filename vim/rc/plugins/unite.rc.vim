@@ -186,7 +186,7 @@ if executable('ag')
   let g:unite_source_grep_default_opts =
         \ '-i --ignore-dir "*bin*" -U --line-numbers --nocolor --nogroup --hidden --ignore ' .
         \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' --ignore ''tags'' ' .
-        \ '--ignore ''.trx'''
+        \ '--ignore ''.trx'' --ignore ''.xml'' --ignore ''.tt'''
   let g:unite_source_grep_recursive_opt = ''
   let g:unite_source_rec_async_command='ag -m0 -g "" ' . g:unite_source_grep_default_opts
 elseif executable('pt')

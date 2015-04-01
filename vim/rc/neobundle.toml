@@ -131,11 +131,6 @@ repository = 'ctrlpvim/ctrlp.vim'
 repository = 'mattn/webapi-vim'
 
 [[plugins]]
-repository = 'thinca/vim-fontzoom'
-gui = 1
-mappings = '<Plug>'
-
-[[plugins]]
 repository = 'thinca/vim-prettyprint'
 commands = 'PP'
 
@@ -509,3 +504,8 @@ filetypes = 'markdown'
 [[plugins]]
 repository = 'xuhdev/vim-latex-live-preview.git'
 filetypes = 'tex'
+
+[[plugins]]
+repository = 'https://github.com/SirVer/ultisnips.git'
+filetypes = 'all'
+

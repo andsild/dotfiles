@@ -340,13 +340,6 @@ if neobundle#tap('vim-conque') "{{{
   call neobundle#untap()
 endif "}}}
 
-if neobundle#tap('vim-fontzoom') "{{{
-  nmap + <Plug>(fontzoom-larger)
-  nmap _ <Plug>(fontzoom-smaller)
-
-  call neobundle#untap()
-endif "}}}
-
 if neobundle#tap('vim-operator-replace') "{{{
   xmap p <Plug>(operator-replace)
 
@@ -534,6 +527,14 @@ if neobundle#tap('jedi-vim')
 	let g:jedi#auto_vim_configuration = 0
     call neobundle#untap()
 endif
+
+if neobundle#tap('ultisnips')
+    let g:UltiSnipsExpandTrigger="<C-CR>"
+    let g:UltiSnipsJumpForwardTrigger="<C-tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    call neobundle#untap()
+endif
+
 
 if neobundle#tap('vim-latex-live-preview')
     let g:livepreview_previewer = 'zathura'
