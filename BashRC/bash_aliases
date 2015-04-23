@@ -59,3 +59,8 @@ function samba()
     echo ${1}
     sudo   mount -t cifs //${1}/obteam2 samba/ -o user=asildnes,domain=SYSCOPERU,noperm
 }
+
+function murder()
+{
+    kill -9 $(ps aux | awk "!/grep.*${1}/ && /${1}/ {print \$2}")
+}
