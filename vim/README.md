@@ -14,7 +14,7 @@ Starting as of now, I've decided to start migrating FROM vim. This is because
 The main problem being that many applications provide annoying interfaces, so it's easier using vim-plugins.
 One of my future projects may involve finding a nice way to wrap small commands to a menu-based interface like unite, but without vim.
 
-I will keep using vim because it is great for text editing and light-enough-weight (hello emacs). I wish to grow more indepedent of plugins (currently > 100). Vim has a great community. And because vimscript
+I will keep using vim because it is great for text editing and light-enough-weight (hello emacs). However, I wish to gradually remove some of my 100+ plugins... 
 
 # Workflow
 It takes some time to get used to Unite (i.e., the menus that pop up "all the
@@ -71,5 +71,3 @@ dependencies. Read their doc (most have a "requirement" section).
 
 #### Other
 Note that most of the plugins register with a "filetype" in neobundle.toml. This means that you need to open a buffer before their shortcuts/commands work.
-is so messy compared to other languages, it means that most vim users tend to use
-hacky and IMO, sexy solutions. At least for personal usage :)
