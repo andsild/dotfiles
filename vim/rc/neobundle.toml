@@ -19,6 +19,10 @@ filetypes = 'all'
 #filetypes = 'all'
 
 [[plugins]]
+repository = 'https://github.com/Chiel92/vim-autoformat.git'
+filetypes = 'all'
+
+[[plugins]]
 repository = 'Shougo/unite-sudo'
 
 # lets you use visual blocks like visual blockwise
@@ -143,6 +147,7 @@ filetypes = ['unite', 'quickfix']
 [[plugins]]
 repository = 'thinca/vim-quickrun'
 mappings = '<Plug>'
+filetypes = 'all'
 
 [[plugins]]
 repository = 'thinca/vim-scouter'
@@ -492,6 +497,8 @@ filetypes = 'all'
 [[plugins]]
 repository = 'https://github.com/davidhalter/jedi-vim.git'
 filetypes = 'python'
+
+
 
 [[plugins]]
 repository = 'https://github.com/junegunn/vim-github-dashboard.git'

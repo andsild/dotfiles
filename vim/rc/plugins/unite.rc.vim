@@ -2,7 +2,7 @@
 " unite.vim
 "
 
-" When writing custom menus, keep in mind that by choosing the 
+" When writing custom menus, keep in mind that by choosing the
 " menu-entries (candidates) in a smart way, you also make it easier to quickly
 " use the menu. For example, the openfile menu has each entry by their
 " own key ([M]RU, [F]iles, [G]it files), making it easy to quickly access
@@ -238,38 +238,40 @@ if neobundle#tap('gitv')
             \                                [Space]g',
         \}
     let g:unite_source_menu_menus.git.command_candidates = [
-        \['-> git viewer             (gitv)                              W ,gv',
+        \['-> viewer             (gitv)                              W ,gv',
             \':Gitv --all'],
-        \['-> git viewer - buffer    (gitv)                              W ,gV',
+        \['-> viewer - buffer    (gitv)                              W ,gV',
             \':Gitv --all'],
-        \['-> git tig             (unite tig)                              W ,gv',
+        \['-> tig             (unite tig)                              W ,gv',
             \':Unite tig'],
-        \['-> git status             (fugitive)                          W ,gs',
+        \['-> status             (fugitive)                          W ,gs',
             \'Gstatus'],
-        \['-> git diff               (fugitive)                          W ,gd',
+        \['-> diff               (fugitive)                          W ,gd',
             \'Gdiff'],
-        \['-> git commit             (fugitive)                          W ,gc',
+        \['-> commit             (fugitive)                          W ,gc',
             \'Gcommit'],
-        \['-> git log                (fugitive)                          W ,gl',
+        \['-> log                (fugitive)                          W ,gl',
             \'exe "silent Glog | Unite -no-quit quickfix"'],
-        \['-> git log - all          (fugitive)                          W ,gL',
+        \['-> log - all          (fugitive)                          W ,gL',
             \'exe "silent Glog -all | Unite -no-quit quickfix"'],
-        \['-> git blame              (fugitive)                          W ,gb',
+        \['-> blame              (fugitive)                          W ,gb',
             \'Gblame'],
-        \['-> git add/stage          (fugitive)                          W ,gw',
+        \['-> add/stage          (fugitive)                          W ,gw',
             \'Gwrite'],
-        \['-> git push               (fugitive, buffer output)           W ,gp',
+        \['-> push               (fugitive, buffer output)           W ,gp',
             \'Git! push'],
-        \['-> git pull               (fugitive, buffer output)           W ,gP',
+        \['-> pull               (fugitive, buffer output)           W ,gP',
             \'Git! pull'],
-        \['-> git command            (fugitive, buffer output)           W ,gi',
+        \['-> command            (fugitive, buffer output)           W ,gi',
             \'exe "Git! " input("comando git: ")'],
-        \['-> git edit               (fugitive)                          W ,gE',
+        \['-> edit               (fugitive)                          W ,gE',
             \'exe "command Gedit " input(":Gedit ")'],
-        \['-> git grep               (fugitive)                          W ,gg',
+        \['-> grep               (fugitive)                          W ,gg',
             \'exe "silent Ggrep -i ".input("Pattern: ") | Unite -no-quit quickfix'],
-        \['-> git grep - text        (fugitive)                          W ,ggt',
+        \['-> grep - text        (fugitive)                          W ,ggt',
             \'exe "silent Glog -S".input("Pattern: ")." | Unite -no-quit quickfix"'],
+        \['-> write               (fugitive)                          W ,gg',
+            \'Gwrite'],
         \['-> github dashboard       (github-dashboard)                  W ,gD',
             \'exe "GHD! " input("Username: ")'],
         \['-> github activity        (github-dashboard)                  W ,gA',
@@ -369,8 +371,6 @@ if neobundle#tap('Omnisharp')
             \['-> LastTests',
                 \'exe "OmniSharpRunLastTests"'],
         \]
-        nnoremap <silent> [Space]i :Unite menu:omnisharp -silent -winheight=25 -start-insert<CR>
-
     call neobundle#untap()
 endif
 
@@ -380,14 +380,14 @@ let g:unite_source_menu_menus.diff = {
             \                                [Space]d',
     \}
 let g:unite_source_menu_menus.diff.command_candidates = [
-    \['-> Diffthis',
-        \'exe "diffthis"'],
-    \['-> Diffoff',
-        \'exe "diffoff"'],
-    \['-> Diffupdate',
-        \'exe "diffupdate"'],
+    \['-> this',
+        \'diffthis'],
+    \['-> off',
+        \'diffoff'],
+    \['-> update',
+        \'diffupdate'],
 \]
-nnoremap <silent> [Space]di :Unite menu:diff -silent -winheight=10 <CR>
+nnoremap <silent> [Space]di :Unite menu:diff -silent -start-insert -winheight=10 <CR>
 
 
 let g:unite_source_menu_menus.openfile = {
@@ -405,3 +405,34 @@ let g:unite_source_menu_menus.openfile.command_candidates = [
         \'Unite -start-insert file_mru'],
 \]
 nnoremap <silent> [Space]o :Unite -start-insert menu:openfile -silent -winheight=10 <CR>
+
+
+if neobundle#tap('jedi-vim')
+let g:unite_source_menu_menus.jedi = {
+        \ 'description' : '            Python intellisense
+            \                                [Space]i',
+    \}
+let g:unite_source_menu_menus.jedi.command_candidates = [
+    \['-> Assingments',
+        \'call jedi#goto_assignments()'],
+    \['-> Call signture',
+        \'call jedi#configure_call_signatures()'],
+    \['-> Definition',
+        \'call jedi#goto_definitions()'],
+    \['-> Rename',
+        \'call jedi#rename()'],
+    \['-> Documentation',
+        \'call jedi#show_documentation()'],
+    \['-> Import',
+        \'call jedi#py_import()'],
+    \['-> Usages',
+        \'call jedi#usages()'],
+\]
+
+    call neobundle#untap()
+endif
+
+
+au Bufenter *.cs nnoremap <silent> [Space]i :Unite menu:omnisharp -silent -winheight=25 -start-insert<CR>
+au Bufenter *.py nnoremap <silent> [Space]i :Unite menu:jedi -silent -winheight=25 -start-insert<CR>
+

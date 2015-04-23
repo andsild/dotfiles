@@ -93,14 +93,14 @@ if neobundle#tap('unite.vim') "{{{
 
   " t: tags-and-searches "{{{
   " The prefix key.
-  nnoremap    [Tag]   <Nop>
-  nmap    t [Tag]
+  " nnoremap    [Tag]   <Nop>
+  " nmap    t [Tag]
   " Jump.
   " nnoremap [Tag]t  g<C-]>
-  nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "g\<C-]>" :
-        \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately tag tag/include\<CR>"
-  nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
-        \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
+  " nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "g\<C-]>" :
+  "       \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately tag tag/include\<CR>"
+  " nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
+  "       \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
   "}}}
 
   " Search.
@@ -165,8 +165,8 @@ if neobundle#tap('vim-ref') "{{{
     autocmd MyAutoCmd FileType ref call s:ref_my_settings()
     function! s:ref_my_settings() "{{{
       " Overwrite settings.
-      nmap <buffer> [Tag]t  <Plug>(ref-keyword)
-      nmap <buffer> [Tag]p  <Plug>(ref-back)
+      " nmap <buffer> [Tag]t  <Plug>(ref-keyword)
+      " nmap <buffer> [Tag]p  <Plug>(ref-back)
     endfunction"}}}
   endfunction
 
@@ -466,6 +466,8 @@ endif
 if neobundle#tap('Omnisharp')
     NeoBundleSource ctrlp.vim
 
+    let g:Omnisharp_start_server = 0
+    let g:Omnisharp_stop_server = 0
     let g:omnicomplete_fetch_full_documentation = 0
     let g:OmniSharp_typeLookupInPreview = 0
     let g:OmniSharp_timeout = 100 " hit ctrl+c to abort it.
@@ -477,22 +479,17 @@ if neobundle#tap('syntastic')
     let g:syntastic_check_on_open = 0 
     let g:syntastic_check_on_save = 1
     let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_wq = 0
-    " let g:syntastic_quiet_messages = { "type": "style",
-    "                                 \  "level": "warnings" }
-    let g:syntastic_auto_loc_list = 1
-
-    " until further ado, the semantic and issues checker is broken.
-    " let g:syntastic_cs_checkers = ['syntax', 'issues', 'semantic']
-
-    " so much faster than pylint...
-    let g:syntastic_python_checkers = ['pyflakes']
-
+    " let g:syntastic_auto_loc_list = 1
+    " let g:syntastic_check_on_wq = 0
+    let g:syntastic_quiet_messages = { "type": "style",
+                                    \  "level": "warnings" }
+    let g:syntastic_python_checkers = ['flake8'] " so much faster than pylint...
+    let g:syntastic_python_flake8_args='--ignore=F401,F402,F403,F404,F811,F841,N8,E127,E2,E3,E5,E701,E702,E703,E704,E731,W1,W2,W3,W6'
+    "
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
-
+    "
     call neobundle#untap()
 endif
 
@@ -523,8 +520,9 @@ endif
 
 if neobundle#tap('jedi-vim')
     autocmd FileType python setlocal omnifunc=jedi#completions
-	let g:jedi#completions_enabled = 0
-	let g:jedi#auto_vim_configuration = 0
+    let g:jedi#completions_enabled = 0
+    let g:jedi#popup_select_first = 0 " dont pop up the first one
+    let g:jedi#auto_vim_configuration = 0
     call neobundle#untap()
 endif
 
@@ -538,5 +536,10 @@ endif
 
 if neobundle#tap('vim-latex-live-preview')
     let g:livepreview_previewer = 'zathura'
+    call neobundle#untap()
+endif
+
+if neobundle#tap('vim-autoformat')
+    nnoremap <silent> <Leader>au :Autoformat<CR>
     call neobundle#untap()
 endif

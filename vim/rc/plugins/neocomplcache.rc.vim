@@ -45,6 +45,8 @@ endif
 if !exists('g:neocomplcache_force_omni_patterns')
   let g:neocomplcache_force_omni_patterns = {}
 endif
+let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+
 let g:neocomplcache_enable_auto_close_preview = 1
 " let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'

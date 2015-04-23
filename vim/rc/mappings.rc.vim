@@ -585,8 +585,17 @@ if executable('pdftotext')
   endfunction
 endif
 
-vnoremap <C-r> "hy:%s/<C-r>h//g<left><left><left>
+vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
 imap jj <Esc>
 imap kk <Esc>
 
 nnoremap ;d :<C-u>call <SID>CustomBufferDelete(1)<CR>
+
+" For three-way diffs in fugitive
+nnoremap dl :diffget //2<CR>
+nnoremap dh :diffget //3<CR>
+
+" 0 will go to beginning of line, ^ goes to first non-space. Much better.
+map 0 ^ 
+
+cmap w!! w !sudo tee > /dev/null %

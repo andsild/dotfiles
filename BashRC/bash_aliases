@@ -49,6 +49,7 @@ alias us="setxkbmap us"
 alias www='cd /var/www/'
 alias ai='cd "/home/andesil/Homework/AiProg/Ex1"'
 alias it='cd "/home/andesil/Homework/IT3010/Research/"'
+alias hw='cd "/home/andesil/Homework/Workshop/"'
 
 
 # EOF

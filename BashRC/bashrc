@@ -2,8 +2,7 @@
 # If not running interactively, don't read preferences.
 [ -z "$PS1" ] && return
 
-export GOROOT=/usr/local/go
-export GOPATH=/opt/go
+export EIX_LIMIT=0
 
 # Variables ##
 #TODO: put amount of files in dir in PS1
@@ -17,26 +16,30 @@ PATH="${PATH}:${HOME}/dotfiles/Bash:$GOROOT/bin:$GOPATH/bin"
 export HISTCONTROL="ignoredups"
 
 # Disable Software Flow Control (xon) 
-# (in practise: give me back Ctrl+s and Ctrl+q)
+# (in practice: give me back Ctrl+s and Ctrl+q)
 stty -ixon
 
 # XMonad needs this to run java nicely
 export _JAVA_AWT_WM_NONREPARENTING=1 
 
+# My jedi-vim needs this(ugh!)
+export IPYTHONDIR="~/.ipython"
+
+
 # It's a lot more annoying to not have an old command in history than having a large file
 export HISTSIZE=10000		
 export HISTFILE_SIZE=10000
 
+
 # Reload history after each command (needed to share history across shells live)
 # export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# Append dirname to window title if WMII_IS_RUNNING
 WMII_IS_RUNNING=`ps a | grep wmii | awk '/[^"grep"] wmii$/'`
-if [ -n "$WMII_IS_RUNNING" ]; then
+if [ -n "$WMII_IS_RUNNING" ]
+then
   PROMPT_COMMAND='dirs | wmiir write /client/sel/label'
 fi
-
-#Default apps
-export EDITOR="vim"
-export PAGER="less"
 
 export XDG_CONFIG_HOME="~/.local/share"
 
@@ -57,15 +60,5 @@ BASH_INCLUDES_DEST="${HOME}/.bash_includes"
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	    . /etc/bash_completion
 fi
-
-#vim_file="~/.vim/bundle/powerline/powerline/bindings/bash/powerline.sh"
-#if [ -f ${vim_file} ]
-#then
-#    source ${vim_file}
-#fi
-
-
-
-
 
 # EOF
