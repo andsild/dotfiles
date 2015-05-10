@@ -265,7 +265,11 @@ nnoremap [Space]w :w<CR>
 nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm
 
 " Delete spaces before newline.
-nnoremap <silent> <Leader>ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
+" nnoremap <silent> <Leader>ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
+
+"Clear excess whitespace. mm is to center back to original pos
+nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzz
+
 
 " Easily syntax change.
 nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>

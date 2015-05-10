@@ -1,460 +1,189 @@
-# required by wmii (argument)
-=x11-wm/wmii-3.9.2-r4 ~amd64
-# required by x11-wm/wmii-3.9.2-r4
-# required by wmii (argument)
-=sys-libs/libixp-0.5_p20110208-r3 ~amd64
-# required by cdm (argument)
-=x11-misc/cdm-0.6.1_pre20130419 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/parsec-3.1.7 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/parallel-3.2.0.6 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/http-4000.2.19 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0[doc]
-# required by haskell-platform (argument)
-=dev-haskell/haddock-2.14.3.0.7.8.3 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/async-2.0.2 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/primitive-0.5.4.0 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/vector-0.10.12.2 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0[X]
-# required by haskell-platform (argument)
-=dev-haskell/openglraw-1.5.0.0 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0[X]
-# required by haskell-platform (argument)
-=dev-haskell/gluraw-1.4.0.1 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/text-1.2.0.3 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/haskell-src-1.0.1.6 ~amd64
-# required by dev-haskell/http-4000.2.19[network-uri]
-# required by dev-haskell/cabal-install-1.20.0.3-r2
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/network-uri-2.6.0.1 ~amd64
-# required by dev-haskell/mtl-2.2.1
-# required by dev-haskell/happy-1.19.4
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/transformers-0.4.2.0 ~amd64
-# required by haskell-platform (argument)
-=dev-haskell/haskell-platform-2014.2.0.0 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/hashable-1.2.3.1 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0[X]
-# required by haskell-platform (argument)
-=dev-haskell/opengl-2.9.2.0 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/hpc-0.6.0.1 ~amd64
-# required by dev-haskell/haddock-2.14.3.0.7.8.3
-# required by dev-haskell/haskell-platform-2014.2.0.0[doc]
-# required by haskell-platform (argument)
-=dev-lang/ghc-7.8.4 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/mtl-2.2.1 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/unordered-containers-0.2.5.1 ~amd64
-# required by dev-haskell/http-4000.2.19[network-uri]
-# required by dev-haskell/cabal-install-1.20.0.3-r2
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/network-2.6.0.2 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/hscolour-1.20.3-r1 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/case-insensitive-1.2.0.3 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/cabal-install-1.20.0.3-r2 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0[X]
-# required by haskell-platform (argument)
-=dev-haskell/glut-2.5.1.1 ~amd64
-# required by dev-haskell/cabal-install-1.20.0.3-r2
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/cabal-1.20.0.2 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/happy-1.19.4 ~amd64
-# required by dev-haskell/haskell-platform-2014.2.0.0
-# required by haskell-platform (argument)
-=dev-haskell/fgl-5.5.0.1 ~amd64
-# required by www-plugins/chrome-binary-plugins (argument)
-=www-plugins/chrome-binary-plugins-40.0.2214.69_beta1 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Readonly-XS-1.50.0-r1 ~amd64
-# required by dev-tex/biber (argument)
-=dev-tex/biber-1.9 ~amd64
-# required by dev-tex/quotchap (argument)
-=dev-tex/quotchap-0.9f ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Encode-EUCJPASCII-0.03 ~amd64
-# required by dev-tex/pscyr (argument)
-=dev-tex/pscyr-0.4d_beta9 ~amd64
-# required by dev-tex/sketch (argument)
-=dev-tex/sketch-0.3.7 ~amd64
-# required by dev-texlive/texlive-langjapanese (argument)
-=dev-texlive/texlive-langjapanese-2014 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Encode-HanExtra-0.230.0-r1 ~amd64
-# required by dev-tex/metapost (argument)
-=dev-tex/metapost-1.803 ~amd64
-# required by dev-tex/ellipsis (argument)
-=dev-tex/ellipsis-1.6 ~amd64
-# required by app-text/texlive-core-2014-r1[cjk]
-# required by dev-texlive/texlive-langeuropean-2014
-# required by dev-texlive/texlive-langeuropean (argument)
-=dev-libs/ptexenc-1.3.2_p20140525-r1 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Text-BibTeX-0.700.0 ~amd64
-# required by dev-tex/biblatex-apa (argument)
-=dev-tex/biblatex-apa-6.6 ~amd64
-# required by dev-texlive/texlive-langjapanese-2014
-# required by dev-texlive/texlive-langjapanese (argument)
-=app-text/texlive-core-2014-r1 ~amd64
-# required by dev-tex/newlfm (argument)
-=dev-tex/newlfm-8.3-r1 ~amd64
-# required by dev-tex/ppower4 (argument)
-=dev-tex/ppower4-0.9.6 ~amd64
-# required by dev-texlive/texlive-langchinese (argument)
-=dev-texlive/texlive-langchinese-2014 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/autovivification-0.140.0 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/List-AllUtils-0.90.0 ~amd64
-# required by dev-tex/fundus (argument)
-=dev-tex/fundus-19970826 ~amd64
-# required by dev-perl/Text-BibTeX-0.700.0
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/ExtUtils-LibBuilder-0.04 ~amd64
-# required by dev-tex/flabels (argument)
-=dev-tex/flabels-1.0 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Encode-JIS2K-0.02 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/File-Slurp-Unicode-0.7.1-r1 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Business-ISSN-0.910.0-r1 ~amd64
-# required by app-text/texlive-core-2014-r1
-# required by dev-texlive/texlive-langeuropean-2014
-# required by dev-texlive/texlive-langeuropean (argument)
-=app-text/dvipsk-5.994_p20140525 ~amd64
-# required by dev-tex/oesch (argument)
-=dev-tex/oesch-20080712 ~amd64
-# required by dev-tex/crosstex (argument)
-=dev-tex/crosstex-0.6 ~amd64
-# required by dev-tex/rail (argument)
-=dev-tex/rail-1.2_p1 ~amd64
-# required by dev-lang/perl-5.18.2-r2
-# required by dev-perl/IPC-Run3-0.45.0-r1
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=virtual/perl-File-Temp-0.230.400-r2 ~amd64
-# required by dev-tex/minted (argument)
-=dev-tex/minted-1.7 ~amd64
-# required by dev-tex/notoccite (argument)
-=dev-tex/notoccite-20000720 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Date-Simple-3.30.0-r1 ~amd64
-# required by dev-perl/Business-ISBN-2.50.0-r1
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Business-ISBN-Data-20120719.1.0-r1 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/XML-LibXML-Simple-0.930.0 ~amd64
-# required by dev-tex/bera (argument)
-=dev-tex/bera-20040930 ~amd64
-# required by dev-tex/pstplus (argument)
-=dev-tex/pstplus-1.6 ~amd64
-# required by dev-tex/herm-pic (argument)
-=dev-tex/herm-pic-1.0.2 ~amd64
-# required by dev-tex/texamator (argument)
-=dev-tex/texamator-1.7.5 ~amd64
-# required by dev-tex/circuit_macros (argument)
-=dev-tex/circuit_macros-7.9.6 ~amd64
-# required by dev-texlive/texlive-langjapanese-2014
-# required by dev-texlive/texlive-langjapanese (argument)
-=dev-texlive/texlive-langcjk-2014 ~amd64
-# required by dev-texlive/texlive-langeuropean-2014
-# required by dev-texlive/texlive-langeuropean (argument)
-=dev-texlive/texlive-basic-2014 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-tex/biblatex-2.9a-r1 ~amd64
-# required by dev-tex/slatex-20090928
-# required by dev-tex/slatex (argument)
-=dev-scheme/scmxlate-20090410 ~amd64
-# required by dev-tex/abntex (argument)
-=dev-tex/abntex-0.9_beta2 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Business-ISBN-2.50.0-r1 ~amd64
-# required by dev-tex/dvi2gr (argument)
-=dev-tex/dvi2gr-0.4 ~amd64
-# required by dev-tex/serienbrief (argument)
-=dev-tex/serienbrief-0.2.4 ~amd64
-# required by virtual/perl-Term-ANSIColor-4.20.0-r2
-# required by dev-tex/serienbrief-0.2.4
-# required by dev-tex/serienbrief (argument)
-=dev-lang/perl-5.20.1-r4 ~amd64
-# required by dev-perl/Text-BibTeX-0.700.0
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Config-AutoConf-0.309.0 ~amd64
-# required by dev-tex/slatex (argument)
-=dev-tex/slatex-20090928 ~amd64
-# required by app-text/texlive-core-2014-r1
-# required by dev-texlive/texlive-langeuropean-2014
-# required by dev-texlive/texlive-langeuropean (argument)
-=dev-tex/bibtexu-3.71_p20140525 ~amd64
-# required by dev-texlive/texlive-langkorean (argument)
-=dev-texlive/texlive-langkorean-2014 ~amd64
-# required by app-text/dvipsk-5.994_p20140525
-# required by app-text/texlive-core-2014-r1
-# required by dev-texlive/texlive-langeuropean-2014
-# required by dev-texlive/texlive-langeuropean (argument)
-=dev-libs/kpathsea-6.2.0_p20140525 ~amd64
-# required by dev-tex/pdftex (argument)
-=dev-tex/pdftex-1.40.11 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Unicode-LineBreak-2014.60.0 ~amd64
-# required by app-text/texlive-core-2014-r1
-# required by dev-texlive/texlive-langeuropean-2014
-# required by dev-texlive/texlive-langeuropean (argument)
-=app-text/ps2pkm-1.5_p20140525 ~amd64
-# required by dev-tex/floatflt (argument)
-=dev-tex/floatflt-1.31a ~amd64
-# required by dev-perl/Business-ISMN-1.110.0-r1
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Tie-Cycle-1.190.0-r1 ~amd64
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=dev-perl/Business-ISMN-1.110.0-r1 ~amd64
-# required by dev-tex/rcsinfo (argument)
-=dev-tex/rcsinfo-1.9 ~amd64
-# required by dev-perl/IO-Socket-SSL-1.967.0
-# required by dev-perl/LWP-Protocol-https-6.30.0-r1
-# required by dev-perl/libwww-perl-6.50.0[ssl]
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=virtual/perl-Scalar-List-Utils-1.380.0 ~amd64
-# required by virtual/perl-File-Temp-0.230.400-r2
-# required by dev-lang/perl-5.20.1-r4
-# required by virtual/perl-Scalar-List-Utils-1.380.0
-# required by dev-perl/Business-ISMN-1.110.0-r1
-# required by dev-tex/biber-1.9
-# required by dev-tex/biber (argument)
-=perl-core/File-Temp-0.230.400-r1 ~amd64
-# required by dev-texlive/texlive-langeuropean (argument)
-=dev-texlive/texlive-langeuropean-2014 ~amd64
-# required by spotify (argument)
-=media-sound/spotify-0.9.11.27-r2 ~amd64
-# required by perl-core/Module-Build-0.400.300-r1
-# required by virtual/perl-Module-Build-0.400.300-r1
-# required by dev-perl/Error-0.170.210
-# required by dev-vcs/git-2.0.5[perl]
-# required by dev-vcs/git:0 (argument)
-=virtual/perl-ExtUtils-CBuilder-0.280.217 ~amd64
-# required by perl-core/CPAN-Meta-2.120.921-r1
-# required by virtual/perl-CPAN-Meta-2.120.921-r2
-# required by perl-core/Module-Build-0.400.300-r1
-# required by virtual/perl-Module-Build-0.400.300-r1
-# required by dev-perl/Error-0.170.210
-# required by dev-vcs/git-2.0.5[perl]
-# required by dev-vcs/git:0 (argument)
-=virtual/perl-JSON-PP-2.272.30 ~amd64
-# required by perl-core/CPAN-Meta-2.120.921-r1
-# required by virtual/perl-CPAN-Meta-2.120.921-r2
-# required by perl-core/Module-Build-0.400.300-r1
-# required by virtual/perl-Module-Build-0.400.300-r1
-# required by dev-perl/Error-0.170.210
-# required by dev-vcs/git-2.0.5[perl]
-# required by dev-vcs/git:0 (argument)
-=virtual/perl-IO-1.310.0 ~amd64
-# required by perl-core/CPAN-Meta-2.120.921-r1
-# required by virtual/perl-CPAN-Meta-2.120.921-r2
-# required by perl-core/Module-Build-0.400.300-r1
-# required by virtual/perl-Module-Build-0.400.300-r1
-# required by dev-perl/Error-0.170.210
-# required by dev-vcs/git-2.0.5[perl]
-# required by dev-vcs/git:0 (argument)
-=virtual/perl-ExtUtils-MakeMaker-6.980.0 ~amd64
-# required by perl-core/Module-Build-0.400.300-r1
-# required by virtual/perl-Module-Build-0.400.300-r1
-# required by dev-perl/Error-0.170.210
-# required by dev-vcs/git-2.0.5[perl]
-# required by dev-vcs/git:0 (argument)
-=virtual/perl-Perl-OSType-1.7.0 ~amd64
-# required by perl-core/CPAN-Meta-2.120.921-r1
-# required by virtual/perl-CPAN-Meta-2.120.921-r2
-# required by perl-core/Module-Build-0.400.300-r1
-# required by virtual/perl-Module-Build-0.400.300-r1
-# required by dev-perl/Error-0.170.210
-# required by dev-vcs/git-2.0.5[perl]
-# required by dev-vcs/git:0 (argument)
-=virtual/perl-version-0.990.900 ~amd64
-# required by www-plugins/pipelight-0.2.8
-# required by pipelight (argument)
-=app-emulation/wine-1.7.33 ~amd64
-# required by dev-perl/XML-Simple-2.200.0-r1
-# required by app-emulation/wine-1.7.33[perl]
-# required by www-plugins/pipelight-0.2.8
-# required by pipelight (argument)
-=virtual/perl-Storable-2.490.0 ~amd64
-# required by pipelight (argument)
-=www-plugins/pipelight-0.2.8 ~amd64
-# required by app-text/texlive-core-2012-r1
-# required by dev-texlive/texlive-fontutils-2012
-# required by @selected
-# required by @world (argument)
-=virtual/perl-Getopt-Long-2.420.0-r1 ~amd64
-# required by winetricks (argument)
-=app-emulation/winetricks-20140302 ~amd64
-# required by skype (argument)
-=net-im/skype-4.3.0.37-r5 ~amd64
-# required by hprofile (argument)
-=sys-apps/hprofile-3.0.5 ~amd64
-# required by luvcview (argument)
-=media-video/luvcview-0.2.6 ~amd64
->=www-client/google-chrome-37.0.2062.120_p1
-# required by toml (argument)
-=dev-ruby/toml-0.1.2 ~amd64
-# required by dev-ruby/parslet-1.6.2[ruby_targets_ruby20]
-# required by dev-ruby/toml-0.1.2[ruby_targets_ruby19]
-# required by toml (argument)
-=dev-ruby/blankslate-3.1.3 ~amd64
-# required by dev-ruby/toml-0.1.2[ruby_targets_ruby19]
-# required by toml (argument)
-=dev-ruby/parslet-1.6.2 ~amd64
-# required by tgt (argument)
-=sys-block/tgt-1.0.24-r1 ~amd64
-# required by pygooglevoice (argument)
-=dev-python/pygooglevoice-0.5-r2 ~amd64
-# required by app-emulation/wine-1.7.33[abi_x86_64,abi_x86_32,pcap]
-# required by www-plugins/pipelight-0.2.8
-# required by @selected
-# required by @world (argument)
-=net-libs/libpcap-9999 **
+# dev-dotnet/gnome-sharp                ~amd64
+# dev-dotnet/gtk-sharp                  ~amd64
+=dev-lang/mono-3.12.1                  ~amd64
+app-emulation/wine                     ~amd64
+app-emulation/winetricks               ~amd64
+app-portage/layman                     ~amd64
+app-text/dvipsk                        ~amd64
+app-text/ps2pkm                        ~amd64
+app-text/texlive                       ~amd64
+app-text/texlive-core                  ~amd64
+dev-dotnet/gtk-sharp                   ~amd64
+dev-dotnet/mono-addins                 ~amd64
+dev-dotnet/xsp                         ~amd64
+dev-haskell/async                      ~amd64
+dev-haskell/bzlib                      ~amd64
+dev-haskell/cabal                      ~amd64
+dev-haskell/cabal-install              ~amd64
+dev-haskell/case-insensitive           ~amd64
+dev-haskell/crypto-api                 ~amd64
+dev-haskell/dlist                      ~amd64
+dev-haskell/entropy                    ~amd64
+dev-haskell/exceptions                 ~amd64
+dev-haskell/extra                      ~amd64
+dev-haskell/fgl                        ~amd64
+dev-haskell/fmlist                     ~amd64
+dev-haskell/gluraw                     ~amd64
+dev-haskell/glut                       ~amd64
+dev-haskell/haddock                    ~amd64
+dev-haskell/happy                      ~amd64
+dev-haskell/hashable                   ~amd64
+dev-haskell/haskell-platform           ~amd64
+dev-haskell/haskell-src                ~amd64
+dev-haskell/hpc                        ~amd64
+dev-haskell/hscolour                   ~amd64
+dev-haskell/http                       ~amd64
+dev-haskell/ipprint                    ~amd64
+dev-haskell/listlike                   ~amd64
+dev-haskell/mtl                        ~amd64
+dev-haskell/network                    ~amd64
+dev-haskell/network-uri                ~amd64
+dev-haskell/old-locale                 ~amd64
+dev-haskell/old-time                   ~amd64
+dev-haskell/opengl                     ~amd64
+dev-haskell/openglraw                  ~amd64
+dev-haskell/parallel                   ~amd64
+dev-haskell/parsec                     ~amd64
+dev-haskell/primitive                  ~amd64
+dev-haskell/process-extras             ~amd64
+dev-haskell/puremd5                    ~amd64
+dev-haskell/tagged                     ~amd64
+dev-haskell/text                       ~amd64
+dev-haskell/transformers               ~amd64
+dev-haskell/transformers-compat        ~amd64
+dev-haskell/unixutils                  ~amd64
+dev-haskell/unordered-containers       ~amd64
+dev-haskell/vector                     ~amd64
+dev-java/icedtea-bin                   ~amd64
+dev-java/icedtea-web                   ~amd64
+dev-lang/ghc                           ~amd64
+dev-lang/perl                          ~amd64
+dev-libs/kpathsea                      ~amd64
+dev-libs/openssl                       ~amd64
+dev-libs/ptexenc                       ~amd64
+dev-perl/Business-ISBN                 ~amd64
+dev-perl/Business-ISBN-Data            ~amd64
+dev-perl/Business-ISMN                 ~amd64
+dev-perl/Business-ISSN                 ~amd64
+dev-perl/Config-AutoConf               ~amd64
+dev-perl/Date-Simple                   ~amd64
+dev-perl/Encode-EUCJPASCII             ~amd64
+dev-perl/Encode-HanExtra               ~amd64
+dev-perl/Encode-JIS2K                  ~amd64
+dev-perl/ExtUtils-LibBuilder           ~amd64
+dev-perl/File-Slurp-Unicode            ~amd64
+dev-perl/List-AllUtils                 ~amd64
+dev-perl/Readonly-XS                   ~amd64
+dev-perl/Text-BibTeX                   ~amd64
+dev-perl/Tie-Cycle                     ~amd64
+dev-perl/Unicode-LineBreak             ~amd64
+dev-perl/XML-LibXML-Simple             ~amd64
+dev-perl/autovivification              ~amd64
+dev-python/django-tables2              ~amd64
+dev-python/ipdb                        ~amd64
+dev-python/netlib                      ~amd64
+dev-python/pygooglevoice               ~amd64
+dev-ruby/blankslate                    ~amd64
+dev-ruby/parslet                       ~amd64
+dev-ruby/toml                          ~amd64
+dev-scheme/scmxlate                    ~amd64
+dev-tex/abntex                         ~amd64
+dev-tex/bera                           ~amd64
+dev-tex/biber                          ~amd64
+dev-tex/biblatex                       ~amd64
+dev-tex/biblatex-apa                   ~amd64
+dev-tex/bibtexu                        ~amd64
+dev-tex/circuit_macros                 ~amd64
+dev-tex/crosstex                       ~amd64
+dev-tex/dvi2gr                         ~amd64
+dev-tex/ellipsis                       ~amd64
+dev-tex/flabels                        ~amd64
+dev-tex/floatflt                       ~amd64
+dev-tex/fundus                         ~amd64
+dev-tex/herm-pic                       ~amd64
+dev-tex/metapost                       ~amd64
+dev-tex/minted                         ~amd64
+dev-tex/newlfm                         ~amd64
+dev-tex/notoccite                      ~amd64
+dev-tex/oesch                          ~amd64
+dev-tex/pdftex                         ~amd64
+dev-tex/ppower4                        ~amd64
+dev-tex/pscyr                          ~amd64
+dev-tex/pstplus                        ~amd64
+dev-tex/quotchap                       ~amd64
+dev-tex/rail                           ~amd64
+dev-tex/rcsinfo                        ~amd64
+dev-tex/serienbrief                    ~amd64
+dev-tex/sketch                         ~amd64
+dev-tex/slatex                         ~amd64
+dev-tex/tex4ht                         ~amd64
+dev-tex/texamator                      ~amd64
+dev-texlive/texlive-basic              ~amd64
+dev-texlive/texlive-bibtexextra        ~amd64
+dev-texlive/texlive-context            ~amd64
+dev-texlive/texlive-fontsextra         ~amd64
+dev-texlive/texlive-fontsrecommended   ~amd64
+dev-texlive/texlive-fontutils          ~amd64
+dev-texlive/texlive-formatsextra       ~amd64
+dev-texlive/texlive-games              ~amd64
+dev-texlive/texlive-genericextra       ~amd64
+dev-texlive/texlive-genericrecommended ~amd64
+dev-texlive/texlive-humanities         ~amd64
+dev-texlive/texlive-langchinese        ~amd64
+dev-texlive/texlive-langcjk            ~amd64
+dev-texlive/texlive-langeuropean       ~amd64
+dev-texlive/texlive-langjapanese       ~amd64
+dev-texlive/texlive-langkorean         ~amd64
+dev-texlive/texlive-latex              ~amd64
+dev-texlive/texlive-latexextra         ~amd64
+dev-texlive/texlive-latexrecommended   ~amd64
+dev-texlive/texlive-mathextra          ~amd64
+dev-texlive/texlive-metapost           ~amd64
+dev-texlive/texlive-music              ~amd64
+dev-texlive/texlive-omega              ~amd64
+dev-texlive/texlive-pictures           ~amd64
+dev-texlive/texlive-plainextra         ~amd64
+dev-texlive/texlive-pstricks           ~amd64
+dev-texlive/texlive-publishers         ~amd64
+dev-texlive/texlive-science            ~amd64
+dev-texlive/texlive-xetex              ~amd64
+dev-util/mono-debugger                 ~amd64
+dev-util/mono-tools **
+dev-util/monodevelop                   ~amd64
+media-sound/ardour                     ~amd64
+media-sound/spotify                    ~amd64
+media-video/luvcview                   ~amd64
+net-analyzer/arp-scan                  ~amd64
+net-proxy/mitmproxy                    ~amd64
+perl-core/CPAN-Meta                    ~amd64
+perl-core/ExtUtils-MakeMaker           ~amd64
+perl-core/ExtUtils-Manifest            ~amd64
+perl-core/File-Temp                    ~amd64
+sci-libs/scipy                         ~amd64
+sys-apps/hprofile                      ~amd64
+sys-block/tgt                          ~amd64
+sys-libs/libixp                        ~amd64
+virtual/perl-CPAN-Meta                 ~amd64
+virtual/perl-ExtUtils-CBuilder         ~amd64
+virtual/perl-ExtUtils-MakeMaker        ~amd64
+virtual/perl-ExtUtils-Manifest         ~amd64
+virtual/perl-File-Temp                 ~amd64
+virtual/perl-Getopt-Long               ~amd64
+virtual/perl-IO                        ~amd64
+virtual/perl-JSON-PP                   ~amd64
+virtual/perl-Perl-OSType               ~amd64
+virtual/perl-Scalar-List-Utils         ~amd64
+virtual/perl-Storable                  ~amd64
+virtual/perl-version                   ~amd64
+www-client/google-chrome               ~amd64
+www-plugins/chrome-binary-plugins      ~amd64
+www-plugins/pipelight                  ~amd64
+www-servers/tornado                    ~amd64
+x11-misc/cdm                           ~amd64
+x11-wm/wmii                            ~amd64
 
-media-libs/gstreamer **
-# required by ipdb (argument)
-=dev-python/ipdb-0.8 ~amd64
-# required by ardour (argument)
-=media-sound/ardour-3.5.403 ~amd64
-# required by arp-scan (argument)
-=net-analyzer/arp-scan-1.9 ~amd64
-# required by =dev-lang/mono-9999 (argument)
-=dev-lang/mono-9999 **
-# required by =libgdiplus-9999 (argument)
-=dev-dotnet/libgdiplus-9999 **
-# required by =mono-3.12.1 (argument)
-=dev-lang/mono-3.12.1 ~amd64
-# required by dev-util/monodevelop-9999::dotnet
-# required by =dev-util/monodevelop-9999 (argument)
-=dev-dotnet/gnome-sharp-2.24.2-r1 ~amd64
-# required by =mono-debugger-9999 (argument)
-=dev-util/mono-debugger-9999 ~amd64
-# required by =dev-util/monodevelop-9999 (argument)
-=dev-util/monodevelop-9999 **
-# required by dev-util/monodevelop-9999::dotnet
-# required by =dev-util/monodevelop-9999 (argument)
-=dev-dotnet/gtk-sharp-2.99.1 ~amd64
-# required by dev-dotnet/gnome-sharp-2.24.2-r1::dotnet
-# required by dev-util/monodevelop-9999::dotnet
-# required by =dev-util/monodevelop-9999 (argument)
-=dev-dotnet/gtk-sharp-2.12.21-r1 ~amd64
-# required by dev-util/monodevelop-9999::dotnet
-# required by =dev-util/monodevelop-9999 (argument)
-=dev-dotnet/mono-addins-1.0 ~amd64
-# required by mitmproxy (argument)
-=net-proxy/mitmproxy-0.11.3 ~amd64
-# required by net-proxy/mitmproxy-0.11.3
-# required by mitmproxy (argument)
-=www-servers/tornado-4.0.2 ~amd64
-# required by net-proxy/mitmproxy-0.11.3
-# required by mitmproxy (argument)
-=dev-python/netlib-0.11.2 ~amd64
-
-net-im/bitlbee ~amd64
-# required by net-im/bitlbee-3.2.2[skype]
-# required by @selected
-# required by @world (argument)
-=dev-python/skype4py-1.0.35-r1 ~amd64
-
-dev-libs/openssl ~amd64
-
-dev-texlive/texlive-latex ~amd64
-dev-texlive/texlive-latexextra ~amd64
-dev-texlive/texlive-latexrecommended ~amd64
-
-# required by @selected
-# required by @world (argument)
-=app-emulation/winetricks-20141130 ~amd64
-# required by dev-texlive/texlive-latexextra-2014
-# required by texlive-latexextra (argument)
-=dev-texlive/texlive-pictures-2014 ~amd64
-# required by dev-haskell/extra-1.46.1-r1::haskell
-# required by dev-haskell/ipprint-0.5::haskell
-# required by ipprint (argument)
-=dev-haskell/bzlib-0.5.0.5 ~amd64
-# required by dev-haskell/extra-1.46.1-r1::haskell
-# required by dev-haskell/ipprint-0.5::haskell
-# required by ipprint (argument)
-=dev-haskell/puremd5-2.1.2.1 ~amd64
-# required by dev-haskell/puremd5-2.1.2.1::haskell
-# required by dev-haskell/extra-1.46.1-r1::haskell
-# required by dev-haskell/ipprint-0.5::haskell
-# required by ipprint (argument)
-=dev-haskell/crypto-api-0.13.2 ~amd64
-# required by dev-haskell/ipprint-0.5::haskell
-# required by ipprint (argument)
-=dev-haskell/extra-1.46.1-r1 ~amd64
-# required by ipprint (argument)
-=dev-haskell/ipprint-0.5 ~amd64
-# required by dev-haskell/extra-1.46.1-r1::haskell
-# required by dev-haskell/ipprint-0.5::haskell
-# required by ipprint (argument)
-=dev-haskell/unixutils-1.52.4 ~amd64
-# required by dev-haskell/crypto-api-0.13.2::haskell
-# required by dev-haskell/puremd5-2.1.2.1::haskell
-# required by dev-haskell/extra-1.46.1-r1::haskell
-# required by dev-haskell/ipprint-0.5::haskell
-# required by ipprint (argument)
-=dev-haskell/tagged-0.7.3 ~amd64
-# required by dev-haskell/crypto-api-0.13.2::haskell
-# required by dev-haskell/puremd5-2.1.2.1::haskell
-# required by dev-haskell/extra-1.46.1-r1::haskell
-# required by dev-haskell/ipprint-0.5::haskell
-# required by ipprint (argument)
-=dev-haskell/entropy-0.3.6 ~amd64
+dev-dotnet/gnome-sharp ~amd64
+net-im/skype ~amd64
+media-tv/gtk-v4l
+# required by media-video/v4l2loopback (argument)
+=media-video/v4l2loopback-0.8.0 ~amd64

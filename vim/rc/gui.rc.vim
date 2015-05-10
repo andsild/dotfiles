@@ -62,7 +62,7 @@ else
   " For Linux.
   " set guifontwide=VL\ Gothic\ 11
   set guifont=Monospace\ 8
-  set guifont=Inconsolata\ Medium\ 11
+  set guifont=Inconsolata\ Medium\ 12
   set linespace=0
 endif"}}}
 

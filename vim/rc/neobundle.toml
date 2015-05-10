@@ -516,3 +516,6 @@ filetypes = 'tex'
 repository = 'https://github.com/SirVer/ultisnips.git'
 filetypes = 'all'
 
+[[plugins]]
+repository = 'https://github.com/adamclerk/vim-razor.git'
+filetypes = 'razor'
