@@ -1,4 +1,6 @@
 #!/bin/bash
+#FIXME: lines without sepChar are deleted!
+# this is because ret is empty. Default should be to print $0
 
 IFS=$'\n' # read lines separated by newline
 sepChar="${1:-=}" # the character to align around

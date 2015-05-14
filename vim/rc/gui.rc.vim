@@ -127,8 +127,7 @@ set guioptions+=c
 "---------------------------------------------------------------------------
 " Views:"{{{
 "
-" Don't highlight search result.
-set nohlsearch
+set hlsearch
 
 " Don't flick cursor.
 set guicursor&

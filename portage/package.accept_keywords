@@ -1,5 +1,3 @@
-# dev-dotnet/gnome-sharp                ~amd64
-# dev-dotnet/gtk-sharp                  ~amd64
 =dev-lang/mono-3.12.1                  ~amd64
 app-emulation/wine                     ~amd64
 app-emulation/winetricks               ~amd64
@@ -8,53 +6,13 @@ app-text/dvipsk                        ~amd64
 app-text/ps2pkm                        ~amd64
 app-text/texlive                       ~amd64
 app-text/texlive-core                  ~amd64
+dev-dotnet/gnome-sharp                 ~amd64
 dev-dotnet/gtk-sharp                   ~amd64
 dev-dotnet/mono-addins                 ~amd64
 dev-dotnet/xsp                         ~amd64
-dev-haskell/async                      ~amd64
-dev-haskell/bzlib                      ~amd64
-dev-haskell/cabal                      ~amd64
-dev-haskell/cabal-install              ~amd64
-dev-haskell/case-insensitive           ~amd64
-dev-haskell/crypto-api                 ~amd64
-dev-haskell/dlist                      ~amd64
-dev-haskell/entropy                    ~amd64
-dev-haskell/exceptions                 ~amd64
-dev-haskell/extra                      ~amd64
-dev-haskell/fgl                        ~amd64
-dev-haskell/fmlist                     ~amd64
-dev-haskell/gluraw                     ~amd64
-dev-haskell/glut                       ~amd64
-dev-haskell/haddock                    ~amd64
-dev-haskell/happy                      ~amd64
-dev-haskell/hashable                   ~amd64
-dev-haskell/haskell-platform           ~amd64
-dev-haskell/haskell-src                ~amd64
-dev-haskell/hpc                        ~amd64
-dev-haskell/hscolour                   ~amd64
-dev-haskell/http                       ~amd64
-dev-haskell/ipprint                    ~amd64
-dev-haskell/listlike                   ~amd64
-dev-haskell/mtl                        ~amd64
-dev-haskell/network                    ~amd64
-dev-haskell/network-uri                ~amd64
-dev-haskell/old-locale                 ~amd64
-dev-haskell/old-time                   ~amd64
-dev-haskell/opengl                     ~amd64
-dev-haskell/openglraw                  ~amd64
-dev-haskell/parallel                   ~amd64
-dev-haskell/parsec                     ~amd64
-dev-haskell/primitive                  ~amd64
-dev-haskell/process-extras             ~amd64
-dev-haskell/puremd5                    ~amd64
-dev-haskell/tagged                     ~amd64
-dev-haskell/text                       ~amd64
-dev-haskell/transformers               ~amd64
-dev-haskell/transformers-compat        ~amd64
-dev-haskell/unixutils                  ~amd64
-dev-haskell/unordered-containers       ~amd64
-dev-haskell/vector                     ~amd64
+dev-haskell/*                          ~amd64
 dev-java/icedtea-bin                   ~amd64
+dev-java/icedtea-sound                 ~amd64
 dev-java/icedtea-web                   ~amd64
 dev-lang/ghc                           ~amd64
 dev-lang/perl                          ~amd64
@@ -148,12 +106,15 @@ dev-texlive/texlive-publishers         ~amd64
 dev-texlive/texlive-science            ~amd64
 dev-texlive/texlive-xetex              ~amd64
 dev-util/mono-debugger                 ~amd64
-dev-util/mono-tools **
+dev-util/mono-tools                    **
 dev-util/monodevelop                   ~amd64
 media-sound/ardour                     ~amd64
 media-sound/spotify                    ~amd64
+media-tv/gtk-v4l                       ~amd64
 media-video/luvcview                   ~amd64
+media-video/v4l2loopback               ~amd64
 net-analyzer/arp-scan                  ~amd64
+net-im/skype                           ~amd64
 net-proxy/mitmproxy                    ~amd64
 perl-core/CPAN-Meta                    ~amd64
 perl-core/ExtUtils-MakeMaker           ~amd64
@@ -180,10 +141,5 @@ www-plugins/chrome-binary-plugins      ~amd64
 www-plugins/pipelight                  ~amd64
 www-servers/tornado                    ~amd64
 x11-misc/cdm                           ~amd64
+x11-misc/xmobar                        ~amd64
 x11-wm/wmii                            ~amd64
-
-dev-dotnet/gnome-sharp ~amd64
-net-im/skype ~amd64
-media-tv/gtk-v4l
-# required by media-video/v4l2loopback (argument)
-=media-video/v4l2loopback-0.8.0 ~amd64
