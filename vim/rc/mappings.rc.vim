@@ -216,8 +216,6 @@ nnoremap <silent> [Space]/
 " Do async search
 nnoremap <silent> [Space]*
       \ :UniteWithCursorWord grep<CR>
-nnoremap <silent> [Space]k
-      \ :Unite kill<CR>
 " Toggle cursorline.
 nnoremap <silent> <Leader>cl
       \ :<C-u>call ToggleOption('cursorline')<CR>
@@ -601,5 +599,8 @@ nnoremap dh :diffget //3<CR>
 
 " 0 will go to beginning of line, ^ goes to first non-space. Much better.
 map 0 ^ 
+
+nnoremap <Esc><Esc> :noh<CR>
+nnoremap * *<C-o> "stay right where you are
 
 cmap w!! w !sudo tee > /dev/null %

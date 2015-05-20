@@ -106,8 +106,8 @@ if neobundle#tap('unite.vim') "{{{
   " Search.
   nnoremap <silent><expr> /
         \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -start-insert line:forward:wrap\<CR>"
-  nnoremap <silent><expr> *
-        \ ":\<C-u>UniteWithCursorWord -buffer-name=search%".bufnr('%')." line:forward:wrap\<CR>"
+  " nnoremap <silent><expr> *
+  "       \ ":\<C-u>UniteWithCursorWord -buffer-name=search%".bufnr('%')." line:forward:wrap\<CR>"
   cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
         \ "\<ESC>:Unite -buffer-name=search line:forward:wrap -input=".getcmdline()."\<CR>" : "\<C-g>"
 
@@ -483,6 +483,7 @@ if neobundle#tap('syntastic')
     " let g:syntastic_check_on_wq = 0
     let g:syntastic_quiet_messages = { "type": "style",
                                     \  "level": "warnings" }
+    let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
     let g:syntastic_python_checkers = ['flake8'] " so much faster than pylint...
     let g:syntastic_python_flake8_args='--ignore=F401,F402,F403,F404,F811,F841,N8,E127,E2,E3,E5,E701,E702,E703,E704,E731,W1,W2,W3,W6'
     "

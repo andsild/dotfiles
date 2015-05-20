@@ -83,8 +83,8 @@ netStatus()
 {
     upRead="${1}"
     downRead="${2}"
-    upRead2=$(head /sys/class/net/eth0/statistics/rx_bytes)
-    downRead2=$(head /sys/class/net/eth0/statistics/tx_bytes)
+    upRead2=$(head /sys/class/net/wlan0/statistics/rx_bytes)
+    downRead2=$(head /sys/class/net/wlan0/statistics/tx_bytes)
     downkBs=$(( (${upRead2} - ${upRead}) / 1024))
     upkBs=$(( (${downRead2} - ${downRead}) / 1024))
 
@@ -117,7 +117,7 @@ status() {
         '|' ${memstat} \
         '|' $(awk ' { gsub(".*/", "", $4); print $1, $2, $3, $4 } ' /proc/loadavg) \
         '|' "${volume:-amixer error}" \
-        '|' $(date +%a\ %b\ %d\ \(%H\)"$(TZ="America/Lima" date +%H)":%M:%S\ %Y);
+        '|' $(TZ="Europe/Oslo" date +%a\ %b\ %d\ \(%H\)"$(date +%H)":%M:%S\ %Y);
         # '|' $(date '+%c');
 }
 
@@ -147,17 +147,6 @@ Event NotUrgentTag
 Event LeftBarClick LeftBarDND
     shift
     wmiir xwrite /ctl view "$@"
-Event Unresponsive
-    {
-        client=$1; shift
-        msg="The following client is not responding. What would you like to do?$wi_newline"
-        resp=$(wihack -transient $client \
-                  xmessage -nearmouse -buttons Kill,Wait -print
-                  -fn "${WMII_FONT%%,*}" "$msg $(wmiir read /client/sel/label)")
-        if [ "$resp" = Kill ]; then
-            wmiir xwrite /client/$client/ctl slay &
-        fi
-    }&
 Event Notice
     wmiir xwrite $noticebar $wi_arg
 
@@ -165,33 +154,9 @@ Event Notice
     { sleep $noticetimeout; wmiir xwrite $noticebar ' '; }&
     xpid = $!
 
-# Menus
-Menu Client-3-Delete
-    wmiir xwrite /client/$1/ctl kill
-Menu Client-3-Kill
-    wmiir xwrite /client/$1/ctl slay
-Menu Client-3-Fullscreen
-    wmiir xwrite /client/$1/ctl Fullscreen on
 Event ClientMouseDown
     wi_fnmenu Client $2 $1 &
 
-Menu LBar-3-Delete
-    tag=$1; clients=$(wmiir read "/tag/$tag/index" | awk '/[^#]/{print $2}')
-    for c in $clients; do
-        if [ "$tag" = "$(wmiir read /client/$c/tags)" ]; then
-            wmiir xwrite /client/$c/ctl kill
-        else
-            wmiir xwrite /client/$c/tags -$tag
-        fi
-        if [ "$tag" = "$(wi_seltag)" ]; then
-            newtag=$(wi_tags | awk -v't='$tag '
-                $1 == t { if(!l) getline l
-                      print l
-                      exit }
-                { l = $0 }')
-            wmiir xwrite /ctl view $newtag
-        fi
-    done
 Event LeftBarMouseDown
     wi_fnmenu LBar "$@" &
 
@@ -258,16 +223,12 @@ Key $MODKEY-Control-$RIGHT
 # Move and activate vnc instance (provided it is center left ish on monitor)
 Key $MODKEY-o
     wmctrl -a TightVNC && xdotool mousemove 9999 9999 && xdotool mousemove 1000 500
+Key $MODKEY-g
+    setsid gvim &
 
 
 Key $MODKEY-space   # Toggle between floating and managed layers
     wmiir xwrite /tag/sel/ctl select toggle
-
-KeyGroup Moving through stacks
-# Key $MODKEY-Control-$UP    # Select the stack above
-#     wmiir xwrite /tag/sel/ctl select up stack
-# Key $MODKEY-Control-$DOWN  # Select the stack below
-#     wmiir xwrite /tag/sel/ctl select down stack
 
 KeyGroup Moving clients around
 Key $MODKEY-Shift-$LEFT   # Move selected client to the left
@@ -323,11 +284,6 @@ Key $MODKEY-Control-t # Toggle all other key bindings
     esac
 
 KeyGroup Tag actions
-Key $MODKEY-t       # Change to another tag
-    (tag=$(wi_tags | wimenu -h "${hist}.tags" -n 50) && wmiir xwrite /ctl view $tag) &
-Key $MODKEY-Shift-t # Retag the selected client
-    c=$(wi_selclient)
-    (tag=$(wi_tags | wimenu -h "${hist}.tags" -n 50) && wmiir xwrite /client/$c/tags $tag) &
 !
     for i in 0 1 2 3 4 5 6 7 8 9; do
         cat <<!
@@ -348,9 +304,9 @@ wmiir write /ctl <<!
     grabmod $MODKEY
     border 1
 !
-# xsetroot -solid "$WMII_BACKGROUND" &
-# hsetroot -full "~/.background.jpg" &
 feh --bg-scale ~/.background.jpg &
+setsid workrave &
+setsid spotify &
 
 # Misc
 progsfile="$(wmiir namespace)/.proglist"
@@ -358,6 +314,7 @@ action status &
 action netStatus &
 action songStatus &
 wi_proglist $PATH >$progsfile &
+
 
 # Setup Tag Bar
 IFS="$wi_newline"

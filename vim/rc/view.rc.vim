@@ -145,8 +145,8 @@ set winheight=1
 set winminheight=0 " the statusline will still show
 " Set maximam maximam command line window.
 set cmdwinheight=5
-" No equal window size.
-set noequalalways
+" equal window size.
+set equalalways
 
 " Adjust window size of preview and help.
 set previewheight=8

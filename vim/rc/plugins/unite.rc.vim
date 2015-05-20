@@ -224,9 +224,6 @@ endfunction
 call unite#custom_action('openable', 'context_split', s:my_split)
 unlet s:my_split
 
-" nnoremap <silent> <Leader>st :NeoCompleteIncludeMakeCache<CR>
-"             \ :UniteWithCursorWord -immediately -sync
-"             \ -default-action=context_split tag/include<CR>
 nnoremap <silent> [Space]n  :UniteNext<CR>
 nnoremap <silent> [Space]p  :UnitePrevious<CR>
 nnoremap <silent> [Space]r  :UniteResume<CR>
