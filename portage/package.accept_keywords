@@ -1,4 +1,4 @@
-=dev-lang/mono-3.12.1                  ~amd64
+=dev-lang/mono-3.2.8 ~amd64
 app-emulation/wine                     ~amd64
 app-emulation/winetricks               ~amd64
 app-portage/layman                     ~amd64
@@ -42,7 +42,15 @@ dev-python/ipdb                        ~amd64
 dev-python/netlib                      ~amd64
 dev-python/pygooglevoice               ~amd64
 dev-ruby/blankslate                    ~amd64
+dev-ruby/hipchat ~amd64
+dev-ruby/httparty                      ~amd64
+dev-ruby/mimemagic                     ~amd64
 dev-ruby/parslet                       ~amd64
+dev-ruby/rspec                         ~amd64
+dev-ruby/rspec-core                    ~amd64
+dev-ruby/rspec-expectations            ~amd64
+dev-ruby/rspec-mocks                   ~amd64
+dev-ruby/rspec-support                 ~amd64
 dev-ruby/toml                          ~amd64
 dev-scheme/scmxlate                    ~amd64
 dev-tex/abntex                         ~amd64
@@ -106,6 +114,7 @@ dev-texlive/texlive-publishers         ~amd64
 dev-texlive/texlive-science            ~amd64
 dev-texlive/texlive-xetex              ~amd64
 dev-util/mono-debugger                 ~amd64
+dev-util/mono-docbrowser ~amd64
 dev-util/mono-tools                    **
 dev-util/monodevelop                   ~amd64
 media-sound/ardour                     ~amd64
@@ -114,7 +123,9 @@ media-tv/gtk-v4l                       ~amd64
 media-video/luvcview                   ~amd64
 media-video/v4l2loopback               ~amd64
 net-analyzer/arp-scan                  ~amd64
+net-im/hipchat                         ~amd64
 net-im/skype                           ~amd64
+net-irc/weechat                        ~amd64
 net-proxy/mitmproxy                    ~amd64
 perl-core/CPAN-Meta                    ~amd64
 perl-core/ExtUtils-MakeMaker           ~amd64
@@ -143,3 +154,5 @@ www-servers/tornado                    ~amd64
 x11-misc/cdm                           ~amd64
 x11-misc/xmobar                        ~amd64
 x11-wm/wmii                            ~amd64
+app-portage/fquery ~amd64
+app-emacs/ghc-mod ~amd64

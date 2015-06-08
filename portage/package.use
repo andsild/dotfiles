@@ -5,16 +5,29 @@ app-editors/gvim gtk lua ruby
 app-editors/vim gtk lua ruby
 app-misc/workrave distribution
 app-text/poppler cairo
-app-text/texlive xetex context extra games graphics humanities metapost music omega pdfannotextractor pstricks publishers tex4ht texi2html xml 
-app-text/texlive-core xetex context extra games graphics humanities metapost music omega pdfannotextractor pstricks publishers tex4ht texi2html xml 
+app-text/texlive xetex context extra games graphics humanities metapost music omega pdfannotextractor pstricks publishers tex4ht texi2html xml
+app-text/texlive-core xetex context extra games graphics humanities metapost music omega pdfannotextractor pstricks publishers tex4ht texi2html xml
+dev-haskell/* doc
+dev-haskell/hoogle fetchdb fetchdb-ghc localdb
 dev-libs/elfutils static-libs
 dev-python/ipython qt4
+mail-client/mutt gpg mbox sasl smime
 media-libs/gd truetype fontconfig
 media-libs/mesa xa
+net-wireless/wpa_supplicant qt4
 sys-auth/consolekit policykit
 sys-fs/udev gudev
-x11-libs/cairo opengl
 www-servers/nginx fastcgi ssl nginx_modules_http_gzip_static
-net-wireless/wpa_supplicant qt4
-dev-haskell/* doc 
-dev-haskell/hoogle fetchdb fetchdb-ghc localdb
+x11-libs/cairo opengl
+net-im/bitlbee libevent debug msn  otr skype twitter
+dev-lang/mono doc debug # there are so many errors that I want debug
+dev-dotnet/mono-addins doc
+dev-dotnet/gnome-sharp doc
+dev-dotnet/gtk-sharp doc
+dev-dotnet/mono-addins doc
+dev-dotnet/xsp doc
+dev-util/mono-debugger doc
+dev-util/mono-tools   doc
+dev-util/monodevelop  doc debug
+add-admin/sudo -offensive
+dev-libs/c-blosc hdf5

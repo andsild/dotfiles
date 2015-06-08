@@ -601,6 +601,11 @@ nnoremap dh :diffget //3<CR>
 map 0 ^ 
 
 nnoremap <Esc><Esc> :noh<CR>
-nnoremap * *<C-o> "stay right where you are
+" <C-o> is to maintain the position
+nnoremap * *<C-o>
+
+" aw tends to include whitespace if the cursor is at the beginning, iw no
+nnoremap vaw viw
+vnoremap vaw viw
 
 cmap w!! w !sudo tee > /dev/null %

@@ -453,25 +453,17 @@ if neobundle#tap('vim-signature')
         \ }
     call neobundle#untap()
 endif
-" Omnisharp does not work for me :(
-" It loads a solution and all its files, but registers all of my *buffers*
-" under something called OrphanProject. Therefore I have omnisharp only for
-" buffered files.
-" Therefore, I created a .vim/omnifuck.py that
-" loads all cs files and manually adds it to the OrphanProject.
-
-" Beware, there is also a au BufEnter cs in my ~/.vim/filetype.vim
-" to automatically source the ftplugin in .cache/omnnisharp/ 
-" (required for function calls like :OmniSharpFindUsages, etc)
 if neobundle#tap('Omnisharp')
     NeoBundleSource ctrlp.vim
 
     let g:Omnisharp_start_server = 0
     let g:Omnisharp_stop_server = 0
-    let g:omnicomplete_fetch_full_documentation = 0
-    let g:OmniSharp_typeLookupInPreview = 0
+    let g:omnicomplete_fetch_full_documentation = 1
+    let g:OmniSharp_typeLookupInPreview = 1
     let g:OmniSharp_timeout = 100 " hit ctrl+c to abort it.
-    set noshowmatch
+    " set noshowmatch
+    autocmd BufEnter *.cs nnoremap K :OmniSharpDocumentation<CR>
+
     call neobundle#untap()
 endif
 
@@ -481,9 +473,11 @@ if neobundle#tap('syntastic')
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
     " let g:syntastic_check_on_wq = 0
+    let g:syntastic_auto_jump = 2 " to error, but only if error
     let g:syntastic_quiet_messages = { "type": "style",
                                     \  "level": "warnings" }
-    let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
+    " let g:syntastic_cs_checkers = ['syntax', 'semantic' 'issues'] " syntastic is not intelligent enough to read third party libs, generating errors when using 'semantic'
+    let g:syntastic_cs_checkers = ['syntax', 'issues']
     let g:syntastic_python_checkers = ['flake8'] " so much faster than pylint...
     let g:syntastic_python_flake8_args='--ignore=F401,F402,F403,F404,F811,F841,N8,E127,E2,E3,E5,E701,E702,E703,E704,E731,W1,W2,W3,W6'
     "
@@ -540,6 +534,14 @@ if neobundle#tap('vim-latex-live-preview')
     let g:livepreview_previewer = 'zathura'
     call neobundle#untap()
 endif
+
+
+if neobundle#tap('neco-ghc')
+    autocmd BufEnter *.hs setlocal omnifunc=necoghc#omnifunc
+    let g:necoghc_enable_detailed_browse=1
+    call neobundle#untap()
+endif
+
 
 if neobundle#tap('vim-autoformat')
     nnoremap <silent> <Leader>au :Autoformat<CR>

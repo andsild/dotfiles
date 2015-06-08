@@ -519,3 +519,7 @@ filetypes = 'all'
 [[plugins]]
 repository = 'https://github.com/adamclerk/vim-razor.git'
 filetypes = 'razor'
+
+[[plugins]]
+repository = 'https://github.com/luochen1990/rainbow.git'
+filetypes = 'all'

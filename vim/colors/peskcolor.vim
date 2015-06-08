@@ -7,18 +7,18 @@ endif
 
 let colors_name = 'peskcolor'
 
-highlight Normal       guifg=#dfdfdf guibg=#000000
+highlight Normal       guifg=#dfdfdf guibg=#101010
 
 " Search
 highlight IncSearch    gui=UNDERLINE guifg=#80ffff guibg=#0060c0
 highlight Search       gui=NONE guifg=#f0f0f8 guibg=#0060c0
 
 " Messages
-highlight ErrorMsg     gui=BOLD guifg=#ffa0ff guibg=#000000
-highlight WarningMsg   gui=BOLD guifg=#ffa0ff guibg=#000000
-highlight ModeMsg      gui=BOLD guifg=#40f0d0 guibg=#000000
-highlight MoreMsg      gui=BOLD guifg=#00ffff guibg=#000000
-highlight Question     gui=BOLD guifg=#e8e800 guibg=#000000
+highlight ErrorMsg     gui=BOLD guifg=#ffa0ff guibg=#101010
+highlight WarningMsg   gui=BOLD guifg=#ffa0ff guibg=#101010
+highlight ModeMsg      gui=BOLD guifg=#40f0d0 guibg=#101010
+highlight MoreMsg      gui=BOLD guifg=#00ffff guibg=#101010
+highlight Question     gui=BOLD guifg=#e8e800 guibg=#101010
 
 let statuslineFG="#DEFDDD"
 let statuslineBG="#4B4B4B"
@@ -45,26 +45,26 @@ highlight Folded       gui=NONE guifg=#40f0f0 guibg=#106090
 highlight FoldColumn   gui=NONE guifg=#40c0ff guibg=#10406c
 
 " Other
-highlight Directory    gui=NONE guifg=#40f0d0 guibg=#000000
-highlight LineNr       gui=NONE guifg=#c0c0c0 guibg=#000000
-highlight NonText      gui=BOLD guifg=#4080ff guibg=#000000
-highlight SpecialKey   gui=BOLD guifg=#8000fd guibg=#000000
-highlight Title        gui=BOLD guifg=#f0f0f8 guibg=#000000
+highlight Directory    gui=NONE guifg=#40f0d0 guibg=#101010
+highlight LineNr       gui=NONE guifg=#c0c0c0 guibg=#101010
+highlight NonText      gui=BOLD guifg=#4080ff guibg=#101010
+highlight SpecialKey   gui=BOLD guifg=#8000fd guibg=#101010
+highlight Title        gui=BOLD guifg=#f0f0f8 guibg=#101010
 highlight Visual       gui=NONE guifg=#e0e0f0 guibg=#714080
 
 " Syntax group
-highlight Comment      gui=NONE guifg=#c7c7f9 guibg=#000000
-highlight Constant     gui=NONE guifg=#90d0ff guibg=#000000
-highlight Error        gui=BOLD guifg=#ffa0af guibg=#000000
-highlight Identifier   gui=NONE guifg=#40f0f0 guibg=#000000
-highlight Ignore       gui=NONE guifg=#000000 guibg=#000000
-highlight PreProc      gui=NONE guifg=#40f0a0 guibg=#000000
-highlight Special      gui=NONE guifg=#e0e080 guibg=#000000
-highlight Statement    gui=NONE guifg=#ffa0ff guibg=#000000
-highlight Todo         gui=BOLD,UNDERLINE guifg=#ffa0a0 guibg=#000000
-highlight Type         gui=NONE guifg=#ffc864 guibg=#000000
-highlight Underlined   gui=UNDERLINE guifg=#f0f0f8 guibg=#000000
-highlight ColorColumn  gui=NONE guifg=NONE guibg=#444444
+highlight Comment      gui=NONE guifg=#c7c7f9 guibg=#101010
+highlight Constant     gui=NONE guifg=#90d0ff guibg=#101010
+highlight Error        gui=BOLD guifg=#ffa0af guibg=#101010
+highlight Identifier   gui=NONE guifg=#40f0f0 guibg=#101010
+highlight Ignore       gui=NONE guifg=#101010 guibg=#101010
+highlight PreProc      gui=NONE guifg=#40f0a0 guibg=#101010
+highlight Special      gui=NONE guifg=#e0e080 guibg=#101010
+highlight Statement    gui=NONE guifg=#ffa0ff guibg=#101010
+highlight Todo         gui=BOLD,UNDERLINE guifg=#ffa0a0 guibg=#101010
+highlight Type         gui=NONE guifg=#ffc864 guibg=#101010
+highlight Underlined   gui=UNDERLINE guifg=#f0f0f8 guibg=#101010
+highlight ColorColumn  gui=NONE guifg=NONE guibg=#1A1A1A
 
 " HTML
 highlight htmlLink                 gui=UNDERLINE
@@ -89,8 +89,8 @@ highlight TablineFill              gui=NONE guifg=#252525 guibg=#c8c8d8
 
 
 highlight TablineSel               gui=NONE guifg=#f0f0f8 guibg=#411111
-hi TabLineFill guibg=#000000 gui=NONE
-hi TabLine guibg=#000000 guifg=#FFFFFF gui=NONE
+hi TabLineFill guibg=#101010 gui=NONE
+hi TabLine guibg=#101010 guifg=#FFFFFF gui=NONE
 
 exe 'highlight SignColumn gui=NONE guibg=#111111'
 
