@@ -536,8 +536,18 @@ if neobundle#tap('vim-latex-live-preview')
 endif
 
 
+function! FindCabalSandboxRoot()
+    return finddir('.cabal-sandbox', './;')
+endfunction
+
+function! FindCabalSandboxRootPackageConf()
+    return glob(FindCabalSandboxRoot().'/*-packages.conf.d')
+endfunction
 if neobundle#tap('neco-ghc')
     autocmd BufEnter *.hs setlocal omnifunc=necoghc#omnifunc
+
+    let g:syntastic_haskell_hdevtools_args = '-g-ilib -g-isrc -g-i. -g-idist/build/autogen -g-Wall -g-package-conf='.FindCabalSandboxRootPackageConf()
+
     let g:necoghc_enable_detailed_browse=1
     call neobundle#untap()
 endif
