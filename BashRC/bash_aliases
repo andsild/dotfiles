@@ -41,7 +41,6 @@ alias hw='cd "/home/andesil/Homework/Workshop/"'
 
 
 export OTHER_COMP="169.254.244.132"
-export OTHER_COMP="192.168.1.33"
 function samba()
 {
     # if [ ! -d samba/${2} ]

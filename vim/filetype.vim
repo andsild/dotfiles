@@ -2721,6 +2721,8 @@ au BufNewFile,BufRead */etc/yum.repos.d/*	call s:StarSetf('dosini')
 " Z-Shell script
 au BufNewFile,BufRead zsh*,zlog*		call s:StarSetf('zsh')
 
+au BufNewFile,BufRead *.tsql set filetype=sqlserver
+
 
 " Plain text files, needs to be far down to not override others.  This avoids
 " the "conf" type being used if there is a line starting with '#'.

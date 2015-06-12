@@ -203,6 +203,10 @@ mappings = '<Plug>'
 repository = 'eagletmt/neco-ghc'
 filetypes = 'haskell'
 
+[[plugins]]
+repository = 'https://github.com/lukerandall/haskellmode-vim.git'
+filetypes = 'haskell'
+
 # see "man look" - used for auto-complete
 [[plugins]]
 repository = 'ujihisa/neco-look'
@@ -308,6 +312,10 @@ functions = 'openbrowser#open'
 
 [[plugins]]
 repository = 'kana/vim-filetype-haskell'
+filetypes = 'haskell'
+
+[[plugins]]
+repository = 'https://github.com/eagletmt/ghcmod-vim.git'
 filetypes = 'haskell'
 
 # Syntax files for D programming
@@ -458,7 +466,7 @@ filetypes = 'all'
 
 [[plugins]]
 repository = 'joedicastro/dbext.vim'
-filetypes = 'sql'
+filetypes = 'all'
 
 [[plugins]]
 repository = 'tpope/vim-fugitive.git'
@@ -523,3 +531,4 @@ filetypes = 'razor'
 [[plugins]]
 repository = 'https://github.com/luochen1990/rainbow.git'
 filetypes = 'all'
+

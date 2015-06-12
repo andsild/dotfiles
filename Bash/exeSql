@@ -1,0 +1,24 @@
+#!/bin/bash
+
+IFS=$'\n' # read lines separated by newline
+sepChar="${1:-=}" # the character to align around
+
+# Read the data
+inData=""
+while read -r input
+do
+    inData="$(printf "%s\n%s" "${inData}" "${input}")"
+done
+
+outfile="/tmp/sqlOutput.txt"
+
+tsql -S mywin -U sysco-estate -P Ddgwv7236 -o quiet <<<"${inData}
+GO
+" > ${outfile}
+
+gvim ${outfile}
+
+printf "%s" "${inData:okaaay}"
+
+# EOF
+

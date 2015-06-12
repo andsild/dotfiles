@@ -9,3 +9,7 @@
 	default = simple
 [core]
 	excludesfile = ~/dotfiles/git/gitexclude
+[alias]
+    root = rev-parse --show-toplevel
+[mergetool]
+	keepBackup = false

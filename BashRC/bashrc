@@ -6,29 +6,47 @@ export EIX_LIMIT=0
 source /etc/profile.d/bash-completion.sh
 
 # Variables ##
-#TODO: put amount of files in dir in PS1
-export DEFAULT="\[\e[00m\]"
 # PS1='\u@\h: ~${PWD##*/} > '
-PS1='\u@\h: ../${PWD##*/} `if [ \$? = 0 ]; then printf "%s" "\e[01;32m:)"; else printf "%s" "\e[01;31m:("; fi`\[\e[00m\]\n$ '
+GREEN=$'\e[01;32m'
+YELLOW=$'\e[00;33m'
+WHITE=$'\e[00;00m'
+RED=$'\e[01;31m'
+# bash is fun, but annoying: PS1 is eval some strange way, and needs to escape colors
+PROMPT_COMMAND=__prompt_command  # Func to gen PS1 after CMDs
+function __prompt_command() {
+    PS1="`export EXITSTATUS=$?`$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s %s \[${WHITE}\]" \
+        "$(date +%k:%S)" \
+        "\u@\h: ./${PWD##*/}")"
+
+    local EXIT="$?"             # This needs to be first
+    if [ $EXIT = 0 ]; then
+        PS1+="${GREEN}:)"      # Add red if exit code non 0
+    else
+        PS1+="${RED}:("
+    fi
+    PS1+="${WHITE}\n$ "
+}
+
+
 EDITOR="gvim"
 HISTIGNORE="ls:l:clear"
 PATH="${PATH}:${HOME}/dotfiles/Bash:$GOROOT/bin:$GOPATH/bin"
 
 export HISTCONTROL="ignoredups"
 
-# Disable Software Flow Control (xon) 
+# Disable Software Flow Control (xon)
 # (in practice: give me back Ctrl+s and Ctrl+q)
 stty -ixon
 
 # XMonad needs this to run java nicely
-export _JAVA_AWT_WM_NONREPARENTING=1 
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 # My jedi-vim needs this(ugh!)
 export IPYTHONDIR="~/.ipython"
 
 
 # It's a lot more annoying to not have an old command in history than having a large file
-export HISTSIZE=10000		
+export HISTSIZE=10000
 export HISTFILE_SIZE=10000
 
 
@@ -39,7 +57,7 @@ export HISTFILE_SIZE=10000
 WMII_IS_RUNNING=`ps a | grep wmii | awk '/[^"grep"] wmii$/'`
 if [ -n "$WMII_IS_RUNNING" ]
 then
-  PROMPT_COMMAND='dirs | wmiir write /client/sel/label'
+  PROMPT_COMMAND="${PROMPT_COMMAND} ; dirs | wmiir write /client/sel/label"
 fi
 
 export XDG_CONFIG_HOME="~/.local/share"
@@ -59,9 +77,7 @@ BASH_INCLUDES_DEST="${HOME}/.bash_includes"
 
 # Get proper auto-completion
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-	    . /etc/bash_completion
+        . /etc/bash_completion
 fi
 
-# EOF
-complete -cf sudo
 complete -cf sudo

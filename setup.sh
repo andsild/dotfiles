@@ -15,6 +15,7 @@ INSTALL_ENTRY+=("${HOME}/.                        : ./Screen/screenrc")
 INSTALL_ENTRY+=("${HOME}/.                        : ./Python/pylintrc")
 INSTALL_ENTRY+=("${HOME}/.local/share/zathura/    : ./Zathura/zathurarc")
 INSTALL_ENTRY+=("${HOME}/.inputrc                 : ./dotfiles/BashRC/inputrc")
+INSTALL_ENTRY+=("${HOME}/.gitconfig                 : ./dotfiles/git/gitconfig")
 
 for file in ./BashRC/*
 do

@@ -236,9 +236,9 @@ nnoremap [Space]ar
       \ :<C-u>setlocal autoread<CR>
 " Output encoding information.
 nnoremap <silent> [Space]en
-      \ :<C-u>setlocal encoding? termencoding? fenc? fencs?<CR>
+      \ :<C-u>setl]spocal encoding? termencoding? fenc? fencs?<CR>
 " Set spell check.
-nnoremap [Leader]sp
+nnoremap ,sp
       \ :<C-u>call ToggleOption('spell')<CR>
 nnoremap <Leader>w
       \ :<C-u>call ToggleOption('wrap')<CR>
@@ -608,4 +608,9 @@ nnoremap * *<C-o>
 nnoremap vaw viw
 vnoremap vaw viw
 
+
 cmap w!! w !sudo tee > /dev/null %
+
+noremap [Space]e : ! ~/dotfiles/Bash/exeSql <CR>
+nnoremap [Space]e : silent ! ~/dotfiles/Bash/exeSql <<<$(cat %) <CR>
+inoremap kke kke

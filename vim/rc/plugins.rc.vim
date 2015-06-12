@@ -476,8 +476,11 @@ if neobundle#tap('syntastic')
     let g:syntastic_auto_jump = 2 " to error, but only if error
     let g:syntastic_quiet_messages = { "type": "style",
                                     \  "level": "warnings" }
-    " let g:syntastic_cs_checkers = ['syntax', 'semantic' 'issues'] " syntastic is not intelligent enough to read third party libs, generating errors when using 'semantic'
-    let g:syntastic_cs_checkers = ['syntax', 'issues']
+    " syntastic is not intelligent enough to read references in c#,
+    " generating errors when using 'semantic'
+    " this is amended by ~/dotfiles/Bash/mcsCompile
+    let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues'] 
+    " let g:syntastic_cs_checkers = ['syntax', 'issues']
     let g:syntastic_python_checkers = ['flake8'] " so much faster than pylint...
     let g:syntastic_python_flake8_args='--ignore=F401,F402,F403,F404,F811,F841,N8,E127,E2,E3,E5,E701,E702,E703,E704,E731,W1,W2,W3,W6'
     "
@@ -490,7 +493,7 @@ endif
 
 if neobundle#tap('dbext.vim')
     let g:dbext_default_type = 'SQLSRV'
-    let g:dbext_default_profile_mySQLServer = 'type=SQLSRV:integratedlogin=1:srvname=172.22.200.103:dbname=myDB' 
+    let g:dbext_default_profile_mySQLServer = 'Type=ODBC:Data Source=169.254.244.132;Initial Catalog=estate;User ID=sysco-estate;Password=iamnotputtingthisinmygit;Connect Timeout=120'
     call neobundle#untap()
 endif
 
@@ -552,6 +555,11 @@ if neobundle#tap('neco-ghc')
     call neobundle#untap()
 endif
 
+if neobundle#tap('haskellmode-vim')
+    let g:haddock_browser = 'google-chrome-stable'
+    au BufEnter *.hs compiler ghc
+    call neobundle#untap()
+endif
 
 if neobundle#tap('vim-autoformat')
     nnoremap <silent> <Leader>au :Autoformat<CR>
