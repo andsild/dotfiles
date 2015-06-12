@@ -1,0 +1,12 @@
+#!/bin/bash
+
+test -z ${1} && exit
+filename="${1}"
+dirname="${filename%/*}"
+test -z $(git root)
+
+outname="/tmp/cstestresult.txt"
+nunit-console.exe -nologo ${dirname}/bin/Debug/${dirname}.dll >> ${outname}
+echo ${dirname}/bin/Debug/${dirname}.dll >> ${outname}
+${EDITOR} ${outname}
+

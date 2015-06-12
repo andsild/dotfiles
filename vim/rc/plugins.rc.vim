@@ -479,7 +479,8 @@ if neobundle#tap('syntastic')
     " syntastic is not intelligent enough to read references in c#,
     " generating errors when using 'semantic'
     " this is amended by ~/dotfiles/Bash/mcsCompile
-    let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues'] 
+    " let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues'] 
+    let g:syntastic_cs_checkers = ['mcs'] 
     " let g:syntastic_cs_checkers = ['syntax', 'issues']
     let g:syntastic_python_checkers = ['flake8'] " so much faster than pylint...
     let g:syntastic_python_flake8_args='--ignore=F401,F402,F403,F404,F811,F841,N8,E127,E2,E3,E5,E701,E702,E703,E704,E731,W1,W2,W3,W6'
