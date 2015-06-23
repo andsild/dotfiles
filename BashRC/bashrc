@@ -45,8 +45,8 @@ export IPYTHONDIR="~/.ipython"
 
 
 # It's a lot more annoying to not have an old command in history than having a large file
-export HISTSIZE=10000
-export HISTFILE_SIZE=10000
+export HISTSIZE=100000
+export HISTFILE_SIZE=1000000
 
 
 # Reload history after each command (needed to share history across shells live)
@@ -59,7 +59,7 @@ then
   PROMPT_COMMAND="${PROMPT_COMMAND} ; dirs | wmiir write /client/sel/label"
 fi
 
-export XDG_CONFIG_HOME="~/.local/share"
+export XDG_CONFIG_HOME="/home/andesil/.local/share"
 
 # If the command-line has an empty entry, don't try to autocomplete with tab
 shopt -s no_empty_cmd_completion
@@ -80,3 +80,5 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 complete -cf sudo
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -1,6 +1,8 @@
-=dev-lang/mono-3.2.8 ~amd64
+=dev-lang/mono-4.0.1.34 ~amd64
+app-emacs/ghc-mod ~amd64
 app-emulation/wine                     ~amd64
 app-emulation/winetricks               ~amd64
+app-portage/fquery ~amd64
 app-portage/layman                     ~amd64
 app-text/dvipsk                        ~amd64
 app-text/ps2pkm                        ~amd64
@@ -19,6 +21,7 @@ dev-lang/perl                          ~amd64
 dev-libs/kpathsea                      ~amd64
 dev-libs/openssl                       ~amd64
 dev-libs/ptexenc                       ~amd64
+dev-texlive/* ~amd64
 dev-perl/Business-ISBN                 ~amd64
 dev-perl/Business-ISBN-Data            ~amd64
 dev-perl/Business-ISMN                 ~amd64
@@ -53,66 +56,7 @@ dev-ruby/rspec-mocks                   ~amd64
 dev-ruby/rspec-support                 ~amd64
 dev-ruby/toml                          ~amd64
 dev-scheme/scmxlate                    ~amd64
-dev-tex/abntex                         ~amd64
-dev-tex/bera                           ~amd64
-dev-tex/biber                          ~amd64
-dev-tex/biblatex                       ~amd64
-dev-tex/biblatex-apa                   ~amd64
-dev-tex/bibtexu                        ~amd64
-dev-tex/circuit_macros                 ~amd64
-dev-tex/crosstex                       ~amd64
-dev-tex/dvi2gr                         ~amd64
-dev-tex/ellipsis                       ~amd64
-dev-tex/flabels                        ~amd64
-dev-tex/floatflt                       ~amd64
-dev-tex/fundus                         ~amd64
-dev-tex/herm-pic                       ~amd64
-dev-tex/metapost                       ~amd64
-dev-tex/minted                         ~amd64
-dev-tex/newlfm                         ~amd64
-dev-tex/notoccite                      ~amd64
-dev-tex/oesch                          ~amd64
-dev-tex/pdftex                         ~amd64
-dev-tex/ppower4                        ~amd64
-dev-tex/pscyr                          ~amd64
-dev-tex/pstplus                        ~amd64
-dev-tex/quotchap                       ~amd64
-dev-tex/rail                           ~amd64
-dev-tex/rcsinfo                        ~amd64
-dev-tex/serienbrief                    ~amd64
-dev-tex/sketch                         ~amd64
-dev-tex/slatex                         ~amd64
-dev-tex/tex4ht                         ~amd64
-dev-tex/texamator                      ~amd64
-dev-texlive/texlive-basic              ~amd64
-dev-texlive/texlive-bibtexextra        ~amd64
-dev-texlive/texlive-context            ~amd64
-dev-texlive/texlive-fontsextra         ~amd64
-dev-texlive/texlive-fontsrecommended   ~amd64
-dev-texlive/texlive-fontutils          ~amd64
-dev-texlive/texlive-formatsextra       ~amd64
-dev-texlive/texlive-games              ~amd64
-dev-texlive/texlive-genericextra       ~amd64
-dev-texlive/texlive-genericrecommended ~amd64
-dev-texlive/texlive-humanities         ~amd64
-dev-texlive/texlive-langchinese        ~amd64
-dev-texlive/texlive-langcjk            ~amd64
-dev-texlive/texlive-langeuropean       ~amd64
-dev-texlive/texlive-langjapanese       ~amd64
-dev-texlive/texlive-langkorean         ~amd64
-dev-texlive/texlive-latex              ~amd64
-dev-texlive/texlive-latexextra         ~amd64
-dev-texlive/texlive-latexrecommended   ~amd64
-dev-texlive/texlive-mathextra          ~amd64
-dev-texlive/texlive-metapost           ~amd64
-dev-texlive/texlive-music              ~amd64
-dev-texlive/texlive-omega              ~amd64
-dev-texlive/texlive-pictures           ~amd64
-dev-texlive/texlive-plainextra         ~amd64
-dev-texlive/texlive-pstricks           ~amd64
-dev-texlive/texlive-publishers         ~amd64
-dev-texlive/texlive-science            ~amd64
-dev-texlive/texlive-xetex              ~amd64
+dev-tex/* ~amd64
 dev-util/mono-debugger                 ~amd64
 dev-util/mono-docbrowser ~amd64
 dev-util/mono-tools                    **
@@ -154,5 +98,19 @@ www-servers/tornado                    ~amd64
 x11-misc/cdm                           ~amd64
 x11-misc/xmobar                        ~amd64
 x11-wm/wmii                            ~amd64
-app-portage/fquery ~amd64
-app-emacs/ghc-mod ~amd64
+www-apache/mod_mono ~amd64
+app-shells/bash-completion ~amd64
+
+
+
+dev-vcs/git-sh ~amd64
+media-tv/popcorntime-bin ~amd64
+
+dev-python/jenkins* ~amd64
+dev-util/jenkins-bin ~amd64
+dev-db/sqldeveloper ~amd64
+# required by app-emulation/vagrant-1.4.3-r2::gentoo[ruby_targets_ruby20]
+# required by vagrant (argument)
+=dev-ruby/i18n-0.6.11 ~amd64
+# required by vagrant (argument)
+=app-emulation/vagrant-1.4.3-r2 ~amd64

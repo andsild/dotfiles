@@ -3,3 +3,7 @@ www-plugins/chrome-binary-plugins google-chrome
 net-im/skype skype-4.0.0.7-copyright
 www-client/google-chrome google-chrome
 www-plugins/chrome-binary-plugins google-chrome
+# required by dev-java/oracle-jdk-bin (argument)
+>=dev-java/oracle-jdk-bin-1.8.0.45 Oracle-BCLA-JavaSE
+# required by dev-java/oracle-jre-bin (argument)
+>=dev-java/oracle-jre-bin-1.8.0.45 Oracle-BCLA-JavaSE

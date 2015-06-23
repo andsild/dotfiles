@@ -499,7 +499,6 @@ if neobundle#tap('dbext.vim')
 endif
 
 if neobundle#tap('vim-fugitive')
-
     call neobundle#untap()
 endif
 
@@ -564,5 +563,11 @@ endif
 
 if neobundle#tap('vim-autoformat')
     nnoremap <silent> <Leader>au :Autoformat<CR>
+    call neobundle#untap()
+endif
+
+if neobundle#tap('fzf')
+    let neobundle#hooks.on_source =
+            \ '~/.vim/rc/plugins/fzf.vim'
     call neobundle#untap()
 endif

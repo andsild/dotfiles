@@ -1,33 +1,32 @@
+add-admin/sudo -offensive
 app-accessibility/julius alsa -oss -portaudio -pulseaudio
 app-admin/syslog-ng -ssl
 app-crypt/gcr gtk
-app-editors/gvim gtk lua ruby
-app-editors/vim gtk lua ruby
+app-editors/gvim gtk lua ruby perl
+app-editors/vim gtk lua ruby perl
+app-emulation/wine* -mono
 app-misc/workrave distribution
 app-text/poppler cairo
 app-text/texlive xetex context extra games graphics humanities metapost music omega pdfannotextractor pstricks publishers tex4ht texi2html xml
 app-text/texlive-core xetex context extra games graphics humanities metapost music omega pdfannotextractor pstricks publishers tex4ht texi2html xml
+dev-dotnet/* doc
 dev-haskell/* doc
 dev-haskell/hoogle fetchdb fetchdb-ghc localdb
+dev-lang/mono  debug # there are so many errors that I want debug
+dev-libs/c-blosc hdf5
 dev-libs/elfutils static-libs
 dev-python/ipython qt4
+dev-util/mono* doc
+dev-util/monodevelop debug
 mail-client/mutt gpg mbox sasl smime
 media-libs/gd truetype fontconfig
 media-libs/mesa xa
+net-im/bitlbee libevent debug msn  otr skype twitter
 net-wireless/wpa_supplicant qt4
 sys-auth/consolekit policykit
 sys-fs/udev gudev
 www-servers/nginx fastcgi ssl nginx_modules_http_gzip_static
 x11-libs/cairo opengl
-net-im/bitlbee libevent debug msn  otr skype twitter
-dev-lang/mono doc debug # there are so many errors that I want debug
-dev-dotnet/mono-addins doc
-dev-dotnet/gnome-sharp doc
-dev-dotnet/gtk-sharp doc
-dev-dotnet/mono-addins doc
-dev-dotnet/xsp doc
-dev-util/mono-debugger doc
-dev-util/mono-tools   doc
-dev-util/monodevelop  doc debug
-add-admin/sudo -offensive
-dev-libs/c-blosc hdf5
+# required by mail-client/thunderbird-31.7.0::gentoo[crypt]
+# required by thunderbird (argument)
+>=app-crypt/pinentry-0.9.0 gtk

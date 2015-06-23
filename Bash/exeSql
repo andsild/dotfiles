@@ -14,7 +14,8 @@ outfile="/tmp/sqlOutput.txt"
 
 tsql -S mywin -U sysco-estate -P Ddgwv7236 -o quiet <<<"${inData}
 GO
-" > ${outfile}
+
+" > ${outfile}  2>/dev/null
 
 gvim ${outfile}
 

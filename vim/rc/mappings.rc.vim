@@ -566,7 +566,7 @@ command! Wall wall
 command! WAll wall
 
 nnoremap <Leader>p "+p
-nnoremap <Leader>f :%s/^$/AB0\.1/g <bar> v/[0-9\-]\./d <bar> %s/AB0\.1//g <bar> %s/^\s\+//g <bar> %s/\v( ){1,10}/ /g <bar> %s/\s\+$//
+" nnoremap <Leader>f :%s/^$/AB0\.1/g <bar> v/[0-9\-]\./d <bar> %s/AB0\.1//g <bar> %s/^\s\+//g <bar> %s/\v( ){1,10}/ /g <bar> %s/\s\+$//
 
 vnoremap ; <Esc>
 
@@ -612,5 +612,5 @@ vnoremap vaw viw
 cmap w!! w !sudo tee > /dev/null %
 
 noremap [Space]e : ! ~/dotfiles/Bash/exeSql <CR>
-nnoremap [Space]e : silent ! ~/dotfiles/Bash/exeSql <<<$(cat %) <CR>
+vnoremap [Space]e : ! ~/dotfiles/Bash/exeSql <CR>
 inoremap kke kke

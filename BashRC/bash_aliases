@@ -38,6 +38,10 @@ alias us="setxkbmap us"
 alias www='cd /var/www/'
 alias hw='cd "/home/andesil/Homework/Workshop/"'
 
+function smallimg()
+{
+    convert -size 32x32 xc:${2:-orange} ${1:-empty.jpg}
+}
 
 
 export OTHER_COMP="169.254.244.132"

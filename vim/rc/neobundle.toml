@@ -532,3 +532,12 @@ filetypes = 'razor'
 repository = 'https://github.com/luochen1990/rainbow.git'
 filetypes = 'all'
 
+[[plugins]]
+repository = 'https://github.com/rhysd/committia.vim.git'
+filetypes  = 'all'
+
+[[plugins]]
+repository = 'https://github.com/junegunn/fzf.git'
+filetypes  = 'all'
+
+

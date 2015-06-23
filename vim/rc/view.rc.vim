@@ -120,7 +120,7 @@ endif
 
 " Completion setting.
 " set completeopt=menuone
-set completeopt=longest,preview
+set completeopt=longest
 " Don't complete from other buffer.
 set complete=.
 "set complete=.,w,b,i,t
