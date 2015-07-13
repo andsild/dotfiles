@@ -11,12 +11,11 @@ GREEN=$'\e[01;32m'
 YELLOW=$'\e[00;33m'
 WHITE=$'\e[00;00m'
 RED=$'\e[01;31m'
-# bash is fun, but annoying: PS1 is eval some strange way, and needs to escape colors
 PROMPT_COMMAND=__prompt_command  # Func to gen PS1 after CMDs
 function __prompt_command() {
     local EXIT="$?"             # This needs to be first
     PS1="`export EXITSTATUS=$?`$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s %s \[${WHITE}\]" \
-        "$(date +%k:%S)" \
+        "$(date +%k:%M)" \
         "\u@\h: ./${PWD##*/}")"
     if [ $EXIT = 0 ]; then
         PS1+="${GREEN}:)"      # Add red if exit code non 0

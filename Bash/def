@@ -10,7 +10,7 @@ function lookup()
 
 	eval local word='"${1}"'
 
-    wn ${word} -framv -over -simsv -holon
+    dict ${word} -framv -over -simsv -holon
 } 
 
 lookup "${1}"

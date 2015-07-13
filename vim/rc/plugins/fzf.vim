@@ -1,5 +1,5 @@
 "add an extra <cr> at the end of this line to automatically accept the fzf-selected completions.
-cnoremap <silent> : <c-\>eGetCompletions()<cr>
+cnoremap <silent> :: <c-\>eGetCompletions()<cr>
 
 function! Lister()
     call extend(g:FZF_Cmd_Completion_Pre_List,split(getcmdline(),'\(\\\zs\)\@<!\& '))

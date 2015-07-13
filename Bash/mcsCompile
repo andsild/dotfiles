@@ -8,7 +8,6 @@
 
 # filename="Integration_Webmegler_IntegrationTests/Test.cs"
 
-
 test -z ${1} && exit
 filename="${1}"
 dirname="${filename%/*}"
