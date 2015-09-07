@@ -72,11 +72,11 @@ repository = 'Shougo/unite-build'
 
 [[plugins]]
 repository = 'Shougo/neossh.vim'
-filetypes = 'vimfiler'
+filetypes = ['vimfiler', 'vimshell']
 sources = 'ssh'
 
 [[plugins]]
-repository = 'Shougo/neossh.vim'
+repository = 'ujihisa/vimshell-ssh'
 filetypes = 'vimshell'
 
 [[plugins]]
@@ -90,7 +90,7 @@ mappings = '<Plug>'
 explorer = 1
 
   [plugins.commands]
-  name = ['VimFiler', 'Edit', 'Write']
+  name = ['VimFiler']
   complete = 'customlist,vimfiler#complete'
 
 [[plugins]]
@@ -196,6 +196,11 @@ mappings = [['i', '<Plug>']]
 [[plugins]]
 repository = 'tyru/open-browser.vim'
 mappings = '<Plug>'
+
+[[plugins]]
+repository = 'tyru/restart.vim'
+gui = 1
+commands = 'Restart'
 
 # Nice auto-stuff for haskell
 #
@@ -503,10 +508,14 @@ repository = 'https://github.com/tpope/vim-unimpaired.git'
 filetypes = 'all'
 
 [[plugins]]
-repository = 'https://github.com/davidhalter/jedi-vim.git'
+repository = 'davidhalter/jedi-vim'
 filetypes = 'python'
 
 
+[[plugins]]
+repository = 'Shougo/neco-vim'
+filetypes = 'vim'
+insert = 1
 
 [[plugins]]
 repository = 'https://github.com/junegunn/vim-github-dashboard.git'
@@ -519,6 +528,10 @@ filetypes = 'markdown'
 [[plugins]]
 repository = 'xuhdev/vim-latex-live-preview.git'
 filetypes = 'tex'
+
+[[plugins]]
+repository = 'Shougo/neoinclude.vim'
+insert = 1
 
 [[plugins]]
 repository = 'https://github.com/SirVer/ultisnips.git'
@@ -541,3 +554,14 @@ repository = 'https://github.com/junegunn/fzf.git'
 filetypes  = 'all'
 
 
+[[plugins]]
+repository = 'https://github.com/justmao945/vim-clang.git'
+filetypes  = 'c'
+
+[[plugins]]
+repository = 'https://github.com/itchyny/unite-preview.git'
+filetypes = 'vimfiler'
+
+[[plugins]]
+repository = 'Shougo/neco-syntax'
+insert = 1

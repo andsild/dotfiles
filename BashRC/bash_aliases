@@ -37,6 +37,7 @@ alias us="setxkbmap us"
 # Commonly used folders
 alias www='cd /var/www/'
 alias hw='cd "/home/andesil/Homework/Workshop/"'
+alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
 
 function smallimg()
 {
