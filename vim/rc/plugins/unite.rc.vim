@@ -346,6 +346,8 @@ if neobundle#tap('Omnisharp')
                 \'OmniSharpFindUsages'],
             \['-> Rename',
                 \'OmniSharpRename'],
+            \['-> Tags (def/usage)',
+                \'UniteWithCursorWord tag'],
             \['-> Tests',
                 \'OmniSharpRunAllTests'],
             \['-> LastTests',

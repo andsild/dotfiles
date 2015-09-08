@@ -93,7 +93,7 @@ if neobundle#tap('unite.vim') "{{{
   " nnoremap <silent> ;t
   "       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
   nnoremap [Space]t
-        \ :<C-u>Unite -start-insert tag tag tag/include<CR>
+        \ :<C-u>Unite -start-insert tag tag/include<CR>
   nnoremap <silent> <C-k>
         \ :<C-u>Unite change jump<CR>
   nnoremap <silent> [Space]r
