@@ -52,11 +52,11 @@ export HISTFILE_SIZE=1000000
 # export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # Append dirname to window title if WMII_IS_RUNNING
-WMII_IS_RUNNING=`ps a | grep wmii | awk '/[^"grep"] wmii$/'`
-if [ -n "$WMII_IS_RUNNING" ]
-then
-  PROMPT_COMMAND="${PROMPT_COMMAND} ; dirs | wmiir write /client/sel/label"
-fi
+# WMII_IS_RUNNING=`ps a | grep wmii | awk '/[^"grep"] wmii$/'`
+# if [ -n "$WMII_IS_RUNNING" ]
+# then
+#   PROMPT_COMMAND="${PROMPT_COMMAND} ; dirs | wmiir write /client/sel/label"
+# fi
 
 export XDG_CONFIG_HOME="/home/andesil/.local/share"
 

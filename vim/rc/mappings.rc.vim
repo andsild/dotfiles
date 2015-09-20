@@ -614,3 +614,14 @@ cmap w!! w !sudo tee > /dev/null %
 noremap [Space]e : ! ~/dotfiles/Bash/exeSql <CR>
 vnoremap [Space]e : ! ~/dotfiles/Bash/exeSql <CR>
 inoremap kke kke
+
+:vnoremap s d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
+
+function! GentooCleanConfig()
+    silent! :%s/^#.*//g
+    silent! :%s/-\v(\d{1,2}(\.)?){1,4}(-r\d)?//g
+    silent! :%s/>=//g
+    silent! :g/^$/d
+    :sort u<CR>
+    :noh<CR>
+endfunction

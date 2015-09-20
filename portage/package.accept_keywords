@@ -62,9 +62,6 @@ net-im/* ~amd64
 net-irc/weechat                        ~amd64
 net-proxy/mitmproxy                    ~amd64
 perl-core/*                    ~amd64
-# perl-core/ExtUtils-MakeMaker           ~amd64
-# perl-core/ExtUtils-Manifest            ~amd64
-# perl-core/File-Temp                    ~amd64
 sci-libs/scipy                         ~amd64
 sys-apps/hprofile                      ~amd64
 sys-block/tgt                          ~amd64
@@ -80,3 +77,5 @@ www-servers/tornado                    ~amd64
 x11-misc/cdm                           ~amd64
 x11-misc/xmobar                        ~amd64
 x11-wm/wmii                            ~amd64
+
+dev-qt/qtxmlpatterns **

@@ -61,8 +61,8 @@ elseif has('mac')
 else
   " For Linux.
   " set guifontwide=VL\ Gothic\ 11
-  set guifont=Monospace\ 8
-  set guifont=Inconsolata\ Medium\ 12
+  set guifont=Monospace\ 14
+  set guifont=Inconsolata\ Medium\ 14
   set linespace=0
 endif"}}}
 
