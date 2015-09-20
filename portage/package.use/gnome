@@ -1,0 +1,3 @@
+media-libs/libmediaart qt5 -qt4 -gtk 
+gnome-base/gnome-settings-daemon policykit
+net-dns/avahi autoipd

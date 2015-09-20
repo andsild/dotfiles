@@ -1,2 +1,0 @@
-# currently empty,  woop woop
-=dev-haskell/hpc-0.6.0.2

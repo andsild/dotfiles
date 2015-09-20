@@ -1,0 +1,20 @@
+## mask packages superseded by science overlay
+# app-admin/eselect::gentoo
+# app-admin/eselect-blas
+# app-admin/eselect-cblas
+# app-admin/eselect-lapack
+virtual/blas::science
+virtual/cblas::science
+virtual/lapack::science
+# sci-libs/gsl::gentoo
+# app-doc/blas-docs::gentoo
+# app-doc/lapack-docs::gentoo
+sci-libs/blas-reference::science
+sci-libs/cblas-reference::science
+sci-libs/lapack-reference::science
+# sci-libs/mkl::gentoo
+# sci-libs/acml::gentoo
+
+# >=sys-libs/ncurses-6.0
+
+app-admin/haskell-updater::gentoo

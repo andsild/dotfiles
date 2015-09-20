@@ -1,7 +1,0 @@
-# required by dev-tex/pdftex (argument)
-# /usr/portage/profiles/package.mask:
-# Alexis Ballier <aballier@gentoo.org> (20 Aug 2011)
-# dev-tex/pdftex-1.40.11 is 100% identical to the one in TeX Live 2010;
-# TeX Live 2011 has a newer version, which makes the standalone package useless;
-# mask it for now, we'll see about removing it later.
-=dev-tex/pdftex-1.40.11
