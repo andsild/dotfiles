@@ -2,9 +2,6 @@
 " Plugin:
 "
 
-" Let everything download - some plugins are heavy
-let g:neobundle#install_process_timeout = 9999
-
 source ~/.vim/rc/plugins/BufOnly.vim
 
 " changelog.vim"{{{
@@ -464,7 +461,7 @@ if neobundle#tap('vim-signature')
         \ }
     call neobundle#untap()
 endif
-if neobundle#tap('omnisharp-vim')
+if neobundle#tap('Omnisharp')
     NeoBundleSource ctrlp.vim
 
     let g:Omnisharp_start_server = 0
@@ -545,7 +542,7 @@ endif
 
 
 if neobundle#tap('vim-latex-live-preview')
-    let g:livepreview_previewer = 'evince'
+    let g:livepreview_previewer = 'zathura'
     call neobundle#untap()
 endif
 

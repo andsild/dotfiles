@@ -142,16 +142,13 @@ nnoremap ;s :split<CR>
 nnoremap ;n :call SplitVim()<CR>
 function! SplitVim()
     let x = getpos('.')
-    if IsWindows()
-        silent exe ' ! powershell.exe " gvim ' . expand("%:p") . ' +' . x[1] .
-                    \ ' -c ''cd ' . getcwd() .
-                    \ ' | normal 0 ' . x[2] . 'lzz '' " '
-    else
+    if strlen(expand("%:p"))
         silent exe ' !setsid gvim ' . expand("%:p") . ' +' . x[1] .
                     \ ' -c "cd ' . getcwd() .
                     \ ' | normal 0 ' . x[2] . 'lzz " '
+    else
+        echo 'nnooo  '
     endif
-
 endfunction
 
 nnoremap [Space]h

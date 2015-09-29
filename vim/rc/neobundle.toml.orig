@@ -454,11 +454,11 @@ filetypes = 'all'
 repository = 'rstacruz/sparkup'
 
 [[plugins]]
-repository = 'https://github.com/OmniSharp/omnisharp-vim'
+repository = 'nosami/Omnisharp'
 filetypes = 'cs'
 depends = ['tpope/vim-dispatch', 'ctrlpvim/ctrlp.vim', 'scrooloose/syntastic']
    [plugins.build]
-    windows = 'set path=%path%;Windows\Microsoft.NET\Framework64\v4.0.30319 ; MSBuild.exe server/OmniSharp.sln /v:q /p:Platform="Any CPU"'
+    windows = '"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x86 && C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"'
     mac =    'xbuild server/OmniSharp.sln'
     unix =   'xbuild server/OmniSharp.sln'
 
