@@ -1,0 +1,3 @@
+[submodule "git/gitattributes"]
+	path = git/gitattributes
+	url = git@github.com:Danimoth/gitattributes.git
