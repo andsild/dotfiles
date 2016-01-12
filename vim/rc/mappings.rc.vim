@@ -213,12 +213,6 @@ nnoremap <silent> [Space]q
       \ :call ToggleList("Quickfix List", 'c')<CR>
 nnoremap <silent> [Space]l
       \ :call ToggleList("Location List", 'l')<CR>
-" Do async search
-nnoremap <silent> [Space]/
-      \ :Unite grep:.<CR>
-" Do async search
-nnoremap <silent> [Space]*
-      \ :UniteWithCursorWord grep<CR>
 " Toggle cursorline.
 nnoremap <silent> <Leader>cl
       \ :<C-u>call ToggleOption('cursorline')<CR>

@@ -592,4 +592,15 @@ if neobundle#tap('unite-preview')
     let g:vimfiler_preview_action = 'auto_preview'
 
     call neobundle#untap()
+endif 
+
+if neobundle#tap('neomake')
+    autocmd! BufWritePost * Neomake
+    call neobundle#untap()
+endif
+
+
+if neobundle#tap('vim-grepper')
+    nnoremap [Space]/  :Grepper! -tool ag  -open -switch<cr>
+    call neobundle#untap()
 endif

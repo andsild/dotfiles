@@ -47,10 +47,6 @@ insert = 1
 repository = 'Shougo/neocomplcache.vim'
 insert = 1
 
-[[plugins]]
-repository = 'Shougo/neocomplete.vim'
-depends = 'Shougo/context_filetype.vim'
-insert = 1
 
 [[plugins]]
 repository = 'Shougo/neosnippet.vim'
@@ -454,19 +450,10 @@ filetypes = 'all'
 repository = 'rstacruz/sparkup'
 
 [[plugins]]
-repository = 'https://github.com/OmniSharp/omnisharp-vim'
-filetypes = 'cs'
-depends = ['tpope/vim-dispatch', 'ctrlpvim/ctrlp.vim', 'scrooloose/syntastic']
-   [plugins.build]
-    windows = 'set path=%path%;Windows\Microsoft.NET\Framework64\v4.0.30319 ; MSBuild.exe server/OmniSharp.sln /v:q /p:Platform="Any CPU"'
-    mac =    'xbuild server/OmniSharp.sln'
-    unix =   'xbuild server/OmniSharp.sln'
-
-[[plugins]]
 repository = 'tpope/vim-dispatch'
 
 [[plugins]]
-repository = 'scrooloose/syntastic'
+repository = 'https://github.com/benekastah/neomake.git'
 filetypes = 'all'
 
 [[plugins]]
@@ -565,3 +552,23 @@ filetypes = 'vimfiler'
 [[plugins]]
 repository = 'Shougo/neco-syntax'
 insert = 1
+
+[[plugins]]
+repository = 'https://github.com/bfredl/nvim-ipy.git'
+filetypes = 'python'
+
+[[plugins]]
+repository = 'https://github.com/kassio/neoterm.git'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'https://github.com/Shougo/deoplete.nvim.git'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'https://github.com/Raimondi/delimitMate.git'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'https://github.com/mhinz/vim-grepper.git'
+filetypes = 'all'
