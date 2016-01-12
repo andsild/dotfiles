@@ -25,7 +25,7 @@ export WMII_BACKGROUND='#333333'
 export WMII_FONT='-*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*'
 
 set -- $(echo $WMII_NORMCOLORS $WMII_FOCUSCOLORS)
-export WMII_TERM="st -e screen"
+export WMII_TERM="terminology -e screen"
 
 if ! test -d "${WMII_CONFPATH%%:*}"; then
     mkdir "${WMII_CONFPATH%%:*}"
@@ -81,20 +81,19 @@ songStatus() {
 
 netStatus()
 {
+    device="wlan0"
     upRead="${1}"
     downRead="${2}"
-    upRead2=$(head /sys/class/net/wlan0/statistics/rx_bytes)
-    downRead2=$(head /sys/class/net/wlan0/statistics/tx_bytes)
+    upRead2=$(head /sys/class/net/${device}/statistics/rx_bytes)
+    downRead2=$(head /sys/class/net/${device}/statistics/tx_bytes)
     downkBs=$(( (${upRead2} - ${upRead}) / 1024))
     upkBs=$(( (${downRead2} - ${downRead}) / 1024))
 
-    echo -n ${downkBs}'/'${upkBs} kB/s $((upRead2 / 1024 / 1024))/$((downRead2 / 1024 / 1024)) MB \
-        '|' $(nm-tool | awk '/eth0/ { print $4; }' )
+    echo -n ${downkBs}'/'${upkBs} kB/s $((upRead2 / 1024 / 1024))/$((downRead2 / 1024 / 1024)) MB
+        # '|' iwgetid -r
 }
 
 # Status Bar Info
-#: Note that the call for this function can be found by searching here
-#: for the string "Action status"
 status() {
     volume=`amixer sget Master`
     volume="${volume#Simple*\[}"
@@ -187,8 +186,8 @@ Action netStatus
     upRead=0
     downRead=0
     while netStatus ${upRead} ${downRead} | wmiir write /rbar/netStatus ; do
-        upRead=$(head /sys/class/net/eth0/statistics/rx_bytes)
-        downRead=$(head /sys/class/net/eth0/statistics/tx_bytes)
+        upRead=$(head /sys/class/net/wlan0/statistics/rx_bytes)
+        downRead=$(head /sys/class/net/wlan0/statistics/tx_bytes)
         sleep 1
     done
 Action songStatus
@@ -258,16 +257,12 @@ Key $MODKEY-m # Set column to max mode
     wmiir xwrite /tag/sel/ctl colmode sel stack+max
 
 KeyGroup Running programs
-Key $MODKEY-a      # Open wmii actions menu
-    action $(wi_actions | wimenu -h "${hist}.actions" -n $histnum) &
 Key $MODKEY-p      # Open program menu
     setsid "$(compgen -c | dmenu)" &
 Key $MODKEY-c       # open chromum
     eval wmiir setsid google-chrome-stable &
 Key $MODKEY-u       # open uzbl
     eval wmiir setsid uzbl-browser &
-Key $MODKEY-n       # open spotify
-    eval wmiir setsid /opt/spotify/spotify-client/spotify &
 
 Key $MODKEY-Return # Launch a terminal
     eval wmiir setsid $WMII_TERM &
@@ -306,7 +301,6 @@ wmiir write /ctl <<!
 !
 feh --bg-scale ~/.background.jpg &
 setsid workrave &
-setsid spotify &
 
 # Misc
 progsfile="$(wmiir namespace)/.proglist"
