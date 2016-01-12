@@ -25,6 +25,7 @@ alias grep="grep --color=always"
 
 # Commonly used lazyness
 alias check="aspell check -d en_US"
+alias checkNO="aspell check -d no"
 alias fb="fbcmd notices | head ; fbcmd inbox | head"
 alias m="make"
 alias no="setxkbmap no"

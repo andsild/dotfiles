@@ -611,6 +611,7 @@ cmap w!! w !sudo tee > /dev/null %
 noremap [Space]e : ! ~/dotfiles/Bash/exeSql <CR>
 vnoremap [Space]e : ! ~/dotfiles/Bash/exeSql <CR>
 inoremap kke kke
+inoremap kk[Space] kk[Space]
 
 :vnoremap s d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
 
