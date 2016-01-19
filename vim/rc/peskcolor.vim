@@ -11,9 +11,9 @@ highlight Normal       guifg=#dfdfdf guibg=#101010
 
 " Search
 highlight IncSearch    gui=UNDERLINE guifg=#80ffff guibg=#0060c0
-highlight Search       gui=NONE guifg=#f0f0f8 guibg=#0060c0
-
-" Messages
+highlight Search       gui=NONE guifg=#f0f0f8 guibg=#0060c0 
+                                                     
+" Messages                                           
 highlight ErrorMsg     gui=BOLD guifg=#ffa0ff guibg=#101010
 highlight WarningMsg   gui=BOLD guifg=#ffa0ff guibg=#101010
 highlight ModeMsg      gui=BOLD guifg=#40f0d0 guibg=#101010
@@ -95,6 +95,4 @@ hi TabLine guibg=#101010 guifg=#FFFFFF gui=NONE
 exe 'highlight SignColumn gui=NONE guibg=#111111'
 
 
-
 hi clear Conceal
-source ~/.vim/rc/mathmode.vim

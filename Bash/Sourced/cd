@@ -2,26 +2,24 @@
 
 cd() #@ Change directory, saving location on the directory stack
 {
-	local error
+    # If we have an argument passed to cd
+    if [ -n "$1" ]
+    then
+        # Push directory to the stack
+        pushd "${1}"
+    else # If no argument was passed to cd
+        # Go to home directory
+        pushd "${HOME}"
+    fi 2>/dev/null # Ignore output
 
-	# If we have an argument passed to cd
-	if [ -n "$1" ]
-	then
-		# Push directory to the stack
-		pushd "${1}"	
-	else # If no argument was passed to cd
-		# Go to home directory
-		pushd "${HOME}"
-	fi 2>/dev/null # Ignore output
+    # If an error occured, pushd didn't work
+    if [ $? -ne 0 ]
+    then    
+        # Let the builtin make an attempt..
+        builtin cd "$1"
+    fi
 
-	# If an error occured, pushd didn't work
-	if [ $? -ne 0 ]
-	then	
-		# Let the builtin make an attempt..
-		builtin cd "$1"
-	fi
-
-	return "$?"
+    return "$?"
 } > /dev/null # Supress output
 
-cd
+cd "$@"

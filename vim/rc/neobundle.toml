@@ -68,16 +68,8 @@ repository = 'Shougo/unite-build'
 
 [[plugins]]
 repository = 'Shougo/neossh.vim'
-filetypes = ['vimfiler', 'vimshell']
+filetypes = ['vimfiler']
 sources = 'ssh'
-
-[[plugins]]
-repository = 'ujihisa/vimshell-ssh'
-filetypes = 'vimshell'
-
-[[plugins]]
-repository = 'ujihisa/vimshell-ssh'
-filetypes = 'vimshell'
 
 [[plugins]]
 repository = 'Shougo/vimfiler.vim'
@@ -88,18 +80,6 @@ explorer = 1
   [plugins.commands]
   name = ['VimFiler']
   complete = 'customlist,vimfiler#complete'
-
-[[plugins]]
-repository = 'Shougo/vimshell.vim'
-mappings = '<Plug>'
-
-  [plugins.commands]
-  name = 'VimShell'
-  complete = 'customlist,vimshell#complete'
-
-[[plugins]]
-repository = 'yomi322/vim-gitcomplete'
-filetypes = 'vimshell'
 
 [[plugins]]
 repository = 'Shougo/vinarise.vim'
@@ -342,10 +322,6 @@ gui = 1
 mappings = '<Plug>'
 
 [[plugins]]
-repository = 'todesking/ruby_hl_lvar.vim'
-filetypes = 'ruby'
-
-[[plugins]]
 repository = 'syngan/vim-vimlint'
 depends = 'ynkdir/vim-vimlparser'
 
@@ -475,10 +451,6 @@ repository = 'fabi1cazenave/suckless.vim.git'
 filetypes = 'all'
 
 [[plugins]]
-repository = 'https://github.com/kshenoy/vim-signature.git'
-filetypes = 'all'
-
-[[plugins]]
 repository = 'https://github.com/ehamberg/vim-cute-python.git'
 filetypes = 'python'
 
@@ -558,10 +530,6 @@ repository = 'https://github.com/bfredl/nvim-ipy.git'
 filetypes = 'python'
 
 [[plugins]]
-repository = 'https://github.com/kassio/neoterm.git'
-filetypes = 'all'
-
-[[plugins]]
 repository = 'https://github.com/Shougo/deoplete.nvim.git'
 filetypes = 'all'
 
@@ -571,4 +539,8 @@ filetypes = 'all'
 
 [[plugins]]
 repository = 'https://github.com/mhinz/vim-grepper.git'
+filetypes = 'all'
+
+[[plugins]]
+repository = 'https://github.com/janko-m/vim-test.git'
 filetypes = 'all'
