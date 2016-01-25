@@ -11,10 +11,6 @@ if &compatible
   set nocompatible
 endif
 
-function! s:source_rc(path)
-  execute 'source' fnameescape(expand('~/dotfiles/vim/rc/' . a:path))
-endfunction
-
 let s:is_windows = has('win16') || has('win32') || has('win64')
 let s:is_cygwin = has('win32unix')
 let s:is_sudo = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
@@ -840,12 +836,9 @@ if has('clipboard')
 endif
 
 " Insert mode keymappings: "{{{
-" <C-t>: insert tab.
-inoremap <C-t>  <C-v><TAB>
 " <C-d>: delete char.
 inoremap <C-d>  <Del>
 " <C-a>: move to head.
-" inoremap <silent><C-a>  <C-o>^
 " Enable undo <C-w> and <C-u>.
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <C-u>  <C-g>u<C-u>
@@ -1431,6 +1424,8 @@ tnoremap kk <C-\><C-n>
 tnoremap <Esc><Esc> <C-\><C-n>
 
 nnoremap [Space]o :FZFMru<CR>
+noremap <c-t>  <Nop>
+nnoremap <c-t> :FZFMru<CR>
 
 "---------------------------------------------------------------------------
 " Commands:
@@ -1725,11 +1720,6 @@ endif "}}}
 
 if neobundle#tap('neocomplcache.vim') "{{{
   let g:neocomplcache_enable_at_startup = 0
-
-  call neobundle#untap()
-endif "}}}
-
-if neobundle#tap('neosnippet.vim') "{{{
 
   call neobundle#untap()
 endif "}}}
@@ -2040,9 +2030,9 @@ if neobundle#tap('glowshi-ft.vim') "{{{
   let g:glowshi_ft_no_default_key_mappings = 1
   map f <Plug>(glowshi-ft-f)
   map F <Plug>(glowshi-ft-F)
-  let g:glowshi_ft_fix_key=';'
 
   let g:glowshi_ft_timeoutlen = 1000
+  let g:glowshi_ft_ignorecase = 1
 
   call neobundle#untap()
 endif "}}}
@@ -2225,7 +2215,9 @@ if neobundle#tap('neomake')
     call neobundle#untap()
 endif
 autocmd FileType c let g:neomake_c_enabled_makers = []
+autocmd FileType cpp let g:neomake_cpp_enabled_makers = []
 autocmd FileType c nnoremap [Space]w :w \| Neomake! make<CR>
+autocmd FileType cpp nnoremap [Space]w :w \| Neomake! make<CR>
 
 
 if neobundle#tap('vim-grepper')
@@ -2251,7 +2243,8 @@ function! s:SID_PREFIX()
 endfunction
 
 " Show line number.
-" set number
+set nonumber
+set relativenumber
 " Show <TAB> and <CR>
 set list
 if IsWindows()
@@ -2550,26 +2543,12 @@ inoremap <expr><C-g> deoplete#mappings#undo_completion()
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
-imap <silent><expr><CR> pumvisible() ?
-    \ (neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<C-y>")
-        \ : (delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>")
 
 " <Tab> completion:
 " 1. If popup menu is visible, select and insert next item
 " 2. Otherwise, if within a snippet, jump to next input
 " 3. Otherwise, if preceding chars are whitespace, insert tab char
 " 4. Otherwise, start manual autocomplete
-imap <silent><expr><Tab> pumvisible() ? "\<C-n>"
-    \ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
-    \ : (<SID>is_whitespace() ? "\<Tab>"
-    \ : deoplete#mappings#manual_complete()))
-
-smap <silent><expr><Tab> pumvisible() ? "\<C-n>"
-    \ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
-    \ : (<SID>is_whitespace() ? "\<Tab>"
-    \ : deoplete#mappings#manual_complete()))
-
-inoremap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:is_whitespace() "{{{
         let col = col('.') - 1
@@ -2660,12 +2639,12 @@ command! FZFMru call fzf#run({
 
 function! s:all_files()
       let fuckall = split(system('locate "${PWD}/" | sort'), '\n')
-      let test = extend(
-        \ filter(copy(v:oldfiles),
-        \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
-        \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+      let test = filter(copy(v:oldfiles),
+        \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'")
       let omg = extend(test, fuckall)
-      return omg
+      let lolzomg = extend(omg,
+            \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+      return lolzomg
   endfunction
 
 
@@ -2960,8 +2939,8 @@ function! s:unite_my_settings() "{{{
   imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
   imap <buffer>  jj        <Plug>(unite_insert_leave)
   imap <buffer>  <Tab>     <Plug>(unite_complete)
-  imap <buffer> '          <Plug>(unite_quick_match_default_action)
-  nmap <buffer> '          <Plug>(unite_quick_match_default_action)
+  imap <buffer> ;          <Plug>(unite_quick_match_default_action)
+  nmap <buffer> ;          <Plug>(unite_quick_match_default_action)
   nmap <buffer> tcd         <Plug>(unite_quick_match_default_action)
   nmap <buffer> cd         <Plug>(unite_quick_match_default_action)
   nmap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
@@ -3247,26 +3226,5 @@ au Bufenter *.py nnoremap <silent> [Space]i :Unite menu:jedi -silent -winheight=
 
 
 
-"---------------------------------------------------------------------------
-" neosnippet.vim
-"
-
-imap <silent><C-s>     <Plug>(neosnippet_jump_or_expand)
-smap <silent><C-s>     <Plug>(neosnippet_jump_or_expand)
-"xmap <silent>L     <Plug>(neosnippet_start_unite_snippet_target)
-"imap <silent>K     <Plug>(neosnippet_expand_or_jump)
-"smap <silent>K     <Plug>(neosnippet_expand_or_jump)
-"imap <silent>G     <Plug>(neosnippet_expand)
-"imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
-"xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
-"xmap <silent>U     <Plug>(neosnippet_expand_target)
-" imap <silent><F2> <Plug>(neosnippet_expand_target)
-
-let g:neosnippet#enable_snipmate_compatibility = 1
-
-" let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
-let g:neosnippet#snippets_directory = '~/.vim/snippets'
 
 so ~/dotfiles/vim/rc/peskcolor.vim
-
-
