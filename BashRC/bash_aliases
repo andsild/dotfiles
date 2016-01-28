@@ -26,6 +26,9 @@ alias grep="grep --color=always"
 # Commonly used lazyness
 alias check="aspell check -d en_US"
 alias checkNO="aspell check -d no"
+alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
+alias eix="dnf search"
+alias emerge="sudo dnf install -y"
 alias fb="fbcmd notices | head ; fbcmd inbox | head"
 alias m="make"
 alias no="setxkbmap no"
@@ -39,6 +42,7 @@ alias us="setxkbmap us"
 alias www='cd /var/www/'
 alias hw='cd "/home/andesil/Homework/Workshop/"'
 alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
+alias ct='cd /home/andesil/Homework/TDT4205/ex1'
 
 function smallimg()
 {

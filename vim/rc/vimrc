@@ -1709,6 +1709,8 @@ set browsedir=current
 
 if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
   let g:deoplete#enable_at_startup = 1
+  let g:deoplete#auto_completion_start_length = 1
+  let g:deoplete#enable_refresh_always = 1
 
     inoremap <silent><expr> <s-Tab>
     \ pumvisible() ? "\<C-p>" :
@@ -1716,7 +1718,6 @@ if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
     inoremap <silent><expr> <Tab>
     \ pumvisible() ? "\<C-n>" :
     \ "\<TAB>"
-    " \ deoplete#mappings#manual_complete()
     inoremap <expr>; 
                 \ pumvisible() ? deoplete#mappings#close_popup() :
                 \ ";"

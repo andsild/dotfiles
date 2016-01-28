@@ -19,6 +19,10 @@ cd() #@ Change directory, saving location on the directory stack
         builtin cd "$1"
     fi
 
+
+#    clear > /dev/fd/0
+ #   ls > /dev/fd/0
+
     return "$?"
 } > /dev/null # Supress output
 
