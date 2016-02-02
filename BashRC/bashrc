@@ -3,7 +3,6 @@
 [ -z "$PS1" ] && return
 
 export EIX_LIMIT=0
-source /etc/profile.d/bash-completion.sh
 
 # Variables ##
 # PS1='\u@\h: ~${PWD##*/} > '
