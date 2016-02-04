@@ -53,20 +53,8 @@ function smallimg()
 export OTHER_COMP="169.254.244.132"
 function samba()
 {
-    # if [ ! -d samba/${2} ]
-    # then
-    #     mkdir -vp samba/${2}
-    # fi
-    # GID=$(id -g ${USER})
-    # sudo   mount -t cifs //${1}/${2:obteam2} samba/${2}/ -o user=asildnes,domain=SYSCOPERU,gid=${GID},uid=${UID}
-    # # sudo   mount -t cifs //${1}/${2:obteam2} samba/${2}/ -o user=asildnes,domain=SYSCOPERU,noperm,rw
-    if [ ! -d samba/${1} ]
-    then
-        mkdir -vp samba/${1}
-    fi
-    GID=$(id -g ${USER})
-    sudo   mount -t cifs //${OTHER_COMP}/${1:obteam2} ~/samba/${1}/ -o user=asildnes,domain=SYSCOPERU,gid=${GID},uid=${UID}
-    # sudo   mount -t cifs //${1}/${2:obteam2} samba/${2}/ -o user=asildnes,domain=SYSCOPERU,noperm,rw
+    GID=$(id -g "${USER}")
+    sudo mount -t cifs //192.168.124.248/MacroSystem  samba -o user="Anders Sildnes",uid=${UID},gid=${GID}
 }
 
 alias vnc="vncviewer ${OTHER_COMP}"

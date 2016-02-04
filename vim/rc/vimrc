@@ -228,20 +228,11 @@ if has('multi_byte_ime')
   set iminsert=0 imsearch=0
 endif
 
-"---------------------------------------------------------------------------
-" Search:
-"
-
-" Ignore the case of normal letters.
-set ignorecase
-" If the search pattern contains upper case characters, override ignorecase option.
-set smartcase
-" Enable incremental search.
-set incsearch
-" Don't highlight search result.
-set nohlsearch
-" Searches wrap around the end of the file.
-set wrapscan
+set ignorecase " Ignore the case of normal letters.
+set nosmartcase " not good with dragon naturally speaking
+set incsearch " Enable incremental search.
+set nohlsearch " Don't highlight search result.
+set wrapscan " Searches wrap around the end of the file.
 
 "---------------------------------------------------------------------------
 " Edit:
@@ -1755,6 +1746,7 @@ if neobundle#tap('unite.vim') "{{{
   nmap    ;u [unite]
   xmap    ;u [unite]
 
+
   " nnoremap <silent> ;t
   "       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
   nnoremap [Space]t
@@ -1793,124 +1785,121 @@ if neobundle#tap('unite.vim') "{{{
 
 
   call unite#custom#profile('action', 'context', {
-		  \ 'start_insert' : 1
-		  \ })
+          \ 'start_insert' : 1
+          \ })
 
-	" migemo.
+    " migemo.
   call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
 
-	" Custom filters."{{{
+    " Custom filters."{{{
   call unite#custom#source(
-		  \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
-		  \ ['converter_relative_word', 'matcher_fuzzy',
-		  \  'matcher_project_ignore_files'])
-	call unite#custom#source(
-		  \ 'file_mru', 'matchers',
-		  \ ['matcher_project_files', 'matcher_fuzzy',
-		  \  'matcher_hide_hidden_files', 'matcher_hide_current_file'])
-	" call unite#custom#source(
-	"       \ 'file', 'matchers',
-	"       \ ['matcher_fuzzy', 'matcher_hide_hidden_files'])
-	call unite#custom#source(
-		  \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
-		  \ ['converter_file_directory'])
-	call unite#filters#sorter_default#use(['sorter_rank'])
-	" call unite#filters#sorter_default#use(['sorter_length'])
-	"}}}
+          \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
+          \ ['converter_relative_word', 'matcher_fuzzy',
+          \  'matcher_project_ignore_files'])
+    call unite#custom#source(
+          \ 'file_mru', 'matchers',
+          \ ['matcher_project_files', 'matcher_fuzzy',
+          \  'matcher_hide_hidden_files', 'matcher_hide_current_file'])
+    call unite#custom#source(
+          \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
+          \ ['converter_file_directory'])
+    call unite#filters#sorter_default#use(['sorter_rank'])
+    " call unite#filters#sorter_default#use(['sorter_length'])
+    "}}}
 
-	function! s:unite_my_settings() "{{{
-	  " Directory partial match.
-	  call unite#custom#alias('file', 'h', 'left')
-	  call unite#custom#default_action('directory', 'narrow')
-	  " call unite#custom#default_action('file', 'my_tabopen')
+    function! s:unite_my_settings() "{{{
+      " Directory partial match.
+      call unite#custom#alias('file', 'h', 'left')
+      call unite#custom#default_action('directory', 'narrow')
+      " call unite#custom#default_action('file', 'my_tabopen')
 
-	  call unite#custom#default_action('versions/git/status', 'commit')
+      call unite#custom#default_action('versions/git/status', 'commit')
 
-	  " call unite#custom#default_action('directory', 'cd')
+      " call unite#custom#default_action('directory', 'cd')
 
-	  " Overwrite settings.
-	  imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
-	  imap <buffer>  jj        <Plug>(unite_insert_leave)
-	  imap <buffer>  <Tab>     <Plug>(unite_complete)
-	  imap <buffer> ;          <Plug>(unite_quick_match_default_action)
-	  nmap <buffer> ;          <Plug>(unite_quick_match_default_action)
-	  nmap <buffer> tcd         <Plug>(unite_quick_match_default_action)
-	  nmap <buffer> cd         <Plug>(unite_quick_match_default_action)
-	  nmap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
-	  imap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
-	  imap <buffer> <C-w>      <Plug>(unite_delete_backward_path)
-	  nmap <buffer> <C-j>      <Plug>(unite_toggle_auto_preview)
-	  "nnoremap <silent><buffer> <Tab>     <C-w>w
-	  nnoremap <silent><buffer><expr> l
-		\ unite#smart_map('l', unite#do_action('default'))
+      " Overwrite settings.
+      imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
+      imap <buffer>  jj        <Plug>(unite_insert_leave)
+      imap <buffer>  <Tab>     <Plug>(unite_complete)
+      imap <buffer> ;          <Plug>(unite_quick_match_default_action)
+      nmap <buffer> ;          <Plug>(unite_quick_match_default_action)
+      nmap <buffer> tcd         <Plug>(unite_quick_match_default_action)
+      nmap <buffer> cd         <Plug>(unite_quick_match_default_action)
+      nmap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
+      imap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
+      imap <buffer> <C-w>      <Plug>(unite_delete_backward_path)
+      nmap <buffer> <C-j>      <Plug>(unite_toggle_auto_preview)
+      "nnoremap <silent><buffer> <Tab>     <C-w>w
+      nnoremap <silent><buffer><expr> l
+        \ unite#smart_map('l', unite#do_action('default'))
 
-	  let unite = unite#get_current_unite()
-	  if unite.profile_name ==# '^search'
-		nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-	  else
-		nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-	  endif
+      let unite = unite#get_current_unite()
+      if unite.profile_name ==# '^search'
+        nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+      else
+        nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+      endif
 
-	  " nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
-	  nnoremap <silent><buffer><expr> !     unite#do_action('start')
-	  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
-		\ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-	endfunction"}}}
+      " nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+      nnoremap <silent><buffer><expr> !     unite#do_action('start')
+      nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
+        \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
+    endfunction"}}}
 
-	" Default configuration.
-	let default_context = {
-		  \ 'vertical' : 0,
-		  \ 'short_source_names' : 1,
-		  \ }
+    " Default configuration.
+    let default_context = {
+          \ 'vertical' : 0,
+          \ 'short_source_names' : 1,
+          \ }
 
-	" Variables.
-	let g:unite_enable_split_vertically = 0
-	let g:unite_winheight = 20
-	let g:unite_enable_start_insert = 0
-	let g:unite_enable_short_source_names = 1
+    " Variables.
+    let g:unite_enable_split_vertically = 0
+    let g:unite_winheight = 20
+    let g:unite_enable_start_insert = 0
+    let g:unite_enable_short_source_names = 1
 
-	" let g:unite_abbr_highlight = 'TabLine'
+    " let g:unite_abbr_highlight = 'TabLine'
 
-	if IsWindows()
-	else
-	  " Prompt choices.
-	  " let default_context.prompt = '» '
-	endif
+    if IsWindows()
+    else
+      " Prompt choices.
+      " let default_context.prompt = '» '
+    endif
 
-	call unite#custom#profile('default', 'context', default_context)
+    call unite#custom#profile('default', 'context', default_context)
 
-	if executable('ag')
-	  " Use ag in unite grep source.
-	  let g:unite_source_grep_command = 'ag'
-	  let g:unite_source_grep_default_opts =
-		\ '-i --ignore-dir "*bin*" -U --line-numbers --nocolor --nogroup --hidden --ignore ' .
-		\  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' --ignore ''tags'' ' .
-		\ '--ignore ''.trx'' --ignore ''.xml'' --ignore ''.tt'''
-	  let g:unite_source_grep_recursive_opt = ''
-	endif
+    if executable('ag')
+      " Use ag in unite grep source.
+      let g:unite_source_grep_command = 'ag'
+      let g:unite_source_grep_default_opts =
+        \ '-i --ignore-dir "*bin*" -U --line-numbers --nocolor --nogroup --hidden --ignore ' .
+        \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' --ignore ''tags'' ' .
+        \ '--ignore ''.trx'' --ignore ''.xml'' --ignore ''.tt'''
+      let g:unite_source_grep_recursive_opt = ''
+    endif
 
-	let g:unite_build_error_icon    = '~/.vim/signs/err.'
-		  \ . (IsWindows() ? 'bmp' : 'png')
-	let g:unite_build_warning_icon  = '~/.vim/signs/warn.'
-		  \ . (IsWindows() ? 'bmp' : 'png')
+    let g:unite_build_error_icon    = '~/.vim/signs/err.'
+          \ . (IsWindows() ? 'bmp' : 'png')
+    let g:unite_build_warning_icon  = '~/.vim/signs/warn.'
+          \ . (IsWindows() ? 'bmp' : 'png')
 
-	let g:unite_source_rec_max_cache_files = -1
+    let g:unite_source_rec_max_cache_files = -1
 
-	" My custom split action
-	let s:my_split = {'is_selectable': 1}
-	function! s:my_split.func(candidate)
-	  let split_action = 'vsplit'
-	  if winwidth(winnr('#')) <= 2 * (&tw ? &tw : 80)
-		let split_action = 'split'
-	  endif
-	  call unite#take_action(split_action, a:candidate)
-	endfunction
-	call unite#custom_action('openable', 'context_split', s:my_split)
-	unlet s:my_split
+    " My custom split action
+    let s:my_split = {'is_selectable': 1}
+    function! s:my_split.func(candidate)
+      let split_action = 'vsplit'
+      if winwidth(winnr('#')) <= 2 * (&tw ? &tw : 80)
+        let split_action = 'split'
+      endif
+      call unite#take_action(split_action, a:candidate)
+    endfunction
+    call unite#custom_action('openable', 'context_split', s:my_split)
+    unlet s:my_split
 
-	nnoremap <silent> [Space]n  :UniteNext<CR>
-	nnoremap <silent> [Space]p  :UnitePrevious<CR>
-	nnoremap <silent> [Space]r  :UniteResume<CR>
+    nnoremap <silent> [Space]n  :UniteNext<CR>
+    nnoremap <silent> [Space]p  :UnitePrevious<CR>
+    nnoremap <silent> [Space]r  :UniteResume<CR>
 
   call neobundle#untap()
 endif "}}}
