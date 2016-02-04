@@ -122,18 +122,12 @@ let g:loaded_matchparen = 1
 let g:loaded_2html_plugin = 1
 let g:loaded_vimballPlugin = 1
 
-" call neobundle#rc(expand('$CACHE/neobundle'))
-call neobundle#begin(expand('$CACHE/neobundle'))
 
+call neobundle#begin(expand('$CACHE/neobundle'))
 if neobundle#load_cache()
   NeoBundleFetch 'Shougo/neobundle.vim'
-
-
   call neobundle#load_toml(
-        \ '~/.vim/rc/neobundle.toml')
-
- call neobundle#load_toml(
-        \ '~/.vim/rc/neobundle.toml', {'lazy' : 0})
+        \ '~/dotfiles/vim/rc/neobundle.toml', {'lazy' : 0})
   NeoBundleSaveCache
 endif
 
@@ -2341,10 +2335,12 @@ autocmd FileType cpp let g:neomake_cpp_enabled_makers = []
 autocmd FileType c nnoremap [Space]w :w \| Neomake! make<CR>
 autocmd FileType cpp nnoremap [Space]w :w \| Neomake! make<CR>
 
+autocmd FileType pdf Pdf '%'
+autocmd FileType pdf :0
+
 
 if neobundle#tap('vim-grepper')
-    nnoremap [Space]/  :Grepper! -tool ag  -open -switch<cr>
-
+    nnoremap [Space]/  :Grepper -tool ag  -open -switch<cr>
 
     call neobundle#untap()
 endif
