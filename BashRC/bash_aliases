@@ -42,7 +42,7 @@ alias us="setxkbmap us"
 alias www='cd /var/www/'
 alias hw='cd "/home/andesil/Homework/Workshop/"'
 alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
-alias ct='cd /home/andesil/Homework/TDT4205/ex1'
+alias ct='cd /home/andesil/Homework/TDT4205/ex2/ps2_skeleton'
 
 function smallimg()
 {

@@ -1695,7 +1695,6 @@ set browsedir=current
 if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#auto_completion_start_length = 1
-  let g:deoplete#enable_refresh_always = 1
 
     inoremap <silent><expr> <s-Tab>
     \ pumvisible() ? "\<C-p>" :
@@ -2271,6 +2270,10 @@ if neobundle#tap('ultisnips')
     let g:UltiSnipsExpandTrigger="<C-CR>"
     let g:UltiSnipsJumpForwardTrigger="<C-tab>"
     let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+    noremap <F12> <NOP>
+    inoremap <silent> <c-s> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
+    nnoremap <silent> <c-s> a<C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
     call neobundle#untap()
 endif
 
@@ -3202,7 +3205,7 @@ let g:unite_source_menu_menus.jedi = {
 let g:unite_source_menu_menus.jedi.command_candidates = [
     \['-> Assingments',
         \'call jedi#goto_assignments()'],
-    \['-> Call signture',
+   \['-> Call signture',
         \'call jedi#configure_call_signatures()'],
     \['-> Definition',
         \'call jedi#goto_definitions()'],
@@ -3224,6 +3227,13 @@ au Bufenter *.cs nnoremap <silent> [Space]i :Unite menu:omnisharp -silent -winhe
 au Bufenter *.py nnoremap <silent> [Space]i :Unite menu:jedi -silent -winheight=25 -start-insert<CR>
 
 
+inoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
+inoremap <silent> <a-j> <Esc>:call WindowCmd("j")<CR>
+inoremap <silent> <a-k> <Esc>:call WindowCmd("k")<CR>
+inoremap <silent> <a-l> <Esc>:call WindowCmd("l")<CR>
 
-
+tnoremap <silent> <a-h> <C-\><C-n>:call WindowCmd("h")<CR>
+tnoremap <silent> <a-j> <C-\><C-n>:call WindowCmd("j")<CR>
+tnoremap <silent> <a-k> <C-\><C-n>:call WindowCmd("k")<CR>
+tnoremap <silent> <a-l> <C-\><C-n>:call WindowCmd("l")<CR>
 so ~/dotfiles/vim/rc/peskcolor.vim

@@ -542,3 +542,7 @@ filetypes = 'all'
 [[plugins]]
 repository = 'https://github.com/janko-m/vim-test.git'
 filetypes = 'all'
+
+[[plugins]]
+repository = 'https://github.com/critiqjo/lldb.nvim'
+filetypes = 'all'
