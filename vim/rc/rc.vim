@@ -1976,17 +1976,14 @@ set nostartofline
 " Splitting a window will put the new window below the current one.
 set splitbelow
 " Splitting a window will put the new window right the current one.
-set splitright
-" Set minimal width for current window.
-set winwidth=30
-" Set minimal height for current window.
-" set winheight=20
-set winheight=1
-set winminheight=0 " the statusline will still show
-" Set maximam maximam command line window.
-set cmdwinheight=5
-" equal window size.
-set equalalways
+set splitright                                                                                               
+" Set minimal width for current window.                                                                      
+set winwidth=1                                                                                               
+set winminheight=0 " the statusline will still show                                                          
+set winminwidth=0 " the statusline will still show                                                           
+" Set maximam maximam command line window.                                                                   
+set cmdwinheight=5                                                                                           
+set noequalalways " resize only happens when explicitly asked for
 
 " Adjust window size of preview and help.
 set previewheight=8
@@ -1995,22 +1992,22 @@ set helpheight=12
 " Don't redraw while macro executing.
 set lazyredraw
 set ttyfast
-
+                                  
 " When a line is long, do not omit it in @.
-set display=lastline
-" Display an invisible letter with hex format.
-"set display+=uhex
-
-" View setting.
-set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
-
-function! s:strwidthpart(str, width) "{{{
-  if a:width <= 0
-    return ''
-  endif
-  let ret = a:str
-  let width = s:wcswidth(a:str)
-  while width > a:width
+set display=lastline                                                                                         
+" Display an invisible letter with hex format.                                                               
+"set display+=uhex                                                                                           
+                                                                                                             
+" View setting.                                                                                              
+set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix                                     
+                                                                                                             
+function! s:strwidthpart(str, width) "{{{                                
+  if a:width <= 0                
+    return ''                     
+  endif                           
+  let ret = a:str                 
+  let width = s:wcswidth(a:str)   
+  while width > a:width           
     let char = matchstr(ret, '.$')
     let ret = ret[: -1 - len(char)]
     let width -= s:wcswidth(char)
@@ -2119,16 +2116,6 @@ let g:eskk#dictionary = {
       \   'sorted': 0,
       \   'encoding': 'utf-8',
       \}
-" Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory"
-" instead of this settings.
-"if &encoding == 'utf-8' && !has('gui_running')
-" GNOME Terminal only.
-
-" Use <> instead of ▽.
-"let g:eskk#marker_henkan = '<>'
-" Use >> instead of ▼.
-"let g:eskk#marker_henkan_select = '>>'
-"endif
 
 " Define table.
 autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
