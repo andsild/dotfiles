@@ -1,11 +1,9 @@
-" -------------------------------------------------------------
 " Shougo's .vimrc
 " modified slighly by Anders Sildnes - great respect to Shougo!
-"---------------------------------------------------------------------------
 
-"---------------------------------------------------------------------------
-" Initialize:
-"
+" needed for syntax and colorscheme
+let g:install_path = '/home/andesil/dotfiles/vim/'
+exe 'set runtimepath+=' . expand(g:install_path)
 
 if &compatible
   set nocompatible
@@ -37,18 +35,12 @@ if exists('&regexpengine')
   " set regexpengine=1
 endif
 
-
-" Use ',' instead of '\'.
-" It is not mapped with respect well unless I set it before setting for plug in.
-" Use <Leader> in global plugin.
 let g:mapleader = ','
-" Use <LocalLeader> in filetype plugin.
-let g:maplocalleader = 'm'
+let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 
 " Release keymappings for plug-in.
 nnoremap ;  <Nop>
 xnoremap ;  <Nop>
-" nnoremap m  <Nop>
 xnoremap m  <Nop>
 nnoremap ,  <Nop>
 xnoremap ,  <Nop>
@@ -69,17 +61,12 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-if filereadable(expand('~/.secret_vimrc'))
-  execute 'source' expand('~/.secret_vimrc')
-endif
-
 if has('vim_starting') "{{{
   " Set runtimepath.
   if IsWindows()
     let &runtimepath = join([
-          \ expand('~/.vim'),
           \ expand('$VIM/runtime'),
-          \ expand('~/.vim/after')], ',')
+    ])
   endif
 
   " Load neobundle.
@@ -105,13 +92,6 @@ let g:neobundle#default_options = {}
 " let g:neobundle#default_options._ = { 'verbose' : 1, 'focus' : 1 }
 
 "---------------------------------------------------------------------------
-" Disable default plugins
-
-" Disable menu.vim
-if has('gui_running')
-  set guioptions=Mc
-endif
-
 " Disable GetLatestVimPlugin.vim
 if !&verbose
   let g:loaded_getscriptPlugin = 1
@@ -127,7 +107,7 @@ call neobundle#begin(expand('$CACHE/neobundle'))
 if neobundle#load_cache()
   NeoBundleFetch 'Shougo/neobundle.vim'
   call neobundle#load_toml(
-        \ '~/dotfiles/vim/rc/neobundle.toml', {'lazy' : 0})
+        \ g:install_path . 'rc/neobundle.toml', {'lazy' : 0})
   NeoBundleSaveCache
 endif
 
@@ -148,43 +128,16 @@ filetype plugin indent on
 syntax enable
 
 if !has('vim_starting')
-  " Installation check.
   NeoBundleCheck
 endif
 
-"---------------------------------------------------------------------------
-" Encoding:
-"
-" The automatic recognition of the character code.
 
-" Setting of the encoding to use for a save and reading.
-" Make it normal in UTF-8 in Unix.
-set encoding=utf-8
-
-" Setting of terminal encoding."
-if !has('gui_running')
-  if &term ==# 'win32' &&
-        \ (v:version < 703 || (v:version == 703 && has('patch814')))
-    " Setting when use the non-GUI Japanese console.
-
-    " Garbled unless set this.
-    set termencoding=cp932
-    " Japanese input changes itself unless set this.  Be careful because the
-    " automatic recognition of the character code is not possible!
-    set encoding=japan
-  else
-    if $ENV_ACCESS ==# 'linux'
-      set termencoding=euc-jp
-    elseif $ENV_ACCESS ==# 'colinux'
-      set termencoding=utf-8
-    else  " fallback
-      set termencoding=  " same as 'encoding'
-    endif
-  endif
-elseif IsWindows()
-  " For system.
-  set termencoding=cp932
+if has('vim_starting')
+  set encoding=utf-8
+  " Setting of terminal encoding."
+  set termencoding=utf-8
 endif
+
 
 " Default fileformat.
 set fileformat=unix
@@ -232,121 +185,53 @@ set wrapscan " Searches wrap around the end of the file.
 " Edit:
 "
 
-" Smart insert tab setting.
-set smarttab
-" Exchange tab to spaces.
-set expandtab
-" Substitute <Tab> with blanks.
-set tabstop=4
-" Spaces instead <Tab>.
-set softtabstop=4
-" Autoindent width.
-set shiftwidth=4
-" Round indent by shiftwidth.
+
+set smarttab " Smart insert tab setting.
+set expandtab " Exchange tab to spaces.
+set tabstop=4 " Substitute <Tab> with blanks.
+set softtabstop=4 " Spaces instead <Tab>.
 set shiftround
+set shiftwidth=4 " Round indent by shiftwidth.
+set modeline " Enable modeline.
 
-" Enable modeline.
-set modeline
-
-" Use clipboard register.
-"if has('unnamedplus')
-  " set clipboard& clipboard+=unnamedplus
-  " I prefer to always use the clipboard.
-  " Use registers 0-9 or named registers to start juggling content.
-  "set clipboard=unnamedplus
-"else
-  "set clipboard& clipboard+=unnamed
-"endif
+set clipboard& clipboard+=unnamed
 
 " Enable backspace delete indent and newline.
 set backspace=indent,eol,start
 
-" Highlight parenthesis.
-set showmatch
-" Highlight when CursorMoved.
-set cpoptions-=m
+set showmatch " Highlight parenthesis.
+set cpoptions-=m " Highlight when CursorMoved.
 set matchtime=3
-" Highlight <>.
-set matchpairs+=<:>
-
-" Display another buffer when current buffer isn't saved.
-set hidden
-
-" Auto reload if file is changed.
-set autoread
-
-" Ignore case on insert completion.
-set infercase
-
-" Search home directory path on cd.
-" But can't complete.
-" set cdpath+=~
-
-" Enable folding.
-set foldenable
-" set foldmethod=expr
+set matchpairs+=<:> " Highlight <>.
+set hidden " Display another buffer when current buffer isn't saved.
+set autoread " Auto reload if file is changed.
+set infercase " Ignore case on insert completion.
+set foldenable " Enable folding.
 set foldmethod=indent
-" Show folding level.
-set foldcolumn=0
-" Auto unfold all
-set foldlevel=99
+set foldcolumn=0 " Show folding level.
+set foldlevel=99 " Auto unfold all
 set fillchars=vert:\|
 set commentstring=%s
 
-if exists('*FoldCCtext')
-  " Use FoldCCtext().
-  set foldtext=FoldCCtext()
-endif
-
-" Use vimgrep.
-"set grepprg=internal
-" Use grep.
-set grepprg=grep\ -inH
-
-" Exclude = from isfilename.
-set isfname-==
-
-" Keymapping timeout.
-set timeout timeoutlen=3000 ttimeoutlen=100
-
-" CursorHold time.
-set updatetime=1000
-
-" Set swap directory.
-set directory-=.
+set grepprg=grep\ -inH " Use grep.
+set isfname-== " Exclude = from isfilename.
+set timeout timeoutlen=3000 ttimeoutlen=100 " Keymapping timeout.
+set updatetime=1000 " CursorHold time.
+set directory-=. " Set swap directory.
 set noswapfile
 
-if v:version >= 703
-  " Set undofile.
-  set undofile
-  let &undodir=&directory
-endif
+set undofile
+let &undodir=&directory
+set virtualedit=block " Enable virtualedit in visual block mode.
+set keywordprg=:help " Set keyword help.
+autocmd MyAutoCmd WinEnter * checktime " Check timestamp more for 'autoread'.
 
-if v:version < 703 || (v:version == 7.3 && !has('patch336'))
-  " Vim's bug.
-  set notagbsearch
-endif
-
-" Enable virtualedit in visual block mode.
-set virtualedit=block
-
-" Set keyword help.
-set keywordprg=:help
-
-" Check timestamp more for 'autoread'.
-autocmd MyAutoCmd WinEnter * checktime
-
-" Disable paste.
 autocmd MyAutoCmd InsertLeave *
       \ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
       \ if &l:diff | diffupdate | endif
 
-" Update diff.
-autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 
-" Make directory automatically.
-" --------------------------------------
-" http://vim-users.jp/2011/02/hack202/
+autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
 
 autocmd MyAutoCmd BufWritePre *
       \ call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
@@ -374,201 +259,10 @@ endfunction
 nmap <silent> <F7> :call ToggleSpell()<CR>
 
 
-
-" Use autofmt.
-"set formatexpr=autofmt#japanese#formatexpr()
-"---------------------------------------------------------------------------
-" View:
-"
-
 " Anywhere SID.
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
-
-" Show line number.
-" set number
-" Show <TAB> and <CR>
-set list
-if IsWindows()
-  set listchars=tab:>-,trail:-,extends:>,precedes:<
-else
-  set listchars=tab:▸\ ,trail:-,extends:»,precedes:«,nbsp:%
-endif
-" Do not wrap long line.
-set wrap
-" Wrap conditions.
-set whichwrap+=h,l,<,>,[,],b,s,~
-" Always display statusline.
-set laststatus=2
-" Height of command line.
-set cmdheight=2
-" Not show command on statusline.
-set noshowcmd
-" Show title.
-set title
-" Title length.
-set titlelen=95
-" Title string.
-let &titlestring="
-      \ %{expand('%:p:.:~')}%(%m%r%w%)
-      \ %<\(%{".s:SID_PREFIX()."strwidthpart(
-      \ fnamemodify(&filetype ==# 'vimfiler' ?
-      \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
-      \ &columns-len(expand('%:p:.:~')))}\) - VIM"
-
-" Set tabline.
-" function! s:my_tabline()  "{{{
-"   let s = ''
-"
-"   for i in range(1, tabpagenr('$'))
-"     " let bufnrs = tabpagebuflist(i)
-"     " let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
-"     "
-"     " let no = i  " display 0-origin tabpagenr.
-"     " let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
-"     "
-"     " " Use gettabvar().
-"     " let title =
-"     "       \ !exists('*gettabvar') ?
-"     "       \      fnamemodify(bufname(bufnr), ':t') :
-"     "       \ gettabvar(i, 'title') != '' ?
-"     "       \      gettabvar(i, 'title') :
-"     "       \      fnamemodify((i == tabpagenr() ?
-"     "       \       getcwd() : gettabvar(i, 'cwd')), ':t')
-"     "
-"     " let title = '[' . title . ']'
-"     "
-"     " let s .= '%'.i.'T'
-"     " let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-"     " let s .= title
-"     " let s .= mod
-"     " let s .= '%#TabLineFill#'
-"   endfor
-"
-"   let s .= '%#TabLineFill#%T%=%#TabLine#'
-"   return s
-" endfunction "}}}
-" let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
-set showtabline=2
-
-" Set statusline.
-let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-      \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t:.')}"
-      \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
-      \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
-
-" Turn down a long line appointed in 'breakat'
-set linebreak
-set showbreak=>\
-set breakat=\ \ ;:,!?
-
-" Do not display greetings message at the time of Vim start.
-set shortmess=aTI
-
-" Don't create backup.
-set nowritebackup
-set nobackup
-set noswapfile
-set backupdir-=.
-
-" Disable bell.
-set t_vb=
-set novisualbell
-
-" Display candidate supplement.
-set nowildmenu
-set wildmode=list:longest,full
-" Increase history amount.
-set history=1000
-" Display all the information of the tag by the supplement of the Insert mode.
-set showfulltag
-" Can supplement a tag in a command-line.
-set wildoptions=tagfile
-
-" Disable menu
-let g:did_install_default_menus = 1
-
-if !&verbose
-  " Enable spell check.
-  set spelllang=en_us
-  " Enable CJK support.
-  set spelllang+=cjk
-endif
-
-" Completion setting.
-" set completeopt=menuone
-set completeopt=longest
-" Don't complete from other buffer.
-set complete=.
-"set complete=.,w,b,i,t
-" Set popup menu max height.
-set pumheight=20
-
-" Report changes.
-set report=0
-
-" Maintain a current line at the time of movement as much as possible.
-set nostartofline
-
-" Splitting a window will put the new window below the current one.
-set splitbelow
-" Splitting a window will put the new window right the current one.
-set splitright
-" Set minimal width for current window.
-set winwidth=30
-" Set minimal height for current window.
-" set winheight=20
-set winheight=1
-set winminheight=0 " the statusline will still show
-" Set maximam maximam command line window.
-set cmdwinheight=5
-" equal window size.
-set equalalways
-
-" Adjust window size of preview and help.
-set previewheight=8
-set helpheight=12
-
-" Don't redraw while macro executing.
-set lazyredraw
-set ttyfast
-
-" When a line is long, do not omit it in @.
-set display=lastline
-" Display an invisible letter with hex format.
-"set display+=uhex
-
-" View setting.
-set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
-
-function! s:strwidthpart(str, width) "{{{
-  if a:width <= 0
-    return ''
-  endif
-  let ret = a:str
-  let width = s:wcswidth(a:str)
-  while width > a:width
-    let char = matchstr(ret, '.$')
-    let ret = ret[: -1 - len(char)]
-    let width -= s:wcswidth(char)
-  endwhile
-
-  return ret
-endfunction"}}}
-
-if v:version >= 703
-  " For conceal.
-  set conceallevel=2 concealcursor=iv
-
-  set colorcolumn=79
-
-  " Use builtin function.
-  function! s:wcswidth(str)
-    return strwidth(a:str)
-  endfunction
-endif
 
 function! s:wcswidth(str)
   if a:str =~# '^[\x00-\x7f]*$'
@@ -777,10 +471,6 @@ function! s:my_on_filetype() "{{{
     setlocal nofoldenable
     setlocal foldcolumn=0
     silent! IndentLinesDisable
-
-    if v:version >= 703
-      setlocal colorcolumn=
-    endif
   endif
 endfunction "}}}
 
@@ -952,31 +642,6 @@ endfunction
 nnoremap [Space]h
     \ :Unite history/unite <CR>
 
-" nnoremap <silent> [Space]aa \
-"     \ :Unite -start-insert -default-action=cd directory_mru <CR>
-" nnoremap <silent> [Space]dc \
-"     \ :Unite -default-action=tabnew_lcd directory_mru <CR>
-
-"Open files
-" windows doesn't (per this config) have all the features (such as file_rec/async)
-"
-" ...actually; the one in linux isnt that good either. The display lags and you
-" to wait. The mru will have to do..
-" if has('win16') || has('win32') || has('win64')
-"     nnoremap <silent> [Space]of
-"         \ :Unite -start-insert file file/new buffer_tab <CR>
-" else
-"     nnoremap <silent> [Space]of
-"         \ :Unite -start-insert file file/new buffer_tab <CR>
-"         " \ :Unite -start-insert buffer file_rec/async file/new file_mru<CR>
-" endif
-" nnoremap <silent> [Space]og
-"     \ :Unite -start-insert file_rec/git<CR>
-"     " \ :Unite -start-insert buffer file_rec/async file/new file_mru<CR>
-" nnoremap <silent> [Space]m
-"         \ :Unite file_mru <CR>
-"
-
 function! GetBufferList()
   redir =>buflist
   silent! ls
@@ -1011,8 +676,9 @@ nnoremap <silent> [Space]l
 " Toggle cursorline.
 nnoremap <silent> <Leader>cl
       \ :<C-u>call ToggleOption('cursorline')<CR>
+
 function! ToggleColorScheme()
-  if exists("g:syntax_on") 
+  if exists("g:syntax_on")
     syntax off
   else
     colorscheme peskcolor
@@ -1022,7 +688,7 @@ endfunction
 
 " Toggle  colorscheme
 nnoremap <silent> <Leader>cs
-      \ :call ToggleColorScheme()<CR>
+      \ :silent call ToggleColorScheme()<CR>
 " Set autoread.
 nnoremap [Space]ar
       \ :<C-u>setlocal autoread<CR>
@@ -1050,27 +716,11 @@ nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm
 nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
 
 
-" Change tab width. "{{{
-" nnoremap <silent> [Space]t2 :<C-u>setl shiftwidth=2 softtabstop=2<CR>
-" nnoremap <silent> [Space]t4 :<C-u>setl shiftwidth=4 softtabstop=4<CR>
-" nnoremap <silent> [Space]t8 :<C-u>setl shiftwidth=8 softtabstop=8<CR>
-"}}}
-"}}}
-
 " s: Windows and buffers(High priority) "{{{
 " The prefix key.
 nnoremap    [Window]   <Nop>
 nmap    s [Window]
-" nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
-" nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
-" nnoremap <silent> [Window]c  :<C-u>call <SID>smart_close()<CR>
-" nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> ;o  :<C-u>only<CR>
-" nnoremap <silent> q :<C-u>call <SID>smart_close()<CR>
-
-" A .vimrc snippet that allows you to move around windows beyond tabs
-" nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
-" nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
 
 function! s:smart_close()
   if winnr('$') != 1
@@ -1108,19 +758,6 @@ function! s:PreviousWindowOrTab()
   endif
 endfunction
 
-" Split nicely."{{{
-command! SplitNicely call s:split_nicely()
-function! s:split_nicely()
-  " Split nicely.
-  if winwidth(0) > 2 * &winwidth
-    vsplit
-  else
-    split
-  endif
-  wincmd p
-endfunction
-"}}}
-" Delete current buffer."{{{
 " Force delete current buffer.
 function! s:CustomBufferDelete(is_force)
   let current = bufnr('%')
@@ -1133,7 +770,6 @@ function! s:CustomBufferDelete(is_force)
     silent! execute 'bdelete ' . current
   endif
 endfunction
-"}}}
 function! s:alternate_buffer() "{{{
   let listed_buffer_len = len(filter(range(1, bufnr('$')),
         \ 's:buflisted(v:val) && getbufvar(v:val, "&filetype") !=# "unite"'))
@@ -1176,15 +812,12 @@ command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
       \ strftime('%Y-%m-%d.md'))
 "}}}
 
-" e: Change basic commands "{{{
-" The prefix key.
 
-" Disable Ex-mode.
-nnoremap Q  q
 
-" q: Quickfix  "{{{
-" The prefix key.
-nnoremap [Quickfix]   <Nop>
+nnoremap Q  q " Disable Ex-mode.
+
+
+nnoremap [Quickfix]   <Nop> " q: Quickfix  "{{{
 
 " Toggle quickfix window.
 nnoremap <silent> [Quickfix]<Space>
@@ -1266,7 +899,7 @@ nnoremap @@ @a
 
 " Improved increment.
 nmap <C-a> <SID>(increment)
-nmap <C-x> <SID>(decrement) 
+nmap <C-x> <SID>(decrement)
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 command! -range -nargs=1 AddNumbers
@@ -1375,7 +1008,7 @@ nnoremap dl :diffget //2<CR>
 nnoremap dh :diffget //3<CR>
 
 " 0 will go to beginning of line, ^ goes to first non-space. Much better.
-map 0 ^ 
+map 0 ^
 
 nnoremap <Esc><Esc> :noh<CR>
 " <C-o> is to maintain the position
@@ -1388,8 +1021,6 @@ vnoremap vaw viw
 
 cmap w!! w !sudo tee > /dev/null %
 
-noremap [Space]e : ! ~/dotfiles/Bash/exeSql <CR>
-vnoremap [Space]e : ! ~/dotfiles/Bash/exeSql <CR>
 inoremap kke kke
 inoremap kk[Space] kk[Space]
 
@@ -1440,150 +1071,6 @@ if has('mouse')
 endif
 
 "---------------------------------------------------------------------------
-" GUI:
-"
-
-if has('gui_running')
-    " GUI:
-    "
-
-    "---------------------------------------------------------------------------
-    " Fonts: "{{{
-    set ambiwidth=double
-
-    if has('win32') || has('win64')
-    " For Windows.
-
-    "set guifontwide=VL\ Gothic:h11
-    "set guifontwide=MigMix\ 1M:h11
-
-    set guifontwide=Consolas:h13:cANSI
-    set guifont=Consolas:h11:cANSI
-    set guifontwide=DejaVu\ Sans\ Mono:h12
-
-    "set guifont=Anonymous\ Pro:h11
-    "set guifont=Courier\ New:h11
-    "set guifont=MS\ Gothic:h11
-    "set guifont=VL\ Gothic:h11
-    "set guifont=Consolas:h12
-    "set guifont=Bitstream\ Vera\ Sans\ Mono:h11
-    "set guifont=Inconsolata:h12
-    "set guifont=Terminal:h10:cSHIFTJIS
-
-    " Number of pixel lines inserted between characters.
-    set linespace=1
-
-    if has('patch-7.4.394')
-        " Use DirectWrite
-        set renderoptions=type:directx,gammma:2.2,mode:3
-    endif
-
-    " Toggle font setting.
-    function! FontToggle()
-        if &guifont=~ '^VL Gothic:'
-        set guifont=Courier\ New:h11
-        set guifontwide=VL\ Gothic:h11
-
-        " Width of window.
-        set columns=155
-        " Height of window.
-        set lines=50
-        else
-        set guifont=VL\ Gothic:h11.5
-        set guifontwide=
-
-        " Width of window.
-        set columns=200
-        " Height of window.
-        set lines=43
-        endif
-    endfunction
-
-    nnoremap TF     :<C-u>call FontToggle()<CR>
-
-    elseif has('mac')
-    " For Mac.
-    set guifont=Osaka－等幅:h14
-    else
-    " For Linux.
-    " set guifontwide=VL\ Gothic\ 11
-    set guifont=Monospace\ 14
-    set guifont=Inconsolata\ Medium\ 14
-    set linespace=0
-    endif"}}}
-
-    "---------------------------------------------------------------------------
-    " Window:"{{{
-    "
-    if has('win32') || has('win64')
-    " Width of window.
-    set columns=230
-    " Height of window.
-    set lines=55
-
-    " Set transparency.
-    "autocmd GuiEnter * set transparency=221
-    " Toggle font setting.
-    command! TransparencyToggle let &transparency =
-            \ (&transparency != 255 && &transparency != 0)? 255 : 221
-    nnoremap TT     :<C-u>TransparencyToggle<CR>
-    else
-    " Width of window.
-    set columns=151
-    " Height of window.
-    set lines=41
-    endif
-
-    " Don't override colorscheme.
-    if !exists('g:colors_name')
-    " execute 'colorscheme' globpath(&runtimepath,
-    "       \ 'colors/candy.vim') != '' ? 'candy' : 'desert'
-    execute 'colorscheme' globpath(&runtimepath,
-            \ 'colors/peskcolor.vim') != '' ? 'peskcolor' : 'desert'
-    endif
-    "}}}
-
-    "---------------------------------------------------------------------------
-    " Mouse:"{{{
-    "
-    set mousemodel=extend
-
-    " Don't focus the window when the mouse pointer is moved.
-    set nomousefocus
-    " Hide mouse pointer on insert mode.
-    set mousehide
-    "}}}
-
-    "---------------------------------------------------------------------------
-    " Menu:"{{{
-    "
-
-    " Hide toolbar and menus.
-    set guioptions-=Tt
-    set guioptions-=m
-    " Scrollbar is always off.
-    set guioptions-=rL
-    " Not guitablabel.
-    set guioptions-=e
-
-    " Confirm without window.
-    set guioptions+=c
-    "}}}
-
-    "---------------------------------------------------------------------------
-    " Views:"{{{
-    "
-    set hlsearch
-
-    " Don't flick cursor.
-    set guicursor&
-    set guicursor+=a:blinkon0
-    "}}}
-
-    " vim: foldmethod=marker
-endif
-
-"---------------------------------------------------------------------------
 " Others:
 " Default home directory.
 let t:cwd = getcwd()
@@ -1615,7 +1102,7 @@ let g:neobundle#install_process_timeout = 9999
 "
 " Usage:
 "
-" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer] 
+" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer]
 "
 " Without any arguments the current buffer is kept.  With an argument the
 " buffer name/number supplied is kept.
@@ -1702,7 +1189,7 @@ if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
     inoremap <silent><expr> <Tab>
     \ pumvisible() ? "\<C-n>" :
     \ "\<TAB>"
-    inoremap <expr>; 
+    inoremap <expr>;
                 \ pumvisible() ? deoplete#mappings#close_popup() :
                 \ ";"
 
@@ -1710,12 +1197,6 @@ if neobundle#tap('deoplete.nvim') && has('nvim') "{{{
 endif "}}}
 
 if neobundle#tap('neocomplete.vim') && has('lua') "{{{
-
-  call neobundle#untap()
-endif "}}}
-
-if neobundle#tap('neocomplcache.vim') "{{{
-  let g:neocomplcache_enable_at_startup = 0
 
   call neobundle#untap()
 endif "}}}
@@ -1749,7 +1230,7 @@ if neobundle#tap('unite.vim') "{{{
   nnoremap <silent> [Space]r
         \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 
-  " t: tags-and-searches 
+  " t: tags-and-searches
   " The prefix key.
   nnoremap    [Tag]   <Nop>
   nmap    t [Tag]
@@ -1947,7 +1428,7 @@ endif"}}}
 
 if neobundle#tap('vimfiler.vim') "{{{
   nnoremap <silent>   [Space]v   :<C-u>VimFiler -invisible<CR>
-  nnoremap    [Space]ff   :<C-u>VimFilerExplorer<CR>
+  nnoremap    [Space]fe   :<C-u>VimFilerExplorer<CR>
 
   call neobundle#untap()
 endif "}}}
@@ -2001,10 +1482,10 @@ endif "}}}
 "if filereadable("~/.cache/neobundle/vim-operator-surround/plugin/operator/surround.vim")
 "    source "~/.cache/neobundle/vim-operator-surround/plugin/operator/surround.vim"
 "endif
-if neobundle#tap('tagbar') 
+if neobundle#tap('tagbar')
     nmap <F8> :TagbarToggle<CR>
     call neobundle#untap()
-endif 
+endif
 
 if neobundle#tap('vim-operator-surround') "{{{
   nmap <silent>sa <Plug>(operator-surround-append)a
@@ -2039,7 +1520,7 @@ if neobundle#tap('open-browser.vim') "{{{
 endif "}}}
 
 "TODO: visual select, yank, paste and comment
-" e.g. from 
+" e.g. from
 "
 " var this = 0
 "
@@ -2209,7 +1690,7 @@ if neobundle#tap('omnisharp-vim')
 endif
 
 if neobundle#tap('syntastic')
-    let g:syntastic_check_on_open = 0 
+    let g:syntastic_check_on_open = 0
     let g:syntastic_check_on_save = 1
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
@@ -2219,9 +1700,7 @@ if neobundle#tap('syntastic')
                                     \  "level": "warnings" }
     " syntastic is not intelligent enough to read references in c#,
     " generating errors when using 'semantic'
-    " this is amended by ~/dotfiles/Bash/mcsCompile
-    " let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues'] 
-    let g:syntastic_cs_checkers = ['mcs'] 
+    let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
     " let g:syntastic_cs_checkers = ['syntax', 'issues']
     let g:syntastic_python_checkers = ['flake8'] " so much faster than pylint...
     let g:syntastic_python_flake8_args='--ignore=F401,F402,F403,F404,F811,F841,N8,E127,E2,E3,E5,E701,E702,E703,E704,E731,W1,W2,W3,W6'
@@ -2318,7 +1797,7 @@ if neobundle#tap('fzf')
 endif
 
 if neobundle#tap('vim-clang')
-    
+
     call neobundle#untap()
 endif
 
@@ -2326,10 +1805,12 @@ if neobundle#tap('unite-preview')
     let g:vimfiler_preview_action = 'auto_preview'
 
     call neobundle#untap()
-endif 
+endif
 
 if neobundle#tap('neomake')
     autocmd! BufWritePost * Neomake
+    let g:neomake_open_list = 2
+    let g:neomake_list_height = 5
 
     call neobundle#untap()
 endif
@@ -2337,6 +1818,8 @@ autocmd FileType c let g:neomake_c_enabled_makers = []
 autocmd FileType cpp let g:neomake_cpp_enabled_makers = []
 autocmd FileType c nnoremap [Space]w :w \| Neomake! make<CR>
 autocmd FileType cpp nnoremap [Space]w :w \| Neomake! make<CR>
+autocmd FileType yacc nnoremap [Space]w :w \| Neomake! make<CR>
+autocmd FileType lex nnoremap [Space]w :w \| Neomake! make<CR>
 
 autocmd FileType pdf Pdf '%'
 autocmd FileType pdf :0
@@ -2369,9 +1852,10 @@ set relativenumber
 " Show <TAB> and <CR>
 set list
 if IsWindows()
-  set listchars=tab:>-,trail:-,extends:>,precedes:<
+  set listchars=tab:>-,extends:>,precedes:<
 else
-  set listchars=tab:▸\ ,trail:-,extends:»,precedes:«,nbsp:%
+  set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:%
+
 endif
 " Do not wrap long line.
 set wrap
@@ -2493,17 +1977,14 @@ set nostartofline
 " Splitting a window will put the new window below the current one.
 set splitbelow
 " Splitting a window will put the new window right the current one.
-set splitright
-" Set minimal width for current window.
-set winwidth=30
-" Set minimal height for current window.
-" set winheight=20
-set winheight=1
-set winminheight=0 " the statusline will still show
-" Set maximam maximam command line window.
-set cmdwinheight=5
-" equal window size.
-set equalalways
+set splitright                                                                                               
+" Set minimal width for current window.                                                                      
+set winwidth=1                                                                                               
+set winminheight=0 " the statusline will still show                                                          
+set winminwidth=0 " the statusline will still show                                                           
+" Set maximam maximam command line window.                                                                   
+set cmdwinheight=5                                                                                           
+set noequalalways " resize only happens when explicitly asked for
 
 " Adjust window size of preview and help.
 set previewheight=8
@@ -2512,22 +1993,22 @@ set helpheight=12
 " Don't redraw while macro executing.
 set lazyredraw
 set ttyfast
-
+                                  
 " When a line is long, do not omit it in @.
-set display=lastline
-" Display an invisible letter with hex format.
-"set display+=uhex
-
-" View setting.
-set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
-
-function! s:strwidthpart(str, width) "{{{
-  if a:width <= 0
-    return ''
-  endif
-  let ret = a:str
-  let width = s:wcswidth(a:str)
-  while width > a:width
+set display=lastline                                                                                         
+" Display an invisible letter with hex format.                                                               
+"set display+=uhex                                                                                           
+                                                                                                             
+" View setting.                                                                                              
+set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix                                     
+                                                                                                             
+function! s:strwidthpart(str, width) "{{{                                
+  if a:width <= 0                
+    return ''                     
+  endif                           
+  let ret = a:str                 
+  let width = s:wcswidth(a:str)   
+  while width > a:width           
     let char = matchstr(ret, '.$')
     let ret = ret[: -1 - len(char)]
     let width -= s:wcswidth(char)
@@ -2536,59 +2017,14 @@ function! s:strwidthpart(str, width) "{{{
   return ret
 endfunction"}}}
 
-if v:version >= 703
-  " For conceal.
-  set conceallevel=2 concealcursor=iv
+set conceallevel=2 concealcursor=iv
+set colorcolumn=79
 
-  set colorcolumn=79
-
-  " Use builtin function.
-  function! s:wcswidth(str)
+" Use builtin function.
+function! s:wcswidth(str)
     return strwidth(a:str)
-  endfunction
-  " finish
-endif
+endfunction
 
-" function! s:wcswidth(str)
-"   if a:str =~# '^[\x00-\x7f]*$'
-"     return strlen(a:str)
-"   end
-"
-"   let mx_first = '^\(.\)'
-"   let str = a:str
-"   let width = 0
-"   while 1
-"     let ucs = char2nr(substitute(str, mx_first, '\1', ''))
-"     if ucs == 0
-"       break
-"     endif
-"     let width += s:_wcwidth(ucs)
-"     let str = substitute(str, mx_first, '', '')
-"   endwhile
-"   return width
-" endfunction
-"
-" " UTF-8 only.
-" function! s:_wcwidth(ucs)
-"   let ucs = a:ucs
-"   if (ucs >= 0x1100
-"         \  && (ucs <= 0x115f
-"         \  || ucs == 0x2329
-"         \  || ucs == 0x232a
-"         \  || (ucs >= 0x2e80 && ucs <= 0xa4cf
-"         \      && ucs != 0x303f)
-"         \  || (ucs >= 0xac00 && ucs <= 0xd7a3)
-"         \  || (ucs >= 0xf900 && ucs <= 0xfaff)
-"         \  || (ucs >= 0xfe30 && ucs <= 0xfe6f)
-"         \  || (ucs >= 0xff00 && ucs <= 0xff60)
-"         \  || (ucs >= 0xffe0 && ucs <= 0xffe6)
-"         \  || (ucs >= 0x20000 && ucs <= 0x2fffd)
-"         \  || (ucs >= 0x30000 && ucs <= 0x3fffd)
-"         \  ))
-"     return 2
-"   endif
-"   return 1
-" endfunction
 
 "---------------------------------------------------------------------------
 " For Windows:
@@ -2599,26 +2035,6 @@ if $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
   let $PATH = $VIM . ';' . $PATH
 endif
 
-" Shell settings.
-" Use NYAOS.
-"set shell=nyaos.exe
-"set shellcmdflag=-e
-"set shellpipe=\|&\ tee
-"set shellredir=>%s\ 2>&1
-"set shellxquote=\"
-
-" Use bash.
-"set shell=bash.exe
-"set shellcmdflag=-c
-"set shellpipe=2>&1\|\ tee
-"set shellredir=>%s\ 2>&1
-"set shellxquote=\"
-
-" Change colorscheme.
-" Don't override colorscheme.
-" Disable error messages.
-let g:CSApprox_verbose_level = 0
-
 " Popup color.
 hi Pmenu ctermbg=8
 hi PmenuSel ctermbg=1
@@ -2627,61 +2043,35 @@ hi PmenuSbar ctermbg=0
 
 if neobundle#tap("deoplete")
     let g:deoplete#enable_at_startup = 1
+    set completeopt+=noinsert,noselect
+
+    let g:deoplete#keyword_patterns = {}
+    let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
+
+    let g:deoplete#sources#go = 'vim-go'
+
+    " Movement within 'ins-completion-menu'
+    imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
+    imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+
+    " Scroll pages in menu
+    inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
+    inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
+    imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+    imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+
+    " Undo completion
+    inoremap <expr><C-g> deoplete#mappings#undo_completion()
     call neobundle#untap()
-endif 
+endif
 
-" deoplete for nvim
-" ---
-
-set completeopt+=noinsert,noselect
-
-" " Use auto delimiter
-" call deoplete#custom#set('_', 'converters',
-"     \ ['converter_auto_paren',
-"     \  'converter_auto_delimiter', 'remove_overlap'])
-
-let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
-
-let g:deoplete#sources#go = 'vim-go'
-
-" Movement within 'ins-completion-menu'
-imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
-imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
-
-" Scroll pages in menu
-inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
-inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
-imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-" Undo completion
-inoremap <expr><C-g> deoplete#mappings#undo_completion()
-
-" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
-
-" <CR>: If popup menu visible, expand snippet or close popup with selection,
-"       Otherwise, check if within empty pair and use delimitMate.
-
-" <Tab> completion:
-" 1. If popup menu is visible, select and insert next item
-" 2. Otherwise, if within a snippet, jump to next input
-" 3. Otherwise, if preceding chars are whitespace, insert tab char
-" 4. Otherwise, start manual autocomplete
 
 function! s:is_whitespace() "{{{
-        let col = col('.') - 1
-            return !col || getline('.')[col - 1]  =~? '\s'
-        endfunction "}}}
+    let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~? '\s'
+endfunction "}}}
 
         " vim: set ts=2 sw=2 tw=80 noet :
-
-
-"---------------------------------------------------------------------------
-" eskk.vim
-"
 
 let g:eskk#directory = expand('$CACHE/eskk')
 
@@ -2727,16 +2117,6 @@ let g:eskk#dictionary = {
       \   'sorted': 0,
       \   'encoding': 'utf-8',
       \}
-" Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory"
-" instead of this settings.
-"if &encoding == 'utf-8' && !has('gui_running')
-" GNOME Terminal only.
-
-" Use <> instead of ▽.
-"let g:eskk#marker_henkan = '<>'
-" Use >> instead of ▼.
-"let g:eskk#marker_henkan_select = '>>'
-"endif
 
 " Define table.
 autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
@@ -2770,86 +2150,6 @@ function! s:all_files()
 
 
 "---------------------------------------------------------------------------
-" neocomplache.vim
-"
-
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 0
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 0
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 0
-" Use fuzzy completion.
-let g:neocomplcache_enable_fuzzy_completion = 0
-
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-" Set auto completion length.
-let g:neocomplcache_auto_completion_start_length = 2
-" Set manual completion length.
-let g:neocomplcache_manual_completion_start_length = 0
-" Set minimum keyword length.
-let g:neocomplcache_min_keyword_length = 3
-" let g:neocomplcache_enable_cursor_hold_i = v:version > 703 ||
-"       \ v:version == 703 && has('patch289')
-let g:neocomplcache_enable_cursor_hold_i = 0
-let g:neocomplcache_cursor_hold_i_time = 300
-let g:neocomplcache_enable_insert_char_pre = 0
-let g:neocomplcache_enable_prefetch = 1
-let g:neocomplcache_skip_auto_completion_time = '0.6'
-
-" For auto select.
-let g:neocomplcache_enable_auto_select = 1
-
-let g:neocomplcache_enable_auto_delimiter = 1
-let g:neocomplcache_disable_auto_select_buffer_name_pattern =
-      \ '\[Command Line\]'
-"let g:neocomplcache_disable_auto_complete = 0
-let g:neocomplcache_max_list = 100
-let g:neocomplcache_force_overwrite_completefunc = 1
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-if !exists('g:neocomplcache_omni_functions')
-  let g:neocomplcache_omni_functions = {}
-endif
-if !exists('g:neocomplcache_force_omni_patterns')
-  let g:neocomplcache_force_omni_patterns = {}
-endif
-let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
-
-let g:neocomplcache_enable_auto_close_preview = 1
-" let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-let g:neocomplcache_omni_patterns.cs = '.*'
-
-" For clang_complete.
-let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache_force_omni_patterns.c =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.cpp =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_use_library   = 1
-
-" Define keyword pattern.
-if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
-endif
-" let g:neocomplcache_keyword_patterns.default = '\h\w*'
-let g:neocomplcache_keyword_patterns['default'] = '[0-9a-zA-Z:#_]\+'
-let g:neocomplcache_keyword_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-let g:neocomplcache_vim_completefuncs = {
-      \ 'Ref' : 'ref#complete',
-      \ 'Unite' : 'unite#complete_source',
-      \ 'VimFiler' : 'vimfiler#complete',
-      \ 'Vinarise' : 'vinarise#complete',
-      \}
-
-
 "---------------------------------------------------------------------------
 " vimfiler.vim
 "
@@ -2901,13 +2201,6 @@ function! s:vimfiler_my_settings() "{{{
   call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
   call vimfiler#set_execute_file('txt', 'vim')
 
-  " Overwrite settings.
-  " nnoremap <silent><buffer> J
-  "       \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-  " Call sendto.
-  " nnoremap <buffer> - <C-u>:Unite sendto<CR>
-  " setlocal cursorline
-
   nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
   nmap <buffer> p <Plug>(vimfiler_quick_look)
   " nmap <buffer> <Tab> <Plug>(vimfiler_switch_to_other_window)
@@ -2918,23 +2211,12 @@ function! s:vimfiler_my_settings() "{{{
           \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
   endif
 
-  " One key file operation.
-  " nmap <buffer> c <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
-  " nmap <buffer> m <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_move_file)
-  " nmap <buffer> d <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_delete_file)
 endfunction"}}}
 
 
 "---------------------------------------------------------------------------
 " unite.vim
 "
-
-" When writing custom menus, keep in mind that by choosing the
-" menu-entries (candidates) in a smart way, you also make it easier to quickly
-" use the menu. For example, the openfile menu has each entry by their
-" own key ([M]RU, [F]iles, [G]it files), making it easy to quickly access
-" each entry by only one keystroke
-
 " For unite-menu.
 let g:unite_source_menu_menus = {}
 
@@ -3225,15 +2507,13 @@ endif
 
 au Bufenter *.cs nnoremap <silent> [Space]i :Unite menu:omnisharp -silent -winheight=25 -start-insert<CR>
 au Bufenter *.py nnoremap <silent> [Space]i :Unite menu:jedi -silent -winheight=25 -start-insert<CR>
-
+colorscheme peskcolor
 
 inoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
 inoremap <silent> <a-j> <Esc>:call WindowCmd("j")<CR>
 inoremap <silent> <a-k> <Esc>:call WindowCmd("k")<CR>
 inoremap <silent> <a-l> <Esc>:call WindowCmd("l")<CR>
-
 tnoremap <silent> <a-h> <C-\><C-n>:call WindowCmd("h")<CR>
 tnoremap <silent> <a-j> <C-\><C-n>:call WindowCmd("j")<CR>
 tnoremap <silent> <a-k> <C-\><C-n>:call WindowCmd("k")<CR>
 tnoremap <silent> <a-l> <C-\><C-n>:call WindowCmd("l")<CR>
-so ~/dotfiles/vim/rc/peskcolor.vim
