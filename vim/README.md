@@ -31,27 +31,10 @@ without getting missing dll messages. `<Esc>:version` shows what dlls are being 
     
     
 
-
-## Roadmap
-Starting as of now, I've decided to start migrating FROM vim. This is because
-    I miss the concept of "an application should do one thing, and do it well".
-* Portage is much better at package management than vim will ever be
-* Tiling is much better done in wmii
-* vim cannot do asynchronous operations?
-
-
-The main problem being that many applications provide annoying interfaces, so it's easier using vim-plugins.
-One of my future projects may involve finding a nice way to wrap small commands to a menu-based interface like unite, but without vim.
-
-I will keep using vim because it is great for text editing and light (hello emacs). However, I wish to gradually remove some of my 100+ plugins... 
-
 # Workflow
 It takes some time to get used to Unite (i.e., the menus that pop up "all the
 time"). However, after learning, it can really benefit your workflow.
 
-
-# Settings
-(A mess. I'm occasionally working on cleaning it to ensure a rigid structure)
 
 ## Mappings
 `<Leader> + <key(s)>`:  toggle a setting.  
@@ -99,4 +82,4 @@ dependencies. Read their doc (most have a "requirement" section).
 #### Other
 Note that most of the plugins register with a "filetype" in neobundle.toml. This means that you need to open a buffer before their shortcuts/commands work.
 
-Neovim looks O.K, but I do not understand why they want to continue in C and with old legacy code and vimscript. Furthermore, there's currently not support for lua and python, so I will wait with transitioning. But I like the spirit.
+Neovim looks O.K, but I do not understand why they want to continue in C and with old legacy code and vimscript.
