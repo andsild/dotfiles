@@ -243,10 +243,10 @@ function! s:mkdir_as_necessary(dir, force)
   endif
 endfunction
 
-let b:myLang=0
+let g:myLang=0
 let g:myLangList=["nospell","en_us", "nb"]
 function! ToggleSpell()
-  let b:myLang=b:myLang+1
+  let b:myLang=g:myLang+1
   if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
   if b:myLang==0
     setlocal nospell

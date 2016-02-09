@@ -2,7 +2,6 @@
 # If not running interactively, don't read preferences.
 [ -z "$PS1" ] && return
 
-export EIX_LIMIT=0
 
 # Variables ##
 # PS1='\u@\h: ~${PWD##*/} > '
@@ -25,11 +24,11 @@ function __prompt_command() {
 }
 
 
-EDITOR="gvim"
+EDITOR="nvim"
 HISTIGNORE="ls:l:clear"
 PATH="${PATH}:${HOME}/dotfiles/Bash:$GOROOT/bin:$GOPATH/bin"
 
-export HISTCONTROL="ignoredups"
+export HISTCONTROL="ignoreboth:erasedups"
 
 # Disable Software Flow Control (xon)
 # (in practice: give me back Ctrl+s and Ctrl+q)
@@ -39,7 +38,7 @@ stty -ixon
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # My jedi-vim needs this(ugh!)
-export IPYTHONDIR="~/.ipython"
+export IPYTHONDIR="${HOME}/.ipython"
 
 
 # It's a lot more annoying to not have an old command in history than having a large file
@@ -56,8 +55,6 @@ export HISTFILE_SIZE=1000000
 # then
 #   PROMPT_COMMAND="${PROMPT_COMMAND} ; dirs | wmiir write /client/sel/label"
 # fi
-
-export XDG_CONFIG_HOME="/home/andesil/.local/share"
 
 # If the command-line has an empty entry, don't try to autocomplete with tab
 shopt -s no_empty_cmd_completion
@@ -81,3 +78,24 @@ complete -cf sudo
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export SCIPY_PIL_IMAGE_VIEWER=xdg-open
+export XDG_CONFIG_HOME="/home/andesil/.config"
+export FZF_DEFAULT_OPTS='--extended -i'
+source /usr/share/bash-completion/bash_completion
+
+source ~/.bash-git-prompt/gitprompt.sh
+# Set config variables first
+   GIT_PROMPT_ONLY_IN_REPO=1
+
+   # GIT_PROMPT_FETCH_REMOTE_STATUS=0   # uncomment to avoid fetching remote status
+
+   # GIT_PROMPT_SHOW_UPSTREAM=1 # uncomment to show upstream tracking branch
+   # GIT_PROMPT_SHOW_UNTRACKED_FILES=all # can be no, normal or all; determines counting of untracked files
+
+   # GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh # uncomment to support Git older than 1.7.10
+
+   # GIT_PROMPT_START=...    # uncomment for custom prompt start sequence
+   # GIT_PROMPT_END=...      # uncomment for custom prompt end sequence
+
+   # as last entry source the gitprompt script
+   # GIT_PROMPT_THEME=Custom # use custom .git-prompt-colors.sh
+   # GIT_PROMPT_THEME=Solarized # use theme optimized for solarized color scheme
