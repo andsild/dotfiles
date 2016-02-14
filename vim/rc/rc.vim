@@ -45,6 +45,7 @@ xnoremap m  <Nop>
 nnoremap ,  <Nop>
 xnoremap ,  <Nop>
 
+
 if IsWindows()
   " Exchange path separator.
   set shellslash
@@ -1816,10 +1817,10 @@ if neobundle#tap('neomake')
 endif
 autocmd FileType c let g:neomake_c_enabled_makers = []
 autocmd FileType cpp let g:neomake_cpp_enabled_makers = []
-autocmd FileType c nnoremap [Space]w :w \| Neomake! make<CR>
-autocmd FileType cpp nnoremap [Space]w :w \| Neomake! make<CR>
-autocmd FileType yacc nnoremap [Space]w :w \| Neomake! make<CR>
-autocmd FileType lex nnoremap [Space]w :w \| Neomake! make<CR>
+autocmd FileType c nnoremap [Space]w :w \| Neomake!<CR>
+autocmd FileType cpp nnoremap [Space]w :w \| Neomake!<CR>
+autocmd FileType yacc nnoremap [Space]w :w \| Neomake!<CR>
+autocmd FileType lex nnoremap [Space]w :w \| Neomake!<CR>
 
 autocmd FileType pdf Pdf '%'
 autocmd FileType pdf :0
@@ -2517,3 +2518,8 @@ tnoremap <silent> <a-h> <C-\><C-n>:call WindowCmd("h")<CR>
 tnoremap <silent> <a-j> <C-\><C-n>:call WindowCmd("j")<CR>
 tnoremap <silent> <a-k> <C-\><C-n>:call WindowCmd("k")<CR>
 tnoremap <silent> <a-l> <C-\><C-n>:call WindowCmd("l")<CR>
+
+
+"From unimpaired
+nnoremap =P  <Nop>
+nnoremap =p  <Nop>
