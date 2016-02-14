@@ -101,8 +101,8 @@ $GNU_SED -r -e '/^=======\r?$/,/^>>>>>>> /d' -e '/^<<<<<<< /d' "${MERGED}" > "${
 
 # Fire up vimdiff
 $cmd -f -d "${LCONFL}" "${RCONFL}" \
-    -c ":set noro" \
-    -c ":winc t" -c ":tabe $QMERGED" -c ":tabfir"
+    -c ":silent set noro" \
+    -c ":silent winc t" -c ":silent tabe $QMERGED" -c ":silent tabfir"
     #-c ":tabe $QLOCAL" -c ":vert diffs $QBASE" -c ":vert diffs $QREMOTE" \
 
 EC=$?

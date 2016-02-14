@@ -703,7 +703,7 @@ nnoremap <Leader>w
 nnoremap [Space]w :w<CR>
 
 " Delete windows ^M codes.
-nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm
+nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm:echo 'Took away c-m'<CR>
 
 " Delete spaces before newline.
 " nnoremap <silent> <Leader>ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m

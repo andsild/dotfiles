@@ -283,10 +283,6 @@ functions = 'openbrowser#open'
 repository = 'kana/vim-filetype-haskell'
 filetypes = 'haskell'
 
-[[plugins]]
-repository = 'https://github.com/eagletmt/ghcmod-vim.git'
-filetypes = 'haskell'
-
 # Syntax files for D programming
 #
 [[plugins]]
