@@ -1,0 +1,14 @@
+#!/bin/bash
+
+declare -A REPOSITORIES
+REPOSITORIES+=("${HOME}/dotfiles")
+
+
+alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
+
+for dir in  "${REPOSITORIES[@]}"
+do
+    builtin cd "${dir}"
+    gacp # this is an alias for GitAddCommitPush
+done
+

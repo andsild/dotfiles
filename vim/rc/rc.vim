@@ -1812,6 +1812,7 @@ if neobundle#tap('neomake')
     autocmd! BufWritePost * Neomake
     let g:neomake_open_list = 2
     let g:neomake_list_height = 5
+    let g:neomake_tex_enabled_makers = ['chktex']
 
     call neobundle#untap()
 endif

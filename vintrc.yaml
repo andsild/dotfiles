@@ -1,0 +1,12 @@
+policies:
+  ProhibitMissingScriptEncoding:
+    enabled: false
+
+  ProhibitUsingUndeclaredVariable:
+    enabled: false
+
+  ProhibitSetNoCompatible:
+    enabled: false
+
+  ProhibitImplicitScopeVariable:
+    enabled: false
