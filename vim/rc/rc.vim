@@ -364,8 +364,8 @@ augroup MyAutoCmd
   autocmd FileType php setlocal path+=/usr/local/share/pear
   autocmd FileType apache setlocal path+=./;/
 
-  autocmd FileType c set path=$PWD/**
-  autocmd FileType cpp set path=$PWD/**
+  " autocmd FileType c set path=$PWD/**
+  " autocmd FileType cpp set path=$PWD/**
 
   autocmd FileType go highlight default link goErr WarningMsg |
         \ match goErr /\<err\>/
