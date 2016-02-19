@@ -2515,6 +2515,10 @@ inoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
 inoremap <silent> <a-j> <Esc>:call WindowCmd("j")<CR>
 inoremap <silent> <a-k> <Esc>:call WindowCmd("k")<CR>
 inoremap <silent> <a-l> <Esc>:call WindowCmd("l")<CR>
+vnoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
+vnoremap <silent> <a-j> <Esc>:call WindowCmd("j")<CR>
+vnoremap <silent> <a-k> <Esc>:call WindowCmd("k")<CR>
+vnoremap <silent> <a-l> <Esc>:call WindowCmd("l")<CR>
 tnoremap <silent> <a-h> <C-\><C-n>:call WindowCmd("h")<CR>
 tnoremap <silent> <a-j> <C-\><C-n>:call WindowCmd("j")<CR>
 tnoremap <silent> <a-k> <C-\><C-n>:call WindowCmd("k")<CR>
