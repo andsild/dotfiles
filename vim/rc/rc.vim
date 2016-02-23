@@ -1743,6 +1743,13 @@ if neobundle#tap('jedi-vim')
     let g:jedi#popup_select_first = 0 " dont pop up the first one
     let g:jedi#auto_vim_configuration = 0
     let g:jedi#use_tabs_not_buffers = 0
+    let g:jedi#goto_command             = ""
+    let g:jedi#goto_assignments_command = ""
+    let g:jedi#goto_definitions_command = ""
+    let g:jedi#documentation_command    = ""
+    let g:jedi#usages_command           = ""
+    let g:jedi#completions_command      = ""
+    let g:jedi#rename_command           = ""
     call neobundle#untap()
 endif
 
