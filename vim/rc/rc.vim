@@ -2528,3 +2528,8 @@ tnoremap <silent> <a-l> <C-\><C-n>:call WindowCmd("l")<CR>
 "From unimpaired
 nnoremap =P  <Nop>
 nnoremap =p  <Nop>
+
+if neobundle#tap('neoman.vim')
+
+    call neobundle#untap()
+endif
