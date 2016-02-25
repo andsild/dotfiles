@@ -5,7 +5,7 @@ alias annoying="find -type f -print0 | grep --color=never -Ez '[^/]{5}$' | xargs
 
 # Commonly used flags
 alias ls='ls --color=auto --human-readable --classify -C'
-alias lt='ls --sort=time'
+alias lt='ls --sort=time --reverse'
 alias la='ls -A'
 alias ll='ls -al'
 alias l='ls'
@@ -40,22 +40,33 @@ alias us="setxkbmap us"
 
 # Commonly used folders
 alias www='cd /var/www/'
-alias hw='cd "/home/andesil/Homework/Workshop/"'
+alias pf='cd "/home/andesil/Homework/TDT4260/"'
 alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
-alias ct='cd /home/andesil/Homework/TDT4205/ex3/ps3_skeleton'
-alias bd='cd /home/andesil/Homework/TDT4305/'
+alias ct='cd /home/andesil/Homework/TDT4205/ex3'
 
 function smallimg()
 {
-    convert -size 32x32 xc:${2:-orange} ${1:-empty.jpg}
+    convert -size 32x32 "xc:${2:-orange}" "${1:-empty.jpg}"
 }
 
 
 export OTHER_COMP="169.254.244.132"
 function samba()
 {
+    # if [ ! -d samba/${2} ]
+    # then
+    #     mkdir -vp samba/${2}
+    # fi
+    # GID=$(id -g ${USER})
+    # sudo   mount -t cifs //${1}/${2:obteam2} samba/${2}/ -o user=asildnes,domain=SYSCOPERU,gid=${GID},uid=${UID}
+    # # sudo   mount -t cifs //${1}/${2:obteam2} samba/${2}/ -o user=asildnes,domain=SYSCOPERU,noperm,rw
+    if [ ! -d "samba/${1}" ]
+    then
+        mkdir -vp samba/"${1}"
+    fi
     GID=$(id -g "${USER}")
-    sudo mount -t cifs //192.168.124.248/MacroSystem  samba -o user="Anders Sildnes",uid=${UID},gid=${GID}
+    sudo   mount -t cifs "//${OTHER_COMP}/${1:obteam2}" "${HOME}/samba/${1}/" -o user=asildnes,domain=SYSCOPERU,gid="${GID}",uid="${UID}"
+    # sudo   mount -t cifs //${1}/${2:obteam2} samba/${2}/ -o user=asildnes,domain=SYSCOPERU,noperm,rw
 }
 
 alias vnc="vncviewer ${OTHER_COMP}"
@@ -64,3 +75,5 @@ function murder()
 {
     kill -9 $(ps aux | awk "!/grep.*${1}/ && /${1}/ {print \$2}")
 }
+
+alias stream="vlc   --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
