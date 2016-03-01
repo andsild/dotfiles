@@ -1,0 +1,10 @@
+--indent=spaces
+--style=allman
+--indent-switches
+--indent-namespaces
+--indent=spaces=4
+--convert-tabs
+--remove-brackets
+--delete-empty-lines
+--max-code-length=81
+--break-after-logical
