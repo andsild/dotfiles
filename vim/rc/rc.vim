@@ -2540,3 +2540,5 @@ if neobundle#tap('neoman.vim')
 
     call neobundle#untap()
 endif
+
+set formatprg=astyle

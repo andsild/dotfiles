@@ -8,3 +8,4 @@
 --delete-empty-lines
 --max-code-length=81
 --break-after-logical
+--suffix=none
