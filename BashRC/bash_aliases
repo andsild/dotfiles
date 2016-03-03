@@ -43,6 +43,7 @@ alias www='cd /var/www/'
 alias pf='cd "/home/andesil/Homework/TDT4260/"'
 alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
 alias ct='cd /home/andesil/Homework/TDT4205/ex3'
+alias bd='cd /home/andesil/Homework/TDT4305/'
 
 function smallimg()
 {
@@ -69,11 +70,10 @@ function samba()
     # sudo   mount -t cifs //${1}/${2:obteam2} samba/${2}/ -o user=asildnes,domain=SYSCOPERU,noperm,rw
 }
 
-alias vnc="vncviewer ${OTHER_COMP}"
-
 function murder()
 {
     kill -9 $(ps aux | awk "!/grep.*${1}/ && /${1}/ {print \$2}")
 }
 
 alias stream="vlc   --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
+alias gclean='git gc --prune=now  ; git remote prune origin'

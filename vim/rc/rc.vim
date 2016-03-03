@@ -312,6 +312,7 @@ endfunction
 " Enable smart indent.
 set autoindent smartindent
 
+set formatprg=astyle
 augroup MyAutoCmd
   autocmd FileType,Syntax,BufEnter,BufWinEnter * call s:my_on_filetype()
 
@@ -348,6 +349,7 @@ augroup MyAutoCmd
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
   autocmd FileType python setlocal foldmethod=indent
+  autocmd FileType python setlocal formatprg=autopep8\ --aggressive\ --ignore=E309\ -
   " autocmd FileType vim setlocal foldmethod=syntax
 
   " Update filetype.
@@ -1820,6 +1822,7 @@ if neobundle#tap('neomake')
     let g:neomake_open_list = 2
     let g:neomake_list_height = 5
     let g:neomake_tex_enabled_makers = ['chktex']
+    let g:neomake_python_enabled_makers=['pylint']
 
     call neobundle#untap()
 endif
@@ -2541,4 +2544,3 @@ if neobundle#tap('neoman.vim')
     call neobundle#untap()
 endif
 
-set formatprg=astyle

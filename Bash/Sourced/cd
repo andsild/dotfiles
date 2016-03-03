@@ -17,7 +17,15 @@ cd() #@ Change directory, saving location on the directory stack
     if [ $? -ne 0 ]
     then    
         # Let the builtin make an attempt..
-        builtin cd "$1"
+        builtin cd "$1" 1&> /dev/null
+        if [ $? -ne 0 ]
+        then    
+            pushd "$(dirname "${1}")"
+        fi
+        if [ $? -ne 0 ]
+        then    
+            printf "Could not cd into %s\n" "${1}" > /dev/fd/1
+        fi
     fi
 
 
