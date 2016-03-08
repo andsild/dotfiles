@@ -312,7 +312,7 @@ endfunction
 " Enable smart indent.
 set autoindent smartindent
 
-set formatprg=astyle
+autocmd FileType c,cpp set formatprg=astyle
 augroup MyAutoCmd
   autocmd FileType,Syntax,BufEnter,BufWinEnter * call s:my_on_filetype()
 
@@ -1752,6 +1752,7 @@ if neobundle#tap('jedi-vim')
     let g:jedi#usages_command           = ""
     let g:jedi#completions_command      = ""
     let g:jedi#rename_command           = ""
+    autocmd FileType python setlocal completefunc=jedi#complete
     call neobundle#untap()
 endif
 
