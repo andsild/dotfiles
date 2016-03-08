@@ -72,6 +72,7 @@ function samba()
 
 function murder()
 {
+    # shellcheck disable=SC2046
     kill -9 $(ps aux | awk "!/grep.*${1}/ && /${1}/ {print \$2}")
 }
 

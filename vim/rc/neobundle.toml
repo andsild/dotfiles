@@ -497,9 +497,9 @@ repository = 'https://github.com/junegunn/fzf.git'
 filetypes  = 'all'
 
 
-[[plugins]]
-repository = 'https://github.com/justmao945/vim-clang.git'
-filetypes  = 'c'
+# [[plugins]]
+# repository = 'https://github.com/justmao945/vim-clang.git'
+# filetypes  = 'c'
 
 [[plugins]]
 repository = 'https://github.com/itchyny/unite-preview.git'
@@ -536,3 +536,7 @@ filetypes = 'all'
 [[plugins]]
 repository = 'https://github.com/nhooyr/neoman.vim.git'
 filetypes = 'all'
+
+[[plugins]]
+repository = 'https://github.com/Rip-Rip/clang_complete'
+filetypes = ['c', 'cpp']
