@@ -540,3 +540,8 @@ filetypes = 'all'
 [[plugins]]
 repository = 'https://github.com/Rip-Rip/clang_complete'
 filetypes = ['c', 'cpp']
+
+
+[[plugins]]
+repository = 'https://github.com/zchee/deoplete-jedi'
+filetypes = 'python'

@@ -1739,8 +1739,10 @@ if neobundle#tap('gitv')
     call neobundle#untap()
 endif
 
+" rather, use deoplete and deoplete-jedi
 if neobundle#tap('jedi-vim')
-    autocmd FileType python setlocal omnifunc=jedi#completions
+    let g:jedi#auto_vim_configuration = 0
+    let g:jedi#show_call_signatures = "1"
     let g:jedi#completions_enabled = 0
     let g:jedi#popup_select_first = 0 " dont pop up the first one
     let g:jedi#auto_vim_configuration = 0
@@ -1752,7 +1754,8 @@ if neobundle#tap('jedi-vim')
     let g:jedi#usages_command           = ""
     let g:jedi#completions_command      = ""
     let g:jedi#rename_command           = ""
-    autocmd FileType python setlocal completefunc=jedi#complete
+    " autocmd FileType python setlocal completefunc=jedi#complete
+    " autocmd FileType python setlocal omnifunc=jedi#completions
     call neobundle#untap()
 endif
 
