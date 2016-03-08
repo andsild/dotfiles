@@ -20,17 +20,20 @@ cd() #@ Change directory, saving location on the directory stack
         builtin cd "$1" 1&> /dev/null
         if [ $? -ne 0 ]
         then    
-            pushd "$(dirname "${1}")"
+            pathWithoutFilename="$(dirname "${1}")"
+            if [ "." == "${pathWithoutFilename}" ]
+            then
+                printf "Could not cd into %s\n" "${1}" > /dev/fd/2
+            else
+                pushd "pathWithoutFilename"
+            fi
+            
         fi
         if [ $? -ne 0 ]
         then    
             printf "Could not cd into %s\n" "${1}" > /dev/fd/1
         fi
     fi
-
-
-#    clear > /dev/fd/0
- #   ls > /dev/fd/0
 
     return "$?"
 } > /dev/null # Supress output
