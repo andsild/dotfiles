@@ -2572,3 +2572,5 @@ if neobundle#tap('finance.vim')
     call neobundle#untap()
 endif
 
+
+tnoremap <C-6> <C-\><C-n><C-6>
