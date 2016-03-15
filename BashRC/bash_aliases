@@ -10,6 +10,8 @@ alias la='ls -A'
 alias ll='ls -al'
 alias l='ls'
 
+alias diffsmooth="diff --side-by-side --suppress-common-lines --ignore-trailing-space --ignore-space-change --ignore-all-space"
+
 alias df="df --human-readable"
 alias du="du --human-readable"
 alias free="free --human"

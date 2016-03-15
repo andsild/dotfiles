@@ -3,10 +3,10 @@
 SOURCE="./Bash/Functions/*"
 for file in ${SOURCE}
 do
-    test -f ${file} && source ${file}
+    test -f "${file}" && source "${file}"
 done
 
-declare -a arrayvar INSTALL_ENTRY # normal array
+declare -a INSTALL_ENTRY # normal array
 
 INSTALL_ENTRY+=("${HOME}/.                        : ./vim")
 INSTALL_ENTRY+=("${HOME}/.                        : ./gdb/gdbinit")
@@ -19,19 +19,21 @@ INSTALL_ENTRY+=("${HOME}/.gitconfig                 : ./dotfiles/git/gitconfig")
 
 for file in ./BashRC/*
 do
-    test -f ${file} || continue
+    test -f "${file}" || continue
     INSTALL_ENTRY+=("${HOME}/.    :   ${file}")
 done
 
 function installFile
 {
-    if (( $# != 2 )) && [ -n ${1} ] && [ -n ${2} ]
+    if (( $# != 2 )) && [ -n "${1}" ] && [ -n "${2}" ]
     then
         die 1 "bad arguments to installFile"
     fi
 
-    local destFolder="$(readlink --canonicalize-missing ${1})"
-    local sourceFile="$(readlink --canonicalize-missing ${2})"
+    local destFolder
+    destFolder="$(readlink --canonicalize-missing "${1}")"
+    local sourceFile
+    sourceFile="$(readlink --canonicalize-missing "${2}")"
     local suffix=${sourceFile}
     # File should be hidden?
     if [ "${1: -1}" == "." ]
@@ -40,20 +42,20 @@ function installFile
     fi
     local destFile="${destFolder}/${suffix##*/}"
 
-    if [ -d ${sourceFile} ]
+    if [ -d "${sourceFile}" ]
     then
-        echo ${destFile}
+        echo "${destFile}"
         #destFile=${destFolder}
 
     elif [ ! -d "${destFolder}" ] 
     then
-        mkdir --parents --verbose ${destFolder}
+        mkdir --parents --verbose "${destFolder}"
     fi
 
 
     if [ ! -L "${destFile}" ]
     then
-        ln --symbolic --verbose ${sourceFile} ${destFile}
+        ln --symbolic --verbose "${sourceFile}" "${destFile}"
     else
         printf ""
         printf "skipping %s - already exists\n" "${destFile}" > /dev/fd/2
@@ -66,7 +68,5 @@ do
     # center, and remove trailing/leading spaces
     dest="${entry%%[[:space:]]*:*}" # Syntax: for the lolz.. 
     src="${entry##*:*[[:space:]]}" # Syntax: for the lolz.. 
-    installFile ${dest} ${src}
+    installFile "${dest}" "${src}"
 done
-
-# EoF

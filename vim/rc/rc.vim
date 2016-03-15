@@ -2564,3 +2564,11 @@ if neobundle#tap('neoman.vim')
     call neobundle#untap()
 endif
 
+
+if neobundle#tap('finance.vim')
+    let g:finance_watchlist = ['NZYM-B.CO']
+    let g:finance_format = '{symbol}: {LastTradePriceOnly} ({Change})'
+    let g:finance_separator = "\n"
+    call neobundle#untap()
+endif
+

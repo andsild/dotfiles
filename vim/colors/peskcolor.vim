@@ -24,7 +24,7 @@ let statuslineFG="#DEFDDD"
 let statuslineBG="#4B4B4B"
 " Split area
 exe 'hi StatusLine gui=NONE guibg=#300000 guifg=' . statuslineFG
-highlight StatusLineNC gui=NONE guifg=#DDDDDD guibg=#1A1A1A
+highlight StatusLineNC gui=NONE guifg=#DDDDDD guibg=#1A1A1A ctermbg=8
 exe 'highlight VertSplit    gui=NONE guifg=' . statuslineFG
 highlight WildMenu     gui=NONE guifg=#252525 guibg=#a0a0ff
 

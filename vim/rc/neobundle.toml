@@ -545,3 +545,8 @@ filetypes = ['c', 'cpp']
 [[plugins]]
 repository = 'https://github.com/zchee/deoplete-jedi'
 filetypes = 'python'
+
+
+[[plugins]]
+repository = 'https://github.com/7kfpun/finance.vim.git'
+filetypes = 'all'
