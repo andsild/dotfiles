@@ -1536,14 +1536,14 @@ if neobundle#tap('caw.vim') "{{{
   function! s:init_caw()
     if !&l:modifiable
       silent! nunmap <buffer> gc
-      silent! xunmap <buffer> gc
-      silent! nunmap <buffer> gcc
+      " silent! xunmap <buffer> gc
+      " silent! nunmap <buffer> gcc
       silent! xunmap <buffer> gcc
     else
       nmap <buffer> gc <Plug>(caw:prefix)
       xmap <buffer> gc <Plug>(caw:prefix)
-      nmap <buffer> gcc <Plug>(caw:i:toggle)
-      xmap <buffer> gcc <Plug>(caw:i:toggle)
+      nmap <buffer> gcc <Plug>(caw:tildepos:toggle)
+      xmap <buffer> gcc <Plug>(caw:tildepos:toggle)
     endif
   endfunction
 
@@ -1805,8 +1805,6 @@ if neobundle#tap('vim-autoformat')
 endif
 
 if neobundle#tap('fzf')
-    let neobundle#hooks.on_source =
-            \ '~/.vim/rc/plugins/fzf.vim'
     call neobundle#untap()
 endif
 
@@ -2386,64 +2384,6 @@ if neobundle#tap('gitv')
     call neobundle#untap()
 endif
 
-if neobundle#tap('dbext.vim')
-    let g:unite_source_menu_menus.db = {
-        \ 'description' : '             database (SQL)
-            \                                        W [space]S',
-        \}
-    let g:unite_source_menu_menus.db.command_candidates = [
-        \['-> Execute SQL',
-            \'exe "DBExecSQL" " ".input("SQL?: ")'],
-        \['-> Execute SQL (with limit of n rows)',
-            \'exe "DBExecSQL" " ".input("SQL?: ")'],
-        \['-> SQL SELECT statement',
-            \'exe "Select" " ".input("SELECT ")'],
-        \['-> SQL UPDATE statement',
-            \'exe "Update" " ".input("UPDATE")'],
-        \['-> SQL INSERT statement',
-            \'exe "Insert" " ".input("INSERT")'],
-        \['-> SQL DELETE statement',
-            \'exe "Delete" " ".input("DELETE")'],
-        \['-> SQL CALL statement',
-            \'exe "Call" " ".input("CALL")'],
-        \['-> SQL DROP statement',
-            \'exe "Drop" " ".input("DROP")'],
-        \['-> SQL ALTER statement',
-            \'exe "Alter" " ".input("ALTER")'],
-        \['-> SQL CREATE statement',
-            \'exe "Create" " ".input("CREATE")'],
-        \['-> List all Tables                                            W ,Slt',
-            \'DBListTable'],
-        \['-> List all Procedures                                        W ,Slp',
-            \'DBListProcedure'],
-        \['-> List all Views                                             W ,Slv',
-            \'DBListView'],
-        \['-> List all Variables                                         W ,Svr',
-            \'DBListVar'],
-        \['-> DBext Get Options',
-            \'DBGetOption'],
-        \['-> DBext Set Option',
-            \'exe "DBSetOption" " ".input("Option: ")'],
-        \['-> DBext Set Var',
-            \'exe "DBSetVar" " ".input("Var: ")'],
-        \['-> DBext Set Buffer Parameters',
-            \'DBPromptForBufferParameters'],
-        \['-> List all Connections       (only DBI/ODBC)',
-            \'DBListConnections'],
-        \['-> Commit                     (only DBI/ODBC)',
-            \'DBCommit'],
-        \['-> Rollback                   (only DBI/ODBC)',
-            \'DBRollback'],
-        \['-> Connect                    (only DBI/ODBC)',
-            \'DBConnect'],
-        \['-> Disconnect                 (only DBI/ODBC)',
-            \'DBDisconnect'],
-        \]
-
-        nnoremap [Space]S :Unite menu:db -silent -winheight=25 -start-insert<CR>
-
-        call neobundle#untap()
-    endif
 
 if neobundle#tap('Omnisharp')
 

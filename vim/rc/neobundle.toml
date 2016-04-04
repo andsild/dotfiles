@@ -2,10 +2,6 @@
 
 # filetypes = 'all' means that the plugin will always be loaded, otherwise not
 
-# most of these plugins are configured in plugins.rc.vim,
-# some of the more extensive (like neocomplete.vim) are configured in
-# plugins/neocomplete.vim
-
 [[plugins]]
 repository = 'Shougo/tabpagebuffer.vim'
 filetypes = 'all'
@@ -13,10 +9,6 @@ filetypes = 'all'
 [[plugins]]
 repository = 'Shougo/neomru.vim'
 filetypes = 'all'
-
-#[[plugins]]
-#repository = 'Yggdroot/indentLine'
-#filetypes = 'all'
 
 [[plugins]]
 repository = 'https://github.com/Chiel92/vim-autoformat.git'
@@ -81,10 +73,6 @@ repository = 'Shougo/vinarise.vim'
   name = 'Vinarise'
   complete = 'file'
 
-# [[plugins]]
-# repository = 'vim-jp/vital.vim'
-# commands = 'Vitalize'
-
 [[plugins]]
 repository = 'Shougo/junkfile.vim'
 unite_sources = 'junkfile'
@@ -103,7 +91,7 @@ repository = 'ctrlpvim/ctrlp.vim'
 [[plugins]]
 repository = 'mattn/webapi-vim'
 
-[[plugins]]
+[[plugins]] # format code
 repository = 'thinca/vim-prettyprint'
 commands = 'PP'
 
@@ -132,16 +120,6 @@ repository = 'thinca/vim-unite-history'
 repository = 'vim-ruby/vim-ruby'
 mappings = '<Plug>'
 filetypes = 'ruby'
-
-[[plugins]]
-repository = 'basyura/J6uil.vim'
-function_prefix = 'J6uil'
-unite_sources = 'J6uil'
-depends = 'mattn/webapi-vim'
-
-  [plugins.commands]
-  name = 'J6uil'
-  complete = 'custom,J6uil#complete#room'
 
 [[plugins]]
 repository = 'Shougo/unite-help'
@@ -222,12 +200,7 @@ terminal = 1
 repository = 'tpope/vim-repeat'
 mappings = '.'
 
-# better matchings with %
 #
-[[plugins]]
-repository = 'matchit.zip'
-mappings = [['nxo', '%', 'g%']]
-
 [[plugins]]
 repository = 'jiangmiao/simple-javascript-indenter'
 filetypes = 'javascript'
@@ -246,14 +219,7 @@ filetypes = 'python'
 repository = 'bkad/CamelCaseMotion'
 mappings = '<Plug>'
 
-# something to do with library support
-#
-[[plugins]]
-repository = 'aharisu/vim-gdev'
-filetypes = 'scheme'
-
 # syntax files for cpp c-std11
-#
 [[plugins]]
 repository = 'vim-jp/cpp-vim'
 filetypes = 'cpp'
@@ -335,7 +301,8 @@ filetypes = "all"
 repository = 'chikatoike/concealedyank.vim'
 mappings = [['x', '<Plug>(operator-concealedyank)']]
 
-# Textobjs
+# Textobjs. Clever API for creating blocks. like "at" for selecting "a time"
+# if you want
 [[plugins]]
 repository = 'kana/vim-textobj-user'
 
@@ -348,7 +315,7 @@ mappings = [['ox', '<Plug>']]
 repository = 'saihoooooooo/glowshi-ft.vim'
 mappings = '<Plug>'
 
-[[plugins]]
+[[plugins]] # for creating notes in rst format
 repository = 'Rykka/riv.vim'
 filetypes = 'rst'
 
@@ -356,7 +323,7 @@ filetypes = 'rst'
 repository = 'rcmdnk/vim-markdown'
 filetypes = ['markdown', 'mkd']
 
-[[plugins]]
+[[plugins]] # markdown preview
 repository = 'kannokanno/previm'
 filetypes = ['markdown', 'rst', 'mkd']
 depends = 'tyru/open-browser.vim'
@@ -372,17 +339,13 @@ repository = 'Kocha/vim-unite-tig'
 repository = 'osyo-manga/unite-vimpatches'
 
 [[plugins]]
-repository = 'katono/rogue.vim'
-commands = 'Rogue'
-
-[[plugins]]
 repository = 'junegunn/vim-easy-align'
 mappings = '<Plug>(EasyAlign)'
 
 [[plugins]]
 repository = 'sorah/unite-ghq'
 
-[[plugins]]
+[[plugins]] # vim tests in API
 repository = 'thinca/vim-themis'
 filetypes = 'vim'
 
@@ -414,10 +377,6 @@ repository = 'tpope/vim-dispatch'
 
 [[plugins]]
 repository = 'https://github.com/benekastah/neomake.git'
-filetypes = 'all'
-
-[[plugins]]
-repository = 'joedicastro/dbext.vim'
 filetypes = 'all'
 
 [[plugins]]
@@ -485,10 +444,6 @@ repository = 'https://github.com/adamclerk/vim-razor.git'
 filetypes = 'razor'
 
 [[plugins]]
-repository = 'https://github.com/luochen1990/rainbow.git'
-filetypes = 'all'
-
-[[plugins]]
 repository = 'https://github.com/rhysd/committia.vim.git'
 filetypes  = 'all'
 
@@ -496,10 +451,6 @@ filetypes  = 'all'
 repository = 'https://github.com/junegunn/fzf.git'
 filetypes  = 'all'
 
-
-# [[plugins]]
-# repository = 'https://github.com/justmao945/vim-clang.git'
-# filetypes  = 'c'
 
 [[plugins]]
 repository = 'https://github.com/itchyny/unite-preview.git'
@@ -515,10 +466,6 @@ filetypes = 'python'
 
 [[plugins]]
 repository = 'https://github.com/Shougo/deoplete.nvim.git'
-filetypes = 'all'
-
-[[plugins]]
-repository = 'https://github.com/Raimondi/delimitMate.git'
 filetypes = 'all'
 
 [[plugins]]
