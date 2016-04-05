@@ -1848,6 +1848,7 @@ autocmd FileType c let g:neomake_c_enabled_makers = []
 autocmd FileType cpp let g:neomake_cpp_enabled_makers = []
 autocmd FileType c nnoremap [Space]w :w \| Neomake!<CR>
 autocmd FileType cpp nnoremap [Space]w :w \| Neomake!<CR>
+autocmd FileType asm nnoremap [Space]w :w \| Neomake!<CR>
 autocmd FileType yacc nnoremap [Space]w :w \| Neomake!<CR>
 autocmd FileType lex nnoremap [Space]w :w \| Neomake!<CR>
 

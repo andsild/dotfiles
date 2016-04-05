@@ -25,7 +25,7 @@ cd() #@ Change directory, saving location on the directory stack
             then
                 printf "Could not cd into %s\n" "${1}" > /dev/fd/2
             else
-                pushd "pathWithoutFilename"
+                pushd "${pathWithoutFilename}"
             fi
             
         fi
