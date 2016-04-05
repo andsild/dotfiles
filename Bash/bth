@@ -1,11 +1,11 @@
 #!/bin/bash
-# hex to decimal
+# binary to hex
+
 source ~/dotfiles/Bash/toupper
 if [ -z "${1}" ]
 then
     printf "Missing number\n"
     exit 1
 fi
-
 number=$(toupper "${1}")
-printf "%x\n" "${number}"
+echo "ibase=2;obase=10000; ${number}" | bc
