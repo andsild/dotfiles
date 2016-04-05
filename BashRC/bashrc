@@ -9,23 +9,26 @@ GREEN=$'\e[01;32m'
 YELLOW=$'\e[00;33m'
 WHITE=$'\e[00;00m'
 RED=$'\e[01;31m'
-PROMPT_COMMAND=__prompt_command  # Func to gen PS1 after CMDs
-function __prompt_command() {
-    local EXIT="$?"             # This needs to be first
-    PS1="`export EXITSTATUS=$?`$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s %s \[${WHITE}\]" \
-        "$(date +%k:%M)" \
-        "\u@\h: ./${PWD##*/}")"
-    if [ $EXIT = 0 ]; then
-        PS1+="${GREEN}:)"      # Add red if exit code non 0
-    else
-        PS1+="${RED}:("
-    fi
-    PS1+="${WHITE}\n$ "
-}
+PS1=$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s\n:\[${WHITE}\]\n" \
+         "$(date +%k:%M)" \
+         "\u@\h: ./${PWD##*/}")
+# PROMPT_COMMAND=__prompt_command  # Func to gen PS1 after CMDs
+# function __prompt_command() {
+#     local EXIT="$?"
+#         "$(date +%k:%M)" \
+#         "\u@\h: ./${PWD##*/}")"
+#     if [ $EXIT = 0 ]; then
+#         PS1+="${GREEN}:)"      # Add red if exit code non 0
+#     else
+#         PS1+="${RED}:("
+#     fi
+#     PS1+="${WHITE}\n$ "
+# }
 
 
 EDITOR="nvim"
 HISTIGNORE="ls:l:clear"
+export GOPATH="${HOME}/.go"
 PATH="${PATH}:${HOME}/dotfiles/Bash:$GOROOT/bin:$GOPATH/bin:${HOME}/.cabal/bin"
 
 export HISTCONTROL="ignoreboth:erasedups"
@@ -39,7 +42,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # My jedi-vim needs this(ugh!)
 export IPYTHONDIR="${HOME}/.ipython"
-
 
 # It's a lot more annoying to not have an old command in history than having a large file
 export HISTSIZE=100000
