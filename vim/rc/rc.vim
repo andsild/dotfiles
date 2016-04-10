@@ -1627,8 +1627,8 @@ endif "}}}
 
 if neobundle#tap('glowshi-ft.vim') "{{{
   let g:glowshi_ft_no_default_key_mappings = 1
-  map f <Plug>(glowshi-ft-f)
-  map F <Plug>(glowshi-ft-F)
+  " map f <Plug>(glowshi-ft-f)
+  " map F <Plug>(glowshi-ft-F)
 
   let g:glowshi_ft_timeoutlen = 1000
   let g:glowshi_ft_ignorecase = 1
@@ -1726,7 +1726,7 @@ if neobundle#tap('vim-fugitive')
 endif
 
 if neobundle#tap('vim-smalls')
-    nmap f <Plug>(smalls)
+    " nmap f <Plug>(smalls)
     call neobundle#untap()
 endif
 
