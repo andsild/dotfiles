@@ -19,7 +19,7 @@ function pdf()
 
 	eval local file='"${1}"'
 
-    if [ ! -e ${file} ]
+    if [ ! -e "${file}" ]
     then
         die 1 "${file} not found"
     fi
