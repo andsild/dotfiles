@@ -1,11 +1,20 @@
 #!/bin/bash
-# binary to hex
+# decimal to hex
 
-source ~/dotfiles/Bash/toupper
 if [ -z "${1}" ]
 then
     printf "Missing number\n"
     exit 1
 fi
-number=$(toupper "${1}")
-printf "%x\n" "${number}"
+if [ -n "${2}" ]
+then
+    formatSpecifier=${2}
+    if [[ ! "${2:0:1}" == 0 ]]
+    then
+        formatSpecifier="0${2}"
+    fi
+    eval printf "%${formatSpecifier}x" "${1}"
+    echo
+else
+    printf "%x\n" "${1}"
+fi

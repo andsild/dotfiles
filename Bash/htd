@@ -1,11 +1,9 @@
 #!/bin/bash
 # hex to decimal
-source ~/dotfiles/Bash/toupper
 if [ -z "${1}" ]
 then
     printf "Missing number\n"
     exit 1
 fi
 
-number=$(toupper "${1}")
-printf "%x\n" "${number}"
+bc <<< "ibase=16; $(tr '[:lower:]' '[:upper:]' <<< ${1})"

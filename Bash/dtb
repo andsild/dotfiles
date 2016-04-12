@@ -1,11 +1,21 @@
 #!/bin/bash
 # binary to decimal
 
-source ~/dotfiles/Bash/toupper
 if [ -z "${1}" ]
 then
     printf "Missing number\n"
     exit 1
 fi
-number=$(toupper "${1}")
-echo "obase=2; ${number}" | bc
+if [ -n "${2}" ]
+then
+    formatSpecifier=${2}
+    if [[ ! "${2:0:1}" == 0 ]]
+    then
+        formatSpecifier="0${2}"
+    fi
+    eval printf "%${formatSpecifier}d" "$(bc <<< "ibase=10;obase=2;$1")"
+    printf "\t0x%02x\n" "${1}"
+else
+    number=${1}
+    bc <<< "obase=2; ${number}" 
+fi
