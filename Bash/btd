@@ -1,11 +1,9 @@
 #!/bin/bash
 # binary to decimal
 
-source ~/dotfiles/Bash/toupper
 if [ -z "${1}" ]
 then
     printf "Missing number\n"
     exit 1
 fi
-number=$(toupper "${1}")
-echo "ibase=2;obase=A; ${number}" | bc
+bc <<< "ibase=2;obase=A; ${1}"

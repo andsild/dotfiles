@@ -1,11 +1,20 @@
 #!/bin/bash
 # binary to hex
 
-source ~/dotfiles/Bash/toupper
 if [ -z "${1}" ]
 then
     printf "Missing number\n"
     exit 1
 fi
-number=$(toupper "${1}")
-echo "ibase=2;obase=10000; ${number}" | bc
+if [ -n "${2}" ]
+then
+    formatSpecifier=${2}
+    if [[ ! "${2:0:1}" == 0 ]]
+    then
+        formatSpecifier="0${2}"
+    fi
+    eval printf "%${formatSpecifier}d" "$(bc <<< "ibase=2;obase=10000;$1")"
+    echo
+else
+    bc <<< "ibase=2;obase=10000; ${1}"
+fi
