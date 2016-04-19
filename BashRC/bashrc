@@ -81,7 +81,8 @@ complete -cf sudo
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export SCIPY_PIL_IMAGE_VIEWER=xdg-open
 export XDG_CONFIG_HOME="/home/andesil/.config"
-export FZF_DEFAULT_OPTS='--extended -i'
+export FZF_DEFAULT_OPTS='--extended -i --exact'
+export FZF_COMPLETION_OPTS='--extended --exact'
 source /usr/share/bash-completion/bash_completion
 
 source ~/.bash-git-prompt/gitprompt.sh
