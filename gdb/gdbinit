@@ -2,6 +2,28 @@ define hook-quit
     set confirm off
 end
 
+define px
+    printf "eax: %d\n", $eax 
+    printf "ebx: %d\n", $ebx 
+    printf "ecx: %d\n", $ecx 
+    printf "edx: %d\n", $edx 
+end
+
+define prx
+    printf "rax: %d\n", $rax 
+    printf "rbx: %d\n", $rbx 
+    printf "rcx: %d\n", $rcx 
+    printf "rdx: %d\n", $rdx 
+end
+
+define pstack
+    printf "-08(%%rbp): %d\n", $rbp-0x8
+    x /w  $rbp-0x8 
+    printf "-16(%%rbp): %d\n", $rbp-0x16
+    printf "-24(%%rbp): %d\n", $rbp-0x24
+    printf "-32(%%rbp): %d\n", $rbp-0x32
+end
+
 add-auto-load-safe-path /lib64/libthread_db-1.0.so
 set auto-load safe-path /
 
