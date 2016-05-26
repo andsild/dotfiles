@@ -16,31 +16,30 @@ fi
 function getSortedLineNumbers()
 {
     printf "%s\n" "${1}" \
-        | awk -F ":" '
+        | awk '
         BEGIN { startline=0 ; string = "" }
         { 
-        if (/.*\\begin/) { 
+        if (/.*\\begin{definition}/) { 
                 string = $0;
                 gsub(/(.*\[|\].*)/, "", string);
-                startline = $1
+                startline = NR
             } 
-        else 
+        if (/.*\\end{definition}/)
         {
-            printf "%s\t%s,%s\n", string, startline, $1 ; 
+            printf "%s\t%s,%s\n", string, startline, NR; 
         }
     }' | sort | cut -d$'\t' -f2
 }
 
 outfile="/tmp/sortedTexOutput.tex"
 test -e ${outfile} && rm ${outfile}
-data=$(printf "%s" "${inData}" | grep -nE '^(\\begin{definition}|\\end{definition})')
-lineNumbers=$(getSortedLineNumbers "${data}")
+lineNumbers=$(getSortedLineNumbers "${inData}")
 
 for x in $lineNumbers
 do
     startNum=${x%%,*}
     endNum=${x##*,}
-    printf "%s\n" "${inData}" | sed -n "$startNum,${endNum}p"  >> ${outfile}
+    printf "%s\n" "${inData}" | sed -n "$startNum,${endNum}p" >> ${outfile}
     echo >> ${outfile}
 done
 
