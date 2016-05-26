@@ -1,16 +1,21 @@
 #!/bin/bash
 
-if [ -z "${1}" ]
-then
-    printf "%s <filename to sort>\n" "$0"
-    exit 1
-fi
+inData=""
 
-infile=${1}
+if [ -n "${1}" ]
+then
+    inData=$(cat "${1}")
+else
+    IFS=$'\n' # read lines separated by newline
+    while read -r input
+    do
+        inData="$(printf "%s\n%s" "${inData}" "${input}")"
+    done
+fi
 
 function getSortedLineNumbers()
 {
-    grep -nE '^(\\begin{definition}|\\end{definition})' ${infile}  \
+    printf "%s\n" "${1}" \
         | awk -F ":" '
         BEGIN { startline=0 ; string = "" }
         { 
@@ -28,15 +33,17 @@ function getSortedLineNumbers()
 
 outfile="/tmp/sortedTexOutput.tex"
 test -e ${outfile} && rm ${outfile}
-lineNumbers=$(getSortedLineNumbers)
+data=$(printf "%s" "${inData}" | grep -nE '^(\\begin{definition}|\\end{definition})')
+lineNumbers=$(getSortedLineNumbers "${data}")
+
 for x in $lineNumbers
 do
     startNum=${x%%,*}
     endNum=${x##*,}
-    sed -n $startNum,${endNum}p ${infile} >> ${outfile}
+    printf "%s\n" "${inData}" | sed -n "$startNum,${endNum}p"  >> ${outfile}
     echo >> ${outfile}
 done
 
-sed '/\\begin{definition}/,/\\end{definition}/d' ${infile} >> ${outfile}
+printf "%s\n" "${inData}" | sed '/\\begin{definition}/,/\\end{definition}/d' >> "${outfile}"
 
 cat ${outfile}
