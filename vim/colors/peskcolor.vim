@@ -9,6 +9,11 @@ let colors_name = 'peskcolor'
 
 highlight Normal       guifg=#dfdfdf guibg=#101010
 
+" Popup color.
+hi Pmenu ctermbg=8
+hi PmenuSel ctermbg=1
+hi PmenuSbar ctermbg=0
+
 " Search
 highlight IncSearch    gui=UNDERLINE guifg=#80ffff guibg=#0060c0
 highlight Search       gui=NONE guifg=#f0f0f8 guibg=#0060c0 

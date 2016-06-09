@@ -75,7 +75,6 @@ repo = 'hail2u/vim-css3-syntax'
 repo = 'ctrlpvim/ctrlp.vim'
 
 # Parses HTML and stuff
-#
 [[plugins]]
 repo = 'mattn/webapi-vim'
 

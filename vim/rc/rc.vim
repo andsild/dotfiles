@@ -1,55 +1,41 @@
 " vimrc Anders Sildnes - great respect to Shougo, whom I based this vimrc from
 
-" vimrc notes:
-" 
-" == operator in vim is user sensitive. 
-" This depends on user settings (set ignorecase).
-" ==? is case sensitive, regardless of user setting
-" ==# is case insensitive, regardless of user setting
-" 
+" I have no idea on how to structurize this. Shougo separates everything in
+" in different files. I found this annoying - I couldn't quickly edit my rc
+" anymore, I had to find the right file and folder...
 
-" needed for syntax and colorscheme
+" Clustering rc-code  together based on alphabetical sorting or type would
+" be neat, but it also destroys context. I want some mappings close to their
+" plugin code, I want some options close to their functions, etc.
+" Also, I typically want some "nmap" close to their "xmap" equivalent
+
+" Also, commenting some code would make the rc file much easier to share 
+" and review, but it adds a lot of noise. I prefer having
+" lines without comments.  Any good vimmer should know to fix annoying 
+" behaviour. A Google search should yield the necessary attributes...
+" Yet I see difficulty in reading vimscript. But I dont what is best.
+
+" TODO: EDIT THE PATH BEFORE USING THIS RC FILE (to your vim install path)
 let g:install_path = '/home/andesil/dotfiles/vim/'
+
 exe 'set runtimepath+=' . expand(g:install_path)
 
 if &compatible
   set nocompatible
 endif
 
-let s:is_windows = has('win16') || has('win32') || has('win64')
-let s:is_cygwin = has('win32unix')
-let s:is_sudo = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
-      \ && $HOME !=# expand('~'.$USER)
-      \ && $HOME ==# expand('~'.$SUDO_USER)
-
 function! IsWindows()
-  return s:is_windows
+  return has('win16') || has('win32') || has('win64')
 endfunction
-
-"---------------------------------------------------------------------------
-" Initialize:
-"
-
-if exists('&regexpengine')
-  " Use old regexp engine.
-  " set regexpengine=1
-endif
 
 let g:mapleader = ','
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 
-" Release keymappings for plug-in.
 nnoremap ;  <Nop>
 xnoremap ;  <Nop>
 xnoremap m  <Nop>
 nnoremap ,  <Nop>
 xnoremap ,  <Nop>
-
-
-if IsWindows()
-  " Exchange path separator.
-  set shellslash
-endif
 
 let $CACHE = expand('~/.cache')
 
@@ -57,20 +43,14 @@ if !isdirectory(expand($CACHE))
   call mkdir(expand($CACHE), 'p')
 endif
 
-" Set augroup.
 augroup MyAutoCmd
   autocmd!
 augroup END
 
 if has('vim_starting') 
-  " Set runtimepath.
-  if IsWindows()
-    let &runtimepath = join([
-          \ expand('$VIM/runtime')])
-  endif
+  set encoding=utf-8
+  set termencoding=utf-8
 
-
-    " Load dein.
     let s:dein_dir = finddir('dein.vim', '.;')
     if s:dein_dir !=? '' || &runtimepath !~# '/dein.vim'
     if s:dein_dir ==? '' && &runtimepath !~# '/dein.vim'
@@ -84,19 +64,11 @@ if has('vim_starting')
             \ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
     endif
 
-
-    " dein configurations.
-
     let g:dein#install_progress_type = 'title'
     let g:dein#install_message_type = 'none'
     let g:dein#enable_notification = 1
 
     let s:path = expand('$CACHE/dein')
-    "     if !dein#load_state(s:path)
-    "         echom 'Dein failed to load!'
-    "         echom s:path
-    "     endif
-
     call dein#begin(s:path, [expand('<sfile>')]
         \ + split(glob('~/.vim/rc/*.toml'), '\n'))
 
@@ -106,10 +78,6 @@ if has('vim_starting')
 
     let s:vimrc_local = findfile('vimrc_local.vim', '.;')
     if s:vimrc_local !=# ''
-    " Load develop version plugins.
-    call dein#local(fnamemodify(s:vimrc_local, ':h'),
-            \ {'frozen': 1, 'merged': 0},
-            \ ['vim*', 'unite-*', 'neco-*', '*.vim'])
     if has('nvim')
         call dein#local(fnamemodify(s:vimrc_local, ':h'),
             \ {'frozen': 1, 'merged': 0},
@@ -123,37 +91,12 @@ if has('vim_starting')
 
     call dein#end()
     call dein#save_state()
-
-
-  " Load neobundle.
-  " let s:neobundle_dir = finddir('neobundle.vim', '.;')
-  " if s:neobundle_dir != ''
-  "   execute 'set runtimepath^=' .
-  "         \ fnamemodify(s:neobundle_dir, ':p')
-  " elseif &runtimepath !~ '/neobundle.vim'
-  "   let s:neobundle_dir = expand('$CACHE/neobundle').'/neobundle.vim'
-  "
-  "   if !isdirectory(s:neobundle_dir)
-  "     execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
-  "           \ (exists('$http_proxy') ? 'https' : 'git'))
-  "           \ s:neobundle_dir
-  "   endif
-  "
-  "   execute 'set runtimepath^=' . s:neobundle_dir
-  " endif
 endif
 
-
 if !has('vim_starting') && dein#check_install()
-  " Installation check.
   call dein#install()
 endif
 
-" let g:neobundle#default_options = {}
-" let g:neobundle#default_options._ = { 'verbose' : 1, 'focus' : 1 }
-
-"---------------------------------------------------------------------------
-" Disable GetLatestVimPlugin.vim
 " Disable netrw.vim
 let g:loaded_netrwPlugin = 1
 let g:loaded_matchparen = 1
@@ -161,125 +104,352 @@ let g:loaded_2html_plugin = 1
 let g:loaded_vimballPlugin = 1
 
 
-" call neobundle#begin(expand('$CACHE/neobundle'))
-" if neobundle#load_cache()
-"   NeoBundleFetch 'Shougo/neobundle.vim'
-"   call neobundle#load_toml(
-"         \ g:install_path . 'rc/neobundle.toml', {'lazy' : 0})
-"   NeoBundleSaveCache
-" endif
-"
-" NeoBundle configurations.
-
-" call neobundle#end()
-
 filetype plugin indent on
-
 syntax enable
 
-" if !has('vim_starting')
-"   NeoBundleCheck
-" endif
-
-
-if has('vim_starting')
-  set encoding=utf-8
-  " Setting of terminal encoding."
-  set termencoding=utf-8
-endif
-
-
-" Default fileformat.
 set fileformat=unix
-" Automatic recognition of a new line cord.
-if IsWindows()
-    set fileformats=dos
-    set fileformat=dos
-endif
 
 " Command group opening with a specific character code again.
-" In particular effective when I am garbled in a terminal.
-" Open in UTF-8 again.
 command! -bang -bar -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
-" Open in UTF-16 again.
 command! -bang -bar -complete=file -nargs=? Utf16 edit<bang> ++enc=ucs-2le <args>
-" Open in UTF-16BE again.
 command! -bang -bar -complete=file -nargs=? Utf16be edit<bang> ++enc=ucs-2 <args>
-
-" Aliases.
 command! -bang -bar -complete=file -nargs=? Unicode Utf16<bang> <args>
-
-
-" Tried to make a file note version.
-" Don't save it because dangerous.
 command! WUtf8 setlocal fenc=utf-8
-" Aliases.
 command! WUnicode WUtf16
 
-
-" Appoint a line feed."
 command! -bang -complete=file -nargs=? WUnix
       \ write<bang> ++fileformat=unix <args> | edit <args>
 
 if has('multi_byte_ime')
   set iminsert=0 imsearch=0
 endif
-
-set ignorecase " Ignore the case of normal letters.
-set nosmartcase " not good with dragon naturally speaking
-set incsearch " Enable incremental search.
-set nohlsearch " Don't highlight search result.
-set wrapscan " Searches wrap around the end of the file.
-
-set smarttab " Smart insert tab setting.
+if $GOROOT !=? ''
+  set runtimepath+=$GOROOT/misc/vim
+endif
+if !&verbose
+  set spelllang=en_us
+endif
+let &undodir=&directory
+set autoindent smartindent
+set autoread " Auto reload if file is changed.
+set backspace=indent,eol,start
+set backupdir-=.
+set breakat=\ \ ;:,!?
+set clipboard& clipboard+=unnamed
+set cmdheight=2
+set cmdwinheight=5                                                                                           
+set colorcolumn=79
+set commentstring=%s
+set complete=.
+set completeopt=longest
+set completeopt+=noinsert,noselect
+set conceallevel=2 concealcursor=iv
+set cpoptions-=m " Highlight when CursorMoved.
+set directory-=. " Set swap directory.
+set display=lastline                                                                                         
 set expandtab " Exchange tab to spaces.
-set tabstop=4 " Substitute <Tab> with blanks.
-set softtabstop=4 " Spaces instead <Tab>.
+set fillchars=vert:\|
+set foldcolumn=0 " Show folding level.
+set foldenable " Enable folding.
+set foldlevel=99 " Auto unfold all
+set foldmethod=indent
+set grepprg=grep\ -inH " Use grep.
+set helpheight=12
+set hidden " Display another buffer when current buffer isn't saved.
+set history=1000
+set ignorecase " Ignore the case of normal letters.
+set incsearch " Enable incremental search.
+set infercase " Ignore case on insert completion.
+set isfname-== " Exclude = from isfilename.
+set keywordprg=:help " Set keyword help.
+set laststatus=2
+set lazyredraw
+set linebreak
+set list
+set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:%
+set matchpairs+=<:> " Highlight <>.
+set matchtime=3
+set modeline " Enable modeline.
+set nobackup
+set noequalalways 
+set nohlsearch " Don't highlight search result.
+set nonumber
+set noshowcmd
+set noshowmode
+set nosmartcase " not good with dragon naturally speaking
+set nostartofline
+set noswapfile
+set novisualbell
+set nowildmenu
+set nowritebackup
+set previewheight=8
+set pumheight=20
+set relativenumber
+set report=0
+set secure
+set shell=bash
 set shiftround
 set shiftwidth=4 " Round indent by shiftwidth.
-set modeline " Enable modeline.
-
-set clipboard& clipboard+=unnamed
-
-" Enable backspace delete indent and newline.
-set backspace=indent,eol,start
-
+set shortmess=aTI
+set showbreak=>\
+set showfulltag
 set showmatch " Highlight parenthesis.
-set cpoptions-=m " Highlight when CursorMoved.
-set matchtime=3
-set matchpairs+=<:> " Highlight <>.
-set hidden " Display another buffer when current buffer isn't saved.
-set autoread " Auto reload if file is changed.
-set infercase " Ignore case on insert completion.
-set foldenable " Enable folding.
-set foldmethod=indent
-set foldcolumn=0 " Show folding level.
-set foldlevel=99 " Auto unfold all
-set fillchars=vert:\|
-set commentstring=%s
-
-set grepprg=grep\ -inH " Use grep.
-set isfname-== " Exclude = from isfilename.
+set showtabline=2
+set smarttab " Smart insert tab setting.
+set softtabstop=4 " Spaces instead <Tab>.
+set splitbelow
+set splitright                                                                                               
+set t_vb=
+set tabstop=4 " Substitute <Tab> with blanks.
+set tags=./tags,tags,../tags
 set timeout timeoutlen=3000 ttimeoutlen=100 " Keymapping timeout.
-set updatetime=1000 " CursorHold time.
-set directory-=. " Set swap directory.
-set noswapfile
-
+set title
+set titlelen=95
+set ttyfast
 set undofile
-let &undodir=&directory
+set updatetime=1000 " CursorHold time.
+set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix                                     
 set virtualedit=block " Enable virtualedit in visual block mode.
-set keywordprg=:help " Set keyword help.
-autocmd MyAutoCmd WinEnter * checktime " Check timestamp more for 'autoread'.
+set whichwrap+=h,l,<,>,[,],b,s,~
+set wildmode=list:longest,full
+set wildoptions=tagfile
+set winminheight=0 
+set winminwidth=0 
+set winwidth=1                                                                                               
+set wrapscan " Searches wrap around the end of the file.
 
-autocmd MyAutoCmd InsertLeave *
-      \ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
-      \ if &l:diff | diffupdate | endif
 
 
-autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
+inoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
+inoremap <silent> <a-j> <Esc>:call WindowCmd("j")<CR>
+inoremap <silent> <a-k> <Esc>:call WindowCmd("k")<CR>
+inoremap <silent> <a-l> <Esc>:call WindowCmd("l")<CR>
+vnoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
+vnoremap <silent> <a-j> <Esc>:call WindowCmd("j")<CR>
+vnoremap <silent> <a-k> <Esc>:call WindowCmd("k")<CR>
+vnoremap <silent> <a-l> <Esc>:call WindowCmd("l")<CR>
+tnoremap <silent> <a-h> <C-\><C-n>:call WindowCmd("h")<CR>
+tnoremap <silent> <a-j> <C-\><C-n>:call WindowCmd("j")<CR>
+tnoremap <silent> <a-k> <C-\><C-n>:call WindowCmd("k")<CR>
+tnoremap <silent> <a-l> <C-\><C-n>:call WindowCmd("l")<CR>
 
-autocmd MyAutoCmd BufWritePre *
-      \ call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Right> <NOP>
+nnoremap <Left> :10winc<<CR>
+nnoremap <Right> :10winc><CR>
+nnoremap <Up> :res +5<CR>
+nnoremap <Down> :res -5<CR>
+
+nmap <F1> <nop>
+map <F1> <Esc>
+imap <F1> <Esc>
+nnoremap <F1> <Esc>
+
+nnoremap <C-o> <C-o>zz
+nnoremap <Tab> <Tab>zz
+nnoremap zj zjzz
+nnoremap zk zkzz
+nnoremap } }zz
+nnoremap { {zz
+
+command! Q q
+command! WQ wq
+command! Wall wall
+command! WAll wall
+
+nnoremap <Leader>p "+p
+vnoremap ; <Esc>
+
+nnoremap <F9> :silent make <bar> redraw!<CR>
+
+
+xnoremap <TAB>  >
+xnoremap <S-TAB>  <
+
+nnoremap > >>
+silent! nnoremap < <<
+xnoremap > >gv
+xnoremap < <gv
+
+
+vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
+imap jj <Esc>
+imap kk <Esc>
+
+nnoremap ;d :<C-u>call <SID>CustomBufferDelete(1)<CR>
+
+nnoremap dl :diffget //2<CR>
+nnoremap dh :diffget //3<CR>
+map 0 ^
+
+nnoremap <Esc><Esc> :noh<CR>
+nnoremap * *<C-o>
+nnoremap vaw viw
+vnoremap vaw viw
+
+cmap w!! w !sudo tee > /dev/null %
+
+inoremap kke kke
+inoremap kk[Space] kk[Space]
+
+vnoremap s d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
+
+  xmap p <Plug>(operator-replace)
+  xmap I  <Plug>(niceblock-I)
+  xmap A  <Plug>(niceblock-A)
+  omap ab <Plug>(textobj-multiblock-a)
+  omap ib <Plug>(textobj-multiblock-i)
+  xmap ab <Plug>(textobj-multiblock-a)
+  xmap ib <Plug>(textobj-multiblock-i)
+  nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+  nmap J <Plug>(jplus)
+  vmap J <Plug>(jplus)
+  "vmap <Enter> is by default
+  xmap <Enter> <Plug>(EasyAlign)
+  nmap <Leader>a <Plug>(EasyAlign)
+
+if has('clipboard')
+  xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
+endif
+
+inoremap <C-d>  <Del>
+inoremap <C-w>  <C-g>u<C-w>
+inoremap <C-u>  <C-g>u<C-u>
+
+cnoremap <C-a>          <Home>
+cnoremap <C-b>          <Left>
+cnoremap <C-d>          <Del>
+cnoremap <C-e>          <End>
+cnoremap <C-f>          <Right>
+cnoremap <C-n>          <Down>
+cnoremap <C-p>          <Up>
+cnoremap <C-y>          <C-r>*
+cmap <C-o>          <Plug>(unite_cmdmatch_complete)
+
+nnoremap <SID>(command-line-enter) q:
+xnoremap <SID>(command-line-enter) q:
+nnoremap <SID>(command-line-norange) q:<C-u>
+
+nmap  <Space>   [Space]
+xmap  <Space>   [Space]
+nnoremap  [Space]   <Nop>
+xnoremap  [Space]   <Nop>
+
+nnoremap <silent> <Leader>.
+      \ :<C-u>call ToggleOption('number')<CR>
+
+nnoremap ;t :tabe<CR>
+nnoremap ;v :vsplit<CR>
+nnoremap ;s :split<CR>
+nnoremap ;n :call SplitVim()<CR>
+
+nnoremap [Space]h
+    \ :Unite history/unite <CR>
+
+
+
+nnoremap <silent> [Space]q
+      \ :call ToggleList("Quickfix List", 'c')<CR>
+nnoremap <silent> [Space]l
+      \ :call ToggleList("Location List", 'l')<CR>
+" Toggle cursorline.
+nnoremap <silent> <Leader>cl
+      \ :<C-u>call ToggleOption('cursorline')<CR>
+
+
+nnoremap <silent> <Leader>cs
+      \ :silent call ToggleColorScheme()<CR>
+nnoremap [Space]ar
+      \ :<C-u>setlocal autoread<CR>
+nnoremap <silent> [Space]en
+      \ :<C-u>setlocal encoding? fenc? fencs?<CR>
+nnoremap ,sp
+      \ :<C-u>call ToggleOption('spell')<CR>
+nnoremap <Leader>w
+      \ :<C-u>call ToggleOption('wrap')<CR>
+nnoremap [Space]w :w<CR>
+nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm:echo 'Took away c-m'<CR>
+
+nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespace'<CR>
+
+nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
+
+nnoremap    [Window]   <Nop>
+nmap    s [Window]
+nnoremap <silent> ;o  :<C-u>only<CR>
+
+
+    noremap <F12> <NOP>
+    inoremap <silent> <c-s> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
+    nnoremap <silent> <c-s> a<C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
+
+
+  nmap <silent>j <Plug>(accelerated_jk_gj)
+  nmap gj j
+  nmap <silent>k <Plug>(accelerated_jk_gk)
+  nmap gk k
+
+  xmap Y <Plug>(operator-concealedyank)
+
+  nmap <C-w>  <Plug>(choosewin)
+
+nnoremap    [Tag]   <Nop>
+nmap    t [Tag]
+" Jump.
+nnoremap [Tag]t  g<C-]>
+nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "g\<C-]>" :
+    \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately tag tag/include\<CR>"
+nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
+    \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
+
+nnoremap <silent><expr> /
+    \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -start-insert line:forward:wrap\<CR>"
+" nnoremap <silent><expr> *
+"       \ ":\<C-u>UniteWithCursorWord -buffer-name=search%".bufnr('%')." line:forward:wrap\<CR>"
+cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
+    \ "\<ESC>:Unite -buffer-name=search line:forward:wrap -input=".getcmdline()."\<CR>" : "\<C-g>"
+
+nnoremap <silent><expr> n
+    \ ":\<C-u>UniteResume search%".bufnr('%')."
+    \  -no-start-insert -force-redraw\<CR>"
+
+tnoremap jj <C-\><C-n>
+tnoremap kk <C-\><C-n>
+tnoremap <Esc><Esc> <C-\><C-n>
+
+nnoremap [Space]o :FZFMru<CR>
+noremap <c-t>  <Nop>
+nnoremap <c-t> :FZFMru<CR>
+
+nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+nnoremap Q  q " Disable Ex-mode.
+nnoremap [Quickfix]   <Nop> " q: Quickfix  
+
+nnoremap <silent> [Quickfix]<Space>
+      \ :<C-u>call <SID>toggle_quickfix_window()<CR>
+
+xnoremap r <C-v> " Select rectangle.
+xnoremap v $h
+
+nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
+
+noremap [Space]u :<C-u>Unite outline:foldings<CR>
+
+nmap <C-a> <SID>(increment)
+nmap <C-x> <SID>(decrement)
+nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
+nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
+nnoremap \  `
+nnoremap M  m
+
+nnoremap <silent> <C-f> <C-f>
+nnoremap <silent> <C-b> <C-b>
+
+nnoremap <silent> } :<C-u>call ForwardParagraph()<CR>
+onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
+xnoremap <silent> } <Esc>:<C-u>call ForwardParagraph()<CR>mzgv`z
+                                                                                                            
 function! s:mkdir_as_necessary(dir, force)
   if !isdirectory(a:dir) && &l:buftype ==? '' &&
         \ (a:force || input(printf('"%s" does not exist. Create? [y/N]',
@@ -288,8 +458,8 @@ function! s:mkdir_as_necessary(dir, force)
   endif
 endfunction
 
-let g:myLang=0
-let g:myLangList=['nospell','en_us', 'nb']
+let s:myLang=0
+let s:myLangList=['nospell','en_us', 'nb']
 function! ToggleSpell()
   let b:myLang=g:myLang+1
   if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
@@ -298,24 +468,26 @@ function! ToggleSpell()
   else
     execute 'setlocal spell spelllang='.get(g:myLangList, b:myLang)
   endif
-  echo 'spell checking language:' g:myLangList[b:myLang]
+  echo 'spell checking language:' s:myLangList[b:myLang]
 endfunction
-
 nmap <silent> <F7> :call ToggleSpell()<CR>
-
-
-" Anywhere SID.
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
-" Enable smart indent.
-set autoindent smartindent
 
 augroup MyAutoCmd
   autocmd FileType,Syntax,BufEnter,BufWinEnter * call s:my_on_filetype()
   autocmd FileType c,cpp set formatprg=astyle
   autocmd BufReadPost fugitive://* set bufhidden=delete
+
+    autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
+    autocmd InsertLeave *
+        \ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
+        \ if &l:diff | diffupdate | endif
+    autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
+    autocmd BufWritePre *
+        \ call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
 
 
   " Auto reload VimScript.
@@ -358,20 +530,10 @@ augroup MyAutoCmd
         \ match goErr /\<err\>/
 augroup END
 
-" Python
 let g:python_highlight_all = 1
-
-" Vim
 let g:vimsyntax_noerror = 1
-
-" JavaScript
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
-
-" Go
-if $GOROOT !=? ''
-  set runtimepath+=$GOROOT/misc/vim
-endif
 
 " http://mattn.kaoriya.net/software/vim/20140523124903.htm
 let g:markdown_fenced_languages = [
@@ -430,7 +592,6 @@ endfunction
 
 " Do not display completion messages
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
-set noshowmode
 try
   set shortmess+=c
 catch /^Vim\%((\a\+)\)\=:E539: Illegal character/
@@ -438,106 +599,6 @@ catch /^Vim\%((\a\+)\)\=:E539: Illegal character/
         \ highlight ModeMsg guifg=bg guibg=bg |
         \ highlight Question guifg=bg guibg=bg
 endtry
-"---------------------------------------------------------------------------
-" Key-mappings:
-"
-
-"Visual mode keymappings: 
-"<TAB>: indent.
-xnoremap <TAB>  >
-"<S-TAB>: unindent.
-xnoremap <S-TAB>  <
-
-" Indent
-nnoremap > >>
-silent! nnoremap < <<
-xnoremap > >gv
-xnoremap < <gv
-
-if has('clipboard')
-  xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
-endif
-
-" Insert mode keymappings: 
-" <C-d>: delete char.
-inoremap <C-d>  <Del>
-" <C-a>: move to head.
-" Enable undo <C-w> and <C-u>.
-inoremap <C-w>  <C-g>u<C-w>
-inoremap <C-u>  <C-g>u<C-u>
-
-if has('gui_running')
-  inoremap <ESC> <ESC>
-endif
-
-" Command-line mode keymappings:
-" <C-a>, A: move to head.
-cnoremap <C-a>          <Home>
-" <C-b>: previous char.
-cnoremap <C-b>          <Left>
-" <C-d>: delete char.
-cnoremap <C-d>          <Del>
-" <C-e>, E: move to end.
-cnoremap <C-e>          <End>
-" <C-f>: next char.
-cnoremap <C-f>          <Right>
-" <C-n>: next history.
-cnoremap <C-n>          <Down>
-" <C-p>: previous history.
-cnoremap <C-p>          <Up>
-" <C-y>: paste.
-cnoremap <C-y>          <C-r>*
-cmap <C-o>          <Plug>(unite_cmdmatch_complete)
-
-"Command line buffer.
-nnoremap <SID>(command-line-enter) q:
-xnoremap <SID>(command-line-enter) q:
-nnoremap <SID>(command-line-norange) q:<C-u>
-
-"nmap ;;  <SID>(command-line-enter)
-"xmap ;;  <SID>(command-line-enter)
-
-autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
-autocmd MyAutoCmd CmdwinLeave * let g:neocomplcache_enable_auto_select = 1
-
-function! s:init_cmdwin()
-  let g:neocomplcache_enable_auto_select = 0
-  let b:neocomplcache_sources_list = ['vim_complete']
-
-  " nnoremap <buffer><silent> q :<C-u>quit<CR>
-  " nnoremap <buffer><silent> <TAB> :<C-u>quit<CR>
-  inoremap <buffer><expr><CR> neocomplete#close_popup()."\<CR>"
-  inoremap <buffer><expr><C-h> col('.') == 1 ?
-        \ "\<ESC>:quit\<CR>" : neocomplete#cancel_popup()."\<C-h>"
-  inoremap <buffer><expr><BS> col('.') == 1 ?
-        \ "\<ESC>:quit\<CR>" : neocomplete#cancel_popup()."\<C-h>"
-
-  " Remove history lines.
-  silent execute printf('1,%ddelete _', min([&history - 20, line('$') - 20]))
-  call cursor(line('$'), 0)
-
-  startinsert!
-endfunction
-
-" [Space]: Other useful commands 
-" Smart space mapping.
-" Notice: when starting other <Space> mappings in noremap, disappeared [Space].
-nmap  <Space>   [Space]
-xmap  <Space>   [Space]
-nnoremap  [Space]   <Nop>
-xnoremap  [Space]   <Nop>
-
-" Toggle relativenumber.
-nnoremap <silent> <Leader>.
-      \ :<C-u>call ToggleOption('number')<CR>
-
-nnoremap ;t :tabe<CR>
-nnoremap ;v :vsplit<CR>
-nnoremap ;s :split<CR>
-nnoremap ;n :call SplitVim()<CR>
-
-nnoremap [Space]h
-    \ :Unite history/unite <CR>
 
 function! GetBufferList()
   redir =>buflist
@@ -566,14 +627,6 @@ function! ToggleList(bufname, pfx)
   endif
 endfunction
 
-nnoremap <silent> [Space]q
-      \ :call ToggleList("Quickfix List", 'c')<CR>
-nnoremap <silent> [Space]l
-      \ :call ToggleList("Location List", 'l')<CR>
-" Toggle cursorline.
-nnoremap <silent> <Leader>cl
-      \ :<C-u>call ToggleOption('cursorline')<CR>
-
 function! ToggleColorScheme()
   if exists('g:syntax_on')
     syntax off
@@ -583,41 +636,6 @@ function! ToggleColorScheme()
   endif
 endfunction
 
-" Toggle  colorscheme
-nnoremap <silent> <Leader>cs
-      \ :silent call ToggleColorScheme()<CR>
-" Set autoread.
-nnoremap [Space]ar
-      \ :<C-u>setlocal autoread<CR>
-" Output encoding information.
-nnoremap <silent> [Space]en
-      \ :<C-u>setl]spocal encoding? termencoding? fenc? fencs?<CR>
-" Set spell check.
-nnoremap ,sp
-      \ :<C-u>call ToggleOption('spell')<CR>
-nnoremap <Leader>w
-      \ :<C-u>call ToggleOption('wrap')<CR>
-nnoremap [Space]w :w<CR>
-
-" Delete windows ^M codes.
-nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm:echo 'Took away c-m'<CR>
-
-" Delete spaces before newline.
-" nnoremap <silent> <Leader>ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
-
-"Clear excess whitespace. mm is to center back to original pos
-nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm
-
-
-" Easily syntax change.
-nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
-
-
-" s: Windows and buffers(High priority) 
-" The prefix key.
-nnoremap    [Window]   <Nop>
-nmap    s [Window]
-nnoremap <silent> ;o  :<C-u>only<CR>
 
 function! s:smart_close()
   if winnr('$') != 1
@@ -702,18 +720,9 @@ function! s:buflisted(bufnr)
         \ buflisted(a:bufnr)
 endfunction
 
-" JunkFile
-" nnoremap <silent> [Window]e  :<C-u>JunkfileOpen<CR>
-nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
 command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
       \ strftime('%Y-%m-%d.md'))
 
-nnoremap Q  q " Disable Ex-mode.
-nnoremap [Quickfix]   <Nop> " q: Quickfix  
-
-" Toggle quickfix window.
-nnoremap <silent> [Quickfix]<Space>
-      \ :<C-u>call <SID>toggle_quickfix_window()<CR>
 function! s:toggle_quickfix_window()
   let _ = winnr('$')
   cclose
@@ -725,23 +734,6 @@ function! s:toggle_quickfix_window()
 endfunction
 
 
-" Jump mark can restore column.
-nnoremap \  `
-" Useless command.
-nnoremap M  m
-
-
-" Smart <C-f>, <C-b>.
-nnoremap <silent> <C-f> <C-f>
-nnoremap <silent> <C-b> <C-b>
-
-" Auto escape / and ? in search command.
-cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
-
-" Smart }.
-nnoremap <silent> } :<C-u>call ForwardParagraph()<CR>
-onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
-xnoremap <silent> } <Esc>:<C-u>call ForwardParagraph()<CR>mzgv`z
 function! ForwardParagraph()
   let cnt = v:count ? v:count : 1
   let i = 0
@@ -755,34 +747,6 @@ function! ForwardParagraph()
 endfunction
 
 
-" Select rectangle.
-xnoremap r <C-v>
-" Select until end of current line in visual mode.
-xnoremap v $h
-
-" Paste next line.
-nnoremap <silent> gp o<ESC>p^
-nnoremap <silent> gP O<ESC>P^
-xnoremap <silent> gp o<ESC>p^
-xnoremap <silent> gP O<ESC>P^
-
-" Redraw.
-nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
-
-noremap [Space]u :<C-u>Unite outline:foldings<CR>
-
-" Capitalize.
-nnoremap gu gUiw`]
-
-" operator-html-escape.vim
-nmap <Leader>h <Plug>(operator-html-escape)
-xmap <Leader>h <Plug>(operator-html-escape)
-
-" Improved increment.
-nmap <C-a> <SID>(increment)
-nmap <C-x> <SID>(decrement)
-nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
-nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 command! -range -nargs=1 AddNumbers
       \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
 function! s:add_numbers(num)
@@ -805,17 +769,10 @@ function! s:add_numbers(num)
   endif
 endfunction
 
-" Syntax check.
-nnoremap <silent> [Window]y
-      \ :<C-u>echo map(synstack(line('.'), col('.')),
-      \     'synIDattr(v:val, "name")')<CR>
-
-" Toggle options. 
 function! ToggleOption(option_name)
   execute 'setlocal' a:option_name.'!'
   execute 'setlocal' a:option_name.'?'
 endfunction  
-" Toggle variables. 
 function! ToggleVariable(variable_name)
   if eval(a:variable_name)
     execute 'let' a:variable_name.' = 0'
@@ -824,42 +781,6 @@ function! ToggleVariable(variable_name)
   endif
   " echo printf('%s = %s', a:variable_name, eval(a:variable_name))
 endfunction  
-
-
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Right> <NOP>
-nnoremap <Left> :10winc<<CR>
-nnoremap <Right> :10winc><CR>
-nnoremap <Up> :res +5<CR>
-nnoremap <Down> :res -5<CR>
-
-nmap <F1> <nop>
-map <F1> <Esc>
-imap <F1> <Esc>
-nnoremap <F1> <Esc>
-
-nnoremap <C-o> <C-o>zz
-nnoremap <Tab> <Tab>zz
-nnoremap zj zjzz
-nnoremap zk zkzz
-nnoremap } }zz
-nnoremap { {zz
-
-" command W w
-command! Q q
-" command Wq wq
-command! WQ wq
-command! Wall wall
-command! WAll wall
-
-nnoremap <Leader>p "+p
-" nnoremap <Leader>f :%s/^$/AB0\.1/g <bar> v/[0-9\-]\./d <bar> %s/AB0\.1//g <bar> %s/^\s\+//g <bar> %s/\v( ){1,10}/ /g <bar> %s/\s\+$//
-
-vnoremap ; <Esc>
-
-
-nnoremap <F9> :silent make <bar> redraw!<CR>
 
 
 " Read pdf
@@ -873,33 +794,6 @@ if executable('pdftotext')
   endfunction
 endif
 
-vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
-imap jj <Esc>
-imap kk <Esc>
-
-nnoremap ;d :<C-u>call <SID>CustomBufferDelete(1)<CR>
-
-" For three-way diffs in fugitive
-nnoremap dl :diffget //2<CR>
-nnoremap dh :diffget //3<CR>
-
-" 0 will go to beginning of line, ^ goes to first non-space. Much better.
-map 0 ^
-
-nnoremap <Esc><Esc> :noh<CR>
-" <C-o> is to maintain the position
-nnoremap * *<C-o>
-
-" aw tends to include whitespace if the cursor is at the beginning, iw no
-nnoremap vaw viw
-vnoremap vaw viw
-
-cmap w!! w !sudo tee > /dev/null %
-
-inoremap kke kke
-inoremap kk[Space] kk[Space]
-
-:vnoremap s d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
 
 function! GentooCleanConfig()
     " vint: -ProhibitCommandRelyOnUser
@@ -912,13 +806,6 @@ function! GentooCleanConfig()
     :noh<CR>
 endfunction
 
-tnoremap jj <C-\><C-n>
-tnoremap kk <C-\><C-n>
-tnoremap <Esc><Esc> <C-\><C-n>
-
-nnoremap [Space]o :FZFMru<CR>
-noremap <c-t>  <Nop>
-nnoremap <c-t> :FZFMru<CR>
 
 " Display diff with the file.
 command! -nargs=1 -complete=file Diff vertical diffsplit <args>
@@ -938,84 +825,8 @@ if has('mouse')
   cnoremap <RightMouse> <C-r>+
 endif
 
-" Default home directory.
 let t:cwd = getcwd()
-set secure
-set autoread
-set tags=./tags,tags,../tags
-
 tnoremap   <ESC><ESC>   <C-\><C-n>
-
-" The BufOnly is under copyright 
-" Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
-"
-" Distributed under the terms of the Vim license.  See ":help license".
-"
-" Usage:
-"
-" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer]
-"
-" Without any arguments the current buffer is kept.  With an argument the
-" buffer name/number supplied is kept.
-
-command! -nargs=? -complete=buffer -bang Bonly
-    \ :call BufOnly('<args>', '<bang>')
-command! -nargs=? -complete=buffer -bang BOnly
-    \ :call BufOnly('<args>', '<bang>')
-command! -nargs=? -complete=buffer -bang Bufonly
-    \ :call BufOnly('<args>', '<bang>')
-command! -nargs=? -complete=buffer -bang BufOnly
-    \ :call BufOnly('<args>', '<bang>')
-
-function! BufOnly(buffer, bang)
-    if a:buffer ==? ''
-        " No buffer provided, use the current buffer.
-        let buffer = bufnr('%')
-    elseif (a:buffer + 0) > 0
-        " A buffer number was provided.
-        let buffer = bufnr(a:buffer + 0)
-    else
-        " A buffer name was provided.
-        let buffer = bufnr(a:buffer)
-    endif
-
-    if buffer == -1
-        echohl ErrorMsg
-        echomsg 'No matching buffer for' a:buffer
-        echohl None
-        return
-    endif
-
-    let last_buffer = bufnr('$')
-
-    let delete_count = 0
-    let n = 1
-    while n <= last_buffer
-        if n != buffer && buflisted(n)
-            if a:bang ==? '' && getbufvar(n, '&modified')
-                echohl ErrorMsg
-                echomsg 'No write since last change for buffer'
-                            \ n '(add ! to override)'
-                echohl None
-            else
-                silent exe 'bdel' . a:bang . ' ' . n
-                if ! buflisted(n)
-                    let delete_count = delete_count+1
-                endif
-            endif
-        endif
-        let n = n+1
-    endwhile
-
-    if delete_count == 1
-        echomsg delete_count 'buffer deleted'
-    elseif delete_count > 1
-        echomsg delete_count 'buffers deleted'
-    endif
-
-endfunction
-
-""" end of copyrighted code block
 
 let python_highlight_all = 1
 
@@ -1079,33 +890,9 @@ nnoremap <silent> <C-k>
 nnoremap <silent> [Space]r
     \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 
-" t: tags-and-searches
-" The prefix key.
-nnoremap    [Tag]   <Nop>
-nmap    t [Tag]
-" Jump.
-nnoremap [Tag]t  g<C-]>
-nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "g\<C-]>" :
-    \ ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately tag tag/include\<CR>"
-nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
-    \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
-
-" Search.
-nnoremap <silent><expr> /
-    \ ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -start-insert line:forward:wrap\<CR>"
-" nnoremap <silent><expr> *
-"       \ ":\<C-u>UniteWithCursorWord -buffer-name=search%".bufnr('%')." line:forward:wrap\<CR>"
-cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
-    \ "\<ESC>:Unite -buffer-name=search line:forward:wrap -input=".getcmdline()."\<CR>" : "\<C-g>"
-
 function! s:smart_search_expr(expr1, expr2)
-return line('$') > 5000 ?  a:expr1 : a:expr2
+    return line('$') > 5000 ?  a:expr1 : a:expr2
 endfunction
-
-nnoremap <silent><expr> n
-    \ ":\<C-u>UniteResume search%".bufnr('%')."
-    \  -no-start-insert -force-redraw\<CR>"
-
 
 call unite#custom#profile('action', 'context', {
         \ 'start_insert' : 1
@@ -1254,37 +1041,10 @@ nnoremap    [Space]fe   :<C-u>VimFilerExplorer<CR>
     endif
   endfunction
 
-  nmap <silent>j <Plug>(accelerated_jk_gj)
-  nmap gj j
-  nmap <silent>k <Plug>(accelerated_jk_gk)
-  nmap gk k
-
-
-
-
-  xmap Y <Plug>(operator-concealedyank)
-
-  nmap <C-w>  <Plug>(choosewin)
   let g:choosewin_overlay_enable = 1
   let g:choosewin_overlay_clear_multibyte = 1
   let g:choosewin_blink_on_land = 0
 
-  xmap p <Plug>(operator-replace)
-  xmap I  <Plug>(niceblock-I)
-  xmap A  <Plug>(niceblock-A)
-  omap ab <Plug>(textobj-multiblock-a)
-  omap ib <Plug>(textobj-multiblock-i)
-  xmap ab <Plug>(textobj-multiblock-a)
-  xmap ib <Plug>(textobj-multiblock-i)
-  nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
-  nmap J <Plug>(jplus)
-  vmap J <Plug>(jplus)
-  "vmap <Enter> is by default
-  " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-  xmap <Enter> <Plug>(EasyAlign)
-
-  " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
-  nmap <Leader>a <Plug>(EasyAlign)
 
     let g:gitgutter_max_signs = 5000
 
@@ -1297,10 +1057,6 @@ nnoremap    [Space]fe   :<C-u>VimFilerExplorer<CR>
     let g:UltiSnipsExpandTrigger='<C-CR>'
     let g:UltiSnipsJumpForwardTrigger='<C-tab>'
     let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-
-    noremap <F12> <NOP>
-    inoremap <silent> <c-s> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
-    nnoremap <silent> <c-s> a<C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
 
     let g:livepreview_previewer = 'evince'
 
@@ -1346,35 +1102,12 @@ augroup END
 
     nnoremap [Space]/  :Grepper -tool ag  -open -switch<cr>
 
-set shell=bash
-set nonumber
-set relativenumber
-" Show <TAB> and <CR>
-set list
-set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:%
-" set wrap
-" " " Wrap conditions.
-set whichwrap+=h,l,<,>,[,],b,s,~
-" Always display statusline.
-set laststatus=2
-" Height of command line.
-set cmdheight=2
-" Not show command on statusline.
-set noshowcmd
-" Show title.
-set title
-" Title length.
-set titlelen=95
-" Title string.
 let &titlestring="
       \ %{expand('%:p:.:~')}%(%m%r%w%)
       \ %<\(%{".s:SID_PREFIX()."strwidthpart(
       \ fnamemodify(&filetype ==# 'vimfiler' ?
       \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
       \ &columns-len(expand('%:p:.:~')))}\) - VIM"
-
-set showtabline=2
-
 " Set statusline.
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
@@ -1382,76 +1115,7 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
       \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
-set linebreak
-set showbreak=>\
-set breakat=\ \ ;:,!?
 
-" Do not display greetings message at the time of Vim start.
-set shortmess=aTI
-
-set nowritebackup
-set nobackup
-set noswapfile
-set backupdir-=.
-
-" Disable bell.
-set t_vb=
-set novisualbell
-
-" Display candidate supplement.
-set nowildmenu
-set wildmode=list:longest,full
-" Increase history amount.
-set history=1000
-" Display all the information of the tag by the supplement of the Insert mode.
-set showfulltag
-" Can supplement a tag in a command-line.
-set wildoptions=tagfile
-
-" Disable menu
-let g:did_install_default_menus = 1
-
-if !&verbose
-  " Enable spell check.
-  set spelllang=en_us
-  " Enable CJK support.
-  set spelllang+=cjk
-endif
-
-" Completion setting.
-" set completeopt=menuone
-set completeopt=longest
-" Don't complete from other buffer.
-set complete=.
-" Set popup menu max height.
-set pumheight=20
-"
-set report=0
-"
-" Maintain a current line at the time of movement as much as possible.
-set nostartofline
-"
-" Splitting a window will put the new window below the current one.
-set splitbelow
-" Splitting a window will put the new window right the current one.
-set splitright                                                                                               
-" Set minimal width for current window.                                                                      
-set winwidth=1                                                                                               
-set winminheight=0 " the statusline will still show                                                          
-set winminwidth=0 " the statusline will still show                                                           
-set cmdwinheight=5                                                                                           
-set noequalalways " resize only happens when explicitly asked for
-
-set previewheight=8
-set helpheight=12
-
-set lazyredraw
-set ttyfast
-                                 
-set display=lastline                                                                                         
-                                                                                                            
-set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix                                     
-                                                                                                            
 function! s:strwidthpart(str, width)                                 
   if a:width <= 0                
     return ''                     
@@ -1467,22 +1131,13 @@ function! s:strwidthpart(str, width)
   return ret
 endfunction
 
-set conceallevel=2 concealcursor=iv
-set colorcolumn=79
-
 " Use builtin function.
 function! s:wcswidth(str)
     return strwidth(a:str)
 endfunction
 
-" Popup color.
-hi Pmenu ctermbg=8
-hi PmenuSel ctermbg=1
-hi PmenuSbar ctermbg=0
-  set completeopt+=noinsert,noselect
-
-  let g:deoplete#keyword_patterns = {}
-  let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 
 
 command! FZFMru call fzf#run({
@@ -1729,22 +1384,81 @@ let g:unite_source_menu_menus.jedi.command_candidates = [
 au MyAutoCmd Bufenter *.py nnoremap <silent> [Space]i :Unite menu:jedi -silent -winheight=25 -start-insert<CR>
 colorscheme peskcolor
 
-inoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
-inoremap <silent> <a-j> <Esc>:call WindowCmd("j")<CR>
-inoremap <silent> <a-k> <Esc>:call WindowCmd("k")<CR>
-inoremap <silent> <a-l> <Esc>:call WindowCmd("l")<CR>
-vnoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
-vnoremap <silent> <a-j> <Esc>:call WindowCmd("j")<CR>
-vnoremap <silent> <a-k> <Esc>:call WindowCmd("k")<CR>
-vnoremap <silent> <a-l> <Esc>:call WindowCmd("l")<CR>
-tnoremap <silent> <a-h> <C-\><C-n>:call WindowCmd("h")<CR>
-tnoremap <silent> <a-j> <C-\><C-n>:call WindowCmd("j")<CR>
-tnoremap <silent> <a-k> <C-\><C-n>:call WindowCmd("k")<CR>
-tnoremap <silent> <a-l> <C-\><C-n>:call WindowCmd("l")<CR>
-
 
     let g:finance_watchlist = ['NZYM-B.CO']
     let g:finance_format = '{symbol}: {LastTradePriceOnly} ({Change})'
     let g:finance_separator = "\n"
 
 tnoremap <C-6> <C-\><C-n><C-6>
+
+
+" The BufOnly is under copyright 
+" Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
+"
+" Distributed under the terms of the Vim license.  See ":help license".
+"
+" Usage:
+"
+" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer]
+"
+" Without any arguments the current buffer is kept.  With an argument the
+" buffer name/number supplied is kept.
+
+command! -nargs=? -complete=buffer -bang Bonly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BOnly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang Bufonly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BufOnly
+    \ :call BufOnly('<args>', '<bang>')
+
+function! BufOnly(buffer, bang)
+    if a:buffer ==? ''
+        " No buffer provided, use the current buffer.
+        let buffer = bufnr('%')
+    elseif (a:buffer + 0) > 0
+        " A buffer number was provided.
+        let buffer = bufnr(a:buffer + 0)
+    else
+        " A buffer name was provided.
+        let buffer = bufnr(a:buffer)
+    endif
+
+    if buffer == -1
+        echohl ErrorMsg
+        echomsg 'No matching buffer for' a:buffer
+        echohl None
+        return
+    endif
+
+    let last_buffer = bufnr('$')
+
+    let delete_count = 0
+    let n = 1
+    while n <= last_buffer
+        if n != buffer && buflisted(n)
+            if a:bang ==? '' && getbufvar(n, '&modified')
+                echohl ErrorMsg
+                echomsg 'No write since last change for buffer'
+                            \ n '(add ! to override)'
+                echohl None
+            else
+                silent exe 'bdel' . a:bang . ' ' . n
+                if ! buflisted(n)
+                    let delete_count = delete_count+1
+                endif
+            endif
+        endif
+        let n = n+1
+    endwhile
+
+    if delete_count == 1
+        echomsg delete_count 'buffer deleted'
+    elseif delete_count > 1
+        echomsg delete_count 'buffers deleted'
+    endif
+
+endfunction
+
+""" end of copyrighted code block
