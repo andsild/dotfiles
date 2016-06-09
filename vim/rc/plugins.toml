@@ -1,0 +1,443 @@
+#  Neobundle.toml
+
+
+[[plugins]]
+repo = 'Shougo/tabpagebuffer.vim'
+on_if = 'tabpagenr() > 1'
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_if = 1
+
+[[plugins]]
+repo = 'Chiel92/vim-autoformat.git'
+
+# [[plugins]]
+# repo = 'Shougo/unite-sudo'
+#
+# lets you use visual blocks like visual blockwise
+# e.g. vapATEXT" will append the work "TEXT" at the end of
+# each line in the "ap" region
+#
+[[plugins]]
+repo = 'kana/vim-niceblock'
+mappings = '<Plug>'
+#
+# show the local changes from git repo in the gutter
+[[plugins]]
+repo  = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'Shougo/echodoc.vim'
+on_event = 'CompleteDone'
+hook_source = 'call echodoc#enable()'
+
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+depends = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'Shougo/unite-build'
+
+[[plugins]]
+repo = 'Shougo/neossh.vim'
+on_ft = ['vimfiler']
+sources = 'ssh'
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+depends = 'unite.vim'
+on_map = {n = '<Plug>'}
+on_if = "isdirectory(bufname('%'))"
+hook_add = 'nnoremap <silent>   [Space]v   :<C-u>VimFiler -invisible<CR>'
+
+[[plugins]]
+repo = 'Shougo/vinarise.vim'
+on_cmd = 'Vinarise'
+hook_add = 'let g:vinarise_enable_auto_detect = 1'
+
+[[plugins]]
+repo = 'Shougo/junkfile.vim'
+unite_sources = 'junkfile'
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+
+[[plugins]]
+repo = 'hail2u/vim-css3-syntax'
+
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
+
+# Parses HTML and stuff
+#
+[[plugins]]
+repo = 'mattn/webapi-vim'
+
+[[plugins]] # format code
+repo = 'thinca/vim-prettyprint'
+
+[[plugins]]
+repo = 'thinca/vim-qfreplace'
+on_ft = ['unite', 'quickfix']
+
+# Quickly run a file with a preview window
+#
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+mappings = '<Plug>'
+
+[[plugins]]
+repo = 'thinca/vim-scouter'
+
+[[plugins]]
+repo = 'thinca/vim-unite-history'
+
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+mappings = '<Plug>'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'Shougo/unite-help'
+
+[[plugins]]
+repo = 'tsukkee/unite-tag'
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+mappings = '<Plug>'
+
+# Extensively used plugin for auto-completion. Leave alone
+
+[[plugins]]
+repo = 'tyru/restart.vim'
+gui = 1
+commands = 'Restart'
+
+# Nice auto-stuff for haskell
+#
+[[plugins]]
+repo = 'eagletmt/neco-ghc'
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'https://github.com/lukerandall/haskellmode-vim.git'
+on_ft = 'haskell'
+
+# see "man look" - used for auto-complete
+[[plugins]]
+repo = 'ujihisa/neco-look'
+insert = 1
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'ujihisa/unite-colorscheme'
+
+[[plugins]]
+repo = 'osyo-manga/unite-quickfix'
+
+[[plugins]]
+repo = 'osyo-manga/unite-filetype'
+
+[[plugins]]
+repo = 'kana/vim-tabpagecd'
+unite_sources = 'tab'
+
+# scrolling faster
+#
+[[plugins]]
+repo = 'rhysd/accelerated-jk'
+mappings = '<Plug>(accelerated_jk_'
+
+[[plugins]]
+repo = 'vim-jp/autofmt'
+mappings = [['x', 'gq']]
+
+[[plugins]]
+repo = 'supermomonga/unite-kawaii-calc'
+
+[[plugins]]
+repo = 'godlygeek/csapprox'
+terminal = 1
+
+# repeat commands also from plugins, not just builtin commands
+[[plugins]]
+repo = 'tpope/vim-repeat'
+mappings = '.'
+
+#
+[[plugins]]
+repo = 'jiangmiao/simple-javascript-indenter'
+on_ft = 'javascript'
+
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+on_ft = 'javascript'
+
+[[plugins]]
+repo = 'hynek/vim-python-pep8-indent'
+on_ft = 'python'
+
+# remaps "w" and "b" motions, intended to be more clever
+#
+[[plugins]]
+repo = 'bkad/CamelCaseMotion'
+mappings = '<Plug>'
+
+# syntax files for cpp c-std11
+[[plugins]]
+repo = 'vim-jp/cpp-vim'
+on_ft = 'cpp'
+
+[[plugins]]
+repo = 'thinca/vim-ft-diff_fold'
+on_ft = 'diff'
+
+[[plugins]]
+repo = 'nsf/gocode'
+rtp = 'vim'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'thinca/vim-ft-help_fold'
+on_ft = 'help'
+
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = 'json'
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+functions = 'openbrowser#open'
+
+[[plugins]]
+repo = 'kana/vim-filetype-haskell'
+on_ft = 'haskell'
+
+# Syntax files for D programming
+#
+[[plugins]]
+repo = 'JesseKPhillips/d.vim'
+on_ft = 'd'
+
+# nice plugin for selecting windows
+#
+[[plugins]]
+repo = 't9md/vim-choosewin'
+mappings = '<Plug>'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+
+# Operators
+[[plugins]]
+repo = 'kana/vim-operator-user'
+functions = 'operator#user#define'
+
+[[plugins]]
+repo = 'kana/vim-operator-replace'
+depends = 'vim-operator-user'
+mappings = [['nx', '<Plug>(operator-replace)']]
+
+# Use "sa" to highlight a region, and surround the region
+# e.g. "saaW("
+[[plugins]]
+repo = 'rhysd/vim-operator-surround'
+depends = 'vim-operator-user'
+mappings = '<Plug>'
+on_ft = "all"
+
+# Concealing in vim is to replace text with unicode symbols.
+# eg. instead of "&&" you put "⋀".
+# the plugin below allows you to put the cursor over the unicode symbol,
+# but still copy the original "&&" instead of the concealment ("⋀")
+[[plugins]]
+repo = 'chikatoike/concealedyank.vim'
+mappings = [['x', '<Plug>(operator-concealedyank)']]
+
+# Textobjs. Clever API for creating blocks. like "at" for selecting "a time"
+# if you want
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-multiblock'
+depends = 'vim-textobj-user'
+mappings = [['ox', '<Plug>']]
+
+[[plugins]] # for creating notes in rst format
+repo = 'Rykka/riv.vim'
+on_ft = 'rst'
+
+[[plugins]]
+repo = 'rcmdnk/vim-markdown'
+on_ft = ['markdown', 'mkd']
+
+[[plugins]] # markdown preview
+repo = 'kannokanno/previm'
+on_ft = ['markdown', 'rst', 'mkd']
+depends = 'tyru/open-browser.vim'
+
+[[plugins]]
+repo = 'Kocha/vim-unite-tig'
+
+# [[plugins]]
+# repo = 'osyo-manga/vim-jplus'
+# mappings = '<Plug>'
+
+[[plugins]]
+repo = 'osyo-manga/unite-vimpatches'
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+mappings = '<Plug>(EasyAlign)'
+
+[[plugins]]
+repo = 'sorah/unite-ghq'
+
+[[plugins]] # vim tests in API
+repo = 'thinca/vim-themis'
+on_ft = 'vim'
+
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+
+# The command that executes when you type "S" in vim. really nice
+#
+[[plugins]]
+repo = 't9md/vim-smalls'
+mappings = ['<Plug>(smalls)', '<Plug>(smalls-)']
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+
+[[plugins]]
+repo = 'rstacruz/sparkup'
+
+[[plugins]]
+repo = 'tpope/vim-dispatch'
+
+[[plugins]]
+repo = 'https://github.com/benekastah/neomake.git'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive.git'
+
+[[plugins]]
+repo = 'gregsexton/gitv'
+depends = 'tpope/vim-fugitive'
+
+
+[[plugins]]
+repo = 'fabi1cazenave/suckless.vim.git'
+
+[[plugins]]
+repo = 'https://github.com/ehamberg/vim-cute-python.git'
+on_ft = 'python'
+
+[[plugins]]
+repo = 'https://github.com/enomsg/vim-haskellConcealPlus.git'
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'https://github.com/calebsmith/vim-lambdify.git'
+on_ft = ['ruby', 'javascript', 'scheme', 'erlang']
+
+[[plugins]]
+repo = 'https://github.com/andsild/vim-unimpaired.git'
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = 'python'
+
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+on_ft = 'vim'
+insert = 1
+
+[[plugins]]
+repo = 'https://github.com/junegunn/vim-github-dashboard.git'
+
+[[plugins]]
+repo = 'https://github.com/suan/vim-instant-markdown.git'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'xuhdev/vim-latex-live-preview.git'
+on_ft = 'tex'
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+insert = 1
+
+[[plugins]]
+repo = 'https://github.com/SirVer/ultisnips.git'
+
+[[plugins]]
+repo = 'https://github.com/adamclerk/vim-razor.git'
+on_ft = 'razor'
+
+[[plugins]]
+repo = 'https://github.com/rhysd/committia.vim.git'
+on_ft  = 'all'
+
+[[plugins]]
+repo = 'https://github.com/junegunn/fzf.git'
+on_ft  = 'all'
+
+
+[[plugins]]
+repo = 'https://github.com/itchyny/unite-preview.git'
+on_ft = 'vimfiler'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+insert = 1
+
+[[plugins]]
+repo = 'https://github.com/bfredl/nvim-ipy.git'
+on_ft = 'python'
+
+
+[[plugins]]
+repo = 'https://github.com/mhinz/vim-grepper.git'
+
+[[plugins]]
+repo = 'https://github.com/janko-m/vim-test.git'
+
+
+[[plugins]]
+repo = 'https://github.com/nhooyr/neoman.vim.git'
+
+# [[plugins]]
+# repo = 'https://github.com/Rip-Rip/clang_complete'
+# on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo = 'https://github.com/Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'zchee/deoplete-clang'
+on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo = 'https://github.com/zchee/deoplete-jedi'
+on_ft = 'python'
+
+
+[[plugins]]
+repo = 'https://github.com/7kfpun/finance.vim.git'
