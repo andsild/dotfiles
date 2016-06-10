@@ -26,11 +26,6 @@ if &compatible
   set nocompatible
 endif
 
-let g:mapleader = ','
-let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
-
-let $CACHE = expand('~/.cache')
-
 if !isdirectory(expand($CACHE))
   call mkdir(expand($CACHE), 'p')
 endif
@@ -42,7 +37,10 @@ if has('vim_starting')
 
     colorscheme peskcolor
 
+    filetype plugin indent on
 
+
+    let $CACHE = expand('~/.cache')
     let s:dein_dir = finddir('dein.vim', '.;')
     if s:dein_dir !=? '' || &runtimepath !~# '/dein.vim'
     if s:dein_dir ==? '' && &runtimepath !~# '/dein.vim'
@@ -96,10 +94,6 @@ let g:loaded_2html_plugin = 1
 let g:loaded_vimballPlugin = 1
 let t:cwd = getcwd()
 
-
-
-filetype plugin indent on
-
 augroup DefaultAuGroup
     autocmd!
 
@@ -140,17 +134,6 @@ augroup DefaultAuGroup
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
     autocmd FileType haskell compiler ghc
 
-
-    " " Do not display completion messages
-    " " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
-    " try
-    " set shortmess+=c
-    " catch /^Vim\%((\a\+)\)\=:E539: Illegal character/
-    " autocmd DefaultAuGroup VimEnter *
-    "         \ highlight ModeMsg guifg=bg guibg=bg |
-    "         \ highlight Question guifg=bg guibg=bg
-    " endtry
-
     if has('python3')
         autocmd FileType python setlocal omnifunc=python3complete#Complete
     else
@@ -163,6 +146,13 @@ augroup DefaultAuGroup
     \ | endif
 
 augroup END
+
+augroup syntax-highlight-extends
+  autocmd!
+  autocmd Syntax vim
+        \ call s:set_syntax_of_user_defined_commands()
+augroup END
+
 
 " Command group opening with a specific character code again.
 command! -bang -bar -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
@@ -185,6 +175,8 @@ command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd 
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
       \ strftime('%Y-%m-%d.md'))
+command! -range -nargs=1 AddNumbers
+      \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
 
 set autoindent smartindent
 set autoread " Auto reload if file is changed.
@@ -498,7 +490,8 @@ if has('mouse')
   cnoremap <RightMouse> <C-r>+
 endif
 
-
+let g:mapleader = ','
+let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let s:myLang=0
 let s:myLangList=['nospell','en_us', 'nb']
 let g:deoplete#enable_at_startup = 1
@@ -748,6 +741,17 @@ let g:markdown_fenced_languages = [
       \  'vim',
       \]
 
+if executable('ag')
+    " Use ag in unite grep source.
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts =
+    \ '-i --ignore-dir "*bin*" -U --line-numbers --nocolor --nogroup --hidden --ignore ' .
+    \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' --ignore ''tags'' ' .
+    \ '--ignore ''.trx'' --ignore ''.xml'' --ignore ''.tt'''
+    let g:unite_source_grep_recursive_opt = ''
+endif
+
+
 function! s:mkdir_as_necessary(dir, force)
   if !isdirectory(a:dir) && &l:buftype ==? '' &&
         \ (a:force || input(printf('"%s" does not exist. Create? [y/N]',
@@ -771,12 +775,6 @@ function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
-
-augroup syntax-highlight-extends
-  autocmd!
-  autocmd Syntax vim
-        \ call s:set_syntax_of_user_defined_commands()
-augroup END
 
 function! s:set_syntax_of_user_defined_commands() 
   redir => l:commandout
@@ -945,9 +943,6 @@ function! ForwardParagraph()
   endwhile
 endfunction
 
-
-command! -range -nargs=1 AddNumbers
-      \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
 function! s:add_numbers(num)
   let l:prev_line = getline('.')[: col('.')-1]
   let l:next_line = getline('.')[col('.') :]
@@ -1044,16 +1039,6 @@ function! s:unite_my_settings()
     nnoremap <buffer><expr> S      unite#mappings#set_current_filters(empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
 endfunction
 
-if executable('ag')
-    " Use ag in unite grep source.
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts =
-    \ '-i --ignore-dir "*bin*" -U --line-numbers --nocolor --nogroup --hidden --ignore ' .
-    \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' --ignore ''tags'' ' .
-    \ '--ignore ''.trx'' --ignore ''.xml'' --ignore ''.tt'''
-    let g:unite_source_grep_recursive_opt = ''
-endif
-
 " My custom split action
 function! s:my_split.func(candidate)
     let l:split_action = 'vsplit'
@@ -1063,12 +1048,12 @@ function! s:my_split.func(candidate)
     call unite#take_action(l:split_action, a:candidate)
 endfunction
 
-    function! s:www_search()
-      let l:search_word = input('Please input search word: ')
-      if l:search_word !=? ''
-        execute 'OpenBrowserSearch' escape(l:search_word, '"')
-      endif
-    endfunction
+function! s:www_search()
+    let l:search_word = input('Please input search word: ')
+    if l:search_word !=? ''
+    execute 'OpenBrowserSearch' escape(l:search_word, '"')
+    endif
+endfunction
 
 
 function! FindCabalSandboxRoot()
