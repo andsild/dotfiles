@@ -3,7 +3,6 @@ set termencoding=utf-8
 
 " TODO: EDIT THE PATH BEFORE USING THIS RC FILE (to your vim install path)
 let g:install_path = '/home/andesil/dotfiles/vim/'
-let g:default_colorscheme = 'peskcolor' 
 let g:mapleader = ','
 
 exe 'set runtimepath+=' . expand(g:install_path)
@@ -20,8 +19,6 @@ endif
 if has('vim_starting') 
     set encoding=utf-8
     scriptencoding utf8
-
-    exe 'silent! colorscheme ' . g:default_colorscheme
 
     filetype plugin indent on
 
@@ -63,6 +60,11 @@ if has('vim_starting')
 
     call dein#end()
     call dein#save_state()
+
+
+    let g:default_colorscheme = 'peskcolor' 
+    exe 'silent! colorscheme ' . g:default_colorscheme
+
 endif
 
 if !has('vim_starting') && dein#check_install()
@@ -257,7 +259,6 @@ inoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
 inoremap <silent> <a-j> <Esc>:call WindowCmd("j")<CR>
 inoremap <silent> <a-k> <Esc>:call WindowCmd("k")<CR>
 inoremap <silent> <a-l> <Esc>:call WindowCmd("l")<CR>
-inoremap <silent> <c-s> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
 inoremap kk[Space] kk[Space]
 inoremap kke kke
 map 0 ^
@@ -330,7 +331,6 @@ nnoremap <silent> <Leader>cs :call ToggleColorScheme()<CR>
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
-nnoremap <silent> <c-s> a<C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 nnoremap <silent> [Space]di :Unite menu:diff -silent -start-insert -winheight=10 <CR>
 nnoremap <silent> [Space]en :<C-u>setlocal encoding? fenc? fencs?<CR>
@@ -444,8 +444,8 @@ if has('mouse')
 endif
 
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
-let s:myLang=0
-let s:myLangList=['nospell','en_us', 'nb']
+let g:myLang=0
+let g:myLangList=['nospell','en_us', 'nb']
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_completion_start_length = 1
 let g:deoplete#omni#input_patterns = {}
@@ -475,9 +475,6 @@ let g:gitgutter_max_signs = 5000
 let g:Gitv_OpenHorizontal = 'auto'
 let g:Gitv_WipeAllOnClose = 1
 let g:Gitv_DoNotMapCtrlKey = 1
-let g:UltiSnipsExpandTrigger='<C-CR>'
-let g:UltiSnipsJumpForwardTrigger='<C-tab>'
-let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 let g:livepreview_previewer = 'evince'
 let g:vimfiler_preview_action = 'auto_preview'
 let g:neomake_open_list = 2

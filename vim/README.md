@@ -5,10 +5,12 @@ This readme will **not** be updated often.
 
 ## Install
 [Linux only]  
-apt-get install neovim ... (or whichever package manager you have)
-`pip install --upgrade neovim`  
+Copy "init.vim" and "plugins.toml" into your `$XDG_CONFIG_HOME/nvim` (default `~/.config/nvim`).  
 The rest should install by itself. Note that some plugins fail silently if you
 miss dependencies like lua or ruby.
+Don't forget `pip install --upgrade neovim`  
+
+
 
 ## Mappings
 `<Leader> + <key(s)>`:  toggle a setting.  

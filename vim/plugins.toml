@@ -39,7 +39,7 @@ repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
-depends = 'Shougo/neomru.vim'
+depends = 'neomru.vim'
 
 [[plugins]]
 repo = 'Shougo/unite-build'
@@ -281,7 +281,7 @@ on_ft = ['markdown', 'mkd']
 [[plugins]] # markdown preview
 repo = 'kannokanno/previm'
 on_ft = ['markdown', 'rst', 'mkd']
-depends = 'tyru/open-browser.vim'
+depends = 'open-browser.vim'
 
 [[plugins]]
 repo = 'Kocha/vim-unite-tig'
@@ -302,7 +302,6 @@ repo = 'sorah/unite-ghq'
 
 [[plugins]] # vim tests in API
 repo = 'thinca/vim-themis'
-on_ft = 'vim'
 
 [[plugins]]
 repo = 'osyo-manga/vim-monster'
@@ -333,7 +332,7 @@ repo = 'tpope/vim-fugitive.git'
 
 [[plugins]]
 repo = 'gregsexton/gitv'
-depends = 'tpope/vim-fugitive'
+depends = 'vim-fugitive'
 
 
 [[plugins]]
@@ -378,9 +377,6 @@ on_ft = 'tex'
 [[plugins]]
 repo = 'Shougo/neoinclude.vim'
 insert = 1
-
-[[plugins]]
-repo = 'https://github.com/SirVer/ultisnips.git'
 
 [[plugins]]
 repo = 'https://github.com/adamclerk/vim-razor.git'
@@ -434,3 +430,12 @@ repo = 'https://github.com/vim-scripts/BufOnly.vim.git'
 
 [[plugins]]
 repo = 'https://github.com/junegunn/vim-peekaboo.git'
+
+[[plugins]]
+repo = 'https://github.com/kchmck/vim-coffee-script.git'
+
+[[plugins]]
+repo = 'andsild/peskcolor.vim.git'
+
+[[plugins]]
+repo = 'andsild/missing-spellfiles-neovim.git'
