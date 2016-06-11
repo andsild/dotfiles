@@ -1,5 +1,5 @@
 set termencoding=utf-8
-" vimrc Anders Sildnes - great respect to Shougo, whom I based this vimrc from
+" vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
 
 
 let g:path = expand($XDG_CONFIG_HOME)
@@ -96,7 +96,7 @@ augroup DefaultAuGroup
     autocmd FileType asm nnoremap [Space]w :w \| Neomake!<CR>
     autocmd FileType c let g:neomake_c_enabled_makers = []
     autocmd FileType c nnoremap [Space]w :w \| Neomake!<CR>
-    autocmd FileType c,cpp set formatprg = astyle
+    autocmd FileType c,cpp set formatprg =astyle
     autocmd FileType cpp let g:neomake_cpp_enabled_makers = []
     autocmd FileType cpp nnoremap [Space]w :w \| Neomake!<CR>
     autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
