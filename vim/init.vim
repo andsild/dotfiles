@@ -3,6 +3,8 @@ set termencoding=utf-8
 
 " TODO: EDIT THE PATH BEFORE USING THIS RC FILE (to your vim install path)
 let g:install_path = '/home/andesil/dotfiles/vim/'
+let g:default_colorscheme = 'peskcolor' 
+let g:mapleader = ','
 
 exe 'set runtimepath+=' . expand(g:install_path)
 
@@ -15,12 +17,11 @@ if !isdirectory(expand($CACHE))
   call mkdir(expand($CACHE), 'p')
 endif
 
-
 if has('vim_starting') 
     set encoding=utf-8
     scriptencoding utf8
 
-    colorscheme peskcolor
+    exe 'silent! colorscheme ' . g:default_colorscheme
 
     filetype plugin indent on
 
@@ -325,7 +326,7 @@ nnoremap <silent> <Leader>. :<C-u>call ToggleOption('number')<CR>
 nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm:echo 'Took away c-m'<CR>
 nnoremap <silent> <Leader>au :Autoformat<CR>
 nnoremap <silent> <Leader>cl :<C-u>call ToggleOption('cursorline')<CR>
-nnoremap <silent> <Leader>cs :silent call ToggleColorScheme()<CR>
+nnoremap <silent> <Leader>cs :call ToggleColorScheme()<CR>
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
@@ -442,7 +443,6 @@ if has('mouse')
   cnoremap <RightMouse> <C-r>+
 endif
 
-let g:mapleader = ','
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let s:myLang=0
 let s:myLangList=['nospell','en_us', 'nb']
@@ -826,7 +826,6 @@ function! ToggleColorScheme()
   if exists('g:syntax_on')
     syntax off
   else
-    colorscheme peskcolor
     syntax enable
   endif
 endfunction

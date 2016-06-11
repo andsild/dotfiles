@@ -1,1 +1,3 @@
 *.log
+.init.vim-rplugin~
+haskellmode.config
