@@ -1,11 +1,19 @@
 set termencoding=utf-8
 " vimrc Anders Sildnes - great respect to Shougo, whom I based this vimrc from
 
-" TODO: EDIT THE PATH BEFORE USING THIS RC FILE (to your vim install path)
-let g:install_path = '/home/andesil/dotfiles/vim/'
-let g:mapleader = ','
 
-exe 'set runtimepath+=' . expand(g:install_path)
+let g:path = expand($XDG_CONFIG_HOME)
+if len(g:path) == 0
+    let g:path = expand('~/.config/')
+endif
+let g:toml_path = g:path . '/nvim/plugins.toml'
+if ! filereadable(g:toml_path)
+    echom 'Could not find plugins.toml file at ' . g:toml_path
+    echom 'Aborting init.vim loading'
+    finish
+endif
+let g:default_colorscheme = 'peskcolor' 
+let g:mapleader = ','
 
 if &compatible
   " vint: -ProhibitSetNoCompatible
@@ -25,12 +33,14 @@ if has('vim_starting')
 
     let $CACHE = expand('~/.cache')
     let s:dein_dir = finddir('dein.vim', '.;')
+    let g:dein_firsttime = 0
     if s:dein_dir !=? '' || &runtimepath !~# '/dein.vim'
     if s:dein_dir ==? '' && &runtimepath !~# '/dein.vim'
         let s:dein_dir = expand('$CACHE/dein')
             \. '/repos/github.com/Shougo/dein.vim'
         if !isdirectory(s:dein_dir)
         execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+        let g:dein_firsttime = 1
         endif
     endif
     execute ' set runtimepath^=' . substitute(
@@ -42,27 +52,23 @@ if has('vim_starting')
     let g:dein#enable_notification = 1
 
     let s:path = expand('$CACHE/dein')
-    call dein#begin(s:path, [expand('<sfile>')]
-        \ + split(glob('~/.vim/*.toml'), '\n'))
+    call dein#begin(s:path, [expand('<sfile>')])
+
 
     if has('nvim')
-        call dein#load_toml(expand(g:install_path) . 'plugins.toml', {})
+        call dein#load_toml(g:toml_path, {})
     endif
 
-    let s:vimrc_local = findfile('vimrc_local.vim', '.;')
-    if s:vimrc_local !=# ''
-    if has('nvim')
-        call dein#local(fnamemodify(s:vimrc_local, ':h'),
-            \ {'frozen': 1, 'merged': 0},
-            \ ['deoplete-*', '*.nvim'])
-        endif
-    endif
 
     call dein#end()
     call dein#save_state()
 
+    if g:dein_firsttime
+        call dein#install()
+        echom 'Please restart nvim'
+        finish
+    endif
 
-    let g:default_colorscheme = 'peskcolor' 
     exe 'silent! colorscheme ' . g:default_colorscheme
 
 endif
