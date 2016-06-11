@@ -1,10 +1,7 @@
 # VIM
 Welcome to my wonderland...
 
-This readme will **not** be updated often.
-
-## Install
-[Linux only]  
+## Install [_Linux_]
 Copy "init.vim" and "plugins.toml" into your `$XDG_CONFIG_HOME/nvim` (default `~/.config/nvim`).  
 The rest should install by itself. Note that some plugins fail silently if you
 miss dependencies like lua or ruby.
@@ -16,7 +13,7 @@ Don't forget `pip install --upgrade neovim`
 `<Leader> + <key(s)>`:  toggle a setting.  
 `[Space] + <key(s)>`: open a menu  
 `; + <key(s)>`: do a window action  
-&nbsp;&nbsp;&nbsp;&nbsp; **For example**  
+**For example:**  
 &nbsp;&nbsp;&nbsp;&nbsp; * `<Leader>sp` enables spellcheck, `<Leader>w` toggles wrap...  
 &nbsp;&nbsp;&nbsp;&nbsp; * `[Space]g` opens git menu, `[Space]i` open intellisense menu (python, c#)  
 &nbsp;&nbsp;&nbsp;&nbsp; * `;v` open a vsplit, `;t` opens a tab
