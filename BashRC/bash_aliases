@@ -79,4 +79,4 @@ function murder()
 }
 
 alias stream="vlc   --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
-alias gclean='git gc --prune=now  ; git remote prune origin'
+alias gclean='(git gc --prune=now  ; git remote prune origin) && git pull'
