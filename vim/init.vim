@@ -1,7 +1,6 @@
 set termencoding=utf-8
 " vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
 
-
 let g:path = expand($XDG_CONFIG_HOME)
 if len(g:path) == 0
     let g:path = expand('~/.config/')
@@ -23,6 +22,12 @@ endif
 if !isdirectory(expand($CACHE))
   call mkdir(expand($CACHE), 'p')
 endif
+
+function! IsMac()
+    let l:sysout=system('uname')
+    echom sysout
+	return has('unix') && l:sysout==?'Darwin'
+endfunction
 
 if has('vim_starting') 
     set encoding=utf-8
@@ -278,7 +283,7 @@ nmap <C-w>  <Plug>(choosewin)
 nmap <C-x> <SID>(decrement)
 nmap <F1> <nop>
 nmap <buffer> gc <Plug>(caw:prefix)
-nmap <buffer> gcc <Plug>(caw:tildepos:toggle)
+nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
 nmap <buffer> tcd         <Plug>(unite_quick_match_default_action)
 nnoremap <silent> <Leader>r QuickRun
 nmap <silent> B <Plug>CamelCaseMotion_b
@@ -414,7 +419,7 @@ xmap    ;u [unite]
 xmap  <Space>   [Space]
 xmap <Enter> <Plug>(EasyAlign)
 xmap <buffer> gc <Plug>(caw:prefix)
-xmap <buffer> gcc <Plug>(caw:tildepos:toggle)
+xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
 xmap <silent> B <Plug>CamelCaseMotion_b
 xmap <silent> W <Plug>CamelCaseMotion_w
 xmap A  <Plug>(niceblock-A)
