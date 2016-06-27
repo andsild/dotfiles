@@ -636,6 +636,7 @@ xnoremap v $h
  let g:deoplete#omni#input_patterns = {}
  let g:deoplete#omni#input_patterns.python = ''
  let g:deoplete#omni#functions = {}
+ let g:jsx_ext_required = 0
  let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
  let g:unite#default_context = {
          \ 'vertical' : 0,
@@ -666,6 +667,7 @@ xnoremap v $h
  let g:neomake_list_height = 5
  let g:neomake_tex_enabled_makers = ['chktex']
  let g:neomake_python_enabled_makers=['pylint']
+ let g:neomake_javascript_enabled_makers=['eslint']
  let g:deoplete#keyword_patterns = {}
  let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
  

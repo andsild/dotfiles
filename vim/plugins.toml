@@ -439,3 +439,7 @@ repo = 'andsild/peskcolor.vim.git'
 
 [[plugins]]
 repo = 'andsild/missing-spellfiles-neovim.git'
+
+[[plugins]]
+repo = 'https://github.com/mxw/vim-jsx.git'
+on_ft = 'javascript'
