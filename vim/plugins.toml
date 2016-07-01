@@ -443,3 +443,7 @@ repo = 'andsild/missing-spellfiles-neovim.git'
 [[plugins]]
 repo = 'https://github.com/mxw/vim-jsx.git'
 on_ft = 'javascript'
+
+[[plugins]]
+repo = 'https://github.com/artur-shaik/vim-javacomplete2.git'
+on_ft = 'java'
