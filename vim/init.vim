@@ -151,6 +151,8 @@ let t:cwd = getcwd()
      autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=./;/
      autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
      autocmd FileType java setlocal omnifunc=javacomplete#Complete
+     autocmd FileType javascript,javascript.jsx nmap <s-k> :TernDoc<CR>
+     autocmd FileType javascript,javascript.jsx nnoremap [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
      autocmd FileType lex nnoremap [Space]w :w \| Neomake!<CR>
      autocmd FileType pdf :0
      autocmd FileType pdf Pdf '%'
@@ -647,8 +649,6 @@ xnoremap v $h
  let g:unite_enable_start_insert = 0
  let g:unite_enable_short_source_names = 1
  let g:deoplete#enable_camel_case = 1
- let g:deoplete#sources#clang#libclang_path = '/usr/lib64/llvm/libclang.so'
- let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
  let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
  let g:unite_source_rec_max_cache_files = -1
  let s:my_split = {'is_selectable': 1}
@@ -857,6 +857,23 @@ xnoremap v $h
      \['-> Usages',
          \'call jedi#usages()'],
  \]
+
+ let g:unite_source_menu_menus.tern = {
+         \ 'description' : '            Javascript intellisense
+             \                                [Space]i',
+     \}
+ let g:unite_source_menu_menus.tern.command_candidates = [
+     \['-> Browse docs',
+         \'TernDocBrowse'],
+    \['-> Type lookup',
+         \'TernType'],
+     \['-> Definition',
+         \'TernDef'],
+     \['-> References',
+         \'TernRefs'],
+     \['-> Rename',
+         \'TernRename'],
+ \]
  let g:finance_watchlist = ['NZYM-B.CO']
  let g:finance_format = '{symbol}: {LastTradePriceOnly} ({Change})'
  let g:finance_separator = "\n"
@@ -876,6 +893,14 @@ xnoremap v $h
        \  'xml',
        \  'vim',
        \]
+
+ if s:IsMac()
+    let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+    let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/include'
+ else
+    let g:deoplete#sources#clang#libclang_path = '/usr/lib64/llvm/libclang.so'
+    let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+ endif
  
  
  if executable('ag')
@@ -1352,6 +1377,26 @@ xnoremap v $h
      wincmd p
    endif
  endfunction
+
+
+
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Space>m :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
  
  command! -nargs=* Ag call fzf#run({
  \ 'source':  printf('ag --nogroup --column --color "%s"',

@@ -173,11 +173,11 @@ mappings = '.'
 #
 [[plugins]]
 repo = 'jiangmiao/simple-javascript-indenter'
-on_ft = 'javascript'
+on_ft = ['javascript', 'javascript.jsx']
 
 [[plugins]]
 repo = 'jelera/vim-javascript-syntax'
-on_ft = 'javascript'
+on_ft = ['javascript', 'javascript.jsx']
 
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
@@ -442,8 +442,23 @@ repo = 'andsild/missing-spellfiles-neovim.git'
 
 [[plugins]]
 repo = 'https://github.com/mxw/vim-jsx.git'
-on_ft = 'javascript'
+on_ft = ['javascript', 'javascript.jsx']
 
 [[plugins]]
 repo = 'https://github.com/artur-shaik/vim-javacomplete2.git'
 on_ft = 'java'
+
+[[plugins]]
+repo = 'https://github.com/SirVer/ultisnips.git'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+
+[[plugins]]
+repo = 'https://github.com/carlitux/deoplete-ternjs.git'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'marijnh/tern_for_vim'
+on_ft = ['javascript', 'javascript.jsx']
+build = 'npm install'
