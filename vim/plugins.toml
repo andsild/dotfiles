@@ -462,3 +462,10 @@ on_ft = ['javascript', 'javascript.jsx']
 repo = 'marijnh/tern_for_vim'
 on_ft = ['javascript', 'javascript.jsx']
 build = 'npm install'
+
+[[plugins]]
+repo = 'https://github.com/maksimr/vim-jsbeautify.git'
+
+[[plugins]]
+repo = 'https://github.com/pangloss/vim-javascript.git'
+on_ft = ['javascript', 'javascript.jsx']

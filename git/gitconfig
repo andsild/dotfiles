@@ -9,7 +9,7 @@
 	tool = diffconflicts
 [core]
 	excludesfile = ~/dotfiles/git/gitexclude
-	editor = /usr/bin/nvim
+	editor = nvim
 [alias]
     root = rev-parse --show-toplevel
 [mergetool]
