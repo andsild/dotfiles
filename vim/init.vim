@@ -396,7 +396,6 @@ nnoremap <silent> [Space]en :<C-u>setlocal encoding? fenc? fencs?<CR>
 nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
 nnoremap <silent> [Space]l :call ToggleList("Location List", 'l')<CR>
 nnoremap <silent> [Space]n  :UniteNext<CR>
-nnoremap <silent> [Space]o :Unite -start-insert menu:openfile -silent -winheight=10 <CR>
 nnoremap <silent> [Space]p  :UnitePrevious<CR>
 nnoremap <silent> [Space]q :call ToggleList("Quickfix List", 'c')<CR>
 nnoremap <silent> [Space]r  :UniteResume<CR>
@@ -417,6 +416,7 @@ nnoremap [Space]/  :Ag<CR>
 nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]h :Unite history/unite <CR>
 nnoremap [Space]o :FZFMru<CR>
+nnoremap [Space]<s-o> :FZF<CR>
 nnoremap [Space]t :<C-u>Unite -start-insert tag tag/include<CR>
 nnoremap [Space]w :w<CR>
 nnoremap [Tag]t  g<C-]>
@@ -535,7 +535,7 @@ let g:neomake_open_list = 2
 let g:neomake_list_height = 5
 let g:neomake_tex_enabled_makers = ['chktex']
 let g:neomake_python_enabled_makers=['pylint']
-let g:neomake_javascript_enabled_makers=['jscs']
+let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 let g:javascript_plugin_jsdoc = 1
@@ -1267,7 +1267,8 @@ nnoremap <silent> <Space>m :call fzf#run({
 \ })<CR>
  
 command! -nargs=* Ag call fzf#run({
-\ 'source':  printf('ag --nogroup --column --color "%s"',
+\ 'source':  printf('ag --nogroup --column --nocolor --ignore %s --ignore %s "%s"',
+\                   'bundle.js', 'bundle.js.map',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
