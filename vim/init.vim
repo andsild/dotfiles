@@ -16,6 +16,9 @@ if s:isWindows()
 	let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
 else
 	set shell=bash
+    if has('vim_starting') 
+        cd ~ " windows' nvim doesnt default here
+    endif
 endif
 
 
