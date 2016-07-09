@@ -4,12 +4,12 @@
 [credential]
 	helper = cache --timeout=3600
 [push]
-	default = simple
+	default = current
 [merge]
 	tool = diffconflicts
 [core]
 	excludesfile = ~/dotfiles/git/gitexclude
-	editor = /usr/bin/nvim
+	editor = nvim
 [alias]
     root = rev-parse --show-toplevel
 [mergetool]
@@ -18,3 +18,5 @@
 	cmd = diffconflicts nvim $BASE $LOCAL $REMOTE $MERGED
 	trustExitCode = true
 	keepBackup = false
+[alias]
+    setup = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`

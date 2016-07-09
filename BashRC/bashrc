@@ -47,62 +47,49 @@ export IPYTHONDIR="${HOME}/.ipython"
 export HISTSIZE=100000
 export HISTFILE_SIZE=1000000
 
-
-# Reload history after each command (needed to share history across shells live)
-# export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-
-# Append dirname to window title if WMII_IS_RUNNING
-# WMII_IS_RUNNING=`ps a | grep wmii | awk '/[^"grep"] wmii$/'`
-# if [ -n "$WMII_IS_RUNNING" ]
-# then
-#   PROMPT_COMMAND="${PROMPT_COMMAND} ; dirs | wmiir write /client/sel/label"
-# fi
-
 # If the command-line has an empty entry, don't try to autocomplete with tab
 shopt -s no_empty_cmd_completion
-# Enable auto cding, so you don't have to use "cd /the/dir" just "/the/dir"
-shopt -s autocd
-# Enable directory autocorrection
-shopt -s cdspell dirspell
-# Append history across shells
-shopt -s histappend
 
-BASH_INCLUDES_DEST="${HOME}/.bash_includes"
-# Check for file and include it
-[ -e "${BASH_INCLUDES_DEST}" ] && source "${BASH_INCLUDES_DEST}"
-
-# Get proper auto-completion
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-        . /etc/bash_completion
+# need the if statement for e.g. mac
+if [ "${BASH_VERSINFO[0]}" -ge 4 ] 
+then
+    shopt -s autocd dirspell 
+    shopt -s histappend
 fi
+
+# Enable directory autocorrection
+shopt -s cdspell 
+
+BASH_ALIASES="${HOME}/.bash_aliases"
+source "${BASH_ALIASES}"
+for file in ${HOME}/dotfiles/Bash/Sourced/* ; do source ${file}; done
 
 complete -cf sudo
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export SCIPY_PIL_IMAGE_VIEWER=xdg-open
-export XDG_CONFIG_HOME="/home/andesil/.config"
+export XDG_CONFIG_HOME="${HOME}/.config/local"
 export FZF_DEFAULT_OPTS='--extended -i --exact'
 export FZF_COMPLETION_OPTS='--extended --exact'
-source /usr/share/bash-completion/bash_completion
 
-source ~/.bash-git-prompt/gitprompt.sh
+if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+fi
+command -v brew > /dev/null
+if [[ "$?" = 0 ]]; then
+    # brew install bash-completion bash-git-prompt
+    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+    source "$(brew --prefix)/etc/bash_completion"
+else
+    source ~/.bash-git-prompt/gitprompt.sh
+    # Get proper auto-completion
+    if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+            . /etc/bash_completion
+    fi
+
+fi
 # Set config variables first
    GIT_PROMPT_ONLY_IN_REPO=1
-
-   # GIT_PROMPT_FETCH_REMOTE_STATUS=0   # uncomment to avoid fetching remote status
-
-   # GIT_PROMPT_SHOW_UPSTREAM=1 # uncomment to show upstream tracking branch
-   # GIT_PROMPT_SHOW_UNTRACKED_FILES=all # can be no, normal or all; determines counting of untracked files
-
-   # GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh # uncomment to support Git older than 1.7.10
-
-   # GIT_PROMPT_START=...    # uncomment for custom prompt start sequence
-   # GIT_PROMPT_END=...      # uncomment for custom prompt end sequence
-
-   # as last entry source the gitprompt script
-   # GIT_PROMPT_THEME=Custom # use custom .git-prompt-colors.sh
-   # GIT_PROMPT_THEME=Solarized # use theme optimized for solarized color scheme
-
 
 function _nman {
     local l=$#
