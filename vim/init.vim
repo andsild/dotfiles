@@ -11,13 +11,16 @@ function! s:IsMac()
 endfunction
 
 if s:isWindows()
-    set shellslash
-    " windows has some annoying path stuff. The first folder in $PATH is
-    " found first, so we append our desired folders first
-    let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\'
-    " prefer python3 for vim
-    let $PATH = s:winpythonpath . ';' .$VIM . ';' . $PATH
-    let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
+	set shellslash
+	" windows has some annoying path stuff. The first folder in $PATH is
+	" found first, so we append our desired folders first
+	let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\'
+	" prefer python3 for vim
+	let $PATH = s:winpythonpath . ';' .$VIM . ';' . $PATH
+	let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
+	if has('vim-starting')
+		cd ~
+	endif
 elseif s:IsMac()
     inoremap <silent> ˙ <Esc>:call WindowCmd('h')<CR>
     inoremap <silent> ∆ <Esc>:call WindowCmd('j')<CR>
@@ -38,14 +41,14 @@ elseif s:IsMac()
     nnoremap <silent> ± ~
     set shell=bash
 else
-    set shell=bash
+	set shell=bash
 endif
 
 
 let g:path = expand($XDG_CONFIG_HOME)
 if len(g:path) == 0
     if s:isWindows()
-        let g:path = $USERPROFILE . expand('/AppData/Local')
+	    let g:path = $USERPROFILE . expand('/AppData/Local')
     else
         let g:path = expand('~/.config/')
     endif
@@ -67,8 +70,6 @@ endif
 if !isdirectory(expand($CACHE))
   call mkdir(expand($CACHE), 'p')
 endif
-
-
 
 if has('vim_starting') 
     set encoding=utf-8
@@ -416,7 +417,6 @@ nnoremap [Quickfix]   <Nop> " q: Quickfix
 nnoremap [Space]/  :Ag<CR>
 nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]h :Unite history/unite <CR>
-nnoremap [Space]o :FZFMru<CR>
 nnoremap [Space]<s-o> :FZF<CR>
 nnoremap [Space]t :<C-u>Unite -start-insert tag tag/include<CR>
 nnoremap [Space]w :w<CR>
@@ -483,6 +483,13 @@ xnoremap m  <Nop>
 xnoremap r <C-v> " Select rectangle.
 xnoremap v $h
  
+if s:isWindows()
+    let g:unite_source_rec_async_command = ['git', 'ls-files']
+    nnoremap [Space]o :Unite file_mru file_rec/neovim  file/new -start-insert<CR>
+else
+    nnoremap [Space]o :FZFMru<CR>
+endif
+
 if has('clipboard')
   xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
 endif
