@@ -35,6 +35,7 @@ elseif s:IsMac()
     nnoremap <silent> ∆ <C-\><C-n>:call WindowCmd("j")<CR>
     nnoremap <silent> ˚ <C-\><C-n>:call WindowCmd("k")<CR>
     nnoremap <silent> ¬ <C-\><C-n>:call WindowCmd("l")<CR>
+    nnoremap <silent> ± ~
     set shell=bash
 else
     set shell=bash
