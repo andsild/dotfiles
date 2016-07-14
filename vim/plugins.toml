@@ -334,9 +334,8 @@ repo = 'tpope/vim-fugitive.git'
 repo = 'gregsexton/gitv'
 depends = 'vim-fugitive'
 
-
 [[plugins]]
-repo = 'fabi1cazenave/suckless.vim.git'
+repo = 'andsild/suckless.vim.git'
 
 [[plugins]]
 repo = 'https://github.com/ehamberg/vim-cute-python.git'

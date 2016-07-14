@@ -11,7 +11,7 @@ WHITE=$'\e[00;00m'
 RED=$'\e[01;31m'
 PS1=$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s\n:\[${WHITE}\]\n" \
          "$(date +%k:%M)" \
-         "\u@\h: ./${PWD##*/}")
+         "\u@\h: \w")
 # PROMPT_COMMAND=__prompt_command  # Func to gen PS1 after CMDs
 # function __prompt_command() {
 #     local EXIT="$?"
