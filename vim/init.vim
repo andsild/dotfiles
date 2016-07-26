@@ -11,44 +11,29 @@ function! s:IsMac()
 endfunction
 
 if s:isWindows()
-	set shellslash
-	" windows has some annoying path stuff. The first folder in $PATH is
-	" found first, so we append our desired folders first
-	let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\'
-	" prefer python3 for vim
-	let $PATH = s:winpythonpath . ';' .$VIM . ';' . $PATH
-	let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
-	if has('vim-starting')
-		cd ~
-	endif
+    set shellslash
+    " windows has some annoying path stuff. The first folder in $PATH is
+    " found first, so we append our desired folders first
+    let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\'
+    " prefer python3 for vim
+    let $PATH = s:winpythonpath . ';' .$VIM . ';' . $PATH
+    let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
+    if has('vim-starting')
+        cd ~
+    endif
 elseif s:IsMac()
-    inoremap <silent> ˙ <Esc>:call WindowCmd('h')<CR>
-    inoremap <silent> ∆ <Esc>:call WindowCmd('j')<CR>
-    inoremap <silent> ˚ <Esc>:call WindowCmd('k')<CR>
-    inoremap <silent> ¬ <Esc>:call WindowCmd('l')<CR>
-    tnoremap <silent> ˙ <C-\><C-n>:call WindowCmd("h")<CR>
-    tnoremap <silent> ∆ <C-\><C-n>:call WindowCmd("j")<CR>
-    tnoremap <silent> ˚ <C-\><C-n>:call WindowCmd("k")<CR>
-    tnoremap <silent> ¬ <C-\><C-n>:call WindowCmd("l")<CR>
-    vnoremap <silent> ˙ <C-\><C-n>:call WindowCmd("h")<CR>
-    vnoremap <silent> ∆ <C-\><C-n>:call WindowCmd("j")<CR>
-    vnoremap <silent> ˚ <C-\><C-n>:call WindowCmd("k")<CR>
-    vnoremap <silent> ¬ <C-\><C-n>:call WindowCmd("l")<CR>
-    nnoremap <silent> ˙ <C-\><C-n>:call WindowCmd("h")<CR>
-    nnoremap <silent> ∆ <C-\><C-n>:call WindowCmd("j")<CR>
-    nnoremap <silent> ˚ <C-\><C-n>:call WindowCmd("k")<CR>
-    nnoremap <silent> ¬ <C-\><C-n>:call WindowCmd("l")<CR>
     nnoremap <silent> ± ~
+    cnoremap ± ~
     set shell=bash
 else
-	set shell=bash
+    set shell=bash
 endif
 
 
 let g:path = expand($XDG_CONFIG_HOME)
 if len(g:path) == 0
     if s:isWindows()
-	    let g:path = $USERPROFILE . expand('/AppData/Local')
+        let g:path = $USERPROFILE . expand('/AppData/Local')
     else
         let g:path = expand('~/.config/')
     endif
@@ -106,6 +91,8 @@ if has('vim_starting')
         call dein#load_toml(g:toml_path, {})
     endif
 
+    call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+
 
     call dein#end()
     call dein#save_state()
@@ -135,16 +122,13 @@ augroup DefaultAuGroup
     autocmd!
 
     autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()
-    autocmd BufReadPost fugitive://* set bufhidden = delete
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
-    autocmd Bufenter *.py nnoremap <silent> [Space]i :Unite menu:jedi -silent -winheight = 25 -start-insert<CR>
+    autocmd Bufenter *.py nnoremap <silent> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
     autocmd FileType apache setlocal path+=./;/
     autocmd FileType asm nnoremap [Space]w :w \| Neomake!<CR>
-    autocmd FileType c let g:neomake_c_enabled_makers = []
     autocmd FileType c nnoremap [Space]w :w \| Neomake!<CR>
     autocmd FileType c,cpp set formatprg =astyle
-    autocmd FileType cpp let g:neomake_cpp_enabled_makers = []
     autocmd FileType cpp nnoremap [Space]w :w \| Neomake!<CR>
     autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -171,7 +155,7 @@ augroup DefaultAuGroup
     autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
     autocmd! BufWritePost * Neomake
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-    autocmd FileType haskell compiler ghc
+    autocmd FileType haskell nnoremap <silent> <buffer>K :GhcModInfoPreview<CR>
 
     if has('python3')
         autocmd FileType python setlocal omnifunc=python3complete#Complete
@@ -205,8 +189,7 @@ set colorcolumn=79
 set fileformat=unix
 set commentstring=%s
 set complete=.
-set completeopt=longest
-set completeopt+=noinsert,noselect
+set completeopt+=noinsert,noselect,preview,menu
 set conceallevel=2 concealcursor=iv
 set cpoptions-=m " Highlight when CursorMoved.
 set directory-=. " Set swap directory.
@@ -291,7 +274,7 @@ if !&verbose
   set spelllang=en_us
 endif
 
-" nmap f <Plug>(smalls)
+nmap S <Plug>(smalls)
 cmap <C-o>          <Plug>(unite_cmdmatch_complete)
 cmap w!! w !sudo tee > /dev/null %
 cnoremap <C-a>          <Home>
@@ -307,7 +290,16 @@ imap <F1> <Esc>
 imap <silent><expr> <TAB> pumvisible() ? "<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
 imap jj <Esc>
 imap kk <Esc>
+inoremap ± ~
+inoremap § `
+nnoremap ± ~
+nnoremap § `
+cnoremap ± ~
+cnoremap § `
+vnoremap ± ~
+vnoremap § `
 inoremap <C-d>  <Del>
+inoremap <C-6> <Esc><C-6>
 inoremap <C-u>  <C-g>u<C-u>
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <expr>; pumvisible() ? deoplete#mappings#close_popup() : ";"
@@ -347,6 +339,7 @@ nmap gj j
 nmap gk k
 nmap gs <Plug>(open-browser-wwwsearch)
 nnoremap    ;u [unite]
+nnoremap <leader>u :diffupdate<CR>
 nnoremap    [Space]fe   :<C-u>VimFilerExplorer<CR>
 nnoremap    [Tag]   <Nop>
 nnoremap    [Window]   <Nop>
@@ -513,6 +506,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_completion_start_length = 1
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
+let deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#omni#functions = {}
 let g:jsx_ext_required = 0
 let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
@@ -533,6 +527,8 @@ let g:choosewin_overlay_clear_multibyte = 1
 let g:choosewin_blink_on_land = 0
 let g:necoghc_enable_detailed_browse=1
 let g:haddock_browser = 'google-chrome-stable'
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:gitgutter_max_signs = 5000
 let g:Gitv_OpenHorizontal = 'auto'
 let g:Gitv_WipeAllOnClose = 1
@@ -542,6 +538,9 @@ let g:vimfiler_preview_action = 'auto_preview'
 let g:neomake_open_list = 2
 let g:neomake_list_height = 5
 let g:neomake_tex_enabled_makers = ['chktex']
+let g:neomake_cpp_enabled_makers = []
+let g:neomake_haskell_enabled_makers = ['ghcmod']
+let g:neomake_c_enabled_makers = []
 let g:neomake_python_enabled_makers=['pylint']
 let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
 let g:deoplete#keyword_patterns = {}
@@ -821,6 +820,7 @@ command! FZFLines call fzf#run({
 \   'options': '--extended --nth=3..',
 \   'down':    '60%'
 \})
+command! Wa wa
 
 
 
@@ -1158,7 +1158,8 @@ function! s:all_files()
       let l:fuckall = split(system('locate "${PWD}/" | sort'), '\n')
       let l:test = filter(copy(v:oldfiles),
         \        "v:val !~# 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'")
-      let l:omg = extend(l:test, l:fuckall)
+      "let l:omg = extend(l:test, l:fuckall)
+      let l:omg = l:test
       let l:lolzomg = extend(l:omg,
             \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
       return l:lolzomg
@@ -1293,7 +1294,7 @@ let &titlestring="
       \ &columns-len(expand('%:p:.:~')))}\) - VIM"
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t:.')}"
+      \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"
       \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
       \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 

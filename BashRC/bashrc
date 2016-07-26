@@ -26,7 +26,7 @@ PS1=$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s\n:\[${WHITE}\]\n" \
 # }
 
 
-EDITOR="nvim"
+export EDITOR="nvim"
 HISTIGNORE="ls:l:clear"
 export GOPATH="${HOME}/.go"
 PATH="${PATH}:${HOME}/dotfiles/Bash:$GOROOT/bin:$GOPATH/bin:${HOME}/.cabal/bin"

@@ -22,10 +22,6 @@ repo = 'Chiel92/vim-autoformat.git'
 [[plugins]]
 repo = 'kana/vim-niceblock'
 mappings = '<Plug>'
-#
-# show the local changes from git repo in the gutter
-[[plugins]]
-repo  = 'airblade/vim-gitgutter'
 
 [[plugins]]
 repo = 'Shougo/echodoc.vim'
@@ -125,15 +121,10 @@ commands = 'Restart'
 repo = 'eagletmt/neco-ghc'
 on_ft = 'haskell'
 
-[[plugins]]
-repo = 'https://github.com/lukerandall/haskellmode-vim.git'
-on_ft = 'haskell'
-
 # see "man look" - used for auto-complete
 [[plugins]]
 repo = 'ujihisa/neco-look'
 insert = 1
-on_ft = 'haskell'
 
 [[plugins]]
 repo = 'ujihisa/unite-colorscheme'
@@ -346,6 +337,10 @@ repo = 'https://github.com/enomsg/vim-haskellConcealPlus.git'
 on_ft = 'haskell'
 
 [[plugins]]
+repo = 'https://github.com/neovimhaskell/haskell-vim.git'
+on_ft = 'haskell'
+
+[[plugins]]
 repo = 'https://github.com/calebsmith/vim-lambdify.git'
 on_ft = ['ruby', 'javascript', 'scheme', 'erlang']
 
@@ -466,5 +461,14 @@ build = 'npm install'
 repo = 'https://github.com/maksimr/vim-jsbeautify.git'
 
 [[plugins]]
+repo = 'https://github.com/bentayloruk/vim-react-es6-snippets.git'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
 repo = 'https://github.com/pangloss/vim-javascript.git'
 on_ft = ['javascript', 'javascript.jsx']
+
+
+[[plugins]]
+repo = 'https://github.com/eagletmt/ghcmod-vim.git'
+on_ft = 'haskell'

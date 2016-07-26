@@ -1,7 +1,0 @@
-[Added Associations]
-application/pdf=zathura.desktop
-
-[Default Applications]
-application/pdf=zathura.desktop
-application/x-chm=okular.desktop
-video/x-flv=mplayer.desktop

@@ -30,7 +30,7 @@ notat()
 	date >> $filnavn # Sett inn dato i notatet
 	toilet $1 >> $filnavn # Print en pen overskrift
 
-	vim -c 'execute "normal Go"'  $filnavn # åpne vim med notatet
+	${EDITOR} -c 'execute "normal Go"'  $filnavn # åpne vim med notatet
 }
 
 cd ${HOME} && notat ${1}

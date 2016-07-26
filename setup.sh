@@ -10,10 +10,8 @@ declare -a INSTALL_ENTRY # normal array
 
 INSTALL_ENTRY+=("${HOME}/.                        : ./vim")
 INSTALL_ENTRY+=("${HOME}/.                        : ./gdb/gdbinit")
-INSTALL_ENTRY+=("${HOME}/irc/                     : ./ii/irc.session.vim")
 INSTALL_ENTRY+=("${HOME}/.                        : ./Screen/screenrc")
 INSTALL_ENTRY+=("${HOME}/.                        : ./Python/pylintrc")
-INSTALL_ENTRY+=("${HOME}/.local/share/zathura/    : ./Zathura/zathurarc")
 INSTALL_ENTRY+=("${HOME}/.inputrc                 : ./dotfiles/BashRC/inputrc")
 INSTALL_ENTRY+=("${HOME}/.gitconfig                 : ./dotfiles/git/gitconfig")
 

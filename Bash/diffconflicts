@@ -87,8 +87,8 @@ GNU_SED="gsed"
 type $GNU_SED >/dev/null 2>&1 || GNU_SED="sed"
 
 # Temporary files for left and right side, keeping file extensions for syntax highlighting
-MERGED_PATH="$(dirname ${MERGED})"
-MERGED_FILE="$(basename ${MERGED})"
+MERGED_PATH="$(dirname "${MERGED}")"
+MERGED_FILE="$(basename "${MERGED}")"
 LCONFL="${MERGED_PATH}/.REMOTE.$$.${MERGED_FILE}"
 RCONFL="${MERGED_PATH}/.LOCAL.$$.${MERGED_FILE}"
 
@@ -102,8 +102,8 @@ $GNU_SED -r -e '/^=======\r?$/,/^>>>>>>> /d' -e '/^<<<<<<< /d' "${MERGED}" > "${
 # Fire up vimdiff
 $cmd -f -d "${LCONFL}" "${RCONFL}" \
     -c ":silent set noro" \
-    -c ":silent winc t" -c ":silent tabe $QMERGED" -c ":silent tabfir"
-    #-c ":tabe $QLOCAL" -c ":vert diffs $QBASE" -c ":vert diffs $QREMOTE" \
+    -c ":silent winc t" -c ":silent tabe $QMERGED" -c ":silent tabfir"  \
+    -c ":tabe $QLOCAL" -c ":vert diffs $QBASE" -c ":vert diffs $QREMOTE"
 
 EC=$?
 
