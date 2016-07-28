@@ -12,9 +12,6 @@ on_if = 1
 [[plugins]]
 repo = 'Chiel92/vim-autoformat.git'
 
-# [[plugins]]
-# repo = 'Shougo/unite-sudo'
-#
 # lets you use visual blocks like visual blockwise
 # e.g. vapATEXT" will append the work "TEXT" at the end of
 # each line in the "ap" region
