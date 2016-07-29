@@ -1,51 +1,38 @@
 #!/bin/bash
 
-# Misc
 alias annoying="find -type f -print0 | grep --color=never -Ez '[^/]{5}$' | xargs -0 "
-
-# Commonly used flags
-alias ls='ls --color=auto --human-readable --classify -C'
-alias lt='ls --sort=time --reverse'
-alias la='ls -A'
-alias ll='ls -al'
-alias l='ls'
-
-alias diffsmooth="diff --side-by-side --suppress-common-lines --ignore-trailing-space --ignore-space-change --ignore-all-space"
-
-alias df="df --human-readable"
-alias du="du --human-readable"
-alias free="free --human"
-
 alias bc='bc --mathlib --quiet'
-
-alias mv='mv --verbose --interactive'
-alias rmdir='rmdir --verbose'
-alias mkdir='mkdir --verbose'
-
-alias gdb="gdb --quiet"
-alias grep="grep --color=always"
-
-# Commonly used lazyness
+alias bd='cd /home/andesil/Homework/TDT4305/'
 alias check="aspell check -d en_US"
 alias checkNO="aspell check -d no"
-alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
+alias ct='cd /home/andesil/Homework/TDT4205/ex6/ps6_skeleton'
+alias df="df -H"
+alias diffsmooth="diff --side-by-side --suppress-common-lines --ignore-trailing-space --ignore-space-change --ignore-all-space"
+alias du="du -h"
 alias eix="dnf search"
 alias emerge="sudo dnf install -y"
-alias fb="fbcmd notices | head ; fbcmd inbox | head"
+alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
+alias gclean='(git gc --prune=now  ; git remote prune origin) && git pull'
+alias gdb="gdb --quiet"
+alias grep="grep --color=always"
+alias l='ls'
+alias la='ls -A'
+alias ll='ls -al'
+alias ls='ls -G '
+alias lt='ls -t -r'
 alias m="make"
+alias mkdir='mkdir'
+alias mv='mv -v -i'
+alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
 alias no="setxkbmap no"
 alias paste="xclip -o && echo"
 alias pg="ps aux | grep "
 alias py="ipython"
+alias rmdir='rmdir'
+alias stream="vlc   --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
 alias upd="sudo emerge -uDN @world"
 alias us="setxkbmap us"
-
-# Commonly used folders
 alias www='cd /var/www/'
-alias pf='cd "/home/andesil/Homework/TDT4260/"'
-alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
-alias ct='cd /home/andesil/Homework/TDT4205/ex6/ps6_skeleton'
-alias bd='cd /home/andesil/Homework/TDT4305/'
 
 function smallimg()
 {
@@ -78,5 +65,3 @@ function murder()
     kill -9 $(ps aux | awk "!/grep.*${1}/ && /${1}/ {print \$2}")
 }
 
-alias stream="vlc   --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
-alias gclean='(git gc --prune=now  ; git remote prune origin) && git pull'
