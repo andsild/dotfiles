@@ -1,12 +1,22 @@
-# VIM
-Welcome to my wonderland...
+# NVIM
+A vimrc that should have acceptable performance for linux and mac.
+I use neovim in Windows as well, but with some limitations because of
+features that aren't implemented and lacking plugin support.
 
 ## Install [_Linux_]
 Copy "init.vim" and "plugins.toml" into your `$XDG_CONFIG_HOME/nvim` (default `~/.config/nvim`).  
 The rest should install by itself. Note that some plugins fail silently if you
 miss dependencies like lua or ruby.
-Don't forget `pip install --upgrade neovim`  
+Also, do`pip install --upgrade neovim`.
 
+## Plugins
+
+[dein](https://github.com/Shougo/dein.vim) for plugin management  
+[deoplete](https://github.com/Shougo/deoplete.nvim) for omnicompletion  
+[neomake](https://github.com/neomake/neomake) for linting and compiler errors  
+[fzf](https://github.com/junegunn/fzf.vim) for opening files and doing text-searches  
+[suckless.vim](https://github.com/andsild/suckless.vim) for some window management  
+[vim-fugitive](https://github.com/tpope/vim-fugitive) for most of my git commands
 
 
 ## Mappings
@@ -27,3 +37,4 @@ Don't forget `pip install --upgrade neovim`
 &nbsp;&nbsp;&nbsp;&nbsp;(from normal mode, type) `?` (for example `?\v<[Ww]ord>`)  
 * **Read up on viewports and buffers in vim  
     (https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/)**
+

@@ -18,12 +18,18 @@ if s:isWindows()
     " prefer python3 for vim
     let $PATH = s:winpythonpath . ';' .$VIM . ';' . $PATH
     let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
-    if has('vim-starting')
-        cd ~
-    endif
 elseif s:IsMac()
     nnoremap <silent> ± ~
     cnoremap ± ~
+    inoremap ± ~
+    inoremap § `
+    nnoremap ± ~
+    nnoremap § `
+    cnoremap ± ~
+    cnoremap § `
+    vnoremap ± ~
+    vnoremap § `
+
     set shell=bash
 else
     set shell=bash
@@ -56,7 +62,7 @@ if !isdirectory(expand($CACHE))
   call mkdir(expand($CACHE), 'p')
 endif
 
-if has('vim_starting') 
+if has('vim_starting')
     set encoding=utf-8
     scriptencoding utf8
 
@@ -126,11 +132,7 @@ augroup DefaultAuGroup
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
     autocmd Bufenter *.py nnoremap <silent> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
     autocmd FileType apache setlocal path+=./;/
-    autocmd FileType asm nnoremap [Space]w :w \| Neomake!<CR>
-    autocmd FileType c nnoremap [Space]w :w \| Neomake!<CR>
     autocmd FileType c,cpp set formatprg =astyle
-    autocmd FileType cpp nnoremap [Space]w :w \| Neomake!<CR>
-    autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType gitcommit,qfreplace setlocal nofoldenable
     autocmd FileType go highlight default link goErr WarningMsg | match goErr /\<err\>/
@@ -139,17 +141,13 @@ augroup DefaultAuGroup
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FileType javascript,javascript.jsx nmap <s-k> :TernDoc<CR>
     autocmd FileType javascript,javascript.jsx nnoremap [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
-    autocmd FileType lex nnoremap [Space]w :w \| Neomake!<CR>
-    autocmd FileType pdf :0
     autocmd FileType pdf Pdf '%'
     autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    autocmd FileType php setlocal path+=/usr/local/share/pear
     autocmd FileType python setlocal formatprg=autopep8\ --aggressive\ --ignore=E309\ -
     autocmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
     autocmd FileType unite call s:unite_my_settings()
     autocmd FileType vimfiler call s:vimfiler_my_settings()
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType yacc nnoremap [Space]w :w \| Neomake!<CR>
     autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
     autocmd InsertLeave * if &paste | set nopaste mouse=a | echo 'nopaste' | endif | if &l:diff | diffupdate | endif
     autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
@@ -244,7 +242,7 @@ set showtabline=2
 set smarttab " Smart insert tab setting.
 set softtabstop=4 " Spaces instead <Tab>.
 set splitbelow
-set splitright                                                                                               
+set splitright 
 set t_vb=
 set tabstop=4 " Substitute <Tab> with blanks.
 set tags=./tags,tags,../tags
@@ -290,14 +288,6 @@ imap <F1> <Esc>
 imap <silent><expr> <TAB> pumvisible() ? "<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
 imap jj <Esc>
 imap kk <Esc>
-inoremap ± ~
-inoremap § `
-nnoremap ± ~
-nnoremap § `
-cnoremap ± ~
-cnoremap § `
-vnoremap ± ~
-vnoremap § `
 inoremap <C-d>  <Del>
 inoremap <C-6> <Esc><C-6>
 inoremap <C-u>  <C-g>u<C-u>
@@ -349,7 +339,6 @@ nnoremap * :silent set hlsearch<CR>*<C-o>
 nnoremap ,  <Nop>
 nnoremap ;  <Nop>
 nnoremap ;d :<C-u>call <SID>CustomBufferDelete(1)<CR>
-nnoremap ;n :call SplitVim()<CR>
 nnoremap ;s :split<CR>
 nnoremap ;t :tabe<CR>
 nnoremap ;v :vsplit<CR>
@@ -358,7 +347,6 @@ nnoremap <Down> :res -5<CR>
 nnoremap <Esc><Esc> :noh<CR>
 nnoremap <F1> <Esc>
 nnoremap <F9> :silent make <bar> redraw!<CR>
-nnoremap <Leader>p "+p
 nnoremap <Leader>w :<C-u>call ToggleOption('wrap')<CR>
 nnoremap <Left> :10winc<<CR>
 nnoremap <Plug>(open-browser-wwwsearch) :<C-u>call <SID>www_search()<CR>
@@ -390,7 +378,7 @@ nnoremap <silent> [Space]di :Unite menu:diff -silent -start-insert -winheight=10
 nnoremap <silent> [Space]en :<C-u>setlocal encoding? fenc? fencs?<CR>
 nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
 nnoremap <silent> [Space]l :call ToggleList("Location List", 'l')<CR>
-nnoremap <silent> [Space]n  :UniteNext<CR>
+nnoremap <silent> n  :UniteNext<CR>
 nnoremap <silent> [Space]p  :UnitePrevious<CR>
 nnoremap <silent> [Space]q :call ToggleList("Quickfix List", 'c')<CR>
 nnoremap <silent> [Space]r  :UniteResume<CR>
@@ -401,7 +389,7 @@ nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
 nnoremap <silent><expr> / ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -start-insert line:forward:wrap\<CR>"
 nnoremap <silent><expr> [Tag]p  &filetype == 'help' ? ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
 nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "g\<C-]>" : ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately tag tag/include\<CR>"
-nnoremap <silent><expr> n ":\<C-u>UniteResume search%".bufnr('%')."  -no-start-insert -force-redraw\<CR>"
+nnoremap <silent><expr> [Space]n ":\<C-u>UniteResume search%".bufnr('%')."  -no-start-insert -force-redraw\<CR>"
 nnoremap <silent>[Space]g :Unite -silent -winheight=29 -start-insert menu:git<CR>
 nnoremap > >>
 nnoremap M  m
@@ -440,7 +428,6 @@ tnoremap <silent> <a-l> <C-\><C-n>:call WindowCmd("l")<CR>
 tnoremap jj <C-\><C-n>
 tnoremap kk <C-\><C-n>
 vmap <silent> gs <Plug>(openbrowser-search)
-vmap J <Plug>(jplus)
 vnoremap ; <Esc>
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
 vnoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
