@@ -68,18 +68,18 @@ complete -cf sudo
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export SCIPY_PIL_IMAGE_VIEWER=xdg-open
-export XDG_CONFIG_HOME="${HOME}/.config/local"
+export XDG_CONFIG_HOME="${HOME}/.config/"
 export FZF_DEFAULT_OPTS='--extended -i --exact'
 export FZF_COMPLETION_OPTS='--extended --exact'
 
-if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
-    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
-fi
 command -v brew > /dev/null
 if [[ "$?" = 0 ]]; then
     # brew install bash-completion bash-git-prompt
     source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
     source "$(brew --prefix)/etc/bash_completion"
+    if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+        source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+    fi
 else
     source ~/.bash-git-prompt/gitprompt.sh
     # Get proper auto-completion

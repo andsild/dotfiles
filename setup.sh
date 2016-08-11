@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 SOURCE="./Bash/Functions/*"
 for file in ${SOURCE}
@@ -8,7 +8,7 @@ done
 
 declare -a INSTALL_ENTRY # normal array
 
-INSTALL_ENTRY+=("${HOME}/.                        : ./vim")
+INSTALL_ENTRY+=("${XDG_CONFIG_HOME:-$HOME/.config/nvim}/.                        : ./vim")
 INSTALL_ENTRY+=("${HOME}/.                        : ./gdb/gdbinit")
 INSTALL_ENTRY+=("${HOME}/.                        : ./Screen/screenrc")
 INSTALL_ENTRY+=("${HOME}/.                        : ./Python/pylintrc")

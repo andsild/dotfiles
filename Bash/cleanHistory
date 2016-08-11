@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/usr/bin/env bash
 tac "$HISTFILE" | awk '!x[$0]++' | tac | sponge "$HISTFILE"

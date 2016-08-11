@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 cd() #@ Change directory, saving location on the directory stack
 {

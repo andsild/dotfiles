@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Oh, this scripts should not be invoked by making availible through PATH,
 # rather, it should be sourced as part of env. This is because of 

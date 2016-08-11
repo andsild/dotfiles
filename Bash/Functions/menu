@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 menu() #@ Display a menu where each entry maps to a command
        #- Params are expected to be in the format <menulabel>:<command>

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #FIXME: lines without sepChar are deleted!
 # this is because ret is empty. Default should be to print $0
 

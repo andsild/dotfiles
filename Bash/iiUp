@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 IRCFOLDER="${HOME}/irc"
 USER="${USER:-andesil}"

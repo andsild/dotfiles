@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #@ DESCRIPTION: print error msg and exit with a given ret value
 die() #@ USAGE: die STAUTS [MESSAGE]

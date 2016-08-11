@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Print stdin as upper characters
 tr '[:lower:]' '[:upper:]' <<< "${1:LOLOLOL}"

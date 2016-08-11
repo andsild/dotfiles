@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # binary to hex
 
 if [ -z "${1}" ]
