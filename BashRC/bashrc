@@ -3,6 +3,8 @@
 [ -z "$PS1" ] && return
 
 
+#-bind -f ${HOME}/.inputrc
+
 # Variables ##
 # PS1='\u@\h: ~${PWD##*/} > '
 GREEN=$'\e[01;32m'
@@ -60,7 +62,7 @@ fi
 # Enable directory autocorrection
 shopt -s cdspell 
 
-BASH_ALIASES="${HOME}/.bash_aliases"
+BASH_ALIASES="${HOME}/dotfiles/BashRC/bash_aliases"
 source "${BASH_ALIASES}"
 for file in ${HOME}/dotfiles/Bash/Sourced/* ; do source ${file}; done
 
@@ -69,6 +71,7 @@ complete -cf sudo
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export SCIPY_PIL_IMAGE_VIEWER=xdg-open
 export XDG_CONFIG_HOME="${HOME}/.config/"
+export XDG_DATA_DIR="${HOME}/.local/share/"
 export FZF_DEFAULT_OPTS='--extended -i --exact'
 export FZF_COMPLETION_OPTS='--extended --exact'
 
@@ -126,3 +129,6 @@ function nman!
 alias man='nman'
 complete -o default -o nospace -F _man nman
 complete -o default -o nospace -F _man nman!
+
+source ${HOME}/defaultenv3/bin/activate
+

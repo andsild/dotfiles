@@ -94,7 +94,7 @@ if has('vim_starting')
 
 
     if has('nvim')
-        call dein#load_toml(g:toml_path, {})
+        call dein#load_toml(g:toml_path, {'lazy': 0})
     endif
 
     call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
@@ -105,7 +105,7 @@ if has('vim_starting')
 
     if g:dein_firsttime
         " call dein#install()
-        echom 'Please restart nvim'
+        echom 'Please restart nvim and do: call dein#install()'
         finish
     endif
 
@@ -141,6 +141,7 @@ augroup DefaultAuGroup
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FileType javascript,javascript.jsx nmap <s-k> :TernDoc<CR>
     autocmd FileType javascript,javascript.jsx nnoremap [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
+    autocmd FileType markdown nnoremap [Space]i :Unite menu:markdown -silent -winheight=25 -start-insert<CR>
     autocmd FileType pdf Pdf '%'
     autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType python setlocal formatprg=autopep8\ --aggressive\ --ignore=E309\ -
@@ -701,6 +702,14 @@ let g:unite_source_menu_menus.openfile.command_candidates = [
     \['-> MRU',
         \'Unite -start-insert file_mru'],
 \]
+let g:unite_source_menu_menus.markdown = {
+        \ 'description' : ' Open preview
+        \   [space]i',
+\}
+let g:unite_source_menu_menus.markdown.command_candidates = [
+    \['-> Preview',
+        \'PrevimOpen'],
+\]
 let g:unite_source_menu_menus.jedi = {
         \ 'description' : '            Python intellisense
             \                                [Space]i',
@@ -762,8 +771,18 @@ if s:IsMac()
    let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
    let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/include'
 else
-   let g:deoplete#sources#clang#libclang_path = '/usr/lib64/llvm/libclang.so'
-   let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+	let g:deoplete#sources#clang#libclang_path=system(
+		\ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;' 
+		\ . 'IFS=":" ; for dir in ${paths} ; do '
+		\ . 'test -e ${dir}/libclang.so && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
+		\ . 'done ; unset IFS')
+   let g:deoplete#sources#clang#clang_header = system(
+	        \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;' 
+		\ . 'IFS=":" ; for dir in ${paths} ; do '
+		\ . 'test -e ${dir}/../include/clang && echo -n $(readlink -f ${dir}/../include/clang) && break; '
+		\ . 'done ; unset IFS')
+"   let g:deoplete#sources#clang#libclang_path = '/usr/lib64/llvm/libclang.so'
+   "let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 endif
 
 
@@ -850,7 +869,7 @@ endfunction
 
 function! s:my_on_filetype() 
   " Disable automatically insert comment.
-  setl formatoptions-=ro | setl formatoptions+=mMBl
+  "setl formatoptions-=ro | setl formatoptions+=mMBl
 
   " Disable auto wrap.
   if &l:textwidth != 70 && &filetype !=# 'help'
@@ -1171,16 +1190,16 @@ function! s:SID_PREFIX()
 endfunction
 
 
-call deoplete#custom#set('ghc', 'sorters', ['sorter_word'])
-call deoplete#custom#set('_', 'converters', [
-    \ 'converter_remove_paren',
-    \ 'converter_remove_overlap',
-    \ 'converter_truncate_abbr',
-    \ 'converter_truncate_menu',
-    \ 'converter_auto_delimiter',
-    \ ])
+"call deoplete#enable()
+"call deoplete#custom#set('ghc', 'sorters', ['sorter_word'])
+"call deoplete#custom#set('_', 'converters', [
+"    \ 'converter_remove_paren',
+"    \ 'converter_remove_overlap',
+"    \ 'converter_truncate_abbr',
+"    \ 'converter_truncate_menu',
+"    \ 'converter_auto_delimiter',
+"    \ ])
 
-call deoplete#enable()
 call unite#custom_action('openable', 'context_split', s:my_split)
 call unite#custom#profile('default', 'context', g:unite#default_context)
 call unite#custom#source(

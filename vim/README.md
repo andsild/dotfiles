@@ -1,13 +1,14 @@
 # NVIM
-A vimrc that should have acceptable performance for linux and mac.
+A vimrc for linux and mac.
 I use neovim in Windows as well, but with some limitations because of
 features that aren't implemented and lacking plugin support.
 
 ## Install [_Linux_]
 Copy "init.vim" and "plugins.toml" into your `$XDG_CONFIG_HOME/nvim` (default `~/.config/nvim`).  
-The rest should install by itself. Note that some plugins fail silently if you
+The rest should install by itself. Before you have done `call dein#install()` to get the plugins,
+there will be error-messages. Also note that some plugins fail silently if you
 miss dependencies like lua or ruby.
-Also, do`pip install --upgrade neovim`.
+Don't forget to do `pip install --upgrade neovim`.
 
 ## Plugins
 
@@ -24,9 +25,9 @@ Also, do`pip install --upgrade neovim`.
 `[Space] + <key(s)>`: open a menu  
 `; + <key(s)>`: do a window action  
 **For example:**  
-&nbsp;&nbsp;&nbsp;&nbsp; * `<Leader>sp` enables spellcheck, `<Leader>w` toggles wrap...  
-&nbsp;&nbsp;&nbsp;&nbsp; * `[Space]g` opens git menu, `[Space]i` open intellisense menu (python, c#)  
-&nbsp;&nbsp;&nbsp;&nbsp; * `;v` open a vsplit, `;t` opens a tab
+&nbsp;&nbsp;&nbsp;&nbsp;  `<Leader>sp` enables spellcheck, `<Leader>w` toggles wrap...  
+&nbsp;&nbsp;&nbsp;&nbsp; `[Space]g` opens git menu, `[Space]i` open intellisense menu (python, c#)  
+&nbsp;&nbsp;&nbsp;&nbsp; `;v` open a vsplit, `;t` opens a tab
 
 # Protips
 * **Copy command output to register**  

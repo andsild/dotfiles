@@ -18,7 +18,7 @@ alias grep="grep --color=always"
 alias l='ls'
 alias la='ls -A'
 alias ll='ls -al'
-alias ls='ls -G '
+alias ls='ls -G --color=auto '
 alias lt='ls -t -r'
 alias m="make"
 alias mkdir='mkdir'

@@ -1,0 +1,21 @@
+" python3 plugins
+call remote#host#RegisterPlugin('python3', '/home/andesil/.cache/dein/.dein/rplugin/python3/deoplete', [
+      \ {'sync': v:true, 'name': '_deoplete', 'opts': {}, 'type': 'function'},
+     \ ])
+call remote#host#RegisterPlugin('python3', '/home/andesil/.cache/dein/.dein/rplugin/python3/nvim_ipy', [
+      \ {'sync': v:false, 'name': 'IPyComplete', 'opts': {}, 'type': 'function'},
+      \ {'sync': v:true, 'name': 'IPyConnect', 'opts': {}, 'type': 'function'},
+      \ {'sync': v:false, 'name': 'IPyInterrupt', 'opts': {}, 'type': 'function'},
+      \ {'sync': v:false, 'name': 'IPyObjInfo', 'opts': {}, 'type': 'function'},
+      \ {'sync': v:true, 'name': 'IPyOmniFunc', 'opts': {}, 'type': 'function'},
+      \ {'sync': v:false, 'name': 'IPyRun', 'opts': {}, 'type': 'function'},
+      \ {'sync': v:false, 'name': 'IPyTerminate', 'opts': {}, 'type': 'function'},
+     \ ])
+
+
+" ruby plugins
+
+
+" python plugins
+
+
