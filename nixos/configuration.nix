@@ -2,7 +2,7 @@
 
 {
   imports = [ 
-    ./hardware-configuration.nix ./hardware-setup-bigmomma.nix ];
+    ./hardware-configuration.nix ./hardware-setup-bigmomma.nix ./private.nix];
 
  boot.loader.grub.enable = true;
  boot.loader.grub.version = 2;
@@ -15,7 +15,6 @@
  };
 
  security.sudo.enable = true;
- security.sudo.wheelNeedsPassword = false;
 
  i18n = {
    consoleFont = "Lat2-Terminus16";
@@ -75,6 +74,7 @@
    cmake
    dmenu
    enlightenment.terminology
+   fortune
    gcc
    gcolor2
    gdb
@@ -88,7 +88,6 @@
    liblapack
    libreoffice
    links2
-   llvmPackages.clang-unwrapped
    lua
    manpages
    mplayer
