@@ -469,3 +469,13 @@ on_ft = ['javascript', 'javascript.jsx']
 [[plugins]]
 repo = 'https://github.com/eagletmt/ghcmod-vim.git'
 on_ft = 'haskell'
+
+[[plugins]]
+repo = 'https://github.com/critiqjo/lldb.nvim.git'
+
+[[plugins]]
+repo = 'https://github.com/ryanoasis/vim-devicons.git'
+
+
+[[plugins]]
+repo = 'https://github.com/arakashic/chromatica.nvim.git'

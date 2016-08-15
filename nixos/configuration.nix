@@ -15,6 +15,7 @@
  };
 
  security.sudo.enable = true;
+ security.polkit.enable = true;
 
  i18n = {
    consoleFont = "Lat2-Terminus16";
@@ -34,6 +35,8 @@
      enableGoogleTalkPlugin = true;
      enableAdobeFlash = true;
    };
+   virtualbox.enableExtenstionPack = true;
+
 
  };
 
@@ -69,8 +72,8 @@
    bash
    bc
    cabal-install
+   gnome3.nautilus
    chromium
-   clang
    cmake
    dmenu
    enlightenment.terminology
@@ -78,10 +81,15 @@
    gcc
    gcolor2
    gdb
-   ghc
    git
    gnumake
    go
+   llvmPackages.clang
+   llvmPackages.lldb
+   haskellPackages.ghc
+   haskellPackages.cabal2nix
+   pavucontrol
+   haskellPackages.cabal-install
    haskellPackages.ghc-mod
    haskellPackages.hlint
    irssi
@@ -91,6 +99,8 @@
    lua
    manpages
    mplayer
+   zathura
+   htop
    ncurses
    newsbeuter-dev
    nodejs
@@ -99,6 +109,7 @@
    ruby
    screen
    silver-searcher
+   cowsay
    slock
    sqlite
    tree
@@ -121,6 +132,60 @@
    python3Packages.ipython
    pythonPackages.pip
    python3Packages.pip
+
+(texlive.combine {
+          inherit (texlive)
+            collection-basic
+            collection-bibtexextra
+            collection-binextra
+            collection-context
+            collection-fontsextra
+            collection-fontsrecommended
+            collection-fontutils
+            collection-formatsextra
+            collection-games
+            collection-genericextra
+            collection-genericrecommended
+            collection-htmlxml
+            collection-humanities
+            collection-langafrican
+            collection-langarabic
+            collection-langchinese
+            collection-langcjk
+            collection-langcyrillic
+            collection-langczechslovak
+            collection-langenglish
+            collection-langeuropean
+            collection-langfrench
+            collection-langgerman
+            collection-langgreek
+            collection-langindic
+            collection-langitalian
+            collection-langjapanese
+            collection-langkorean
+            collection-langother
+            collection-langpolish
+            collection-langportuguese
+            collection-langspanish
+            collection-latex
+            collection-latexextra
+            collection-latexrecommended
+            collection-luatex
+            collection-mathextra
+            collection-metapost
+            collection-music
+            collection-omega
+            collection-pictures
+            collection-plainextra
+            collection-pstricks
+            collection-publishers
+            collection-science
+            collection-texworks
+            collection-wintools
+            collection-xetex
+
+            metafont;
+        })
 
  ];
 
@@ -146,7 +211,6 @@
    };
 
    environment.etc."profile.local".text = ''
-   echo "SOURCED!
    if [ -e "$HOME/.bash_profile" ]
    then
    source "$HOME/.bash_profile"
@@ -186,6 +250,8 @@
      bash.enableCompletion = true; 
      ssh.startAgent = true;    
    };
+
+   virtualisation.virtualbox.host.enable = true;
 
 
    users.extraUsers.andesil =

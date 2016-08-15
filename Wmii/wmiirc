@@ -257,7 +257,7 @@ Key $MODKEY-m # Set column to max mode
 
 KeyGroup Running programs
 Key $MODKEY-p      # Open program menu
-    setsid "$(compgen -c | dmenu)"
+    eval wmiir setsid "$(compgen -c | dmenu)" &
 Key $MODKEY-c       
     eval wmiir setsid chromium &
 Key $MODKEY-u      
