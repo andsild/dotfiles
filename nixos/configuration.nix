@@ -10,6 +10,7 @@
 
  networking = {
    hostName = "pesknix";
+   networkmanager.enable = true;
    wireless.interfaces = [ "wlp3s0" ];
    wireless.userControlled.enable = true;
  };
@@ -72,9 +73,10 @@
    bash
    bc
    cabal-install
-   gnome3.nautilus
    chromium
    cmake
+   cowsay
+   ctags
    dmenu
    enlightenment.terminology
    fortune
@@ -82,35 +84,43 @@
    gcolor2
    gdb
    git
+   gnome3.nautilus
    gnumake
    go
-   llvmPackages.clang
-   llvmPackages.lldb
-   haskellPackages.ghc
-   haskellPackages.cabal2nix
-   pavucontrol
+   google-drive-ocamlfuse
+   graphicsmagick
    haskellPackages.cabal-install
+   haskellPackages.cabal2nix
+   haskellPackages.ghc
    haskellPackages.ghc-mod
    haskellPackages.hlint
+   hicolor_icon_theme
+   htop
    irssi
    liblapack
    libreoffice
    links2
+   llvmPackages.clang
+   llvmPackages.lldb
    lua
    manpages
    mplayer
-   zathura
-   htop
    ncurses
    newsbeuter-dev
    nodejs
+   nox
    nvim
+   p7zip
+   parted
+   pavucontrol
+   pkgconfig
    rsync
    ruby
    screen
    silver-searcher
-   cowsay
+   simplescreenrecorder
    slock
+   slop
    sqlite
    tree
    vlc
@@ -121,6 +131,8 @@
    xlsfonts
    xorg.xev
    xscreensaver
+   zathura
+
 
    python
    python3

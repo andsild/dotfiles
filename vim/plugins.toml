@@ -479,3 +479,9 @@ repo = 'https://github.com/ryanoasis/vim-devicons.git'
 
 [[plugins]]
 repo = 'https://github.com/arakashic/chromatica.nvim.git'
+
+[[plugins]]
+repo = 'https://github.com/vim-scripts/SyntaxRange.git'
+
+[[plugins]]
+repo = 'https://github.com/endel/vim-github-colorscheme.git'

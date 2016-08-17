@@ -29,9 +29,11 @@ PS1=$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s\n:\[${WHITE}\]\n" \
 
 
 export EDITOR="nvim"
+export GEM_HOME="${HOME}/.gem"
+export GEM_PATH="${HOME}/.gem"
 HISTIGNORE="ls:l:clear"
 export GOPATH="${HOME}/.go"
-PATH="${PATH}:${HOME}/dotfiles/Bash:$GOROOT/bin:$GOPATH/bin:${HOME}/.cabal/bin"
+PATH="${PATH}:${HOME}/dotfiles/Bash:${GEM_PATH}/bin:$GOROOT/bin:$GOPATH/bin:${HOME}/.cabal/bin"
 
 export HISTCONTROL="ignoreboth:erasedups"
 
