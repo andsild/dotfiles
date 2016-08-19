@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+
+while out="$(inotifywait  -e create ~/Downloads/)"
+do 
+    file="$(lt -1 ~/Downloads/ | tail -n1)"
+    if [[ ! "${out}" == *"chromium"* ]]
+    then 
+        if [[ ! "${file}" == *".crdownload" ]]
+        then 
+            if [ "$(xdg-mime query filetype ~/Downloads/"${file}")" = "application/pdf" ] 
+            then 
+                pdf "${HOME}/Downloads/${file}"
+            fi
+        fi
+    fi
+done
