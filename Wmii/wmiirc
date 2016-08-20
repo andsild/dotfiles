@@ -66,9 +66,10 @@ songStatus() {
     echo -n label ${spotify}
 }
 
+
 netStatus()
 {
-    device="enp2s0"
+    device=$(nmcli  -e yes -t -f DEVICE dev | head -n1)
     upRead="${1}"
     downRead="${2}"
     upRead2=$(head /sys/class/net/${device}/statistics/rx_bytes)
@@ -98,11 +99,18 @@ status() {
 
     topProc=$(ps --user ${USER} hS -o pcpu:4,time,comm:20 --sort=-pcpu | head --lines=1)
 
-##'|' $(awk ' { if($1>100) { print "100%"; } else { printf("%3d\%", $1); } } ' /sys/class/power_supply/BAT0/capacity) \
+
+    battery=""
+    if [ -e "/sys/class/power_supply/BAT0/capacity" ]
+    then
+        battery="| $(awk ' { if($1>100) { print "100%"; } else { printf("%3d%", $1); } } ' /sys/class/power_supply/BAT0/capacity) $(cat /sys/class/power_supply/BAT0/status)"
+    fi
+
     echo -n label ${topProc} \
         '|' ${memstat} \
         '|' $(awk ' { gsub(".*/", "", $4); print $1, $2, $3, $4 } ' /proc/loadavg) \
         '|' "${volume:-amixer error}" \
+        ${battery} \
         '|' $(TZ="Europe/Oslo" date +%a\ %b\ %d\ \(%H\)"$(date +%H)":%M:%S\ %Y);
 }
 
@@ -113,39 +121,39 @@ echo colors $WMII_NORMCOLORS | wmiir create $noticebar
 wi_events <<'!'
 # Events
 Event CreateTag
-	echo colors "$WMII_NORMCOLORS$wi_newline" label "$@" | wmiir create "/lbar/$@"
+    echo colors "$WMII_NORMCOLORS$wi_newline" label "$@" | wmiir create "/lbar/$@"
 Event DestroyTag
-	wmiir remove "/lbar/$@"
+    wmiir remove "/lbar/$@"
 Event FocusTag
-	wmiir xwrite "/lbar/$@" colors "$WMII_FOCUSCOLORS"
+    wmiir xwrite "/lbar/$@" colors "$WMII_FOCUSCOLORS"
 Event UnfocusTag
-	wmiir xwrite "/lbar/$@" colors "$WMII_NORMCOLORS"
+    wmiir xwrite "/lbar/$@" colors "$WMII_NORMCOLORS"
 Event UrgentTag
-	shift
-	wmiir xwrite "/lbar/$@" label "*$@"
+    shift
+    wmiir xwrite "/lbar/$@" label "*$@"
 Event NotUrgentTag
-	shift
-	wmiir xwrite "/lbar/$@" label "$@"
+    shift
+    wmiir xwrite "/lbar/$@" label "$@"
 Event LeftBarClick LeftBarDND
-	shift
-	wmiir xwrite /ctl view "$@"
+    shift
+    wmiir xwrite /ctl view "$@"
 Event Unresponsive
-	{
-		client=$1; shift
-		msg="The following client is not responding. What would you like to do?$wi_newline"
-		resp=$(wihack -transient $client \
-			      xmessage -nearmouse -buttons Kill,Wait -print \
-			      -fn "${WMII_FONT%%,*}" "$msg $(wmiir read /client/sel/label)")
-		if [ "$resp" = Kill ]; then
-			wmiir xwrite /client/$client/ctl slay &
-		fi
-	}&
+    {
+        client=$1; shift
+        msg="The following client is not responding. What would you like to do?$wi_newline"
+        resp=$(wihack -transient $client \
+                  xmessage -nearmouse -buttons Kill,Wait -print \
+                  -fn "${WMII_FONT%%,*}" "$msg $(wmiir read /client/sel/label)")
+        if [ "$resp" = Kill ]; then
+            wmiir xwrite /client/$client/ctl slay &
+        fi
+    }&
 Event Notice
-	wmiir xwrite $noticebar label $wi_arg
+    wmiir xwrite $noticebar label $wi_arg
 
-	kill $xpid 2>/dev/null # Let's hope this isn't reused...
-	{ sleep $noticetimeout; wmiir xwrite $noticebar label; }&
-	xpid = $!
+    kill $xpid 2>/dev/null # Let's hope this isn't reused...
+    { sleep $noticetimeout; wmiir xwrite $noticebar label; }&
+    xpid = $!
 
 
 Event ClientMouseDown
@@ -157,22 +165,22 @@ Event LeftBarMouseDown
 # Actions
 # Actions
 Action showkeys
-	echo "$KeysHelp" | xmessage -file - -fn ${WMII_FONT%%,*}
+    echo "$KeysHelp" | xmessage -file - -fn ${WMII_FONT%%,*}
 Action quit
-	wmiir xwrite /ctl quit
+    wmiir xwrite /ctl quit
 Action exec
-	wmiir xwrite /ctl exec "$@"
+    wmiir xwrite /ctl exec "$@"
 Action rehash
-	wi_proglist $PATH >$progsfile
+    wi_proglist $PATH >$progsfile
 Action status
-	set +xv
-	if wmiir remove /rbar/status 2>/dev/null; then
-		sleep 2
-	fi
-	echo colors "$WMII_NORMCOLORS" | wmiir create /rbar/status
-	while status | wmiir write /rbar/status; do
-		sleep 1
-	done
+    set +xv
+    if wmiir remove /rbar/status 2>/dev/null; then
+        sleep 2
+    fi
+    echo colors "$WMII_NORMCOLORS" | wmiir create /rbar/status
+    while status | wmiir write /rbar/status; do
+        sleep 1
+    done
 
 Action netStatus
     set +xv
@@ -183,8 +191,9 @@ Action netStatus
     upRead=0
     downRead=0
     while netStatus ${upRead} ${downRead} | wmiir write /rbar/netStatus ; do
-        upRead=$(head /sys/class/net/enp2s0/statistics/rx_bytes)
-        downRead=$(head /sys/class/net/enp2s0/statistics/tx_bytes)
+        device=$(nmcli  -e yes -t -f DEVICE dev | head -n1)
+        upRead=$(head /sys/class/net/${device}/statistics/rx_bytes)
+        downRead=$(head /sys/class/net/${device}/statistics/tx_bytes)
         sleep 1
     done
 Action songStatus
@@ -222,7 +231,7 @@ Key $MODKEY-o
 Key $MODKEY-g
     setsid gvim &
 Key $MODKEY-a
-	action $(wi_actions | wimenu -h "${hist}.actions" -n $histnum) &
+    action $(wi_actions | wimenu -h "${hist}.actions" -n $histnum) &
 
 
 Key $MODKEY-space   # Toggle between floating and managed layers
@@ -279,8 +288,8 @@ Key $MODKEY-Control-t # Toggle all other key bindings
 
 KeyGroup Tag actions
 !
-    for i in 0 1 2 3 4 5 6 7 8 9; do
-        cat <<!
+    for i in 0 1 2 3 4 5 6 7 8 9; do 
+    cat <<!
 Key $MODKEY-$i       # Move to the numbered view
     wmiir xwrite /ctl view "$i"
 Key $MODKEY-Shift-$i     # Retag selected client with the numbered tag
@@ -296,8 +305,14 @@ wmiir write /ctl <<!
     grabmod $MODKEY
     border 1
 !
-feh --bg-scale ~/.background.jpg &
-setsid workrave &
+if [ -e "~/.background.jpg" ]
+then
+    feh --bg-scale ~/.background.jpg &
+fi
+if [ -z "$(pidof workrave)" ]
+then
+    command -v workrave 2>&1 && setsid workrave &
+fi
 
 # Misc
 progsfile="$(wmiir namespace)/.proglist"
@@ -305,23 +320,3 @@ action status &
 action netStatus &
 action songStatus &
 wi_proglist $PATH >$progsfile &
-
-
-# Setup Tag Bar
-#IFS="$wi_newline"
-#wmiir rm $(wmiir ls -p /lbar) >/dev/null
-#seltag=$(wmiir read /tag/sel/ctl | sed 1q)
-#unset IFS
-#wi_tags | while read tag
-#do
-#    if [ "$tag" = "$seltag" ]; then
-#        echo colors "$WMII_FOCUSCOLORS" 
-#	echo label $tag
-#    else
-#        echo colors "$WMII_NORMCOLORS" 
-#	echo label $tag
-#    fi | wmiir create "/lbar/$tag"
-#done
-#
-#wi_eventloop
-
