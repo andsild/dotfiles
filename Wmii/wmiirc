@@ -103,7 +103,8 @@ status() {
     battery=""
     if [ -e "/sys/class/power_supply/BAT0/capacity" ]
     then
-        battery="| $(awk ' { if($1>100) { print "100%"; } else { printf("%3d%", $1); } } ' /sys/class/power_supply/BAT0/capacity) $(cat /sys/class/power_supply/BAT0/status)"
+        batStatus="$(printf "%.4s" "$(cat /sys/class/power_supply/BAT0/status)" | tr '[A-Z]' '[a-z]')"
+        battery="| $(awk ' { if($1>100) { print "100%"; } else { printf("%3d%", $1); } } ' /sys/class/power_supply/BAT0/capacity) ${batStatus}"
     fi
 
     echo -n label ${topProc} \
