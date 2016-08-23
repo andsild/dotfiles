@@ -3,7 +3,7 @@
 
 while out="$(inotifywait  -e create ~/Downloads/)"
 do 
-    file="$(lt -1 ~/Downloads/ | tail -n1)"
+    file="$(ls -t -r -1 ~/Downloads/ | tail -n1)"
     if [[ ! "${out}" == *"chromium"* ]]
     then 
         if [[ ! "${file}" == *".crdownload" ]]

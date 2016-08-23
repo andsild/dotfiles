@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [ -z "${1}" ]
+then
+    printf "need arg\n"
+    exit 1
+fi
+
+find .  -name '*.pdf' -exec bash -c \
+    'pdftotext  -q "$1" - | grep --ignore-case --with-filename --label="$1" --color=always "$2"' _ {} "${1}" \;
+
+# EOF

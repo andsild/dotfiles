@@ -827,6 +827,7 @@ command! FZFLines call fzf#run({
 \   'down':    '60%'
 \})
 command! Wa wa
+command! W w
 
 
 
