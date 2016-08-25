@@ -69,8 +69,10 @@
    };
  in
  with pkgs; [
+   gparted
+   ntfs3g
    automake
-   bash
+  bash
    bc
    cabal-install
    chromium
