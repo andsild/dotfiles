@@ -1,6 +1,7 @@
 #!/bin/bash
 
 alias annoying="find -type f -print0 | grep --color=never -Ez '[^/]{5}$' | xargs -0 "
+alias cal3="cal -3"
 alias bc='bc --mathlib --quiet'
 alias bd='cd /home/andesil/Homework/TDT4305/'
 alias check="aspell check -d en_US"
