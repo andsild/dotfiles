@@ -41,7 +41,9 @@
 
  };
 
- hardware.pulseaudio.enable = true;
+hardware.pulseaudio.enable = true;
+ hardware.pulseaudio.package = pkgs.pulseaudioFull;
+ hardware.bluetooth.enable = true;
 
  fonts = {
    enableCoreFonts = true;
@@ -71,6 +73,7 @@
  with pkgs; [
    gparted
    ntfs3g
+   networkmanagerapplet
    automake
   bash
    bc
@@ -91,6 +94,7 @@
    go
    google-drive-ocamlfuse
    graphicsmagick
+   shellcheck
    haskellPackages.cabal-install
    haskellPackages.cabal2nix
    haskellPackages.ghc
@@ -118,6 +122,7 @@
    pkgconfig
    rsync
    ruby
+   acpitool
    screen
    silver-searcher
    simplescreenrecorder
@@ -204,6 +209,35 @@
  ];
 
  services = {
+   acpid.enable = true;
+   acpid.handlers = {
+     mute = { 
+       action = "sudo -u andesil touch ~/HELLO"; 
+       event = "button/mute.*"; 
+       };
+   };
+
+   samba.enable = true;
+   samba.securityType = "share";
+   samba.extraConfig = ''
+     workgroup = WORKGROUP
+     server string = myServer
+     netbios name = myServername
+     #use sendfile = yes
+     #max protocol = smb2
+ 
+     interfaces = lo eth1 vboxnet0 vboxnet1
+     bind interfaces only = yes
+ 
+     [rw-files]
+       comment = rw project files 
+       path = /mnt/samba/
+       read only = no
+       writable = yes
+       public = yes
+       browsable = yes
+   ''; 
+
    openssh.enable = true;
    locate.enable = true;
    printing.enable = true;
@@ -215,7 +249,9 @@
      windowManager.wmii.enable = true;
      windowManager.xmonad.enable = true;
      windowManager.xmonad.enableContribAndExtras = true;
+     desktopManager.kde5.enable = true;
      displayManager = {
+      sessionCommands = "${pkgs.networkmanagerapplet}/bin/nm-applet &";
        slim = {
          enable = true;
          defaultUser = "andesil";
@@ -273,8 +309,10 @@
      isNormalUser = true;
      home = "/home/andesil";
      description = "Anders Sildnes";
-     extraGroups = [ "wheel" "networkmanager" "vboxusers" "audio" ];
+     extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" ];
    };
+
+   sound.enableMediaKeys = true;
 
   system.stateVersion = "16.03";
 }
