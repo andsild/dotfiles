@@ -41,7 +41,7 @@
 
  };
 
-hardware.pulseaudio.enable = true;
+ hardware.pulseaudio.enable = true;
  hardware.pulseaudio.package = pkgs.pulseaudioFull;
  hardware.bluetooth.enable = true;
 
@@ -75,7 +75,7 @@ hardware.pulseaudio.enable = true;
    ntfs3g
    networkmanagerapplet
    automake
-  bash
+   bash
    bc
    cabal-install
    chromium
