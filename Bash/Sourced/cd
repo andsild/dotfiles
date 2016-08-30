@@ -38,4 +38,6 @@ cd() #@ Change directory, saving location on the directory stack
     return "$?"
 } > /dev/null # Supress output
 
-cd "$@"
+
+# don't run on sourcing
+[[ $_ != "$0" ]] || cd "$@" || echo "error happened" >/dev/fd/2

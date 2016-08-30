@@ -2,6 +2,7 @@
 # If not running interactively, don't read preferences.
 [ -z "$PS1" ] && return
 
+
 bind -f "${HOME}/dotfiles/BashRC/inputrc"
 
 # Variables ##

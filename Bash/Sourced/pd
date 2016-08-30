@@ -1,6 +1,6 @@
 pd()
 {
-	popd
+    popd
 } > /dev/null
 
-pd
+[[ $_ != $0 ]] || pd

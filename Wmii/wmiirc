@@ -25,7 +25,13 @@ export WMII_BACKGROUND='#333333'
 export WMII_FONT='-*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*'
 
 set -- $(echo $WMII_NORMCOLORS $WMII_FOCUSCOLORS)
-export WMII_TERM="st -e screen"
+
+if [ -e /etc/NIXOS ]
+then
+    export WMII_TERM="st -e nix-shell --command 'nvim -c term'"
+else
+    export WMII_TERM="st"
+fi
 
 # Menu history
 hist="${WMII_CONFPATH%%:*}/history"
@@ -306,10 +312,10 @@ wmiir write /ctl <<!
     grabmod $MODKEY
     border 1
 !
-if [ -e "~/.background.jpg" ]
-then
-    feh --bg-scale ~/.background.jpg &
-fi
+
+# dirty hack to avoid the wmiirc in /etc/ to set the background after this script is loaded
+setsid $(sleep 1 && echo feh --bg-scale ~/.background.jpg) &
+
 if [ -z "$(pidof workrave)" ]
 then
     command -v workrave 2>&1 && setsid workrave &
