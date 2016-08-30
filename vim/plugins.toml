@@ -471,9 +471,6 @@ repo = 'https://github.com/eagletmt/ghcmod-vim.git'
 on_ft = 'haskell'
 
 [[plugins]]
-repo = 'https://github.com/critiqjo/lldb.nvim.git'
-
-[[plugins]]
 repo = 'https://github.com/ryanoasis/vim-devicons.git'
 
 
@@ -485,3 +482,12 @@ repo = 'https://github.com/vim-scripts/SyntaxRange.git'
 
 [[plugins]]
 repo = 'https://github.com/endel/vim-github-colorscheme.git'
+
+[[plugins]]
+repo = 'https://github.com/freeo/vim-kalisi.git'
+
+[[plugins]]
+repo = 'https://github.com/vim-scripts/mayansmoke.git'
+
+[[plugins]]
+repo = 'https://github.com/vim-scripts/Blueshift.git'

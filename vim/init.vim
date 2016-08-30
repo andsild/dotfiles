@@ -1,4 +1,5 @@
 set termencoding=utf-8
+set t_Co=256
 " vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
 
 function! s:isWindows()
@@ -45,12 +46,17 @@ if len(g:path) == 0
     endif
 endif
 let g:toml_path = g:path . '/nvim/plugins.toml'
+let $MYVIMRC=g:path . '/nvim/init.vim' " normally set by default, but I use
+    " a custom script to invoke vim. When invoking from the command line with
+    " -u flag, MYVIMRC is not set. This also means that the file ".-rplugin" 
+    " is not written
 if ! filereadable(g:toml_path)
     echom 'Could not find plugins.toml file at ' . g:toml_path
     echom 'Aborting init.vim loading'
     finish
 endif
-let g:default_colorscheme = 'peskcolor' 
+let g:default_colorscheme = 'mayansmoke'  " installed from plugin
+set background=light
 let g:mapleader = ','
 
 if &compatible
@@ -61,6 +67,7 @@ endif
 if !isdirectory(expand($CACHE))
   call mkdir(expand($CACHE), 'p')
 endif
+
 
 if has('vim_starting')
     set encoding=utf-8
@@ -1306,22 +1313,6 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
 
-
-call remote#host#RegisterPlugin('python3', '/home/andesil/.cache/dein/.dein/rplugin/python3/chromatica', [
-      \ {'sync': v:true, 'name': '_chromatica', 'type': 'function', 'opts': {}},
-     \ ])
-call remote#host#RegisterPlugin('python3', '/home/andesil/.cache/dein/.dein/rplugin/python3/deoplete', [
-      \ {'sync': v:true, 'name': '_deoplete', 'type': 'function', 'opts': {}},
-     \ ])
-call remote#host#RegisterPlugin('python3', '/home/andesil/.cache/dein/.dein/rplugin/python3/nvim_ipy', [
-      \ {'sync': v:false, 'name': 'IPyComplete', 'type': 'function', 'opts': {}},
-      \ {'sync': v:true, 'name': 'IPyConnect', 'type': 'function', 'opts': {}},
-      \ {'sync': v:false, 'name': 'IPyInterrupt', 'type': 'function', 'opts': {}},
-      \ {'sync': v:false, 'name': 'IPyObjInfo', 'type': 'function', 'opts': {}},
-      \ {'sync': v:true, 'name': 'IPyOmniFunc', 'type': 'function', 'opts': {}},
-      \ {'sync': v:false, 'name': 'IPyRun', 'type': 'function', 'opts': {}},
-      \ {'sync': v:false, 'name': 'IPyTerminate', 'type': 'function', 'opts': {}},
-     \ ])
 
 
 if s:isWindows()

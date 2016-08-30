@@ -25,7 +25,7 @@ export WMII_BACKGROUND='#333333'
 export WMII_FONT='-*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*'
 
 set -- $(echo $WMII_NORMCOLORS $WMII_FOCUSCOLORS)
-export WMII_TERM="terminology"
+export WMII_TERM="st -e screen"
 
 # Menu history
 hist="${WMII_CONFPATH%%:*}/history"

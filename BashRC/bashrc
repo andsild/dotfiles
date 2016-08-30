@@ -2,15 +2,14 @@
 # If not running interactively, don't read preferences.
 [ -z "$PS1" ] && return
 
-
-bind -f ${HOME}/dotfiles/BashRC/inputrc
+bind -f "${HOME}/dotfiles/BashRC/inputrc"
 
 # Variables ##
 # PS1='\u@\h: ~${PWD##*/} > '
-GREEN=$'\e[01;32m'
+#GREEN=$'\e[01;32m'
 YELLOW=$'\e[00;33m'
 WHITE=$'\e[00;00m'
-RED=$'\e[01;31m'
+#RED=$'\e[01;31m'
 PS1=$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s\n:\[${WHITE}\]\n" \
          "$(date +%k:%M)" \
          "\u@\h: \w")
@@ -44,6 +43,8 @@ stty -ixon
 # XMonad needs this to run java nicely
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+export NIX_PATH=peskOverrides=/home/andesil/.nixpkgs:${NIX_PATH}
+
 # My jedi-vim needs this(ugh!)
 export IPYTHONDIR="${HOME}/.ipython"
 
@@ -64,9 +65,8 @@ fi
 # Enable directory autocorrection
 shopt -s cdspell 
 
-BASH_ALIASES="${HOME}/dotfiles/BashRC/bash_aliases"
-source "${BASH_ALIASES}"
-for file in ${HOME}/dotfiles/Bash/Sourced/* ; do source ${file}; done
+source "${HOME}/dotfiles/BashRC/bash_aliases"
+for file in ${HOME}/dotfiles/Bash/Sourced/* ; do source "${file}"; done
 
 complete -cf sudo
 
@@ -74,6 +74,7 @@ complete -cf sudo
 export SCIPY_PIL_IMAGE_VIEWER=xdg-open
 export XDG_CONFIG_HOME="${HOME}/.config/"
 export XDG_DATA_DIR="${HOME}/.local/share/"
+export XDG_DATA_HOME="${HOME}/.local/share/"
 export FZF_DEFAULT_OPTS='--extended -i --exact'
 export FZF_COMPLETION_OPTS='--extended --exact'
 
@@ -94,43 +95,6 @@ else
 
 fi
 # Set config variables first
-   GIT_PROMPT_ONLY_IN_REPO=1
+export GIT_PROMPT_ONLY_IN_REPO=1
 
-function _nman {
-    local l=$#
-    local -a page
-    local page=(${@:1:$l-1})
-    if [[ -z "$page" ]]; then
-        echo "What manual page do you want?"
-        return
-    fi
-    local tmp=$IFS
-    IFS=$'\n' out=($(command man -w ${page[@]} 2>&1))
-    local code=$?
-    IFS=$tmp
-    if [[ ${#out[@]} > 1 ]]; then
-        echo "Too many manpages"
-        return
-    elif [[ $code != 0 ]]; then
-        echo "No manual entry for ${page[*]}"
-        return
-    fi
-    if [[ -z $NVIM_LISTEN_ADDRESS ]]; then
-        command nvim -c "${@: -1} ${page[*]}"
-    else
-        nvr -c "${@: -1} ${page[*]}"
-    fi
-}
-function nman() {
-    _nman "$@" 'Nman'
-}
-function nman!
-{
-    _nman "$@" 'Nman!'
-}
-alias man='nman'
-complete -o default -o nospace -F _man nman
-complete -o default -o nospace -F _man nman!
-
-source ${HOME}/defaultenv3/bin/activate
-
+source "${HOME}/defaultenv3/bin/activate"

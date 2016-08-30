@@ -9,7 +9,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char font[] = "Liberation Mono:pixelsize=14:antialias=false:autohint=false";
+//static char font[] = "Liberation Mono:pixelsize=15:antialias=false:autohint=false";
+static char font[] = "inconsolata:pixelsize=17";
 static int borderpx = 2;
 static char shell[] = "/bin/sh";
 static char *utmp = NULL;
