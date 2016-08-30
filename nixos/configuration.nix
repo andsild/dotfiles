@@ -71,30 +71,34 @@
    };
  in
  with pkgs; [
-   gparted
-   ntfs3g
-   networkmanagerapplet
+
+   acpitool
    automake
    bash
    bc
+   boost
    cabal-install
+   gnome3.cheese
    chromium
    cmake
    cowsay
    ctags
    dmenu
+   dzen2
    enlightenment.terminology
    fortune
    gcc
    gcolor2
    gdb
+   gdk_pixbuf
    git
    gnome3.nautilus
+   gnome.gnome_icon_theme
    gnumake
    go
    google-drive-ocamlfuse
+   gparted
    graphicsmagick
-   shellcheck
    haskellPackages.cabal-install
    haskellPackages.cabal2nix
    haskellPackages.ghc
@@ -102,9 +106,9 @@
    haskellPackages.hlint
    hicolor_icon_theme
    htop
+   inotify-tools
    irssi
    liblapack
-   libreoffice
    links2
    llvmPackages.clang
    llvmPackages.lldb
@@ -112,45 +116,47 @@
    manpages
    mplayer
    ncurses
+   networkmanagerapplet
    newsbeuter-dev
    nodejs
    nox
+   ntfs3g
    nvim
    p7zip
    parted
    pavucontrol
    pkgconfig
+   python
+   python3
+   python3Packages.ipython
+   python3Packages.pip
+   python3Packages.virtualenv
+   pythonPackages.ipython
+   pythonPackages.pip
+   pythonPackages.virtualenv
    rsync
    ruby
-   acpitool
    screen
+   shellcheck
    silver-searcher
    simplescreenrecorder
    slock
    slop
    sqlite
    tree
+   valgrind
    vlc
    wget
    workrave
    xclip
    xfontsel
    xlsfonts
+   xorg.xmessage
+   xorg.xbacklight
    xorg.xev
+   xpdf
    xscreensaver
    zathura
-
-
-   python
-   python3
-   pythonPackages.virtualenv
-   python3Packages.virtualenv
-   pythonPackages.pip
-   python3Packages.pip
-   pythonPackages.ipython
-   python3Packages.ipython
-   pythonPackages.pip
-   python3Packages.pip
 
 (texlive.combine {
           inherit (texlive)
@@ -210,12 +216,6 @@
 
  services = {
    acpid.enable = true;
-   acpid.handlers = {
-     mute = { 
-       action = "sudo -u andesil touch ~/HELLO"; 
-       event = "button/mute.*"; 
-       };
-   };
 
    samba.enable = true;
    samba.securityType = "share";
