@@ -1,9 +1,10 @@
+#!/usr/bin/env bash
 # test -f /local/skel/all.bashrc && . /local/skel/all.bashrc
 # If not running interactively, don't read preferences.
 [ -z "$PS1" ] && return
 
 
-bind -f "${HOME}/dotfiles/BashRC/inputrc"
+#bind -f "${HOME}/dotfiles/BashRC/inputrc"
 
 # Variables ##
 # PS1='\u@\h: ~${PWD##*/} > '
@@ -53,13 +54,10 @@ export IPYTHONDIR="${HOME}/.ipython"
 export HISTSIZE=100000
 export HISTFILE_SIZE=1000000
 
-# If the command-line has an empty entry, don't try to autocomplete with tab
-shopt -s no_empty_cmd_completion
-
 # need the if statement for e.g. mac
 if [ "${BASH_VERSINFO[0]}" -ge 4 ] 
 then
-    shopt -s autocd dirspell 
+    shopt -s autocd 
     shopt -s histappend
 fi
 
@@ -69,7 +67,7 @@ shopt -s cdspell
 source "${HOME}/dotfiles/BashRC/bash_aliases"
 for file in ${HOME}/dotfiles/Bash/Sourced/* ; do source "${file}"; done
 
-complete -cf sudo
+# complete -cf sudo
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export SCIPY_PIL_IMAGE_VIEWER=xdg-open

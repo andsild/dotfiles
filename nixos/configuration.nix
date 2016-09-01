@@ -72,6 +72,7 @@
  in
  with pkgs; [
 
+   unzip
    acpitool
    automake
    bash

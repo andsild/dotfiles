@@ -2,7 +2,7 @@
 }:
 
 rec { 
-  st = pkgs.st.override {
+  st = pkgs.callPackage ./st {
     conf = import ./st_config.nix {} ;
   };
 

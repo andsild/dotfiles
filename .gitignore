@@ -2,3 +2,5 @@
 vim/.init.vim-rplugin~
 vim/haskellmode.config
 .-rplugin~
+nixos/hardware-configuration.nix
+nixos/private.nix

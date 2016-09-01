@@ -1,5 +1,4 @@
 set termencoding=utf-8
-set t_Co=256
 " vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
 
 function! s:isWindows()
