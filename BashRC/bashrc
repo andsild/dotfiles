@@ -4,7 +4,7 @@
 [ -z "$PS1" ] && return
 
 
-#bind -f "${HOME}/dotfiles/BashRC/inputrc"
+bind -f "${HOME}/dotfiles/BashRC/inputrc"
 
 # Variables ##
 # PS1='\u@\h: ~${PWD##*/} > '

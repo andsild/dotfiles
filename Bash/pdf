@@ -3,36 +3,35 @@
 #@ DESCRIPTION: print error msg and exit with a given ret value
 die() #@ USAGE: die STAUTS [MESSAGE]
 {
-	error=$1
-	shift
-	[ -n "$*" ] && printf "%s\n" "$*" >&2
-	exit "$error"
+    error=$1
+    shift
+    [ -n "$*" ] && printf "%s\n" "$*" >&2
+    exit "$error"
 }
 
 function pdf()
 {
-	if [ -z "${1}" ]
-	then
-		printf "%s\n" "usage: pdf <document or pdf>"
-		exit
-	fi
+    if [ -z "${1}" ]
+    then
+        die 1 "usage: pdf <document or pdf>"
+    fi
 
-	eval local file='"${1}"'
+    eval local file='"${1}"'
 
     if [ ! -e "${file}" ]
     then
         die 1 "${file} not found"
     fi
 
-	if [ "${file##*.}" == "doc" ]
-	then
-		unoconv -fpdf "${file}";
-		echo "${file}"
-		zathura "${file%%.*}.pdf" &
-		exit
-	fi
+    if [ "${file##*.}" == "doc" ]
+    then
+        unoconv -fpdf "${file}";
+        echo "${file}"
+        zathura "${file%%.*}.pdf" &
+        exit
+    fi
 
-	xdg-open "${file}" &
-} #2>/dev/null
+    setsid xdg-open "${file}" &
+} 2>/dev/null
 
 pdf "${1}"
