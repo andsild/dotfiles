@@ -16,6 +16,7 @@ stdenv.mkDerivation rec {
 
   configFile = optionalString (conf!=null) (writeText "config.def.h" conf);
   preBuild = ''
+  ${optionalString (conf!=null) "cp ${configFile} config.def.h"}
   '';
   
   buildInputs = [ pkgconfig libX11 ncurses libXext libXft fontconfig ];

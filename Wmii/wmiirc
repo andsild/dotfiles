@@ -118,7 +118,8 @@ status() {
         '|' $(awk ' { gsub(".*/", "", $4); print $1, $2, $3, $4 } ' /proc/loadavg) \
         '|' "${volume:-amixer error}" \
         ${battery} \
-        '|' $(TZ="Europe/Oslo" date +%a\ %b\ %d\ \(%H\)"$(date +%H)":%M:%S\ %Y);
+        '|' $(xkblayout-state print "%s") \
+        '|' $(TZ="America/New_York" date +%a\ %b\ %d\ \(%H\)"$(date +%H)":%M:%S\ %Y);
 }
 
 echo colors $WMII_NORMCOLORS | wmiir create $noticebar
@@ -203,15 +204,15 @@ Action netStatus
         downRead=$(head /sys/class/net/${device}/statistics/tx_bytes)
         sleep 1
     done
-Action songStatus
-    set +xv
-    if wmiir remove /lbar/songStatus 2>/dev/null; then
-        sleep 2
-    fi
-    echo colors "$WMII_NORMCOLORS" | wmiir create /lbar/songStatus
-    while songStatus | wmiir write /lbar/songStatus; do
-        sleep 7
-    done
+#Action songStatus
+    #set +xv
+    #if wmiir remove /lbar/songStatus 2>/dev/null; then
+        #sleep 2
+    #fi
+    #echo colors "$WMII_NORMCOLORS" | wmiir create /lbar/songStatus
+    #while songStatus | wmiir write /lbar/songStatus; do
+        #sleep 7
+    #done
 # Key Bindings
 KeyGroup Moving around
 Key $MODKEY-$LEFT   # Select the client to the left
