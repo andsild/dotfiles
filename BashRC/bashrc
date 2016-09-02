@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-export SHELL="/usr/bin/env bash" # problem with compiled st (suckless' SimpleTerminal)
+shell="$(which bash)"
+export SHELL="${shell}" # problem with compiled st (suckless' SimpleTerminal)
 # test -f /local/skel/all.bashrc && . /local/skel/all.bashrc
 # If not running interactively, don't read preferences.
 [ -z "$PS1" ] && return

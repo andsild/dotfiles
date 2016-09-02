@@ -17,6 +17,27 @@ stdenv.mkDerivation rec {
   configFile = optionalString (conf!=null) (writeText "config.def.h" conf);
   preBuild = ''
   ${optionalString (conf!=null) "cp ${configFile} config.def.h"}
+  ${optionalString (conf==null) "cat <<EOF > fixdelkey.patch
+*** original
+--- modified
+***************
+*** 316,321 ****
+     { XK_Delete,        ShiftMask,      \"\\033[2K\",      -1,    0,    0},
+     { XK_Delete,        ShiftMask,      \"\\033[3;2~\",    +1,    0,    0},
+!    { XK_Delete,        XK_ANY_MOD,     \"\\033[P\",       -1,    0,    0},
+!    { XK_Delete,        XK_ANY_MOD,     \"\\033[3~\",      +1,    0,    0},
+     { XK_BackSpace,     XK_NO_MOD,      \"\\177\",          0,    0,    0},
+     { XK_BackSpace,     Mod1Mask,       \"\\033\\177\",      0,    0,    0},
+--- 316,321 ----
+     { XK_Delete,        ShiftMask,      \"\\033[2K\",      -1,    0,    0},
+     { XK_Delete,        ShiftMask,      \"\\033[3;2~\",    +1,    0,    0},
+!    { XK_Delete,        XK_ANY_MOD,     \"\\033[P\",       +1,    0,    0},
+!    { XK_Delete,        XK_ANY_MOD,     \"\\033[3~\",      -1,    0,    0},
+     { XK_BackSpace,     XK_NO_MOD,      \"\\177\",          0,    0,    0},
+     { XK_BackSpace,     Mod1Mask,       \"\\033\\177\",      0,    0,    0},
+EOF
+cat fixdelkey.patch
+#patch -p0 --verbose config.def.h < fixdelkey.patch"}
   '';
   
   buildInputs = [ pkgconfig libX11 ncurses libXext libXft fontconfig ];

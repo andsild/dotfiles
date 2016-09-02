@@ -2,6 +2,7 @@ $include /etc/inputrc
 
 set visible-stats on
 
+
 # set editing-mode vi
 $if mode=vi
 
