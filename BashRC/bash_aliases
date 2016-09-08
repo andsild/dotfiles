@@ -67,3 +67,4 @@ function murder()
     kill -9 $(ps aux | awk "!/grep.*${1}/ && /${1}/ {print \$2}")
 }
 
+alias mountVm="sudo sshfs -p 2222 -o allow_other,IdentityFile=~/.ssh/id_rsa,Ciphers=arcfour tdt4258@127.0.0.1:4258Group10 /mnt/vm/"

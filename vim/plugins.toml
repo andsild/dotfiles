@@ -219,10 +219,6 @@ on_ft = 'd'
 repo = 't9md/vim-choosewin'
 on_map = [['n', '<Plug>']]
 
-[[plugins]]
-repo = 'fatih/vim-go'
-on_ft = 'go'
-
 # Operators
 [[plugins]]
 repo = 'kana/vim-operator-user'

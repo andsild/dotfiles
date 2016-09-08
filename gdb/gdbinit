@@ -24,6 +24,18 @@ define pstack
     printf "-32(%%rbp): %d\n", $rbp-0x32
 end
 
+define pn
+    printf "r1: 0x%x\t%d\n", $r1, $r1
+    printf "r2: 0x%x\t%d\n", $r2, $r2
+    printf "r3: 0x%x\t%d\n", $r3, $r3
+    printf "r4: 0x%x\t%d\n", $r4, $r4
+    printf "r5: 0x%x\t%d\n", $r5, $r5
+    printf "r6: 0x%x\t%d\n", $r6, $r6
+    printf "r7: 0x%x\t%d\n", $r7, $r7
+    printf "r8: 0x%x\t%d\n", $r8, $r8
+    printf "r9: 0x%x\t%d\n", $r9, $r9
+end
+
 add-auto-load-safe-path /lib64/libthread_db-1.0.so
 set auto-load safe-path /
 
