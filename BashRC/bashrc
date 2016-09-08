@@ -94,3 +94,6 @@ fi
 export GIT_PROMPT_ONLY_IN_REPO=1
 
 source "${HOME}/defaultenv3/bin/activate"
+
+[ -n "$NVIM_LISTEN_ADDRESS" ] && alias :='~/.nvimex.py'
+

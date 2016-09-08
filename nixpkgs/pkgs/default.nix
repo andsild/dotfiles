@@ -4,6 +4,7 @@
 rec { 
   st = pkgs.callPackage ./st {
     conf = import ./st_config.nix {} ;
+    #patches = [ "poop" ];
   };
 
   environment.variables = rec {
