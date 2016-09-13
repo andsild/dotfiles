@@ -234,10 +234,6 @@ Key $MODKEY-Control-$RIGHT
         wmiir xwrite /tag/sel/ctl grow sel sel right 5
 
 # Move and activate vnc instance (provided it is center left ish on monitor)
-Key $MODKEY-o
-    wmctrl -a TightVNC && xdotool mousemove 9999 9999 && xdotool mousemove 1000 500
-Key $MODKEY-g
-    setsid gvim &
 Key $MODKEY-a
     action $(wi_actions | wimenu -h "${hist}.actions" -n $histnum) &
 
@@ -314,8 +310,14 @@ wmiir write /ctl <<!
     border 1
 !
 
-# dirty hack to avoid the wmiirc in /etc/ to set the background after this script is loaded
+# dirty hack to avoid that the wmiirc sourced in /etc/ sets the background after this script is loaded
 setsid $(sleep 1 && echo feh --bg-scale ~/.background.jpg) &
+
+if [ -e "~/dotfiles/Bash/pdfautoopen" ]
+then
+    ~/dotfiles/Bash/pdfautoopen
+fi
+    
 
 if [ -z "$(pidof workrave)" ]
 then

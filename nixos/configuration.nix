@@ -7,6 +7,7 @@
  boot.loader.grub.enable = true;
  boot.loader.grub.version = 2;
  boot.loader.grub.device = "/dev/sda";
+ boot.kernelPackages = pkgs.linuxPackages_latest;
 
  networking = {
    hostName = "pesknix";
@@ -72,14 +73,12 @@
  in
  with pkgs; [
 
-   unzip
    acpitool
    automake
    bash
    bc
    boost
    cabal-install
-   gnome3.cheese
    chromium
    cmake
    cowsay
@@ -87,14 +86,16 @@
    dmenu
    dzen2
    enlightenment.terminology
+   file
    fortune
    gcc
    gcolor2
    gdb
    gdk_pixbuf
    git
-   gnome3.nautilus
    gnome.gnome_icon_theme
+   gnome3.cheese
+   gnome3.nautilus
    gnumake
    go
    google-drive-ocamlfuse
@@ -109,12 +110,14 @@
    htop
    inotify-tools
    irssi
+   kde5.kdenlive
    liblapack
    links2
    llvmPackages.clang
    llvmPackages.lldb
    lua
    manpages
+   mentorToolchains.armLinuxGnuEabi
    mplayer
    ncurses
    networkmanagerapplet
@@ -135,6 +138,7 @@
    pythonPackages.ipython
    pythonPackages.pip
    pythonPackages.virtualenv
+   qemu
    rsync
    ruby
    screen
@@ -145,6 +149,8 @@
    slop
    sqlite
    tree
+   unzip
+   usbutils
    valgrind
    vlc
    wget
@@ -152,9 +158,9 @@
    xclip
    xfontsel
    xlsfonts
-   xorg.xmessage
    xorg.xbacklight
    xorg.xev
+   xorg.xmessage
    xpdf
    xscreensaver
    zathura
