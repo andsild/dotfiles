@@ -9,9 +9,7 @@
  boot.loader.grub.device = "/dev/sda";
 
  networking = {
-   hostName = "pesknix";
    networkmanager.enable = true;
-   wireless.interfaces = [ "wlp3s0" ];
    wireless.userControlled.enable = true;
  };
 
