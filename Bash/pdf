@@ -34,4 +34,5 @@ function pdf()
     setsid xdg-open "${file}" &
 } 2>/dev/null
 
-pdf "${1}"
+
+[[ $_ != "$0" ]] || pdf "$1" || echo "error happened" >/dev/fd/2
