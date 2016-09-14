@@ -72,6 +72,10 @@
 
    unzip
    acpitool
+   aspell 
+   aspellDicts.en
+   aspellDicts.nb
+   aspellDicts.nn
    automake
    bash
    bc
