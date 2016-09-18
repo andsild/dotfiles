@@ -7,6 +7,7 @@
  boot.loader.grub.enable = true;
  boot.loader.grub.version = 2;
  boot.loader.grub.device = "/dev/sda";
+ boot.kernelPackages = pkgs.linuxPackages_latest;
 
  networking = {
    networkmanager.enable = true;
@@ -70,6 +71,10 @@
  in
  with pkgs; [
 
+
+   sloccount
+   sl
+   shotwell
    unzip
    acpitool
    aspell 
@@ -92,6 +97,7 @@
    fortune
    gcc
    gcolor2
+   openssl
    gdb
    gdk_pixbuf
    git
@@ -160,6 +166,8 @@
    xpdf
    xscreensaver
    zathura
+   msmtp
+   neomutt
 
 (texlive.combine {
           inherit (texlive)
@@ -243,12 +251,22 @@
 
    openssh.enable = true;
    locate.enable = true;
+   locate.interval = "10min";
+# is this a bad idea? I want my home directory indexed, but, I don't want every user
+# to have access to the DB?
+   locate.localuser = "andesil"; 
+
+   offlineimap.enable = true;
+   offlineimap.install = true;
+   offlineimap.path = [ pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite ];
+   offlineimap.onCalendar = "*:0/3"; # every three minutes
+
    printing.enable = true;
 
    xserver = {
      enable = true;
      layout = "us";
-     xkbOptions = "eurosign:e";
+     xkbOptions = "eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no";
      windowManager.wmii.enable = true;
      windowManager.xmonad.enable = true;
      windowManager.xmonad.enableContribAndExtras = true;
@@ -258,6 +276,10 @@
        slim = {
          enable = true;
          defaultUser = "andesil";
+         theme = pkgs.fetchurl {
+              url = "https://github.com/edwtjo/nixos-black-theme/archive/v1.0.tar.gz";
+              sha256 = "13bm7k3p6k7yq47nba08bn48cfv536k4ipnwwp1q1l2ydlp85r9d";
+          };
        };
      };
      };

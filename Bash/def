@@ -2,13 +2,13 @@
 
 function lookup()
 {
-	if [ -z "${1}" ]
-	then
-		printf "%s\n" "usage: lookup word"
-		exit
-	fi
+    if [ -z "${1}" ]
+    then
+        printf "%s\n" "usage: lookup word"
+        exit
+    fi
 
-	eval local word='"${1}"'
+    eval local word='"${1}"'
 
     dict ${word} -framv -over -simsv -holon
 } 
