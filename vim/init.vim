@@ -158,9 +158,9 @@ augroup DefaultAuGroup
     autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
     autocmd InsertLeave * if &paste | set nopaste mouse=a | echo 'nopaste' | endif | if &l:diff | diffupdate | endif
     autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
-    autocmd! BufWritePost * Neomake
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
     autocmd FileType haskell nnoremap <silent> <buffer>K :GhcModInfoPreview<CR>
+    autocmd BufLeave unite source /tmp/layout.vim
 
     if has('python3')
         autocmd FileType python setlocal omnifunc=python3complete#Complete
@@ -182,7 +182,8 @@ augroup syntax-highlight-extends
 augroup END
 
 
-set autoindent smartindent
+set autoindent 
+set smartindent
 set autoread " Auto reload if file is changed.
 set backspace=indent,eol,start
 set backupdir-=.
@@ -239,6 +240,7 @@ set pumheight=20
 set relativenumber
 set report=0
 set secure
+set sessionoptions="blank,curdir,folds,help,winsize"
 set shiftround
 set shiftwidth=4 " Round indent by shiftwidth.
 set shortmess=aTI
@@ -407,7 +409,7 @@ nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]h :Unite history/unite <CR>
 nnoremap [Space]<s-o> :FZF<CR>
 nnoremap [Space]t :<C-u>Unite -start-insert tag tag/include<CR>
-nnoremap [Space]w :w<CR>
+nnoremap [Space]w :silent Neomake<CR>
 nnoremap [Tag]t  g<C-]>
 nnoremap \  `
 nnoremap dh :diffget //3<CR>
@@ -489,18 +491,19 @@ if has('mouse')
   cnoremap <RightMouse> <C-r>+
 endif
  
+let g:auto_save = 1
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let g:formatters_javascript = ['jscs']
 let g:myLang=0
-let g:UltiSnipsExpandTrigger="<c-s>"
-let g:UltiSnipsJumpForwardTrigger="zl"
-let g:UltiSnipsJumpBackwardTrigger="zh"
+let g:UltiSnipsExpandTrigger='<c-s>'
+let g:UltiSnipsJumpForwardTrigger='zl'
+let g:UltiSnipsJumpBackwardTrigger='zh'
 let g:myLangList=['nospell','en_us', 'nb']
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_completion_start_length = 1
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
-let deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#omni#functions = {}
 let g:jsx_ext_required = 0
 let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
@@ -826,7 +829,7 @@ command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
       \ strftime('%Y-%m-%d.md'))
 command! -range -nargs=1 AddNumbers
       \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
-command! FZFLines call fzf#run({
+command! FZFLines mksession! /tmp/layout.vim | call fzf#run({
 \   'source':  <sid>buffer_lines(),
 \   'sink':    function('<sid>line_handler'),
 \   'options': '--extended --nth=3..',
@@ -853,7 +856,7 @@ function! ToggleSpell()
   else
     execute 'setlocal spell spelllang='.get(g:myLangList, b:myLang)
   endif
-  echo 'spell checking language:' s:myLangList[b:myLang]
+  echo 'spell checking language:' g:myLangList[b:myLang]
 endfunction
 
 function! s:SID_PREFIX()
@@ -1085,7 +1088,7 @@ endfunction
 
 function! s:check_back_space() abort
     let l:col = col('.') - 1
-    return !l:col || getline('.')[l:col - 1]  =~ '\s'
+    return !l:col || getline('.')[l:col - 1]  =~? '\s'
 endfunction
 
 
@@ -1093,7 +1096,8 @@ function! s:smart_search_expr(expr1, expr2)
     return line('$') > 5000 ?  a:expr1 : a:expr2
 endfunction
 
-    function! s:unite_my_settings() 
+function! s:unite_my_settings() 
+    mksession! /tmp/layout.vim
     " Directory partial match.
     call unite#custom#alias('file', 'h', 'left')
     call unite#custom#default_action('directory', 'narrow')
@@ -1228,34 +1232,36 @@ call unite#custom#profile('action', 'context', {
 call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
 
 function! s:line_handler(l)
-  let keys = split(a:l, ':\t')
-  exec 'buf' keys[0]
-  exec keys[1]
+  let l:keys = split(a:l, ':\t')
+  exec 'buf' l:keys[0]
+  exec l:keys[1]
   normal! ^zz
 endfunction
 
 function! s:buffer_lines()
-  let res = []
-  for b in filter(range(1, bufnr('$')), 'buflisted(v:val)')
-    call extend(res, map(getbufline(b,0,"$"), 'b . ":\t" . (v:key + 1) . ":\t" . v:val '))
+  let l:res = []
+  for l:b in filter(range(1, bufnr('$')), 'buflisted(v:val)')
+    call extend(l:res, map(getbufline(l:b,0,'$'), 'l:b . ":\t" . (v:key + 1) . ":\t" . v:val '))
   endfor
-  return res
+  return l:res
 endfunction
 
 function! s:ag_to_qf(line)
-  let parts = split(a:line, ':')
-  return {'filename': parts[0], 'lnum': parts[1], 'col': parts[2],
-        \ 'text': join(parts[3:], ':')}
+  let l:parts = split(a:line, ':')
+  return {'filename': l:parts[0], 'lnum': l:parts[1], 'col': l:parts[2],
+        \ 'text': join(l:parts[3:], ':')}
 endfunction
 
 function! s:ag_handler(lines)
   if len(a:lines) < 2 | return | endif
 
+  source /tmp/layout.vim " keep windows the way they were!
+
   let l:cmd = get({'ctrl-x': 'split',
                \ 'ctrl-v': 'vertical split',
                \ 'ctrl-t': 'tabe'}, a:lines[0], 'e')
   let l:list = map(a:lines[1:], 's:ag_to_qf(v:val)')
-  let l:chosen_result = list[0]
+  let l:chosen_result = l:list[0]
 
   execute l:cmd escape(l:chosen_result.filename, ' %#\')
   execute l:chosen_result.lnum
@@ -1271,10 +1277,10 @@ endfunction
 
 
 function! s:buflist()
-  redir => ls
+  redir => l:ls
   silent ls
   redir END
-  return split(ls, '\n')
+  return split(l:ls, '\n')
 endfunction
 
 function! s:bufopen(e)
@@ -1288,7 +1294,7 @@ nnoremap <silent> <Space>m :call fzf#run({
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
  
-command! -nargs=* Ag call fzf#run({
+command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
 \ 'source':  printf('ag --nogroup --column --nocolor --ignore %s --ignore %s "%s"',
 \                   'bundle.js', 'bundle.js.map',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),

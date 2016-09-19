@@ -487,3 +487,6 @@ repo = 'https://github.com/vim-scripts/mayansmoke.git'
 
 [[plugins]]
 repo = 'https://github.com/vim-scripts/Blueshift.git'
+
+[[plugins]]
+repo = 'https://github.com/907th/vim-auto-save.git'
