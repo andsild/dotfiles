@@ -81,6 +81,17 @@
    aspellDicts.en
    aspellDicts.nb
    aspellDicts.nn
+   file
+   pdftk
+   qemu
+   qalculate-gtk
+   shotwell
+   telnet
+   toilet
+   unzip
+   zip
+   xgamma
+   zlib
    automake
    bash
    bc
@@ -126,6 +137,7 @@
    mplayer
    ncurses
    networkmanagerapplet
+   stack
    newsbeuter-dev
    nodejs
    nox
