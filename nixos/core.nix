@@ -90,7 +90,7 @@
    toilet
    unzip
    zip
-   xgamma
+   xorg.xgamma
    zlib
    automake
    bash
