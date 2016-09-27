@@ -90,7 +90,7 @@
    toilet
    unzip
    zip
-   xgamma
+   xorg.xgamma
    zlib
    automake
    bash
@@ -240,6 +240,24 @@
  services = {
    acpid.enable = true;
 
+
+ udev.extraRules = ''
+# Leap Motion
+ACTION!="add|change", GOTO="com_leapmotion_leap_end"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="f182", ATTRS{idProduct}=="0003", MODE="666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="04b4", ATTRS{idProduct}=="00f3", MODE="666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="04b4", ATTRS{idProduct}=="4720", MODE="666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="2936", ATTRS{idProduct}=="1001", MODE="666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="2936", ATTRS{idProduct}=="1002", MODE="666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="2936", ATTRS{idProduct}=="1003", MODE="666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="2936", ATTRS{idProduct}=="1004", MODE="666", GROUP="plugdev"
+LABEL="com_leapmotion_leap_end"
+ '';
+
+
+
+
+
    samba.enable = true;
    samba.securityType = "share";
    samba.extraConfig = ''
@@ -266,7 +284,8 @@
    locate.interval = "10min";
 # is this a bad idea? I want my home directory indexed, but, I don't want every user
 # to have access to the DB?
-   locate.localuser = "andesil"; 
+   locate.localuser = "nobody"; 
+   locate.includeStore = true;
 
    offlineimap.enable = true;
    offlineimap.install = true;
