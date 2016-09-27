@@ -1,3 +1,4 @@
+" vim: let g:auto_save = 0
 set termencoding=utf-8
 " vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
 
@@ -133,6 +134,8 @@ let t:cwd = getcwd()
 augroup DefaultAuGroup
     autocmd!
 
+    autocmd BufWinEnter,WinEnter term://* startinsert
+    autocmd BufLeave,WinLeave term://* stopinsert
     autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
@@ -145,7 +148,7 @@ augroup DefaultAuGroup
     autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=./;/
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
-    autocmd FileType javascript,javascript.jsx nmap <s-k> :TernDoc<CR>
+    autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
     autocmd FileType javascript,javascript.jsx nnoremap [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
     autocmd FileType markdown nnoremap [Space]i :Unite menu:markdown -silent -winheight=25 -start-insert<CR>
     autocmd FileType pdf Pdf '%'
@@ -159,7 +162,7 @@ augroup DefaultAuGroup
     autocmd InsertLeave * if &paste | set nopaste mouse=a | echo 'nopaste' | endif | if &l:diff | diffupdate | endif
     autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-    autocmd FileType haskell nnoremap <silent> <buffer>K :GhcModInfoPreview<CR>
+    autocmd FileType haskell nnoremap <silent><buffer>K :GhcModInfoPreview<CR>
     autocmd BufLeave unite source /tmp/layout.vim
 
     if has('python3')
@@ -306,10 +309,6 @@ inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><C-g> deoplete#mappings#undo_completion()
 inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><C-l>       deoplete#mappings#refresh()
-inoremap <silent> <a-h> <Esc>:call WindowCmd('h')<CR>
-inoremap <silent> <a-j> <Esc>:call WindowCmd('j')<CR>
-inoremap <silent> <a-k> <Esc>:call WindowCmd('k')<CR>
-inoremap <silent> <a-l> <Esc>:call WindowCmd('l')<CR>
 inoremap <silent><expr> <s-Tab> pumvisible() ? '<C-p>' : deoplete#mappings#manual_complete()
 inoremap kk[Space] kk[Space]
 inoremap kke kke
@@ -430,19 +429,11 @@ silent! nnoremap < <<
 tnoremap   <ESC><ESC>   <C-\><C-n>
 tnoremap <C-6> <C-\><C-n><C-6>
 tnoremap <Esc><Esc> <C-\><C-n>
-tnoremap <silent> <a-h> <C-\><C-n>:call WindowCmd("h")<CR>
-tnoremap <silent> <a-j> <C-\><C-n>:call WindowCmd("j")<CR>
-tnoremap <silent> <a-k> <C-\><C-n>:call WindowCmd("k")<CR>
-tnoremap <silent> <a-l> <C-\><C-n>:call WindowCmd("l")<CR>
 tnoremap jj <C-\><C-n>
 tnoremap kk <C-\><C-n>
 vmap <silent> gs <Plug>(openbrowser-search)
 vnoremap ; <Esc>
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
-vnoremap <silent> <a-h> <Esc>:call WindowCmd("h")<CR>
-vnoremap <silent> <a-j> <Esc>:call WindowCmd("j")<CR>
-vnoremap <silent> <a-k> <Esc>:call WindowCmd("k")<CR>
-vnoremap <silent> <a-l> <Esc>:call WindowCmd("l")<CR>
 vnoremap s d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
 vnoremap vaw viw
 xmap    ;u [unite]
@@ -1187,6 +1178,9 @@ function! s:vimfiler_my_settings()
   call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
   call vimfiler#set_execute_file('txt', 'vim')
 
+  nmap <buffer> f <Plug>(vimfiler_new_file)
+  nmap <buffer> n <Plug>(vimfiler_make_directory)
+  nmap <buffer> <F2> <Plug>(vimfiler_rename_file)
 
   " Migemo search.
   if !empty(unite#get_filters('matcher_migemo'))
