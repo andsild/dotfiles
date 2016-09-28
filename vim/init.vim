@@ -269,6 +269,8 @@ set virtualedit=block " Enable virtualedit in visual block mode.
 set whichwrap+=h,l,<,>,[,],b,s,~
 set wildmode=list:longest,full
 set wildoptions=tagfile
+set fileignorecase
+set wildignorecase
 set winminheight=0 
 set winminwidth=0 
 set winwidth=1                                                                                               
