@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias annoying="find -type f -print0 | grep --color=never -Ez '[^/]{5}$' | xargs -0 "
 alias cal3="cal -3"
