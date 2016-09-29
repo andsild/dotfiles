@@ -82,6 +82,7 @@
    aspellDicts.nb
    aspellDicts.nn
    file
+   sxiv
    pdftk
    qemu
    qalculate-gtk
