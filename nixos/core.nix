@@ -102,6 +102,7 @@
    cmake
    cowsay
    ctags
+   graphviz
    dmenu
    dzen2
    enlightenment.terminology
