@@ -77,6 +77,8 @@
    shotwell
    unzip
    acpitool
+   astyle
+   octaveFull
    aspell 
    aspellDicts.en
    aspellDicts.nb
@@ -121,7 +123,9 @@
    google-drive-ocamlfuse
    gparted
    graphicsmagick
+   zeal
    haskellPackages.cabal-install
+   haskellPackages.hoogle
    haskellPackages.cabal2nix
    haskellPackages.ghc
    haskellPackages.ghc-mod

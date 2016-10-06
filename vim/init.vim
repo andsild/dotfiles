@@ -117,6 +117,9 @@ if has('vim_starting')
     endif
 
     exe 'silent! colorscheme ' . g:default_colorscheme
+    if g:default_colorscheme ==# 'mayansmoke'
+        hi Comment ctermfg=27
+    endif
 
 endif
 
@@ -134,8 +137,6 @@ let t:cwd = getcwd()
 augroup DefaultAuGroup
     autocmd!
 
-    autocmd BufWinEnter,WinEnter term://* startinsert
-    autocmd BufLeave,WinLeave term://* stopinsert
     autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
@@ -408,7 +409,7 @@ nnoremap [Quickfix]   <Nop> " q: Quickfix
 nnoremap [Space]/  :Ag<CR>
 nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]h :Unite history/unite <CR>
-nnoremap [Space]<s-o> :FZF<CR>
+nnoremap [Space]<s-o> :FZFGit<CR>
 nnoremap [Space]t :<C-u>Unite -start-insert tag tag/include<CR>
 nnoremap [Space]w :silent Neomake<CR>
 nnoremap [Tag]t  g<C-]>
@@ -549,6 +550,7 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_sendto = {
       \ 'unzip' : 'unzip %f',
       \ 'zip' : 'zip -r %F.zip %*',
+      \ 'wav' : 'mplayer %f &',
       \ 'Inkscape' : 'inkspace',
       \ 'GIMP' : 'gimp %*',
       \ 'gedit' : 'gedit',
@@ -806,6 +808,12 @@ command! -bang -bar -complete=file -nargs=? Utf16be edit<bang> ++enc=ucs-2 <args
 command! -bang -bar -complete=file -nargs=? Unicode Utf16<bang> <args>
 command! WUtf8 setlocal fenc=utf-8
 command! WUnicode WUtf16
+
+command! FZFGit call fzf#run({
+            \ 'source':  'git ls-files',
+            \ 'sink':    'edit',
+            \ 'options': '-m -x +s -e',
+            \ 'down':    '40%' })
 command! FZFMru call fzf#run({
             \ 'source':  reverse(s:all_files()),
             \ 'sink':    'edit',
@@ -830,8 +838,6 @@ command! FZFLines mksession! /tmp/layout.vim | call fzf#run({
 \})
 command! Wa wa
 command! W w
-
-
 
 function! s:mkdir_as_necessary(dir, force)
   if !isdirectory(a:dir) && &l:buftype ==? '' &&
