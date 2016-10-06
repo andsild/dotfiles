@@ -267,7 +267,7 @@ set updatetime=1000 " CursorHold time.
 set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix                                     
 set virtualedit=block " Enable virtualedit in visual block mode.
 set whichwrap+=h,l,<,>,[,],b,s,~
-set wildmode=list:longest,full
+set wildmode=list:longest
 set wildoptions=tagfile
 set fileignorecase
 set wildignorecase
