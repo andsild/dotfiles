@@ -117,7 +117,6 @@
    gdk_pixbuf
    git
    gnome3.nautilus
-   gnome.gnome_icon_theme
    gnumake
    go
    google-drive-ocamlfuse

@@ -398,7 +398,7 @@ repo = 'https://github.com/janko-m/vim-test.git'
 repo = 'https://github.com/nhooyr/neoman.vim.git'
 
 [[plugins]]
-repo = 'https://github.com/andsild/deoplete.nvim.git'
+repo = 'https://github.com/Shougo/deoplete.nvim.git'
 
 [[plugins]]
 repo = 'zchee/deoplete-clang'
