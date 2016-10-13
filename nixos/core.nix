@@ -301,8 +301,9 @@ LABEL="com_leapmotion_leap_end"
 
    xserver = {
      enable = true;
-     layout = "us";
+     layout = "us,no";
      xkbOptions = "eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no";
+     exportConfiguration = true;
      windowManager.wmii.enable = true;
      windowManager.xmonad.enable = true;
      windowManager.xmonad.enableContribAndExtras = true;

@@ -1171,14 +1171,11 @@ function! s:wcswidth(str)
 endfunction
 
 function! s:all_files()
-      let l:fuckall = split(system('locate "${PWD}/" | sort'), '\n')
-      let l:test = filter(copy(v:oldfiles),
+      let l:oldfilesFiltered = filter(copy(v:oldfiles),
         \        "v:val !~# 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'")
-      "let l:omg = extend(l:test, l:fuckall)
-      let l:omg = l:test
-      let l:lolzomg = extend(l:omg,
+      let l:indexedFileList = extend(l:oldfilesFiltered,
             \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
-      return l:lolzomg
+      return l:indexedFileList
   endfunction
 
 
