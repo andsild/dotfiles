@@ -410,7 +410,6 @@ nnoremap [Space]/  :Ag<CR>
 nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]h :Unite history/unite <CR>
 nnoremap [Space]<s-o> :FZFGit<CR>
-nnoremap [Space]t :<C-u>Unite -start-insert tag tag/include<CR>
 nnoremap [Space]w :silent Neomake<CR>
 nnoremap [Tag]t  g<C-]>
 nnoremap \  `
