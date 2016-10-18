@@ -1,4 +1,3 @@
-" vim: let g:auto_save = 0
 set termencoding=utf-8
 " vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
 
@@ -13,11 +12,9 @@ endfunction
 
 if s:isWindows()
     set shellslash
-    " windows has some annoying path stuff. The first folder in $PATH is
-    " found first, so we append our desired folders first
-    let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\'
-    " prefer python3 for vim
-    let $PATH = s:winpythonpath . ';' .$VIM . ';' . $PATH
+    let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\' .
+    	\	';C:\Program Files (x86)\Python35-32;C:\Program Files (x86)\Python35-32\Scripts'
+    let $PATH = s:winpythonpath . ';' . $VIM . ';' . $PATH
     let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
 elseif s:IsMac()
     nnoremap <silent> ± ~
@@ -67,7 +64,6 @@ endif
 if !isdirectory(expand($CACHE))
   call mkdir(expand($CACHE), 'p')
 endif
-
 
 if has('vim_starting')
     set encoding=utf-8
