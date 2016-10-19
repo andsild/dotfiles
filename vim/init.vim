@@ -192,7 +192,6 @@ set clipboard& clipboard+=unnamed
 set cmdheight=2
 set cmdwinheight=5                                                                                           
 set colorcolumn=79
-set fileformat=unix
 set commentstring=%s
 set complete=.
 set completeopt+=noinsert,noselect,preview,menu
@@ -424,7 +423,7 @@ omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 silent! nnoremap < <<
-tnoremap   <ESC><ESC>   <C-\><C-n>
+tnoremap <ESC><ESC> <C-\><C-n>
 tnoremap <C-6> <C-\><C-n><C-6>
 tnoremap <Esc><Esc> <C-\><C-n>
 tnoremap jj <C-\><C-n>
@@ -1249,7 +1248,24 @@ endfunction
 function! s:ag_handler(lines)
   if len(a:lines) < 2 | return | endif
 
-  source /tmp/layout.vim " keep windows the way they were!
+  " I want to keep the window layout (the fzf popup moves everything around)
+  " Therefore I make a vim session and restore it
+  " However, if a terminal is open,
+  "I get a bug related to: https://github.com/neovim/neovim/issues/4895
+  " Therefore the nasty for loop and checks
+  let l:openWindows=[] 
+  windo call add(l:openWindows, winnr()) 
+  let l:terminalIsOpen=0
+  for winnr in l:openWindows
+    if bufname(winbufnr(winnr)) =~# 'term://'
+        let l:terminalIsOpen=1
+    endif
+  endfor
+  if l:terminalIsOpen == 0
+    source /tmp/layout.vim " keep windows the way they were!
+  else
+    wincmd p " go back to previous window before switching to search result
+  endif
 
   let l:cmd = get({'ctrl-x': 'split',
                \ 'ctrl-v': 'vertical split',
