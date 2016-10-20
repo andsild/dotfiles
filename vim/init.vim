@@ -196,7 +196,6 @@ set clipboard& clipboard+=unnamed
 set cmdheight=2
 set cmdwinheight=5                                                                                           
 set colorcolumn=79
-set fileformat=unix
 set commentstring=%s
 set complete=.
 set completeopt+=noinsert,noselect,preview,menu
@@ -1254,7 +1253,7 @@ endfunction
 function! s:ag_handler(lines)
   if len(a:lines) < 2 | return | endif
 
-  source /tmp/layout.vim " keep windows the way they were!
+  " source /tmp/layout.vim " keep windows the way they were!
 
   let l:cmd = get({'ctrl-x': 'split',
                \ 'ctrl-v': 'vertical split',
