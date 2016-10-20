@@ -1,4 +1,4 @@
-#!/home/andesil/defaultenv/bin/python2.7
+#!/home/andesil/python2env/bin/python2.7
 
 def showhelp():
     print '''============

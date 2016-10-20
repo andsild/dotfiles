@@ -1,4 +1,3 @@
-" vim: let g:auto_save = 0
 set termencoding=utf-8
 " vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
 
@@ -13,11 +12,9 @@ endfunction
 
 if s:isWindows()
     set shellslash
-    " windows has some annoying path stuff. The first folder in $PATH is
-    " found first, so we append our desired folders first
-    let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\'
-    " prefer python3 for vim
-    let $PATH = s:winpythonpath . ';' .$VIM . ';' . $PATH
+    let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\' .
+    	\	';C:\Program Files (x86)\Python35-32;C:\Program Files (x86)\Python35-32\Scripts'
+    let $PATH = s:winpythonpath . ';' . $VIM . ';' . $PATH
     let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
 elseif s:IsMac()
     nnoremap <silent> ± ~
@@ -67,7 +64,6 @@ endif
 if !isdirectory(expand($CACHE))
   call mkdir(expand($CACHE), 'p')
 endif
-
 
 if has('vim_starting')
     set encoding=utf-8
@@ -409,7 +405,6 @@ nnoremap [Space]/  :Ag<CR>
 nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]h :Unite history/unite <CR>
 nnoremap [Space]<s-o> :FZFGit<CR>
-nnoremap [Space]t :<C-u>Unite -start-insert tag tag/include<CR>
 nnoremap [Space]w :silent Neomake<CR>
 nnoremap [Tag]t  g<C-]>
 nnoremap \  `
@@ -428,7 +423,7 @@ omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 silent! nnoremap < <<
-tnoremap   <ESC><ESC>   <C-\><C-n>
+tnoremap <ESC><ESC> <C-\><C-n>
 tnoremap <C-6> <C-\><C-n><C-6>
 tnoremap <Esc><Esc> <C-\><C-n>
 tnoremap jj <C-\><C-n>
@@ -1253,7 +1248,24 @@ endfunction
 function! s:ag_handler(lines)
   if len(a:lines) < 2 | return | endif
 
-  " source /tmp/layout.vim " keep windows the way they were!
+  " I want to keep the window layout (the fzf popup moves everything around)
+  " Therefore I make a vim session and restore it
+  " However, if a terminal is open,
+  "I get a bug related to: https://github.com/neovim/neovim/issues/4895
+  " Therefore the nasty for loop and checks
+  let l:openWindows=[] 
+  windo call add(l:openWindows, winnr()) 
+  let l:terminalIsOpen=0
+  for winnr in l:openWindows
+    if bufname(winbufnr(winnr)) =~# 'term://'
+        let l:terminalIsOpen=1
+    endif
+  endfor
+  if l:terminalIsOpen == 0
+    source /tmp/layout.vim " keep windows the way they were!
+  else
+    wincmd p " go back to previous window before switching to search result
+  endif
 
   let l:cmd = get({'ctrl-x': 'split',
                \ 'ctrl-v': 'vertical split',
