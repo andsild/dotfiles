@@ -1,4 +1,4 @@
-{ pkgs
+{ pkgs, lib
 }:
 
 rec { 
@@ -6,6 +6,8 @@ rec {
     conf = import ./st_config.nix {} ;
     #patches = [ "poop" ];
   };
+
+  callPackages = lib.callPackage;
 
   environment.variables = rec {
       VISUAL  = "nvim";
@@ -19,5 +21,4 @@ rec {
     withPython3 = true;
     configure = import ./nvim_config.nix { inherit pkgs; };
   };
-
 }
