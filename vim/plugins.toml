@@ -309,7 +309,7 @@ repo = 'rstacruz/sparkup'
 repo = 'tpope/vim-dispatch'
 
 [[plugins]]
-repo = 'https://github.com/benekastah/neomake.git'
+repo = 'https://github.com/neomake/neomake.git'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive.git'

@@ -70,8 +70,6 @@
    };
  in
  with pkgs; [
-
-
    sloccount
    sl
    shotwell
@@ -116,7 +114,6 @@
    gdb
    gdk_pixbuf
    git
-   gnome3.nautilus
    gnumake
    go
    google-drive-ocamlfuse
@@ -135,7 +132,6 @@
    irssi
    liblapack
    links2
-   llvmPackages.clang
    llvmPackages.lldb
    lua
    manpages
@@ -149,6 +145,7 @@
    ntfs3g
    nvim
    p7zip
+   xdotool
    parted
    pavucontrol
    pkgconfig
@@ -185,6 +182,7 @@
    zathura
    msmtp
    neomutt
+   gnupg
 
 (texlive.combine {
           inherit (texlive)
@@ -301,6 +299,7 @@ LABEL="com_leapmotion_leap_end"
 
    xserver = {
      enable = true;
+     startGnuPGAgent = true;
      layout = "us,no";
      xkbOptions = "eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no";
      exportConfiguration = true;
