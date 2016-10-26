@@ -560,7 +560,7 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_sendto = {
       \ 'unzip' : 'unzip %f',
       \ 'zip' : 'zip -r %F.zip %*',
-      \ 'wav' : 'mplayer %f &',
+      \ 'wav' : 'setsid mplayer %f &',
       \ 'Inkscape' : 'inkspace',
       \ 'GIMP' : 'gimp %*',
       \ 'gedit' : 'gedit',
@@ -1196,6 +1196,7 @@ function! s:vimfiler_my_settings()
   nmap <buffer> f <Plug>(vimfiler_new_file)
   nmap <buffer> n <Plug>(vimfiler_make_directory)
   nmap <buffer> <F2> <Plug>(vimfiler_rename_file)
+  nmap <buffer> yy <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
 
   " Migemo search.
   if !empty(unite#get_filters('matcher_migemo'))

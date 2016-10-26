@@ -416,9 +416,6 @@ repo = 'https://github.com/7kfpun/finance.vim.git'
 repo = 'https://github.com/vim-scripts/BufOnly.vim.git'
 
 [[plugins]]
-repo = 'https://github.com/junegunn/vim-peekaboo.git'
-
-[[plugins]]
 repo = 'https://github.com/kchmck/vim-coffee-script.git'
 
 [[plugins]]
