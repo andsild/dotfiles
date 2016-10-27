@@ -152,7 +152,7 @@ augroup DefaultAuGroup
     autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
-    autocmd Bufenter *.py nnoremap <silent> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
+    autocmd Bufenter *.py nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
     autocmd FileType apache setlocal path+=./;/
     autocmd FileType c,cpp set formatprg =astyle
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -162,7 +162,7 @@ augroup DefaultAuGroup
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
-    autocmd FileType javascript,javascript.jsx nnoremap [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
+    autocmd FileType javascript,javascript.jsx nnoremap <buffer> [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
     autocmd FileType markdown nnoremap [Space]i :Unite menu:markdown -silent -winheight=25 -start-insert<CR>
     autocmd FileType pdf Pdf '%'
     autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
@@ -335,8 +335,9 @@ nmap <C-a> <SID>(increment)
 nmap <C-w>  <Plug>(choosewin)
 nmap <C-x> <SID>(decrement)
 nmap <F1> <nop>
-nmap <buffer> gc <Plug>(caw:prefix)
-nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+nmap gc <Plug>(caw:prefix)
+nmap gcc <Plug>(caw:hatpos:toggle)
+vmap gcc <Plug>(caw:hatpos:toggle)
 nmap <buffer> tcd         <Plug>(unite_quick_match_default_action)
 nmap <silent> <F7> :call ToggleSpell()<CR>
 nmap <silent> B <Plug>CamelCaseMotion_b
@@ -394,7 +395,7 @@ nnoremap <silent> <Leader>r QuickRun
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
-nnoremap <silent> <leader>t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+nnoremap <silent> [Space]t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 nnoremap <silent> [Space]di :Unite menu:diff -silent -start-insert -winheight=10 <CR>
 nnoremap <silent> [Space]en :<C-u>setlocal encoding? fenc? fencs?<CR>
@@ -409,8 +410,6 @@ nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
 nnoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
 nnoremap <silent><expr> / ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -start-insert line:forward:wrap\<CR>"
-nnoremap <silent><expr> [Tag]p  &filetype == 'help' ? ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
-nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "g\<C-]>" : ":\<C-u>UniteWithCursorWord -buffer-name=tag -immediately tag tag/include\<CR>"
 nnoremap <silent><expr> [Space]n ":\<C-u>UniteResume search%".bufnr('%')."  -no-start-insert -force-redraw\<CR>"
 nnoremap <silent>[Space]g :Unite -silent -winheight=29 -start-insert menu:git<CR>
 nnoremap > >>
@@ -422,7 +421,6 @@ nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]h :Unite history/unite <CR>
 nnoremap [Space]<s-o> :FZFGit<CR>
 nnoremap [Space]w :silent Neomake<CR>
-nnoremap [Tag]t  g<C-]>
 nnoremap \  `
 nnoremap dh :diffget //3<CR>
 nnoremap dl :diffget //2<CR>
@@ -452,8 +450,6 @@ vnoremap vaw viw
 xmap    ;u [unite]
 xmap  <Space>   [Space]
 xmap <Enter> <Plug>(EasyAlign)
-xmap <buffer> gc <Plug>(caw:prefix)
-xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
 xmap <silent> B <Plug>CamelCaseMotion_b
 xmap <silent> W <Plug>CamelCaseMotion_w
 xmap A  <Plug>(niceblock-A)
@@ -539,9 +535,7 @@ let g:vimfiler_preview_action = 'auto_preview'
 let g:neomake_open_list = 2
 let g:neomake_list_height = 5
 let g:neomake_tex_enabled_makers = ['chktex']
-let g:neomake_cpp_enabled_makers = []
 let g:neomake_haskell_enabled_makers = ['ghcmodlint']
-let g:neomake_c_enabled_makers = []
 let g:neomake_python_enabled_makers=['pylint']
 let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
 let g:deoplete#keyword_patterns = {}

@@ -70,119 +70,133 @@
    };
  in
  with pkgs; [
-   sloccount
-   sl
-   shotwell
-   unzip
    acpitool
-   astyle
-   octaveFull
    aspell 
    aspellDicts.en
    aspellDicts.nb
    aspellDicts.nn
-   file
-   sxiv
-   pdftk
-   qemu
-   qalculate-gtk
-   shotwell
-   telnet
-   toilet
-   unzip
-   zip
-   xorg.xgamma
-   zlib
+   astyle
    automake
    bash
    bc
    boost
    cabal-install
-   gnome3.cheese
    chromium
    cmake
    cowsay
    ctags
-   graphviz
+   clang
    dmenu
+   dpkg
    dzen2
    enlightenment.terminology
+   file
    fortune
    gcc
    gcolor2
-   openssl
    gdb
    gdk_pixbuf
    git
+   glibcInfo
+   gnome3.cheese
    gnumake
+   gnupg
    go
    google-drive-ocamlfuse
    gparted
    graphicsmagick
-   zeal
+   graphviz
    haskellPackages.cabal-install
-   haskellPackages.hoogle
    haskellPackages.cabal2nix
    haskellPackages.ghc
    haskellPackages.ghc-mod
+   haskellPackages.happy
    haskellPackages.hlint
+   haskellPackages.hoogle
    hicolor_icon_theme
    htop
+   imagemagick
    inotify-tools
    irssi
    liblapack
    links2
    llvmPackages.lldb
    lua
+   man-pages
+   manpages
    manpages
    mplayer
+   msmtp
    ncurses
+   neomutt
    networkmanagerapplet
-   stack
    newsbeuter-dev
    nodejs
    nox
    ntfs3g
    nvim
+   octaveFull
+   openssl
    p7zip
-   xdotool
    parted
    pavucontrol
+   pdftk
    pkgconfig
    python
    python3
    python3Packages.ipython
+   python3Packages.neovim
    python3Packages.pip
+   python3Packages.scipy
    python3Packages.virtualenv
    pythonPackages.ipython
    pythonPackages.pip
+   pythonPackages.scipy
+   pythonPackages.neovim
    pythonPackages.virtualenv
+   qalculate-gtk
+   qemu
+   rdesktop
    rsync
    ruby
    screen
    shellcheck
+   shotwell
    silver-searcher
    simplescreenrecorder
+   sl
+   sloccount
    slock
    slop
    sqlite
+   sshfs-fuse
+   stack
+   stdmanpages
+   posix_man_pages
+   sxiv
+   telnet
+   toilet
    tree
+   unzip
+   unzip
    valgrind
    vlc
    wget
    workrave
    xclip
+   xdotool
    xfontsel
    xlsfonts
-   xorg.xmessage
    xorg.xbacklight
    xorg.xev
+   xorg.xgamma
+   xorg.xmessage
    xpdf
    xscreensaver
    zathura
-   msmtp
-   neomutt
-   gnupg
+   zeal
+   zip
+   zlib
 
 (texlive.combine {
           inherit (texlive)
@@ -299,7 +313,6 @@ LABEL="com_leapmotion_leap_end"
 
    xserver = {
      enable = true;
-     startGnuPGAgent = true;
      layout = "us,no";
      xkbOptions = "eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no";
      exportConfiguration = true;
