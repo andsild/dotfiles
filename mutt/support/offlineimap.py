@@ -4,22 +4,10 @@ import sys
 import os
 
 # Fetching passwords
-#
-# In order to avoid storing passwords in plain text on the system, they are
-# stored in the keychain. Passwords can be managed with:
-#
-# $ security add-internet-password    -a john.doe@example.com -s mutt -w PASSWORD ~/Library/Keychains/login.keychain
-# $ security delete-internet-password -a john.doe@example.com -s mutt ~/Library/Keychains/login.keychain
-#
-# Don't forget to remove them from history. If zsh has HIST_IGNORE_SPACE, you
-# can just prefix the command with a space to accomplish that.
-
 def keychain_pass():
     return subprocess \
-            .check_output("gpg -dq ~/.offlineimappass.gpg", shell=True).rstrip('\n')
+            .check_output("gpg2 -dq /home/andesil/.offlineimappass.gpg", shell=True).rstrip('\n')
 
-# Gmail foldername mappings
-#
 # In order to have good naming in local accounts, a mapping needs to be
 # established between the names as they appear in Gmail and the ones in the
 # local accounts.
@@ -68,4 +56,4 @@ def gmail_folder_filter(*additional):
 
 # Also used by msmtp to obtain the password
 if __name__ == '__main__':
-    print keychain_pass(sys.argv[1])
+    print keychain_pass()

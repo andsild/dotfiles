@@ -82,10 +82,10 @@
    boost
    cabal-install
    chromium
+   clang
    cmake
    cowsay
    ctags
-   clang
    dmenu
    dpkg
    dzen2
@@ -101,6 +101,7 @@
    gnome3.cheese
    gnumake
    gnupg
+   gnupg1orig
    go
    google-drive-ocamlfuse
    gparted
@@ -132,6 +133,7 @@
    networkmanagerapplet
    newsbeuter-dev
    nodejs
+   notmuch
    nox
    ntfs3g
    nvim
@@ -141,7 +143,9 @@
    parted
    pavucontrol
    pdftk
+   pinentry
    pkgconfig
+   posix_man_pages
    python
    python3
    python3Packages.ipython
@@ -149,10 +153,11 @@
    python3Packages.pip
    python3Packages.scipy
    python3Packages.virtualenv
+   pythonPackages.goobook
    pythonPackages.ipython
+   pythonPackages.neovim
    pythonPackages.pip
    pythonPackages.scipy
-   pythonPackages.neovim
    pythonPackages.virtualenv
    qalculate-gtk
    qemu
@@ -172,7 +177,6 @@
    sshfs-fuse
    stack
    stdmanpages
-   posix_man_pages
    sxiv
    telnet
    toilet
@@ -186,6 +190,7 @@
    xclip
    xdotool
    xfontsel
+   xkblayout-state
    xlsfonts
    xorg.xbacklight
    xorg.xev
@@ -271,43 +276,16 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="2936", ATTRS{idProduct}=="1004", MODE="666",
 LABEL="com_leapmotion_leap_end"
  '';
 
-
-
-
-
-   samba.enable = true;
-   samba.securityType = "share";
-   samba.extraConfig = ''
-     workgroup = WORKGROUP
-     server string = myServer
-     netbios name = myServername
-     #use sendfile = yes
-     #max protocol = smb2
- 
-     interfaces = lo eth1 vboxnet0 vboxnet1
-     bind interfaces only = yes
- 
-     [rw-files]
-       comment = rw project files 
-       path = /mnt/samba/
-       read only = no
-       writable = yes
-       public = yes
-       browsable = yes
-   ''; 
-
    openssh.enable = true;
    locate.enable = true;
-   locate.interval = "10min";
-# is this a bad idea? I want my home directory indexed, but, I don't want every user
-# to have access to the DB?
+   locate.interval = "*:0/30";
    locate.localuser = "nobody"; 
    locate.includeStore = true;
 
    offlineimap.enable = true;
    offlineimap.install = true;
-   offlineimap.path = [ pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite ];
-   offlineimap.onCalendar = "*:0/3"; # every three minutes
+   offlineimap.path = [ pkgs.gnupg1orig pkgs.gnupg pkgs.pythonPackages.goobook pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite pkgs.pinentry  ];
+   offlineimap.onCalendar = "*:0/1"; # every three minutes
 
    printing.enable = true;
 

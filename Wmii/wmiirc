@@ -269,10 +269,10 @@ Key $MODKEY-m # Set column to max mode
     wmiir xwrite /tag/sel/ctl colmode sel stack+max
 
 KeyGroup Running programs
-Key $MODKEY-p      # Open program menu
-    eval wmiir setsid "$(compgen -c | dmenu)" &
-Key $MODKEY-c       
+Key $MODKEY-c
     eval wmiir setsid chromium &
+Key $MODKEY-p # I would use compgen, if nixos permitted me :(
+    eval wmiir setsid $(find /run/current-system/sw/bin/ .nix-profile/bin/  -not -type d -printf "%f\n" | sort | dmenu) &
 Key $MODKEY-u      
     eval wmiir setsid uzbl-browser &
 

@@ -64,7 +64,7 @@ realdelete = yes
 remoteuser = andsild@gmail.com
 
 # Fetch the password from the keychain
-remotepasseval = keychain_pass('andsild@gmail.com')
+remotepasseval = keychain_pass()
 
 # Similar renaming to the one in the local repository. It should take the same
 # argument (makes it simple to copy/paste around).

@@ -1,0 +1,7 @@
+[DEFAULT]
+email: andsild@gmail.com
+cache_filename: ~/.goobook_cache.andsild
+client_secret_filename: ~/.goobook_client_secret.andsild
+oauth_db_filename: ~/.goobook_oauth_db.andsild
+cache_expiry_hours: 24
+filter_groupless_contacts: no
