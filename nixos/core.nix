@@ -284,8 +284,8 @@ LABEL="com_leapmotion_leap_end"
 
    offlineimap.enable = true;
    offlineimap.install = true;
-   offlineimap.path = [ pkgs.gnupg1orig pkgs.gnupg pkgs.pythonPackages.goobook pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite pkgs.pinentry  ];
-   offlineimap.onCalendar = "*:0/1"; # every three minutes
+   offlineimap.path = [ pkgs.gnupg1orig pkgs.python pkgs.gnupg pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite pkgs.pinentry  ];
+   offlineimap.onCalendar = "*:0/3"; # every three minutes
 
    printing.enable = true;
 

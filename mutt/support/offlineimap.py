@@ -6,7 +6,8 @@ import os
 # Fetching passwords
 def keychain_pass():
     return subprocess \
-            .check_output("gpg2 -dq /home/andesil/.offlineimappass.gpg", shell=True).rstrip('\n')
+            .check_output("/run/current-system/sw/bin/gpg2 -dq /home/andesil/.offlineimappass.gpg", shell=True).rstrip('\n')
+
 
 # In order to have good naming in local accounts, a mapping needs to be
 # established between the names as they appear in Gmail and the ones in the
