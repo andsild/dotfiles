@@ -315,6 +315,7 @@ setsid $(sleep 1 && echo feh --bg-scale ~/.background.jpg) &
 
 if [ -e "${HOME}/dotfiles/Bash/pdfautoopen" ]
 then
+    pkill --full pdfautoopen # kill if already open
     setsid ~/dotfiles/Bash/pdfautoopen &
 fi
     

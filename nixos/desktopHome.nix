@@ -18,6 +18,10 @@
 
 
  networking.hostName = "peskNix";
+ networking.extraHosts = ''
+ 192.168.1.207 laptop
+ 192.168.1.168 phone
+ '';
  services.xserver.xrandrHeads = [ "DisplayPort-1" "HDMI-0"  ];
  #services.xserver.deviceSection = ''
  #Option "RandRRotation" "on"
@@ -29,5 +33,6 @@
  #services.xserver.xrandrHeads = [ "HDMI-0" { output = "DisplayPort-1"; primary = true; monitorConfig = "Option \"Rotate\" \"Left\""; } ];
 
  services.wakeonlan.interfaces = [{ interface = "enp2s0"; }];
+
 }
 

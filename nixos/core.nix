@@ -80,7 +80,6 @@
    bash
    bc
    boost
-   cabal-install
    chromium
    clang
    cmake
@@ -92,7 +91,7 @@
    enlightenment.terminology
    file
    fortune
-   gcc
+   #gcc
    gcolor2
    gdb
    gdk_pixbuf
@@ -103,7 +102,6 @@
    gnupg
    gnupg1orig
    go
-   google-drive-ocamlfuse
    gparted
    graphicsmagick
    graphviz
@@ -114,7 +112,7 @@
    haskellPackages.happy
    haskellPackages.hlint
    haskellPackages.hoogle
-   hicolor_icon_theme
+   #hicolor_icon_theme
    htop
    imagemagick
    inotify-tools
@@ -124,7 +122,6 @@
    llvmPackages.lldb
    lua
    man-pages
-   manpages
    manpages
    mplayer
    msmtp
@@ -150,13 +147,13 @@
    python3
    python3Packages.ipython
    python3Packages.neovim
-   python3Packages.pip
+   #python3Packages.pip
    python3Packages.scipy
    python3Packages.virtualenv
    pythonPackages.goobook
    pythonPackages.ipython
    pythonPackages.neovim
-   pythonPackages.pip
+   #pythonPackages.pip
    pythonPackages.scipy
    pythonPackages.virtualenv
    qalculate-gtk
@@ -176,7 +173,7 @@
    sqlite
    sshfs-fuse
    stack
-   stdmanpages
+   #stdmanpages
    sxiv
    telnet
    toilet
@@ -190,12 +187,15 @@
    xclip
    xdotool
    xfontsel
-   xkblayout-state
+   #xkblayout-state
    xlsfonts
    xorg.xbacklight
+   xorg.xkill
    xorg.xev
    xorg.xgamma
    xorg.xmessage
+   xorg.xorgserver
+   xournal
    xpdf
    xscreensaver
    zathura
@@ -261,6 +261,9 @@
 
  services = {
    acpid.enable = true;
+   #clamav.daemon.enable = true;
+   #clamav.updater.enable = true;
+   #clamav.updater.frequency = 1;
 
 
  udev.extraRules = ''
@@ -277,6 +280,8 @@ LABEL="com_leapmotion_leap_end"
  '';
 
    openssh.enable = true;
+   openssh.extraConfig = ''Ciphers arcfour,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,arcfour128,arcfour256,aes128-cbc,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
+'';
    locate.enable = true;
    locate.interval = "*:0/30";
    locate.localuser = "nobody"; 
@@ -291,8 +296,8 @@ LABEL="com_leapmotion_leap_end"
 
    xserver = {
      enable = true;
-     layout = "us,no";
-     xkbOptions = "eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no";
+     #layout = "us,no";
+     #xkbOptions = "eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no";
      exportConfiguration = true;
      windowManager.wmii.enable = true;
      windowManager.xmonad.enable = true;
