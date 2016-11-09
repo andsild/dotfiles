@@ -391,9 +391,8 @@ repo = 'https://github.com/mhinz/vim-grepper.git'
 [[plugins]]
 repo = 'https://github.com/janko-m/vim-test.git'
 
-
 [[plugins]]
-repo = 'https://github.com/nhooyr/neoman.vim.git'
+repo = 'https://github.com/KabbAmine/zeavim.vim.git'
 
 [[plugins]]
 repo = 'https://github.com/Shougo/deoplete.nvim.git'

@@ -154,7 +154,8 @@ augroup DefaultAuGroup
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
     autocmd Bufenter *.py nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
     autocmd FileType apache setlocal path+=./;/
-    autocmd FileType c,cpp set formatprg =astyle
+    autocmd FileType c,cpp set formatprg=astyle 
+    "autocmd FileType c,cpp set keywordprg=:Man
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType gitcommit,qfreplace setlocal nofoldenable
     autocmd FileType go highlight default link goErr WarningMsg | match goErr /\<err\>/
@@ -229,7 +230,7 @@ set ignorecase " Ignore the case of normal letters.
 set incsearch " Enable incremental search.
 set infercase " Ignore case on insert completion.
 set isfname-== " Exclude = from isfilename.
-set keywordprg=:help " Set keyword help.
+"set keywordprg=:help " Set keyword help.
 set laststatus=2
 set lazyredraw
 set linebreak
