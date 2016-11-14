@@ -20,10 +20,9 @@ It has vim-bindings and color-invert
 
 | Program     | Desc                                                                                                                                                  |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ipython`   | use this as your calculator |
 | `mitmproxy` | excellent web interceptor |
 | `slock`     | lock your computer |
-| `xrandr`    | For connecting extra monitors and etc. <br />`xrandr --auto LVDS1 --left-of VGA1`<br />is typical  usage (easily accessed with `<c-r>VGA` in a terminal. |
+| `xrandr`    | For connecting extra monitors, etc. E.g:<br />`xrandr --auto LVDS1 --left-of VGA1`<br /> |
 | `workrave`  | prevent RSI and live healthily. Annoying as hell but a lifesaver. |
 
 # License

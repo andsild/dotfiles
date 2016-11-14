@@ -134,7 +134,6 @@
    nox
    ntfs3g
    nvim
-   octaveFull
    openssl
    p7zip
    parted
@@ -147,13 +146,11 @@
    python3
    python3Packages.ipython
    python3Packages.neovim
-   #python3Packages.pip
    python3Packages.scipy
    python3Packages.virtualenv
    pythonPackages.goobook
    pythonPackages.ipython
    pythonPackages.neovim
-   #pythonPackages.pip
    pythonPackages.scipy
    pythonPackages.virtualenv
    qalculate-gtk
@@ -173,7 +170,8 @@
    sqlite
    sshfs-fuse
    stack
-   #stdmanpages
+   stdmanpages
+   steam
    sxiv
    telnet
    toilet
@@ -187,7 +185,7 @@
    xclip
    xdotool
    xfontsel
-   #xkblayout-state
+   xkblayout-state
    xlsfonts
    xorg.xbacklight
    xorg.xkill
@@ -298,11 +296,10 @@ LABEL="com_leapmotion_leap_end"
      enable = true;
      #layout = "us,no";
      #xkbOptions = "eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no";
-     exportConfiguration = true;
+     #exportConfiguration = true;
      windowManager.wmii.enable = true;
      windowManager.xmonad.enable = true;
      windowManager.xmonad.enableContribAndExtras = true;
-     desktopManager.kde5.enable = true;
      displayManager = {
       sessionCommands = "${pkgs.networkmanagerapplet}/bin/nm-applet &";
        slim = {
@@ -320,7 +317,7 @@ LABEL="com_leapmotion_leap_end"
    environment.etc."profile.local".text = ''
    if [ -e "$HOME/.bash_profile" ]
    then
-   source "$HOME/.bash_profile"
+    source "$HOME/.bash_profile"
    fi
    '';
 
