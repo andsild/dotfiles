@@ -42,7 +42,12 @@
 
  hardware.pulseaudio.enable = true;
  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+ hardware.pulseaudio.support32Bit = true;
  hardware.bluetooth.enable = true;
+ hardware.opengl = {
+   driSupport = true;
+   driSupport32Bit = true;
+ };
 
  fonts = {
    enableCoreFonts = true;
