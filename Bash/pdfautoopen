@@ -1,25 +1,30 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1091
 
-# "pdf" is just an function to open up pdf, can be replaced by
+# "pdf" is just a function to open up a pdf, it can be replaced by
 # "setsid evince ${file}" or similar
 source /home/andesil/dotfiles/Bash/pdf
 
 pdfautoopen()
 {
-    while out="$(inotifywait  -e create "${HOME}/Downloads/")"
+    local watchedFolder
+    watchedFolder="${HOME}/Downloads/"
+    while out="$(inotifywait  -e create "${watchedFolder}")"
     do 
-        file="$(ls -t -r -1 "${HOME}/Downloads/" | tail -n1)"
-        if [[ ! "${out}" == *"chromium"* ]]
+        file="$(ls -t -r -1 "${watchedFolder}" | tail -n1)"
+        [[ "${out}" == *"chromium"* ]] || [[ "${file}" == *".crdownload" ]] \
+            && continue
+
+        filetype="$(xdg-mime query filetype "${watchedFolder}${file}")"
+        if [ "${filetype}" = "application/pdf" ]
         then 
-            if [[ ! "${file}" == *".crdownload" ]]
-            then 
-                if [ "$(xdg-mime query filetype "${HOME}/Downloads/${file}")" = "application/pdf" ] 
-                then 
-                    pdf "${HOME}/Downloads/${file}"
-                fi
-            fi
+            pdf "${watchedFolder}${file}"
+        elif [ "${filetype}" = "application/zip" ]
+        then
+            mkdir "${watchedFolder}${file}EXTRACTED"
+            unzip "${watchedFolder}${file}" -d "${watchedFolder}${file}EXTRACTED"
         fi
     done
-} 2> /dev/null
+} #2> /dev/null
 
 pdfautoopen

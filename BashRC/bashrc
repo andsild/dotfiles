@@ -97,3 +97,6 @@ source "${HOME}/defaultenv3/bin/activate"
 
 [ -n "$NVIM_LISTEN_ADDRESS" ] && alias :='~/.nvimex.py'
 
+
+# added by travis gem
+[ -f /home/andesil/.travis/travis.sh ] && source /home/andesil/.travis/travis.sh
