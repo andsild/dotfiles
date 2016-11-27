@@ -392,7 +392,7 @@ nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm:echo 'Took away 
 nnoremap <silent> <Leader>au :Autoformat<CR>
 nnoremap <silent> <Leader>cl :<C-u>call ToggleOption('cursorline')<CR>
 nnoremap <silent> <Leader>cs :call ToggleColorScheme()<CR>
-nnoremap <silent> <Leader>r QuickRun
+nnoremap <silent> [Space]1 :QuickRun<CR>
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>

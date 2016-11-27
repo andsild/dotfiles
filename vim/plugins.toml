@@ -118,7 +118,7 @@ on_ft = 'haskell'
 
 # see "man look" - used for auto-complete
 [[plugins]]
-repo = 'ujihisa/neco-look'
+repo = 'andsild/neco-look'
 insert = 1
 
 [[plugins]]
@@ -487,3 +487,7 @@ repo = 'https://github.com/907th/vim-auto-save.git'
 
 [[plugins]]
 repo = 'https://github.com/kassio/neoterm.git'
+
+[[plugins]]
+repo = 'https://github.com/Shougo/neoyank.vim.git'
+depends = 'unite.vim'

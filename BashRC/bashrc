@@ -83,7 +83,7 @@ if [[ "$?" = 0 ]]; then
         source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
     fi
 else
-    source ~/.bash-git-prompt/gitprompt.sh
+    [ -e "~/.bash-git-prompt/gitprompt.sh" ] && source ~/.bash-git-prompt/gitprompt.sh
     # Get proper auto-completion
     if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
             . /etc/bash_completion
@@ -93,7 +93,7 @@ fi
 # Set config variables first
 export GIT_PROMPT_ONLY_IN_REPO=1
 
-source "${HOME}/defaultenv3/bin/activate"
+[ -d "${HOME}/defaultenv3" ] &&  source "${HOME}/defaultenv3/bin/activate"
 
 [ -n "$NVIM_LISTEN_ADDRESS" ] && alias :='~/.nvimex.py'
 

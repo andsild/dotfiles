@@ -11,6 +11,13 @@
 
  networking = {
    networkmanager.enable = true;
+   extraHosts = ''
+   # I'm addicted, got to stop going there
+   127.0.0.1 www.9gag.com
+   127.0.0.1 9gag.com
+
+  192.168.1.168 phone
+   '';
    wireless.userControlled.enable = true;
  };
 
@@ -81,6 +88,7 @@
    aspellDicts.nb
    aspellDicts.nn
    astyle
+   android-sdk
    automake
    bash
    bc
@@ -111,14 +119,17 @@
    graphicsmagick
    graphviz
    haskellPackages.cabal-install
+   haskellPackages.threadscope
+   travis
    haskellPackages.cabal2nix
    haskellPackages.ghc
    haskellPackages.ghc-mod
    haskellPackages.happy
    haskellPackages.hlint
    haskellPackages.hoogle
-   #hicolor_icon_theme
+   hicolor_icon_theme
    htop
+   stress-ng
    imagemagick
    inotify-tools
    irssi
@@ -126,6 +137,9 @@
    links2
    llvmPackages.lldb
    lua
+   ii
+   nmap
+   unetbootin
    man-pages
    manpages
    mplayer
@@ -264,9 +278,9 @@
 
  services = {
    acpid.enable = true;
-   #clamav.daemon.enable = true;
-   #clamav.updater.enable = true;
-   #clamav.updater.frequency = 1;
+   clamav.daemon.enable = true;
+   clamav.updater.enable = true;
+   clamav.updater.frequency = 1;
 
 
  udev.extraRules = ''
@@ -361,6 +375,7 @@ LABEL="com_leapmotion_leap_end"
    };
 
    virtualisation.virtualbox.host.enable = true;
+   virtualisation.docker.enable = true;
 
 
    users.extraUsers.andesil =
@@ -368,7 +383,7 @@ LABEL="com_leapmotion_leap_end"
      isNormalUser = true;
      home = "/home/andesil";
      description = "Anders Sildnes";
-     extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" ];
+     extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" ];
    };
 
    sound.enableMediaKeys = true;

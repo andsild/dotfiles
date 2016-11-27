@@ -311,7 +311,7 @@ wmiir write /ctl <<!
 !
 
 # dirty hack to avoid that the wmiirc sourced in /etc/ sets the background after this script is loaded
-setsid $(sleep 1 && echo feh --bg-scale ~/.background.jpg) &
+setsid $(sleep 1 && echo feh --bg-scale "$(find ~/.images -type f  | sort -R | tail -1)") &
 
 if [ -e "${HOME}/dotfiles/Bash/pdfautoopen" ]
 then
