@@ -5,6 +5,8 @@
 [ -z "$PS1" ] && return
 
 bind -f "${HOME}/dotfiles/BashRC/inputrc"
+. "${HOME}/dotfiles/BashRC/bash_aliases"
+for file in ${HOME}/dotfiles/Bash/Sourced/* ; do . "${file}"; done
 
 # Variables ##
 # PS1='\u@\h: ~${PWD##*/} > '
@@ -15,19 +17,6 @@ WHITE="$(printf '%b' '\e[00;00m')"
 PS1=$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s\n:\[${WHITE}\]\n" \
          "$(date +%k:%M)" \
          "\u@\h: \w")
-# PROMPT_COMMAND=__prompt_command  # Func to gen PS1 after CMDs
-# function __prompt_command() {
-#     local EXIT="$?"
-#         "$(date +%k:%M)" \
-#         "\u@\h: ./${PWD##*/}")"
-#     if [ $EXIT = 0 ]; then
-#         PS1+="${GREEN}:)"      # Add red if exit code non 0
-#     else
-#         PS1+="${RED}:("
-#     fi
-#     PS1+="${WHITE}\n$ "
-# }
-
 
 export EDITOR="nvim"
 export GEM_HOME="${HOME}/.gem"
@@ -64,8 +53,6 @@ fi
 # Enable directory autocorrection
 shopt -s cdspell 
 
-. "${HOME}/dotfiles/BashRC/bash_aliases"
-for file in ${HOME}/dotfiles/Bash/Sourced/* ; do . "${file}"; done
 
 # complete -cf sudo
 
@@ -102,4 +89,4 @@ export GIT_PROMPT_ONLY_IN_REPO=1
 
 
 # added by travis gem
-[ -f /home/andesil/.travis/travis.sh ] && . /home/andesil/.travis/travis.sh
+[ -f "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
