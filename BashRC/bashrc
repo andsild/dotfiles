@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+#shellcheck disable=SC1091,SC1090
+
 # If not running interactively, don't read preferences.
 [ -z "$PS1" ] && return
 
@@ -6,8 +9,8 @@ bind -f "${HOME}/dotfiles/BashRC/inputrc"
 # Variables ##
 # PS1='\u@\h: ~${PWD##*/} > '
 #GREEN=$'\e[01;32m'
-YELLOW=$'\e[00;33m'
-WHITE=$'\e[00;00m'
+YELLOW="$(printf '%b' '\e[00;33m')"
+WHITE="$(printf '%b' '\e[00;00m')"
 #RED=$'\e[01;31m'
 PS1=$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s\n:\[${WHITE}\]\n" \
          "$(date +%k:%M)" \
@@ -61,12 +64,12 @@ fi
 # Enable directory autocorrection
 shopt -s cdspell 
 
-source "${HOME}/dotfiles/BashRC/bash_aliases"
-for file in ${HOME}/dotfiles/Bash/Sourced/* ; do source "${file}"; done
+. "${HOME}/dotfiles/BashRC/bash_aliases"
+for file in ${HOME}/dotfiles/Bash/Sourced/* ; do . "${file}"; done
 
 # complete -cf sudo
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf.bash ] && . ~/.fzf.bash
 export SCIPY_PIL_IMAGE_VIEWER=xdg-open
 export XDG_CONFIG_HOME="${HOME}/.config/"
 export XDG_DATA_DIR="${HOME}/.local/share/"
@@ -74,29 +77,29 @@ export XDG_DATA_HOME="${HOME}/.local/share/"
 export FZF_DEFAULT_OPTS='--extended -i --exact'
 export FZF_COMPLETION_OPTS='--extended --exact'
 
-command -v brew > /dev/null
-if [[ "$?" = 0 ]]; then
+if command -v brew
+then
     # brew install bash-completion bash-git-prompt
-    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
-    source "$(brew --prefix)/etc/bash_completion"
+    . "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+    . "$(brew --prefix)/etc/bash_completion"
     if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
-        source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+        . "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
     fi
 else
-    [ -e "~/.bash-git-prompt/gitprompt.sh" ] && source ~/.bash-git-prompt/gitprompt.sh
+    [ -e "${HOME}/.bash-git-prompt/gitprompt.sh" ] && . "${HOME}/.bash-git-prompt/gitprompt.sh"
     # Get proper auto-completion
     if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-            . /etc/bash_completion
+        . /etc/bash_completion
     fi
 
 fi
 # Set config variables first
 export GIT_PROMPT_ONLY_IN_REPO=1
 
-[ -d "${HOME}/defaultenv3" ] &&  source "${HOME}/defaultenv3/bin/activate"
+[ -d "${HOME}/defaultenv3" ] &&  . "${HOME}/defaultenv3/bin/activate"
 
 [ -n "$NVIM_LISTEN_ADDRESS" ] && alias :='~/.nvimex.py'
 
 
 # added by travis gem
-[ -f /home/andesil/.travis/travis.sh ] && source /home/andesil/.travis/travis.sh
+[ -f /home/andesil/.travis/travis.sh ] && . /home/andesil/.travis/travis.sh
