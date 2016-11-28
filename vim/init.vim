@@ -930,11 +930,7 @@ function! ToggleColorScheme()
   else
     syntax enable
 
-    if g:default_colorscheme ==# 'mayansmoke' 
-        highlight Comment ctermfg=27
-        highlight Conceal ctermfg=019 ctermbg=255
-        highlight SpecialKey ctermfg=247 ctermbg=255
-    endif
+    call s:ApplyCustomColorScheme()
   endif
 endfunction
 
@@ -1369,9 +1365,12 @@ if s:isWindows()
     set noshellslash
 endif
 
+function s:ApplyCustomColorScheme()
+    if g:default_colorscheme ==# 'mayansmoke' 
+        highlight Comment ctermfg=27
+        highlight Conceal ctermfg=019 ctermbg=255
+        highlight SpecialKey ctermfg=247 ctermbg=255
+    endif
+endfunction
 
-if g:default_colorscheme ==# 'mayansmoke' 
-    highlight Comment ctermfg=27
-    highlight Conceal ctermfg=019 ctermbg=255
-    highlight SpecialKey ctermfg=247 ctermbg=255
-endif
+call s:ApplyCustomColorScheme()
