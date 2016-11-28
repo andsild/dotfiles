@@ -171,7 +171,7 @@ augroup DefaultAuGroup
     autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
     autocmd InsertLeave * if &paste | set nopaste mouse=a | echo 'nopaste' | endif | if &l:diff | diffupdate | endif
     autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc 
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc  | setlocal formatprg=stylish-haskell
     autocmd FileType haskell nnoremap <silent><buffer>K :GhcModInfoPreview<CR>
     autocmd BufLeave unite source /tmp/layout.vim
 
@@ -932,7 +932,7 @@ function! ToggleColorScheme()
 
     if g:default_colorscheme ==# 'mayansmoke' 
         highlight Comment ctermfg=27
-        highlight Conceal ctermfg=239 ctermbg=255
+        highlight Conceal ctermfg=019 ctermbg=255
         highlight SpecialKey ctermfg=247 ctermbg=255
     endif
   endif
@@ -1341,6 +1341,9 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
 
+nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
+
+
 nnoremap <leader>hi :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists('*synstack')
@@ -1369,6 +1372,6 @@ endif
 
 if g:default_colorscheme ==# 'mayansmoke' 
     highlight Comment ctermfg=27
-    highlight Conceal ctermfg=239 ctermbg=255
+    highlight Conceal ctermfg=019 ctermbg=255
     highlight SpecialKey ctermfg=247 ctermbg=255
 endif
