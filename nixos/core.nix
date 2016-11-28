@@ -84,11 +84,12 @@
  with pkgs; [
    acpitool
    aspell 
+   iotop
    aspellDicts.en
    aspellDicts.nb
    aspellDicts.nn
    astyle
-   android-sdk
+   androidsdk
    automake
    bash
    bc
@@ -119,6 +120,8 @@
    graphicsmagick
    graphviz
    haskellPackages.cabal-install
+   haskellPackages.hindent
+   haskellPackages.stylish-haskell
    haskellPackages.threadscope
    travis
    haskellPackages.cabal2nix

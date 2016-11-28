@@ -129,10 +129,6 @@ if has('vim_starting')
     endif
 
     exe 'silent! colorscheme ' . g:default_colorscheme
-    if g:default_colorscheme ==# 'mayansmoke'
-        hi Comment ctermfg=27
-    endif
-
 endif
 
 if !has('vim_starting') && dein#check_install()
@@ -175,7 +171,7 @@ augroup DefaultAuGroup
     autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
     autocmd InsertLeave * if &paste | set nopaste mouse=a | echo 'nopaste' | endif | if &l:diff | diffupdate | endif
     autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc 
     autocmd FileType haskell nnoremap <silent><buffer>K :GhcModInfoPreview<CR>
     autocmd BufLeave unite source /tmp/layout.vim
 
@@ -235,7 +231,6 @@ set laststatus=2
 set lazyredraw
 set linebreak
 set list
-set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:%
 set matchpairs+=<:> " Highlight <>.
 set matchtime=3
 set modeline " Enable modeline.
@@ -934,6 +929,12 @@ function! ToggleColorScheme()
     syntax off
   else
     syntax enable
+
+    if g:default_colorscheme ==# 'mayansmoke' 
+        highlight Comment ctermfg=27
+        highlight Conceal ctermfg=239 ctermbg=255
+        highlight SpecialKey ctermfg=247 ctermbg=255
+    endif
   endif
 endfunction
 
@@ -1268,8 +1269,8 @@ function! s:ag_handler(lines)
   let l:openWindows=[] 
   windo call add(l:openWindows, winnr()) 
   let l:terminalIsOpen=0
-  for winnr in l:openWindows
-    if bufname(winbufnr(winnr)) =~# 'term://'
+  for l:winnr in l:openWindows
+    if bufname(winbufnr(l:winnr)) =~# 'term://'
         let l:terminalIsOpen=1
     endif
   endfor
@@ -1340,8 +1341,34 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
 
+nnoremap <leader>hi :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists('*synstack')
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
+endfunc
+
+nnoremap <leader>lc :call <SID>ToggleShowListChars()<CR>
+function! <SID>ToggleShowListChars()
+    redir => l:listchars
+    silent set listchars
+    redir end
+    if l:listchars =~# '.*trail.*'
+        set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:%
+    else
+        setlocal listchars+=trail:»,space:␣,eol:┌
+    endif
+endfunc
 
 
 if s:isWindows()
     set noshellslash
+endif
+
+
+if g:default_colorscheme ==# 'mayansmoke' 
+    highlight Comment ctermfg=27
+    highlight Conceal ctermfg=239 ctermbg=255
+    highlight SpecialKey ctermfg=247 ctermbg=255
 endif
