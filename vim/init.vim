@@ -351,6 +351,9 @@ nnoremap    ;u [unite]
 nnoremap <leader>u :diffupdate<CR>
 nnoremap    [Space]fe   :<C-u>VimFilerExplorer<CR>
 nnoremap    [Tag]   <Nop>
+nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
+nnoremap <leader>hi :call <SID>SynStack()<CR>
+nnoremap <leader>lc :call <SID>ToggleShowListChars()<CR>
 nnoremap    [Window]   <Nop>
 nnoremap    [unite]   <Nop>
 nnoremap  [Space]   <Nop>
@@ -1337,10 +1340,9 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
 
-nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
-
-
-nnoremap <leader>hi :call <SID>SynStack()<CR>
+" Show which highlight group is active under cursor
+" (doesn't work with SpecialKey)
+" (see also :so $VIMRUNTIME/syntax/hitest.vim)
 function! <SID>SynStack()
   if !exists('*synstack')
     return
@@ -1348,7 +1350,6 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
 endfunc
 
-nnoremap <leader>lc :call <SID>ToggleShowListChars()<CR>
 function! <SID>ToggleShowListChars()
     redir => l:listchars
     silent set listchars
