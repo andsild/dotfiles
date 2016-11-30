@@ -1,11 +1,39 @@
-import qualified IPPrint
-import qualified Language.Haskell.HsColour as HsColour
-import qualified Language.Haskell.HsColour.Colourise as HsColour
-import qualified Language.Haskell.HsColour.Output as HsColour
- 
-let myColourPrefs = HsColour.defaultColourPrefs { HsColour.conid = [HsColour.Foreground HsColour.Yellow, HsColour.Bold], HsColour.conop = [HsColour.Foreground HsColour.Yellow], HsColour.string = [HsColour.Foreground HsColour.Green], HsColour.char = [HsColour.Foreground HsColour.Cyan], HsColour.number = [HsColour.Foreground HsColour.Red, HsColour.Bold], HsColour.layout = [HsColour.Foreground HsColour.White], HsColour.keyglyph = [HsColour.Foreground HsColour.White] }
- 
-let myPrint :: (Show a) => a -> IO (); myPrint = putStrLn . HsColour.hscolour (HsColour.TTYg HsColour.XTerm256Compatible) myColourPrefs False False "" False . IPPrint.pshow
- 
-:set -interactive-print=myPrint
-:set prompt "\ESC[33mλ > \ESC[m"
+-- Show loaded modules in window title and use a green "λ>" as prompt.
+-- Subsequent lines of multi-line commands shall begin with " |".
+:set prompt  "\SOH\ESC]0;GHCi: %s\BEL\ESC[32;1m\STXλ>\SOH\ESC[0m\STX "
+:set prompt2                    "\SOH\ESC[32;1m\STX |\SOH\ESC[0m\STX "
+
+-- Hoogle (cabal install hoogle && hoogle data)
+:def hoogle     \str -> return $ ":! hoogle search --color --count=10 " ++ show str
+:def hoogle-all \str -> return $ ":! hoogle search --color "            ++ show str
+:def doc        \str -> return $ ":! hoogle search --color --info "     ++ show str
+
+-- Pointfree and Pointful (cabal install pointfree pointful)
+:def pointfree \str -> return $ ":! pointfree " ++ show str
+:def pf        \str -> return $ ":! pointfree " ++ show str
+:def pointful  \str -> return $ ":! pointful " ++ show str
+
+import Control.Applicative
+import Control.Monad
+import Data.ByteString (ByteString)
+import Data.HashMap.Strict (HashMap)
+import Data.Map (Map)
+import Data.Set (Set)
+import Data.Text (Text)
+import qualified Data.ByteString as B
+import qualified Data.ByteString.Char8 as B8
+import qualified Data.HashMap.Strict as H
+import qualified Data.Map.Strict as M
+import qualified Data.Set as S
+import qualified Data.Text as T
+import qualified Data.Text.IO as T
+import qualified Data.Vector as V
+import qualified Data.Vector as V
+import qualified Data.Vector.Generic as G
+import qualified Data.Vector.Unboxed as U
+import qualified Data.Vector.Unboxed.Mutable  as M
+import Data.Word
+
+:def x \_ -> return ":set -XOverloadedStrings -XOverloadedLists"
+
+let li = [1..4]
