@@ -38,6 +38,7 @@ alias stream="vlc   --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2://
 alias upd="sudo emerge -uDN @world"
 alias us="setxkbmap us"
 alias www='cd /var/www/'
+alias hindent="hindent --style johan-tibell"
 
 function smallimg()
 {

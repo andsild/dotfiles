@@ -120,7 +120,7 @@
    graphicsmagick
    graphviz
    haskellPackages.cabal-install
-   haskellPackages.hindent
+   #haskellPackages.hindent # would be nice, but the version is outdated (use cabal for now)
    haskellPackages.stylish-haskell
    haskellPackages.threadscope
    travis

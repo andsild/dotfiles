@@ -130,8 +130,8 @@ if __name__ == '__main__':
         print '$NVIM_LISTEN_ADDRESS not set!'
         exit()
     if len(argv) < 2:
-        print 'Usage: ' + argv[0] + ' {cmd} [{args} [...]]'
-        print 'See --help for detailed help.'
+        exit()
+    if argv[1] == 'out' or argv[1] == '1':
         exit()
     main(environ['NVIM_LISTEN_ADDRESS'], *argv[1:])
 

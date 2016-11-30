@@ -160,7 +160,7 @@ augroup DefaultAuGroup
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
     autocmd FileType javascript,javascript.jsx nnoremap <buffer> [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
-    autocmd FileType markdown nnoremap [Space]i :Unite menu:markdown -silent -winheight=25 -start-insert<CR>
+    autocmd FileType markdown nnoremap <buffer> [Space]i :Unite menu:markdown -silent -winheight=25 -start-insert<CR>
     autocmd FileType pdf Pdf '%'
     autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType python setlocal formatprg=autopep8\ --aggressive\ --ignore=E309\ -
@@ -171,7 +171,7 @@ augroup DefaultAuGroup
     autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
     autocmd InsertLeave * if &paste | set nopaste mouse=a | echo 'nopaste' | endif | if &l:diff | diffupdate | endif
     autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc  | setlocal formatprg=stylish-haskell
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc  | setlocal formatprg=stylish-haskell | nnoremap <buffer> gqa gggqG:silent %!hindent --style johan-tibell<CR><c-o><c-o>zz
     autocmd FileType haskell nnoremap <silent><buffer>K :GhcModInfoPreview<CR>
     autocmd BufLeave unite source /tmp/layout.vim
 
@@ -1362,11 +1362,7 @@ function! <SID>ToggleShowListChars()
 endfunc
 
 
-if s:isWindows()
-    set noshellslash
-endif
-
-function s:ApplyCustomColorScheme()
+function! s:ApplyCustomColorScheme()
     if g:default_colorscheme ==# 'mayansmoke' 
         highlight Comment ctermfg=27
         highlight Conceal ctermfg=019 ctermbg=255
@@ -1375,3 +1371,9 @@ function s:ApplyCustomColorScheme()
 endfunction
 
 call s:ApplyCustomColorScheme()
+
+" this has to be on the bottom
+if s:isWindows()
+    set noshellslash
+endif
+
