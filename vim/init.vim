@@ -311,7 +311,8 @@ imap <silent><expr> <TAB> pumvisible() ? "<C-n>" : <SID>check_back_space() ? "<T
 imap jj <Esc>
 imap kk <Esc>
 inoremap <C-d>  <Del>
-inoremap <C-6> <Esc><C-6>
+inoremap <C-6> <Esc><C-6>zz
+nmap <C-6> <C-6>zz
 inoremap <C-u>  <C-g>u<C-u>
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <expr>; pumvisible() ? deoplete#mappings#close_popup() : ";"
@@ -437,7 +438,7 @@ omap ib <Plug>(textobj-multiblock-i)
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 silent! nnoremap < <<
 tnoremap <ESC><ESC> <C-\><C-n>
-tnoremap <C-6> <C-\><C-n><C-6>
+tnoremap <C-6> <C-\><C-n><C-6>zz
 tnoremap <Esc><Esc> <C-\><C-n>
 tnoremap jj <C-\><C-n>
 tnoremap kk <C-\><C-n>
