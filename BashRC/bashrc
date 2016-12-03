@@ -8,15 +8,23 @@ bind -f "${HOME}/dotfiles/BashRC/inputrc"
 . "${HOME}/dotfiles/BashRC/bash_aliases"
 for file in ${HOME}/dotfiles/Bash/Sourced/* ; do . "${file}"; done
 
+
+
+
 # Variables ##
 # PS1='\u@\h: ~${PWD##*/} > '
-#GREEN=$'\e[01;32m'
+GREEN="$(printf '%b' '\e[01;32m')"
 YELLOW="$(printf '%b' '\e[00;33m')"
 WHITE="$(printf '%b' '\e[00;00m')"
-#RED=$'\e[01;31m'
-PS1=$(printf "\[${YELLOW}\]%s \[${WHITE}\]%s\n:\[${WHITE}\]\n" \
+RED="$(printf '%b' '\e[01;31m')"
+SMILEY="${GREEN}:)"
+FROWNY="${RED}:("
+SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
+PS1=$(printf " %s \[${YELLOW}\]%s \[${WHITE}\]%s\[${WHITE}\]\n:\n" \
+         "\`${SELECT}\`" \
          "$(date +%k:%M)" \
-         "\u@\h: \w")
+         "\u@\h: \w" \
+)
 
 export EDITOR="nvim"
 export GEM_HOME="${HOME}/.gem"
@@ -24,6 +32,7 @@ export GEM_PATH="${HOME}/.gem"
 HISTIGNORE="ls:l:clear"
 export GOPATH="${HOME}/.go"
 PATH="${PATH}:${HOME}/dotfiles/Bash:${GEM_PATH}/bin:$GOROOT/bin:$GOPATH/bin:${HOME}/.cabal/bin:${HOME}/.local/bin"
+PROMPT_COMMAND='history -a'
 
 export HISTCONTROL="ignoreboth:erasedups"
 

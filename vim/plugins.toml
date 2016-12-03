@@ -99,11 +99,9 @@ repo = 'Shougo/unite-help'
 [[plugins]]
 repo = 'tsukkee/unite-tag'
 
-[[plugins]]
+[[plugins]] #comment code for most languages (default nmap is "gcc")
 repo = 'tyru/caw.vim'
 mappings = '<Plug>'
-
-# Extensively used plugin for auto-completion. Leave alone
 
 [[plugins]]
 repo = 'tyru/restart.vim'
@@ -111,12 +109,11 @@ gui = 1
 commands = 'Restart'
 
 # Nice auto-stuff for haskell
-#
 [[plugins]]
 repo = 'eagletmt/neco-ghc'
 on_ft = 'haskell'
 
-# see "man look" - used for auto-complete
+# see "man look" - used for auto-complete of dictionary words
 [[plugins]]
 repo = 'andsild/neco-look'
 insert = 1
@@ -135,7 +132,6 @@ repo = 'kana/vim-tabpagecd'
 unite_sources = 'tab'
 
 # scrolling faster
-#
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
 mappings = '<Plug>(accelerated_jk_'
@@ -170,7 +166,6 @@ repo = 'hynek/vim-python-pep8-indent'
 on_ft = 'python'
 
 # remaps "w" and "b" motions, intended to be more clever
-#
 [[plugins]]
 repo = 'bkad/CamelCaseMotion'
 mappings = '<Plug>'
@@ -197,7 +192,7 @@ on_ft = 'help'
 repo = 'elzr/vim-json'
 on_ft = 'json'
 
-[[plugins]]
+[[plugins]] # use xdg-open to open a url
 repo = 'tyru/open-browser.vim'
 functions = 'openbrowser#open'
 
@@ -206,13 +201,11 @@ repo = 'kana/vim-filetype-haskell'
 on_ft = 'haskell'
 
 # Syntax files for D programming
-#
 [[plugins]]
 repo = 'JesseKPhillips/d.vim'
 on_ft = 'd'
 
 # nice plugin for selecting windows
-#
 [[plugins]]
 repo = 'andsild/vim-choosewin'
 on_map = [['n', '<Plug>']]
@@ -256,7 +249,7 @@ mappings = [['ox', '<Plug>']]
 repo = 'Rykka/riv.vim'
 on_ft = 'rst'
 
-[[plugins]]
+[[plugins]] 
 repo = 'rcmdnk/vim-markdown'
 on_ft = ['markdown', 'mkd']
 
@@ -265,7 +258,7 @@ repo = 'kannokanno/previm'
 on_ft = ['markdown', 'rst', 'mkd']
 depends = 'open-browser.vim'
 
-[[plugins]]
+[[plugins]] # git plugin
 repo = 'Kocha/vim-unite-tig'
 
 # [[plugins]]
@@ -295,7 +288,7 @@ on_ft = 'toml'
 
 
 # The command that executes when you type "S" in vim. really nice
-#
+# quickjump to a text on your screen (typing in a few keys highlights all matches)
 [[plugins]]
 repo = 't9md/vim-smalls'
 mappings = ['<Plug>(smalls)', '<Plug>(smalls-)']
@@ -309,21 +302,21 @@ repo = 'tpope/vim-dispatch'
 [[plugins]]
 repo = 'https://github.com/neomake/neomake.git'
 
-[[plugins]]
+[[plugins]] # "essential" git plugin
 repo = 'tpope/vim-fugitive.git'
 
-[[plugins]]
+[[plugins]] # moar git
 repo = 'gregsexton/gitv'
 depends = 'vim-fugitive'
 
-[[plugins]]
+[[plugins]] # wmii-ish window/tiling manager
 repo = 'andsild/suckless.vim.git'
 
-[[plugins]]
+[[plugins]] # use vim's conceal features in python
 repo = 'https://github.com/ehamberg/vim-cute-python.git'
 on_ft = 'python'
 
-[[plugins]]
+[[plugins]] # use vim's conceal features in haskell
 repo = 'https://github.com/enomsg/vim-haskellConcealPlus.git'
 on_ft = 'haskell'
 
@@ -331,17 +324,16 @@ on_ft = 'haskell'
 repo = 'https://github.com/neovimhaskell/haskell-vim.git'
 on_ft = 'haskell'
 
-[[plugins]]
+[[plugins]] # use vim's conceal features in languages:
 repo = 'https://github.com/calebsmith/vim-lambdify.git'
 on_ft = ['ruby', 'javascript', 'scheme', 'erlang']
 
-[[plugins]]
+[[plugins]] # nice keybindings
 repo = 'https://github.com/andsild/vim-unimpaired.git'
 
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
 on_ft = 'python'
-
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
@@ -470,24 +462,24 @@ repo = 'https://github.com/arakashic/chromatica.nvim.git'
 [[plugins]]
 repo = 'https://github.com/vim-scripts/SyntaxRange.git'
 
-[[plugins]]
+[[plugins]] # colorscheme
 repo = 'https://github.com/endel/vim-github-colorscheme.git'
 
-[[plugins]]
+[[plugins]] # colorscheme
 repo = 'https://github.com/freeo/vim-kalisi.git'
 
-[[plugins]]
+[[plugins]] # colorscheme
 repo = 'https://github.com/vim-scripts/mayansmoke.git'
 
-[[plugins]]
+[[plugins]] # colorscheme
 repo = 'https://github.com/vim-scripts/Blueshift.git'
 
-[[plugins]]
+[[plugins]] # auto save. so smooth..
 repo = 'https://github.com/907th/vim-auto-save.git'
 
-[[plugins]]
+[[plugins]] # control neovim terms from any buffer
 repo = 'https://github.com/kassio/neoterm.git'
 
-[[plugins]]
+[[plugins]] # show yank history in unite
 repo = 'https://github.com/Shougo/neoyank.vim.git'
 depends = 'unite.vim'

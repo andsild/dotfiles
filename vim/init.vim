@@ -1153,7 +1153,7 @@ function! FindCabalSandboxRoot()
 endfunction
 
 function! FindCabalSandboxRootPackageConf()
-    return glob(FindCabalSandboxRoot().'/*-packages.conf.d')
+    return glob(FindCabalSandboxRoot().'/*-packages.conf.d'))
 endfunction
 
 function! s:strwidthpart(str, width)                                 
