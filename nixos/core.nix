@@ -98,6 +98,7 @@
    clang
    cmake
    cowsay
+   lsof
    ctags
    dmenu
    dpkg
