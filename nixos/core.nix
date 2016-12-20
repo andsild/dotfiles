@@ -83,6 +83,7 @@
  in
  with pkgs; [
    acpitool
+   aalib
    aspell 
    iotop
    aspellDicts.en
@@ -102,6 +103,7 @@
    ctags
    dmenu
    dpkg
+   openjdk
    dzen2
    enlightenment.terminology
    file
@@ -133,6 +135,7 @@
    haskellPackages.hoogle
    hicolor_icon_theme
    htop
+   libreoffice-fresh
    stress-ng
    imagemagick
    inotify-tools
@@ -223,6 +226,15 @@
    zeal
    zip
    zlib
+   stepmania
+   sauerbraten
+   usbutils
+   wine
+   dos2unix
+   perlPackages.ImageExifTool
+
+
+
 
 (texlive.combine {
           inherit (texlive)

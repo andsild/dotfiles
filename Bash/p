@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-function p()
-{
-	# Show a list of processes, 
-	#	default all processes that matches for user-name
-	ps aux | grep ${1:-${USER}}
-} > ${1:-/dev/fd/1}
+if [ -z "${1}" ]
+then
+    echo "usage: p <process name>" > /dev/fd/2
+    exit 1
+fi
 
-p
-
-# EOF
+# grep in the end is to filter out the bash shell invoked for this script
+pgrep -u "${USER}" --list-name --ignore-case --full "${1}" | grep -v $$
