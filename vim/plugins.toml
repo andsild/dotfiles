@@ -374,10 +374,6 @@ repo = 'Shougo/neco-syntax'
 insert = 1
 
 [[plugins]]
-repo = 'https://github.com/bfredl/nvim-ipy.git'
-on_ft = 'python'
-
-[[plugins]]
 repo = 'https://github.com/mhinz/vim-grepper.git'
 
 [[plugins]]

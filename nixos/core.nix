@@ -15,6 +15,8 @@
    # I'm addicted, got to stop going there
    127.0.0.1 www.9gag.com
    127.0.0.1 9gag.com
+   127.0.0.1 www.imgur.com
+   127.0.0.1 imgur.com
 
   192.168.1.168 phone
    '';
@@ -135,7 +137,6 @@
    haskellPackages.hoogle
    hicolor_icon_theme
    htop
-   libreoffice-fresh
    stress-ng
    imagemagick
    inotify-tools
@@ -197,7 +198,6 @@
    sshfs-fuse
    stack
    stdmanpages
-   steam
    sxiv
    telnet
    toilet
@@ -227,7 +227,6 @@
    zip
    zlib
    stepmania
-   sauerbraten
    usbutils
    wine
    dos2unix
@@ -402,7 +401,7 @@ LABEL="com_leapmotion_leap_end"
      extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" ];
    };
 
-   sound.enableMediaKeys = true;
+   sound.mediaKeys.enable = true;
 
-  system.stateVersion = "16.03";
+  system.stateVersion = "17.03";
 }

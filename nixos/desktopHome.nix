@@ -22,7 +22,7 @@
  192.168.1.207 laptop
  192.168.1.168 phone
  '';
- services.xserver.xrandrHeads = [ "DisplayPort-1" "HDMI-0"  ];
+ services.xserver.xrandrHeads = [ "HDMI-0" "DisplayPort-1" ];
  #services.xserver.deviceSection = ''
  #Option "RandRRotation" "on"
  #'';
