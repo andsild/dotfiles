@@ -1,7 +1,7 @@
-Normally, you would just use /etc/nixos/configuration.nix, however, since I use multiple computers, I want to have custom configs.
+Normally, you would just use `/etc/nixos/configuration.nix`, however, since I use multiple computers, I need to have pluggable configs.
 
 Here's how these files are used on my desktop computer:
-`  
+```bash
 $ ls -l /etc/nixos/  
 total 12  
 lrwxrwxrwx 1 root  44 Sep 13 10:57 configuration.nix -> /home/andesil/dotfiles  /nixos/desktopHome.nix
@@ -18,6 +18,6 @@ lrwxrwxrwx 1 root      37 Aug 30 21:59 hardware-configuration.nix -> /etc/nixos/
 -rw-r--r-- 1 andesil  148 Sep 13 10:54 laptopWork.nix  
 lrwxrwxrwx 1 root      22 Aug 30 21:59 private.nix -> /etc/nixos/private.nix  
 -rw-r--r-- 1 andesil    0 Jan 13 11:56 readme.md  
-`
+```
 
 The `hardware-configuration.nix` and `private.nix` are not in the repo, but have copies in this dotfiles repository. I do this to make local imports work.
