@@ -18,6 +18,7 @@
    127.0.0.1 www.imgur.com
    127.0.0.1 imgur.com
 
+
   192.168.1.168 phone
    '';
    wireless.userControlled.enable = true;
@@ -87,6 +88,7 @@
    acpitool
    aalib
    aspell 
+   bind
    iotop
    aspellDicts.en
    aspellDicts.nb
@@ -110,7 +112,8 @@
    enlightenment.terminology
    file
    fortune
-   #gcc
+   fzf
+   gcc
    gcolor2
    gdb
    gdk_pixbuf
@@ -141,6 +144,7 @@
    imagemagick
    inotify-tools
    irssi
+   libtool
    liblapack
    links2
    llvmPackages.lldb
@@ -401,7 +405,9 @@ LABEL="com_leapmotion_leap_end"
      extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" ];
    };
 
-   sound.mediaKeys.enable = true;
-
+  sound.mediaKeys = {
+    enable = true;
+    volumeStep = "1";
+  };
   system.stateVersion = "17.03";
 }

@@ -1,7 +1,7 @@
 set termencoding=utf-8
 " vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
 "
-
+"
 let g:neomake_haskell_ghcmodlint_maker = {
         \ 'exe': 'ghc-mod',
         \ 'args': ['lint'],
