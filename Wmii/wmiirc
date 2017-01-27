@@ -28,7 +28,7 @@ set -- $(echo $WMII_NORMCOLORS $WMII_FOCUSCOLORS)
 
 if [ -e /etc/NIXOS ]
 then
-    export WMII_TERM="st -e nix-shell --command 'nvim -c term'"
+    export WMII_TERM="st -e nvim -c term"
 else
     export WMII_TERM="st"
 fi

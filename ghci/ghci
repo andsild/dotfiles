@@ -38,3 +38,4 @@ import Data.Word
 let li = [1..4]
 let vli = V.fromList li
 let uli = U.fromList li
+mli <- V.thaw vli
