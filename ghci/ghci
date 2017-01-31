@@ -30,7 +30,8 @@ import qualified Data.Text.IO as T
 import qualified Data.Vector as V
 import qualified Data.Vector.Generic as G
 import qualified Data.Vector.Unboxed as U
-import qualified Data.Vector.Unboxed.Mutable  as M
+import qualified Data.Vector.Mutable  as M
+import qualified Data.Vector.Unboxed.Mutable  as MU
 import Data.Word
 
 :def x \_ -> return ":set -XOverloadedStrings -XOverloadedLists"
@@ -39,3 +40,4 @@ let li = [1..4]
 let vli = V.fromList li
 let uli = U.fromList li
 mli <- V.thaw vli
+umli <- U.thaw uli

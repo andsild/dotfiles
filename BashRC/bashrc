@@ -21,10 +21,9 @@ FROWNY="${RED}:("
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 NIX_SHELL_PACKAGES="echo $nativeBuildInputs | tr ' ' '\n' | sed 's/[^-]*-\(.*\)-[0-9].*/\1/'"
 NIX_SHELL="if [ -n \"$IN_NIX_SHELL\" ]; then printf \"[nix-shell: %s]\" \"\\\`${NIX_SHELL_PACKAGES}\\\`\"; fi"
-PS1=$(printf "%s %s \[${YELLOW}\]%s \[${WHITE}\]%s\[${WHITE}\]\n:\n" \
+PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[${WHITE}\]%s\[${WHITE}\]\n:\n" \
          "\`${NIX_SHELL}\`" \
          "\`${SELECT}\`" \
-         "$(date +%k:%M)" \
          "\u@\h: \w" \
 )
 

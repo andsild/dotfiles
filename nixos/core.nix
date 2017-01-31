@@ -180,6 +180,7 @@
    python3Packages.scipy
    python3Packages.virtualenv
    pythonPackages.goobook
+   pythonPackages.youtube-dl
    pythonPackages.ipython
    pythonPackages.neovim
    pythonPackages.scipy
