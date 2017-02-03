@@ -21,3 +21,7 @@
 	keepBackup = false
 [alias]
     setup = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+[commit]
+    gpgsign = true
+[gpg]
+	program = gpg2
