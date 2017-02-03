@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix ./private.nix];
 
  boot.loader.grub.enable = true;
@@ -38,7 +38,7 @@
  nixpkgs.config = {
    allowUnfree = true;
    chromium = {
-     enablePepperFlash = true; 
+     enablePepperFlash = true;
      enablePepperPDF = true;
    };
    firefox = {
@@ -80,7 +80,7 @@
 
  security.setuidPrograms = [ "slock" ];
 
- environment.systemPackages = 
+ environment.systemPackages =
  let
    nvim = pkgs.neovim.override {
      vimAlias = true;
@@ -89,7 +89,7 @@
  with pkgs; [
    acpitool
    aalib
-   aspell 
+   aspell
    bind
    iotop
    aspellDicts.en
@@ -140,6 +140,7 @@
    haskellPackages.happy
    haskellPackages.hlint
    haskellPackages.hoogle
+   pinentry
    hicolor_icon_theme
    htop
    stress-ng
@@ -149,6 +150,7 @@
    libtool
    liblapack
    links2
+   gitAndTools.tig
    llvmPackages.lldb
    lua
    ii
@@ -323,7 +325,7 @@ LABEL="com_leapmotion_leap_end"
 '';
    locate.enable = true;
    locate.interval = "*:0/30";
-   locate.localuser = "nobody"; 
+   locate.localuser = "nobody";
    locate.includeStore = true;
 
    offlineimap.enable = true;
@@ -392,8 +394,8 @@ LABEL="com_leapmotion_leap_end"
    '';
 
    programs = {
-     bash.enableCompletion = true; 
-     ssh.startAgent = true;    
+     bash.enableCompletion = true;
+     ssh.startAgent = true;
    };
 
    virtualisation.virtualbox.host.enable = true;
@@ -401,7 +403,7 @@ LABEL="com_leapmotion_leap_end"
 
 
    users.extraUsers.andesil =
-   { 
+   {
      isNormalUser = true;
      home = "/home/andesil";
      description = "Anders Sildnes";
