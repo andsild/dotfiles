@@ -53,6 +53,8 @@
  hardware.pulseaudio.enable = true;
  hardware.pulseaudio.package = pkgs.pulseaudioFull;
  hardware.pulseaudio.support32Bit = true;
+ hardware.pulseaudio.tcp.enable = true;
+ hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
  hardware.bluetooth.enable = true;
  hardware.opengl = {
    driSupport = true;
