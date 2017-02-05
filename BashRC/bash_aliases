@@ -17,6 +17,7 @@ alias eix="dnf search"
 alias emerge="sudo dnf install -y"
 alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
 alias gclean='(git gc --prune=now  ; git remote prune origin) && git pull'
+alias gpg="gpg2"
 alias gs="git status"
 alias gdb="gdb --quiet"
 alias grep="grep --color=always"

@@ -23,7 +23,15 @@
 
    192.168.1.168 phone
     '';
+
     wireless.userControlled.enable = true;
+    firewall = {
+      enable = true;
+      allowPing = false;
+
+      connectionTrackingModules = [];
+      autoLoadConntrackHelpers = false;
+    };
   };
 
   security.sudo.enable = true;
