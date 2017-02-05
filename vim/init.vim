@@ -61,7 +61,7 @@ endif
 let g:toml_path = g:path . '/nvim/plugins.toml'
 let $MYVIMRC=g:path . '/nvim/init.vim' " normally set by default, but I use
     " a custom script to invoke vim. When invoking from the command line with
-    " -u flag, MYVIMRC is not set. This also means that the file ".-rplugin" 
+    " -u flag, MYVIMRC is not set. This also means that the file ".-rplugin"
     " is not written
 if ! filereadable(g:toml_path)
     echom 'Could not find plugins.toml file at ' . g:toml_path
@@ -150,7 +150,7 @@ augroup DefaultAuGroup
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
     autocmd Bufenter *.py nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
     autocmd FileType apache setlocal path+=./;/
-    autocmd FileType c,cpp set formatprg=astyle 
+    autocmd FileType c,cpp set formatprg=astyle
     "autocmd FileType c,cpp set keywordprg=:Man
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType gitcommit,qfreplace setlocal nofoldenable
@@ -195,7 +195,7 @@ augroup syntax-highlight-extends
 augroup END
 
 
-set autoindent 
+set autoindent
 set smartindent
 set autoread " Auto reload if file is changed.
 set backspace=indent,eol,start
@@ -203,7 +203,7 @@ set backupdir-=.
 set breakat=\ \ ;:,!?
 set clipboard& clipboard+=unnamed
 set cmdheight=2
-set cmdwinheight=5                                                                                           
+set cmdwinheight=5
 set colorcolumn=79
 set commentstring=%s
 set complete=.
@@ -211,7 +211,7 @@ set completeopt+=noinsert,noselect,preview,menu
 set conceallevel=2 concealcursor=iv
 set cpoptions-=m " Highlight when CursorMoved.
 set directory-=. " Set swap directory.
-set display=lastline                                                                                         
+set display=lastline
 set expandtab " Exchange tab to spaces.
 set fillchars=vert:\|
 set foldcolumn=0 " Show folding level.
@@ -235,7 +235,7 @@ set matchpairs+=<:> " Highlight <>.
 set matchtime=3
 set modeline " Enable modeline.
 set nobackup
-set noequalalways 
+set noequalalways
 set nohlsearch " Don't highlight search result.
 set nonumber
 set noshowcmd
@@ -262,7 +262,7 @@ set showtabline=2
 set smarttab " Smart insert tab setting.
 set softtabstop=4 " Spaces instead <Tab>.
 set splitbelow
-set splitright 
+set splitright
 set t_vb=
 set tabstop=4 " Substitute <Tab> with blanks.
 set tags=./tags,tags,../tags
@@ -272,16 +272,16 @@ set titlelen=95
 set ttyfast
 set undofile
 set updatetime=1000 " CursorHold time.
-set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix                                     
+set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
 set virtualedit=block " Enable virtualedit in visual block mode.
 set whichwrap+=h,l,<,>,[,],b,s,~
 set wildmode=list:longest
 set wildoptions=tagfile
 set fileignorecase
 set wildignorecase
-set winminheight=0 
-set winminwidth=0 
-set winwidth=1                                                                                               
+set winminheight=0
+set winminwidth=0
+set winwidth=1
 set wrapscan " Searches wrap around the end of the file.
 
 if has('multi_byte_ime')
@@ -415,7 +415,7 @@ nnoremap <silent>[Space]g :Unite -silent -winheight=29 -start-insert menu:git<CR
 nnoremap > >>
 nnoremap M  m
 nnoremap Q  q " Disable Ex-mode.
-nnoremap [Quickfix]   <Nop> " q: Quickfix  
+nnoremap [Quickfix]   <Nop> " q: Quickfix
 nnoremap [Space]/  :Ag<CR>
 nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]h :Unite history/unite <CR>
@@ -471,7 +471,7 @@ xnoremap > >gv
 xnoremap m  <Nop>
 xnoremap r <C-v> " Select rectangle.
 xnoremap v $h
- 
+
 if s:isWindows()
     let g:unite_source_rec_async_command = ['git', 'ls-files']
     nnoremap [Space]o :Unite file_mru file_rec/neovim  file/new -start-insert<CR>
@@ -490,7 +490,7 @@ if has('mouse')
   inoremap <RightMouse> <C-r><C-o>+
   cnoremap <RightMouse> <C-r>+
 endif
- 
+
 let g:auto_save = 1
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let g:formatters_javascript = ['jscs']
@@ -780,12 +780,12 @@ if s:IsMac()
    let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/include'
 else
 	let g:deoplete#sources#clang#libclang_path=system(
-		\ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;' 
+		\ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
 		\ . 'IFS=":" ; for dir in ${paths} ; do '
 		\ . 'test -e ${dir}/libclang.so && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
 		\ . 'done ; unset IFS')
    let g:deoplete#sources#clang#clang_header = system(
-	        \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;' 
+	        \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
 		\ . 'IFS=":" ; for dir in ${paths} ; do '
 		\ . 'test -e ${dir}/../include/clang && echo -n $(readlink -f ${dir}/../include/clang) && break; '
 		\ . 'done ; unset IFS')
@@ -867,7 +867,7 @@ function! s:SID_PREFIX()
 endfunction
 
 
-function! s:set_syntax_of_user_defined_commands() 
+function! s:set_syntax_of_user_defined_commands()
   redir => l:commandout
   silent! command
   redir END
@@ -880,7 +880,7 @@ function! s:set_syntax_of_user_defined_commands()
   execute 'syntax keyword vimCommand ' . l:command_names
 endfunction
 
-function! s:my_on_filetype() 
+function! s:my_on_filetype()
   " Disable automatically insert comment.
   "setl formatoptions-=ro | setl formatoptions+=mMBl
 
@@ -899,7 +899,7 @@ function! s:my_on_filetype()
     setlocal foldcolumn=0
     silent! IndentLinesDisable
   endif
-endfunction 
+endfunction
 
 function! GetBufferList()
   redir => l:buflist
@@ -976,7 +976,7 @@ function! s:CustomBufferDelete(is_force)
   endif
 endfunction
 
-function! s:alternate_buffer() 
+function! s:alternate_buffer()
   let l:listed_buffer_len = len(filter(range(1, bufnr('$')),
         \ 's:buflisted(v:val) && getbufvar(v:val, ''&filetype'') !=# ''unite'''))
   if l:listed_buffer_len <= 1
@@ -1006,7 +1006,7 @@ function! s:alternate_buffer()
   endif
 endfunction
 
-function! s:buflisted(bufnr) 
+function! s:buflisted(bufnr)
   return exists('t:unite_buffer_dictionary') ?
         \ has_key(t:unite_buffer_dictionary, a:bufnr) && buflisted(a:bufnr) :
         \ buflisted(a:bufnr)
@@ -1058,7 +1058,7 @@ endfunction
 function! ToggleOption(option_name)
   execute 'setlocal' a:option_name.'!'
   execute 'setlocal' a:option_name.'?'
-endfunction  
+endfunction
 
 function! ToggleVariable(variable_name)
   if eval(a:variable_name)
@@ -1066,7 +1066,7 @@ function! ToggleVariable(variable_name)
   else
     execute 'let' a:variable_name.' = 1'
   endif
-endfunction  
+endfunction
 
 
 if executable('pdftotext')
@@ -1101,7 +1101,7 @@ function! s:smart_search_expr(expr1, expr2)
     return line('$') > 5000 ?  a:expr1 : a:expr2
 endfunction
 
-function! s:unite_my_settings() 
+function! s:unite_my_settings()
     mksession! /tmp/layout.vim
     " Directory partial match.
     call unite#custom#alias('file', 'h', 'left')
@@ -1156,13 +1156,13 @@ function! FindCabalSandboxRootPackageConf()
     return glob(FindCabalSandboxRoot().'/*-packages.conf.d'))
 endfunction
 
-function! s:strwidthpart(str, width)                                 
-  if a:width <= 0                
-    return ''                     
-  endif                           
-  let l:ret = a:str                 
-  let l:width = s:wcswidth(a:str)   
-  while l:width > a:width           
+function! s:strwidthpart(str, width)
+  if a:width <= 0
+    return ''
+  endif
+  let l:ret = a:str
+  let l:width = s:wcswidth(a:str)
+  while l:width > a:width
     let l:char = matchstr(l:ret, '.$')
     let l:ret = l:ret[: -1 - len(l:char)]
     let l:width -= s:wcswidth(l:char)
@@ -1185,7 +1185,7 @@ function! s:all_files()
   endfunction
 
 
-function! s:vimfiler_my_settings() 
+function! s:vimfiler_my_settings()
   call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
   call vimfiler#set_execute_file('txt', 'vim')
 
@@ -1266,8 +1266,8 @@ function! s:ag_handler(lines)
   " However, if a terminal is open,
   "I get a bug related to: https://github.com/neovim/neovim/issues/4895
   " Therefore the nasty for loop and checks
-  let l:openWindows=[] 
-  windo call add(l:openWindows, winnr()) 
+  let l:openWindows=[]
+  windo call add(l:openWindows, winnr())
   let l:terminalIsOpen=0
   for l:winnr in l:openWindows
     if bufname(winbufnr(l:winnr)) =~# 'term://'
@@ -1316,7 +1316,7 @@ nnoremap <silent> <Space>m :call fzf#run({
 \   'options': '+m',
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
- 
+
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
 \ 'source':  printf('ag --nogroup --column --nocolor --ignore %s --ignore %s "%s"',
 \                   'bundle.js', 'bundle.js.map',
@@ -1364,7 +1364,7 @@ endfunc
 
 
 function! s:ApplyCustomColorScheme()
-    if g:default_colorscheme ==# 'mayansmoke' 
+    if g:default_colorscheme ==# 'mayansmoke'
         highlight Comment ctermfg=27
         highlight Conceal ctermfg=019 ctermbg=255
         highlight SpecialKey ctermfg=247 ctermbg=255

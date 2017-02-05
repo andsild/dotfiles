@@ -8,8 +8,6 @@ bind -f "${HOME}/dotfiles/BashRC/inputrc"
 . "${HOME}/dotfiles/BashRC/bash_aliases"
 for file in ${HOME}/dotfiles/Bash/Sourced/* ; do . "${file}"; done
 
-
-
 # Variables ##
 # PS1='\u@\h: ~${PWD##*/} > '
 GREEN="$(printf '%b' '\e[01;32m')"
@@ -18,12 +16,12 @@ WHITE="$(printf '%b' '\e[00;00m')"
 RED="$(printf '%b' '\e[01;31m')"
 SMILEY="${GREEN}:)"
 FROWNY="${RED}:("
-SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
+SMILEYFROWNY="if [ ! \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 NIX_SHELL_PACKAGES="echo $nativeBuildInputs | tr ' ' '\n' | sed 's/[^-]*-\(.*\)-[0-9].*/\1/'"
 NIX_SHELL="if [ -n \"$IN_NIX_SHELL\" ]; then printf \"[nix-shell: %s]\" \"\\\`${NIX_SHELL_PACKAGES}\\\`\"; fi"
 PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[${WHITE}\]%s\[${WHITE}\]\n:\n" \
+         "\`${SMILEYFROWNY}\`" \
          "\`${NIX_SHELL}\`" \
-         "\`${SELECT}\`" \
          "\u@\h: \w" \
 )
 
@@ -54,15 +52,14 @@ export HISTSIZE=100000
 export HISTFILE_SIZE=1000000
 
 # need the if statement for e.g. mac
-if [ "${BASH_VERSINFO[0]}" -ge 4 ] 
+if [ "${BASH_VERSINFO[0]}" -ge 4 ]
 then
-    shopt -s autocd 
+    shopt -s autocd
     shopt -s histappend
 fi
 
 # Enable directory autocorrection
-shopt -s cdspell 
-
+shopt -s cdspell
 
 # complete -cf sudo
 
@@ -100,6 +97,3 @@ export GIT_PROMPT_ONLY_IN_REPO=1
 
 # added by travis gem
 [ -f "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
-
-# added by travis gem
-[ -f /home/andesil/.travis/travis.sh ] && source /home/andesil/.travis/travis.sh
