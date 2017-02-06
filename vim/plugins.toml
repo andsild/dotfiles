@@ -363,7 +363,7 @@ on_ft = 'razor'
 repo = 'https://github.com/rhysd/committia.vim.git'
 
 [[plugins]]
-repo = 'https://github.com/junegunn/fzf.git'
+repo = 'https://github.com/andsild/fzf.git'
 
 [[plugins]]
 repo = 'https://github.com/itchyny/unite-preview.git'
@@ -479,3 +479,7 @@ repo = 'https://github.com/kassio/neoterm.git'
 [[plugins]] # show yank history in unite
 repo = 'https://github.com/Shougo/neoyank.vim.git'
 depends = 'unite.vim'
+
+[[plugins]]
+repo = 'https://github.com/LnL7/vim-nix.git'
+on_ft = 'nix'

@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-
+let
+  phpSockName1 = "/run/phpfpm/pool1.sock";
+in
 {
   imports = [
     ./hardware-configuration.nix ./private.nix];
@@ -36,12 +38,35 @@
 
   security.sudo.enable = true;
   security.polkit.enable = true;
+  security.setuidOwners = [
+      (lib.mkIf (builtins.elem pkgs.wireshark config.environment.systemPackages) {
+      # Limit access to dumpcap to root and members of the wireshark group.
+      source = "${pkgs.wireshark}/bin/dumpcap";
+      program = "dumpcap";
+      owner = "root";
+      group = "wireshark";
+      setuid = true;
+      setgid = false;
+      permissions = "u+rx,g+x";
+      })
+      (lib.mkIf (builtins.elem pkgs.smartmontools config.environment.systemPackages) {
+      # Limit access to smartctl to root and members of the munin group.
+      source = "${pkgs.smartmontools}/bin/smartctl";
+      program = "smartctl";
+      owner = "root";
+      group = "munin";
+      setuid = true;
+      setgid = false;
+      permissions = "u+rx,g+x";
+      })
+  ];
 
   i18n = {
     consoleFont = "Lat2-Terminus16";
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
   };
+
 
   time.timeZone = "Europe/Oslo";
 
@@ -250,6 +275,7 @@
     wine
     dos2unix
     perlPackages.ImageExifTool
+    wireshark
 
     (texlive.combine {
         inherit (texlive)
@@ -313,6 +339,20 @@
     clamav.updater.enable = true;
     clamav.updater.frequency = 1;
 
+    munin-node = {
+      enable = true;
+      extraConfig = ''
+        cidr_allow 192.168.56.0/24
+    '';
+    };
+    munin-cron = {
+      enable = true;
+      hosts = ''
+        [${config.networking.hostName}]
+        address localhost
+      '';
+    };
+
     udev.extraRules = ''
 # Leap Motion
 ACTION!="add|change", GOTO="com_leapmotion_leap_end"
@@ -360,6 +400,135 @@ LABEL="com_leapmotion_leap_end"
           };
         };
       };
+    };
+
+    # thanks bjornfor (https://github.com/bjornfor/nixos-config)
+    lighttpd = {
+      enable = true;
+      #mod_status = true; # don't expose to the public
+      mod_userdir = true;
+      enableModules = [ "mod_alias" "mod_proxy" "mod_access" "mod_fastcgi" "mod_redirect" ];
+      extraConfig =
+        let
+          collectd-graph-panel =
+            pkgs.stdenv.mkDerivation rec {
+              name = "collectd-graph-panel-${version}";
+              version = "0.4.1";
+              src = pkgs.fetchzip {
+                name = "${name}-src";
+                url = "https://github.com/pommi/CGP/archive/v${version}.tar.gz";
+                sha256 = "14jm7jidp4z0vcd9rcblrqkp6mfbmvc548biwrjylm6yvdjgqb9l";
+              };
+              buildCommand = ''
+                mkdir -p "$out"
+                cp -r "$src"/. "$out"
+                chmod +w "$out"/conf
+                cat > "$out"/conf/config.local.php << EOF
+                <?php
+                \$CONFIG['datadir'] = '/var/lib/collectd';
+                \$CONFIG['rrdtool'] = '${pkgs.rrdtool}/bin/rrdtool';
+                \$CONFIG['graph_type'] = 'canvas';
+                ?>
+                EOF
+              '';
+            };
+        in ''
+        $HTTP["host"] =~ ".*" {
+          dir-listing.activate = "enable"
+          alias.url += ( "/munin" => "/var/www/munin" )
+          # Reverse proxy for transmission bittorrent client
+          proxy.server = (
+            "/transmission" => ( "transmission" => (
+                                 "host" => "127.0.0.1",
+                                 "port" => 9091
+                               ) )
+          )
+          # Fix transmission URL corner case: get error 409 if URL is
+          # /transmission/ or /transmission/web. Redirect those URLs to
+          # /transmission (no trailing slash).
+          url.redirect = ( "^/transmission/(web)?$" => "/transmission" )
+          alias.url += ( "/collectd" => "${collectd-graph-panel}" )
+          $HTTP["url"] =~ "^/collectd" {
+            index-file.names += ( "index.php" )
+          }
+
+          fastcgi.server = (
+            ".php" => (
+              "localhost" => (
+                "socket" => "${phpSockName1}",
+              )
+            )
+          )
+
+          # Block access to certain URLs if remote IP is not on LAN
+          $HTTP["remoteip"] !~ "^(192\.168\.1|127\.0\.0\.1)" {
+              $HTTP["url"] =~ "(^/transmission/.*|^/server-.*|^/munin/.*|^/collectd.*)" {
+                  url.access-deny = ( "" )
+              }
+          }
+        }
+      '';
+    };
+
+    phpfpm.poolConfigs = lib.mkIf config.services.lighttpd.enable {
+          pool1 = ''
+            listen = ${phpSockName1}
+            listen.group = lighttpd
+            user = nobody
+            pm = dynamic
+            pm.max_children = 75
+            pm.start_servers = 10
+            pm.min_spare_servers = 5
+            pm.max_spare_servers = 20
+            pm.max_requests = 500
+          '';
+        };
+
+    # TODO: Change perms on /var/lib/collectd from 700 to something more
+    # permissive, at least group readable?
+    # The NixOS service currently only sets perms *once*, so I've manually
+    # loosened it up for now, to allow lighttpd to read RRD files.
+    collectd = {
+      enable = true;
+      extraConfig = ''
+        # Interval at which to query values. Can be overwritten on per plugin
+        # with the 'Interval' option.
+        # WARNING: You should set this once and then never touch it again. If
+        # you do, you will have to delete all your RRD files.
+        Interval 10
+        # Load plugins
+        LoadPlugin apcups
+        LoadPlugin contextswitch
+        LoadPlugin cpu
+        LoadPlugin df
+        LoadPlugin disk
+        LoadPlugin ethstat
+        LoadPlugin interface
+        LoadPlugin irq
+        LoadPlugin virt
+        LoadPlugin load
+        LoadPlugin memory
+        LoadPlugin network
+        LoadPlugin nfs
+        LoadPlugin processes
+        LoadPlugin rrdtool
+        LoadPlugin sensors
+        LoadPlugin tcpconns
+        LoadPlugin uptime
+        <Plugin "virt">
+          Connection "qemu:///system"
+        </Plugin>
+        <Plugin "df">
+          MountPoint "/"
+          MountPoint "/mnt/data/"
+          MountPoint "/mnt/backup-disk/"
+        </Plugin>
+        # Output/write plugin (need at least one, if metrics are to be persisted)
+        <Plugin "rrdtool">
+          CacheFlush 120
+          WritesPerSecond 50
+        </Plugin>
+      '';
     };
   };
 
@@ -414,6 +583,7 @@ LABEL="com_leapmotion_leap_end"
     description = "Anders Sildnes";
     extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" ];
   };
+  users.extraGroups.wireshark.gid = 500;
 
 
   sound.mediaKeys = {
