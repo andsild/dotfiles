@@ -372,7 +372,8 @@ LABEL="com_leapmotion_leap_end"
     locate.enable = true;
     locate.interval = "*:0/30";
     locate.localuser = "nobody";
-    locate.includeStore = true;
+    locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" ];
+
 
     offlineimap.enable = true;
     offlineimap.install = true;
@@ -581,7 +582,7 @@ LABEL="com_leapmotion_leap_end"
     isNormalUser = true;
     home = "/home/andesil";
     description = "Anders Sildnes";
-    extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" ];
+    extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" "wireshark" ];
   };
   users.extraGroups.wireshark.gid = 500;
 
