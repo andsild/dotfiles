@@ -218,6 +218,7 @@ in
     python3Packages.neovim
     python3Packages.scipy
     python3Packages.virtualenv
+    python3Packages.yamllint
     pythonPackages.goobook
     pythonPackages.youtube-dl
     pythonPackages.ipython
@@ -241,6 +242,7 @@ in
     sqlite
     sshfs-fuse
     stack
+    shutter
     stdmanpages
     sxiv
     telnet

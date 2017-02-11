@@ -41,3 +41,5 @@ let vli = V.fromList li
 let uli = U.fromList li
 mli <- V.thaw vli
 umli <- U.thaw uli
+
+:set +c

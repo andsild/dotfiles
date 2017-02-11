@@ -483,3 +483,7 @@ depends = 'unite.vim'
 [[plugins]]
 repo = 'https://github.com/LnL7/vim-nix.git'
 on_ft = 'nix'
+
+[[plugins]]
+repo = 'https://github.com/parsonsmatt/intero-neovim.git'
+on_ft = 'haskell'

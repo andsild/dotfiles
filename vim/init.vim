@@ -148,7 +148,8 @@ augroup DefaultAuGroup
     autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
-    autocmd Bufenter *.py nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
+    autocmd FileType python nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
+    autocmd FileType haskell nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:intero -silent  -start-insert<CR>
     autocmd FileType apache setlocal path+=./;/
     autocmd FileType c,cpp set formatprg=astyle
     "autocmd FileType c,cpp set keywordprg=:Man
@@ -718,6 +719,32 @@ let g:unite_source_menu_menus.markdown.command_candidates = [
     \['-> Preview',
         \'PrevimOpen'],
 \]
+
+let g:unite_source_menu_menus.intero = {
+        \ 'description' : '            Haskell intellisense
+            \                                [Space]i',
+    \}
+let g:unite_source_menu_menus.intero.command_candidates = [
+    \['-> Eval',
+        \'InteroEval'],
+    \['-> Def',
+        \'InteroDef'],
+   \['-> Info',
+        \'InteroInfo'],
+    \['-> Type',
+        \'InteroType'],
+    \['-> Uses',
+        \'InteroUses'],
+    \['-> Rel04d',
+        \'InteroReload'],
+    \['-> Open REPL',
+        \'InteroOpen'],
+    \['-> Load',
+        \'InteroLoadCurrentModule'],
+    \['-> Start',
+        \'InteroStart'],
+\]
+
 let g:unite_source_menu_menus.jedi = {
         \ 'description' : '            Python intellisense
             \                                [Space]i',
@@ -739,6 +766,7 @@ let g:unite_source_menu_menus.jedi.command_candidates = [
         \'call jedi#usages()'],
 \]
 
+
 let g:unite_source_menu_menus.tern = {
         \ 'description' : '            Javascript intellisense
             \                                [Space]i',
@@ -748,7 +776,7 @@ let g:unite_source_menu_menus.tern.command_candidates = [
         \'TernDocBrowse'],
    \['-> Type lookup',
         \'TernType'],
-    \['-> Definition',
+    \['-> Def',
         \'TernDef'],
     \['-> References',
         \'TernRefs'],
