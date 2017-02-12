@@ -81,8 +81,7 @@ in
       enableAdobeFlash = true;
     };
     virtualbox.enableExtenstionPack = true;
-
-
+    zathura.useMupdf = true;
   };
 
   hardware.pulseaudio.enable = true;
@@ -122,29 +121,27 @@ in
     };
   in
   with pkgs; [
-    acpitool
     aalib
+    acpitool
+    androidsdk
     aspell
-    bind
-    iotop
     aspellDicts.en
     aspellDicts.nb
     aspellDicts.nn
     astyle
-    androidsdk
     automake
     bash
     bc
+    bind
     boost
     chromium
     clang
     cmake
     cowsay
-    lsof
     ctags
     dmenu
+    dos2unix
     dpkg
-    openjdk
     dzen2
     enlightenment.terminology
     file
@@ -155,6 +152,7 @@ in
     gdb
     gdk_pixbuf
     git
+    gitAndTools.tig
     glibcInfo
     gnome3.cheese
     gnumake
@@ -165,32 +163,27 @@ in
     graphicsmagick
     graphviz
     haskellPackages.cabal-install
-    #haskellPackages.hindent # would be nice, but the version is outdated (use cabal for now)
-    haskellPackages.stylish-haskell
-    haskellPackages.threadscope
-    travis
     haskellPackages.cabal2nix
     haskellPackages.ghc
     haskellPackages.ghc-mod
     haskellPackages.happy
     haskellPackages.hlint
     haskellPackages.hoogle
-    pinentry
+    haskellPackages.stylish-haskell
+    haskellPackages.threadscope
     hicolor_icon_theme
     htop
-    stress-ng
+    ii
     imagemagick
     inotify-tools
+    iotop
     irssi
-    libtool
     liblapack
+    libtool
     links2
-    gitAndTools.tig
     llvmPackages.lldb
+    lsof
     lua
-    ii
-    nmap
-    unetbootin
     man-pages
     manpages
     mplayer
@@ -199,16 +192,20 @@ in
     neomutt
     networkmanagerapplet
     newsbeuter-dev
+    nmap
     nodejs
     notmuch
     nox
     ntfs3g
     nvim
+    openjdk
     openssl
     p7zip
     parted
     pavucontrol
     pdftk
+    perlPackages.ImageExifTool
+    pinentry
     pinentry
     pkgconfig
     posix_man_pages
@@ -220,11 +217,11 @@ in
     python3Packages.virtualenv
     python3Packages.yamllint
     pythonPackages.goobook
-    pythonPackages.youtube-dl
     pythonPackages.ipython
     pythonPackages.neovim
     pythonPackages.scipy
     pythonPackages.virtualenv
+    pythonPackages.youtube-dl
     qalculate-gtk
     qemu
     rdesktop
@@ -233,6 +230,7 @@ in
     screen
     shellcheck
     shotwell
+    shutter
     silver-searcher
     simplescreenrecorder
     sl
@@ -242,17 +240,23 @@ in
     sqlite
     sshfs-fuse
     stack
-    shutter
     stdmanpages
+    stepmania
+    stress-ng
     sxiv
     telnet
     toilet
+    travis
     tree
+    unetbootin
     unzip
     unzip
+    usbutils
     valgrind
     vlc
     wget
+    wine
+    wireshark
     workrave
     xclip
     xdotool
@@ -260,9 +264,9 @@ in
     xkblayout-state
     xlsfonts
     xorg.xbacklight
-    xorg.xkill
     xorg.xev
     xorg.xgamma
+    xorg.xkill
     xorg.xmessage
     xorg.xorgserver
     xournal
@@ -272,12 +276,6 @@ in
     zeal
     zip
     zlib
-    stepmania
-    usbutils
-    wine
-    dos2unix
-    perlPackages.ImageExifTool
-    wireshark
 
     (texlive.combine {
         inherit (texlive)
