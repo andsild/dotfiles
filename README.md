@@ -3,28 +3,25 @@ dotfiles
 
 Configuration files; pick as you please
 
-# Current (active) setup:
 
-## VIM
-See vim directory
-
-## WMII (Window / Tiling Manager)
+### Why do you use WMII instead of i3?
 There are no (silly) concepts of master windows or fixed window
-rules.  Note that i3 is the successor and more actively maintained. I just like
+rules.  i3 is a successor and more actively maintained. I just like
 wmii (i2) because I've spent time with it.
 
-## Zathura (PDF)
-It has vim-bindings and color-invert
 
-## Other 
+## Good programs
 
 | Program     | Desc                                                                                                                                                  |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mitmproxy` | excellent web interceptor |
+| `mitmproxy` | web interceptor |
 | `slock`     | lock your computer |
-| `xrandr`    | For connecting extra monitors, etc. E.g:<br />`xrandr --auto LVDS1 --left-of VGA1`<br /> |
+| `xrandr`    | For connecting and configuring monitors. E.g:<br />`xrandr --auto LVDS1 --left-of VGA1`<br /> |
+| `vim`       | See vim directory |
 | `workrave`  | prevent RSI and live healthily. Annoying as hell but a lifesaver. |
+| `zathura`  | It has vim-bindings and color-invert. |
 
 # License
-I chose the most open one.  
+I chose the most open one.
+I think a lot of people forget that MIT requires you to redistribute original licenses.
 https://help.github.com/articles/open-source-licensing/#what-happens-if-i-dont-choose-a-license
