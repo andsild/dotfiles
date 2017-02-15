@@ -347,14 +347,17 @@ in
     munin-node = {
       enable = true;
       extraConfig = ''
-        cidr_allow 192.168.56.0/24
+        cidr_allow 192.168.1.0/24
     '';
     };
     munin-cron = {
       enable = true;
       hosts = ''
-        [${config.networking.hostName}]
-        address localhost
+        [laptop]
+        address 192.168.1.207
+
+        [bigmoma]
+        address 192.168.1.139
       '';
     };
 
