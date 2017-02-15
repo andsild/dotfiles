@@ -4,13 +4,11 @@ dotfiles
 Configuration files; pick as you please
 
 
-### Why do you use WMII instead of i3?
-There are no (silly) concepts of master windows or fixed window
-rules.  i3 is a successor and more actively maintained. I just like
-wmii (i2) because I've spent time with it.
+### Why use WMII instead of i3?
+i3 is a successor and more actively maintained. I just like wmii (i2) because I've spent time with it.
+rules.
 
-
-## Good programs
+## Likable programs
 
 | Program     | Desc                                                                                                                                                  |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
