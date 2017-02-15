@@ -5,7 +5,7 @@ let
 in
 {
   imports = [
-    ./hardware-configuration.nix ./private.nix];
+    ./hardware-configuration.nix ./private.nix ./elk.nix ];
 
 
   boot.loader.grub.enable = true;
@@ -338,6 +338,11 @@ in
     clamav.daemon.enable = true;
     clamav.updater.enable = true;
     clamav.updater.frequency = 1;
+
+    elk = {
+      enable = true;
+      systemdUnits = [ "kibana" ];
+    };
 
     munin-node = {
       enable = true;
