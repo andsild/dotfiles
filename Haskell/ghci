@@ -36,7 +36,7 @@ import Data.Word
 
 :def x \_ -> return ":set -XOverloadedStrings -XOverloadedLists"
 
-let li = [1..4]
+let li = [1..4] :: [Int]
 let vli = V.fromList li
 let uli = U.fromList li
 mli <- V.thaw vli

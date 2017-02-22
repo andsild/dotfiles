@@ -244,6 +244,7 @@ in
     stepmania
     stress-ng
     sxiv
+    sysstat
     telnet
     toilet
     travis
@@ -340,7 +341,7 @@ in
     clamav.updater.frequency = 1;
 
     elk = {
-      enable = true;
+      enable = false;
       systemdUnits = [ "kibana" ];
     };
 

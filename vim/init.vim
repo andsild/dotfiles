@@ -399,7 +399,7 @@ nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 nnoremap <silent> [Space]t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 nnoremap <silent> [Space]di :Unite menu:diff -silent -start-insert -winheight=10 <CR>
-nnoremap <silent> [Space]en :<C-u>setlocal encoding? fenc? fencs?<CR>
+nnoremap <silent> <leader>en :<C-u>setlocal encoding? fenc? fencs?<CR>
 nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
 nnoremap <silent> [Space]l :call ToggleList("Location List", 'l')<CR>
 nnoremap <silent> n  :UniteNext<CR>

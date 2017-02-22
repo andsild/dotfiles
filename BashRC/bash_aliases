@@ -14,6 +14,9 @@ alias e=": edit "
 alias eix="dnf search"
 alias emerge="sudo dnf install -y"
 alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
+alias ga="git add . "
+alias gac="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" "
+alias gc="git commit -m \"\$(fortune | tr '\n' ' ')\""
 alias gclean='(git gc --prune=now  ; git remote prune origin) && git pull'
 alias gdb="gdb --quiet"
 alias gpg="gpg2"
