@@ -113,6 +113,11 @@ in
   };
 
   security.setuidPrograms = [ "slock" ];
+  security.wrappers = {
+    slock = {
+      source = "${pkgs.slock.out}/bin/slock";
+    }
+  ;
 
   environment.systemPackages =
   let
