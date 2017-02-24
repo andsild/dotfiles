@@ -48,23 +48,23 @@ in
    config = mkIf cfg.enable {
         services.logstash = {
             enable = true;
-            plugins = [ pkgs.logstash-contrib ];
+            # plugins = [ pkgs.logstash-contrib ];
             inputConfig = (concatMapStrings fromUnit cfg.systemdUnits) + cfg.additionalInputConfig;
-            filterConfig = ''
-                if [type] == "syslog" {
-                    # Keep only relevant systemd fields
-                    # http://www.freedesktop.org/software/systemd/man/systemd.journal-fields.html
-                    prune {
-                        whitelist_names => [
-                            "type", "@timestamp", "@version",
-                            "MESSAGE", "PRIORITY", "SYSLOG_FACILITY", "_SYSTEMD_UNIT"
-                        ]
-                    }
-                    mutate {
-                        rename => { "_SYSTEMD_UNIT" => "unit" }
-                    }
-                }
-            '';
+            # filterConfig = ''
+            #     if [type] == "syslog" {
+            #         # Keep only relevant systemd fields
+            #         # http://www.freedesktop.org/software/systemd/man/systemd.journal-fields.html
+            #         # prune {
+            #         #     whitelist_names => [
+            #         #         "type", "@timestamp", "@version",
+            #         #         "MESSAGE", "PRIORITY", "SYSLOG_FACILITY", "_SYSTEMD_UNIT"
+            #         #     ]
+            #         # }
+            #         mutate {
+            #             rename => { "_SYSTEMD_UNIT" => "unit" }
+            #         }
+            #     }
+            # '';
             outputConfig = ''
                 elasticsearch {
                     protocol => "http"
