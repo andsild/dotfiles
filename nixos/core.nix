@@ -118,6 +118,13 @@ in
     SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
   };
 
+  security.setuidPrograms = [ "slock" ];
+  security.wrappers = {
+    slock = {
+      source = "${pkgs.slock.out}/bin/slock";
+    }
+  ;
+
   environment.systemPackages =
   let
     nvim = pkgs.neovim.override {
