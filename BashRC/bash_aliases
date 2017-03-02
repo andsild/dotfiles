@@ -45,6 +45,14 @@ alias us="setxkbmap us"
 alias vs=": vsplit  "
 alias www='cd /var/www/'
 
+if [ "$(hostname)" == "lille-login2.foreman.hpc.ntnu.no" ]
+then
+  alias stack='stack --stack-yaml=stack_sandbox.yaml'
+  alias nstack='nice stack --stack-yaml=stack_sandbox.yaml'
+else
+  alias nstack='nice stack'
+fi
+
 function smallimg()
 {
     convert -size 32x32 "xc:${2:-orange}" "${1:-empty.jpg}"
