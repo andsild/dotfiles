@@ -41,8 +41,6 @@ in
   security.wrappers = {
     slock = {
       source = "${pkgs.slock.out}/bin/slock";
-      owner = "root";
-      setuid = true;
     };
   };
   # deprecated flag
