@@ -172,6 +172,7 @@ in
     haskellPackages.ghc-mod
     haskellPackages.happy
     haskellPackages.hlint
+    haskellPackages.hindent
     haskellPackages.hoogle
     haskellPackages.stylish-haskell
     haskellPackages.threadscope
