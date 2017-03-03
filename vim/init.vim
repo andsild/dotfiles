@@ -237,7 +237,7 @@ set matchtime=3
 set modeline " Enable modeline.
 set nobackup
 set noequalalways
-set nohlsearch " Don't highlight search result.
+set hlsearch " Don't highlight search result.
 set nonumber
 set noshowcmd
 set noshowmode

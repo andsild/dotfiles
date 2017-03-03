@@ -33,6 +33,8 @@ in
 
       connectionTrackingModules = [];
       autoLoadConntrackHelpers = false;
+
+      allowedTCPPorts = [ 4949 ];
     };
   };
 
@@ -117,13 +119,6 @@ in
     BROWSER = "chromium-browser";
     SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
   };
-
-  security.setuidPrograms = [ "slock" ];
-  security.wrappers = {
-    slock = {
-      source = "${pkgs.slock.out}/bin/slock";
-    }
-  ;
 
   environment.systemPackages =
   let
@@ -360,6 +355,8 @@ in
       enable = true;
       extraConfig = ''
         cidr_allow 192.168.1.0/24
+        html_strategy cgi
+        graph_strategy cgi
     '';
     };
     munin-cron = {
@@ -518,7 +515,6 @@ LABEL="com_leapmotion_leap_end"
         # you do, you will have to delete all your RRD files.
         Interval 10
         # Load plugins
-        LoadPlugin apcups
         LoadPlugin contextswitch
         LoadPlugin cpu
         LoadPlugin df
@@ -526,7 +522,6 @@ LABEL="com_leapmotion_leap_end"
         LoadPlugin ethstat
         LoadPlugin interface
         LoadPlugin irq
-        LoadPlugin virt
         LoadPlugin load
         LoadPlugin memory
         LoadPlugin network
@@ -536,9 +531,6 @@ LABEL="com_leapmotion_leap_end"
         LoadPlugin sensors
         LoadPlugin tcpconns
         LoadPlugin uptime
-        <Plugin "virt">
-          Connection "qemu:///system"
-        </Plugin>
         <Plugin "df">
           MountPoint "/"
           MountPoint "/mnt/data/"
@@ -605,7 +597,6 @@ LABEL="com_leapmotion_leap_end"
     extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" "wireshark" ];
   };
   users.extraGroups.wireshark.gid = 500;
-
 
   sound.mediaKeys = {
     enable = true;

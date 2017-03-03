@@ -21,7 +21,7 @@ RED="$(printf '%b' '\e[01;31m')"
 SMILEY="${GREEN}:)"
 FROWNY="${RED}:("
 SMILEYFROWNY="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
-NIX_SHELL_PACKAGES="echo $nativeBuildInputs | tr ' ' '\n' | sed 's/[^-]*-\(.*\)-[0-9].*/\1/'"
+NIX_SHELL_PACKAGES="echo ${nativeBuildInputs:-} | tr ' ' '\n' | sed 's/[^-]*-\(.*\)-[0-9].*/\1/'"
 NIX_SHELL="if [ -n \"$IN_NIX_SHELL\" ]; then printf \"[nix-shell: %s]\" \"\\\`${NIX_SHELL_PACKAGES}\\\`\"; fi"
 PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[${WHITE}\]%s\[${WHITE}\]\n:\n" \
          "\`${SMILEYFROWNY}\`" \
