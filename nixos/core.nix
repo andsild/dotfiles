@@ -33,6 +33,8 @@ in
 
       connectionTrackingModules = [];
       autoLoadConntrackHelpers = false;
+
+      allowedTCPPorts = [ 4949 ];
     };
   };
 
@@ -351,13 +353,15 @@ in
     };
 
     munin-node = {
-      enable = true;
+      enable = false; # fastcgi not supported?
       extraConfig = ''
         cidr_allow 192.168.1.0/24
+        html_strategy cgi
+        graph_strategy cgi
     '';
     };
     munin-cron = {
-      enable = true;
+      enable = false; # fastcgi not supported?
       hosts = ''
         [laptop]
         address 192.168.1.207
@@ -451,17 +455,6 @@ LABEL="com_leapmotion_leap_end"
         $HTTP["host"] =~ ".*" {
           dir-listing.activate = "enable"
           alias.url += ( "/munin" => "/var/www/munin" )
-          # Reverse proxy for transmission bittorrent client
-          proxy.server = (
-            "/transmission" => ( "transmission" => (
-                                 "host" => "127.0.0.1",
-                                 "port" => 9091
-                               ) )
-          )
-          # Fix transmission URL corner case: get error 409 if URL is
-          # /transmission/ or /transmission/web. Redirect those URLs to
-          # /transmission (no trailing slash).
-          url.redirect = ( "^/transmission/(web)?$" => "/transmission" )
           alias.url += ( "/collectd" => "${collectd-graph-panel}" )
           $HTTP["url"] =~ "^/collectd" {
             index-file.names += ( "index.php" )
@@ -477,7 +470,7 @@ LABEL="com_leapmotion_leap_end"
 
           # Block access to certain URLs if remote IP is not on LAN
           $HTTP["remoteip"] !~ "^(192\.168\.1|127\.0\.0\.1)" {
-              $HTTP["url"] =~ "(^/transmission/.*|^/server-.*|^/munin/.*|^/collectd.*)" {
+              $HTTP["url"] =~ "(^/munin/.*|^/collectd.*)" {
                   url.access-deny = ( "" )
               }
           }
@@ -512,7 +505,6 @@ LABEL="com_leapmotion_leap_end"
         # you do, you will have to delete all your RRD files.
         Interval 10
         # Load plugins
-        LoadPlugin apcups
         LoadPlugin contextswitch
         LoadPlugin cpu
         LoadPlugin df
@@ -520,7 +512,6 @@ LABEL="com_leapmotion_leap_end"
         LoadPlugin ethstat
         LoadPlugin interface
         LoadPlugin irq
-        LoadPlugin virt
         LoadPlugin load
         LoadPlugin memory
         LoadPlugin network
@@ -530,9 +521,6 @@ LABEL="com_leapmotion_leap_end"
         LoadPlugin sensors
         LoadPlugin tcpconns
         LoadPlugin uptime
-        <Plugin "virt">
-          Connection "qemu:///system"
-        </Plugin>
         <Plugin "df">
           MountPoint "/"
           MountPoint "/mnt/data/"
