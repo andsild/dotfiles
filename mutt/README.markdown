@@ -21,5 +21,5 @@ gpg2 --encrypt <file_with_app_password> -r <recipient>
 mv <output from gpg2> ~/.offlineimappass.gpg
 wipe <file_with_app_password>
 ```
-[(wipe securely removes files)](http://wipe.sourceforge.net/)
+[(wipe securely removes files)](http://wipe.sourceforge.net/)  
 I recommend using an app password for gmail (it doesn't take long to setup) so you don't ever put your real password on disk or in your editor history.
