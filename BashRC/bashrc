@@ -23,10 +23,14 @@ FROWNY="${RED}:("
 SMILEYFROWNY="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 NIX_SHELL_PACKAGES="echo ${nativeBuildInputs:-} | tr ' ' '\n' | sed 's/[^-]*-\(.*\)-[0-9].*/\1/'"
 NIX_SHELL="if [ -n \"$IN_NIX_SHELL\" ]; then printf \"[nix-shell: %s]\" \"\\\`${NIX_SHELL_PACKAGES}\\\`\"; fi"
-PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[${WHITE}\]%s\[${WHITE}\]\n:\n" \
+PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[%s\]%s@\[%s\]%s\[${WHITE}\]:%s\n:\n" \
          "\`${SMILEYFROWNY}\`" \
          "\`${NIX_SHELL}\`" \
-         "\u@\h: \w" \
+	 "\`if [ "$(whoami)" == "root" ]; then echo \"${RED}\"; else echo \"${WHITE}\"; fi\`" \
+         "\u" \
+	 "\`if [ "$(hostname)" == "lille-login2.foreman.hpc.ntnu.no" ]; then echo \"${RED}\"; else echo \"${WHITE}\"; fi\`" \
+	"\h" \
+	"\w" \
 )
 
 export EDITOR="nvim"
@@ -97,3 +101,4 @@ export GIT_PROMPT_ONLY_IN_REPO=1
 
 # added by travis gem
 [ -f "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
+export PATH=~/.local/bin:$PATH

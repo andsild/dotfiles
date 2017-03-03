@@ -174,6 +174,7 @@ in
     haskellPackages.ghc-mod
     haskellPackages.happy
     haskellPackages.hlint
+    haskellPackages.hindent
     haskellPackages.hoogle
     haskellPackages.stylish-haskell
     haskellPackages.threadscope
@@ -352,7 +353,7 @@ in
     };
 
     munin-node = {
-      enable = true;
+      enable = false; # fastcgi not supported?
       extraConfig = ''
         cidr_allow 192.168.1.0/24
         html_strategy cgi
@@ -360,7 +361,7 @@ in
     '';
     };
     munin-cron = {
-      enable = true;
+      enable = false; # fastcgi not supported?
       hosts = ''
         [laptop]
         address 192.168.1.207
@@ -454,17 +455,6 @@ LABEL="com_leapmotion_leap_end"
         $HTTP["host"] =~ ".*" {
           dir-listing.activate = "enable"
           alias.url += ( "/munin" => "/var/www/munin" )
-          # Reverse proxy for transmission bittorrent client
-          proxy.server = (
-            "/transmission" => ( "transmission" => (
-                                 "host" => "127.0.0.1",
-                                 "port" => 9091
-                               ) )
-          )
-          # Fix transmission URL corner case: get error 409 if URL is
-          # /transmission/ or /transmission/web. Redirect those URLs to
-          # /transmission (no trailing slash).
-          url.redirect = ( "^/transmission/(web)?$" => "/transmission" )
           alias.url += ( "/collectd" => "${collectd-graph-panel}" )
           $HTTP["url"] =~ "^/collectd" {
             index-file.names += ( "index.php" )
@@ -480,7 +470,7 @@ LABEL="com_leapmotion_leap_end"
 
           # Block access to certain URLs if remote IP is not on LAN
           $HTTP["remoteip"] !~ "^(192\.168\.1|127\.0\.0\.1)" {
-              $HTTP["url"] =~ "(^/transmission/.*|^/server-.*|^/munin/.*|^/collectd.*)" {
+              $HTTP["url"] =~ "(^/munin/.*|^/collectd.*)" {
                   url.access-deny = ( "" )
               }
           }
