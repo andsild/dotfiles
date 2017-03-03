@@ -33,8 +33,6 @@ in
 
       connectionTrackingModules = [];
       autoLoadConntrackHelpers = false;
-
-      allowedTCPPorts = [ 4949 ];
     };
   };
 

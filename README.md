@@ -15,7 +15,7 @@ i3 is a successor and more actively maintained. I just like wmii (i2) because I'
 | `slock`     | lock your computer |
 | `xrandr`    | For connecting and configuring monitors. E.g:<br />`xrandr --auto LVDS1 --left-of VGA1`<br /> |
 | `neovim`       | See vim directory |
-| `workrave`  | prevent RSI and live healthily. Annoying as hell but a lifesaver. |
+| `workrave`  | prevent RSI and live healthily. |
 | `zathura`  | It has vim-bindings and color-invert. |
 
 ## License

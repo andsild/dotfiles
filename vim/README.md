@@ -5,11 +5,9 @@ features that aren't implemented and lacking plugin support.
 
 ## Install [_Linux_]
 Copy "init.vim" and "plugins.toml" into your `$XDG_CONFIG_HOME/nvim` (default `~/.config/nvim`).  
-The rest should install by itself. Before you have done `call dein#install()` to get the plugins,
-there will be error-messages. Also note that some plugins fail silently if you
-miss dependencies like lua or ruby.
-Don't forget to do `pip install --upgrade neovim`.
+Do `pip install --upgrade neovim`, using python3.  The rest should install by itself. 
 
+When launching nvim the first time with this config, run `:call dein#install()` inside neovim. This will download all plugins. Then restart. Run `:UpdateRemotePlugins`.
 ## Plugins
 
 [dein](https://github.com/Shougo/dein.vim) for plugin management  
