@@ -243,6 +243,7 @@ in
     sl
     sloccount
     slock
+    wipe
     slop
     sqlite
     sshfs-fuse
@@ -588,9 +589,9 @@ LABEL="com_leapmotion_leap_end"
   };
   users.extraGroups.wireshark.gid = 500;
 
-  sound.mediaKeys = {
-    enable = true;
-    volumeStep = "1000";
-  };
-  system.stateVersion = "17.03";
+#  sound.mediaKeys = {
+#    enable = true;
+#    volumeStep = "1000";
+#  };
+  system.stateVersion = "17.09";
 }
