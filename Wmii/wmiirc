@@ -51,11 +51,25 @@ wmiir write /rules <<!
 /Chromium/ allow+=activate
 !
 
+stockStatus() {
+    # nixos runs this scripts as /bin/sh in spite of the header,
+    # so redirection (<<<) doesnt work, we need to invoke something else, fml.
+    curlData=$(curl -s "http://download.finance.yahoo.com/d/quotes.csv?s=nzym-b.co,%5EIXIC,%5EOSEAX&f=l1")
+    # curlData=$(printf "1\n2\n3\n")
+    fromCommand=$(echo "${curlData}" | awk '
+    {
+        if (NR == 1) { printf "NZ %d DKK | ", $1; }
+        if (NR == 2) { printf "NQ %d$ | ",  $1; }
+        if (NR == 3) { printf "OSX %d NOK",   $1; }
+        }')
+    echo -n "label ${fromCommand}"
+}
+
 # Song status info
 songStatus() {
     spotify="$(pidof spotify 1>/dev/null; \
         if [ "$?" -gt 0 ]
-        then 
+        then
             printf " [[ No song playing ]]";
         else
             dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' \
@@ -204,6 +218,15 @@ Action netStatus
         downRead=$(head /sys/class/net/${device}/statistics/tx_bytes)
         sleep 1
     done
+Action stockStatus
+    set +xv
+    if wmiir remove /lbar/stockStatus 2>/dev/null; then
+        sleep 2
+    fi
+    echo colors "$WMII_NORMCOLORS" | wmiir create /lbar/stockStatus
+    while stockStatus | wmiir write /lbar/stockStatus; do
+        sleep 900
+    done
 #Action songStatus
     #set +xv
     #if wmiir remove /lbar/songStatus 2>/dev/null; then
@@ -243,9 +266,9 @@ Key $MODKEY-space   # Toggle between floating and managed layers
 
 KeyGroup Moving clients around
 Key $MODKEY-Shift-$LEFT   # Move selected client to the left
-    wmiir xwrite /tag/sel/ctl send sel left; 
+    wmiir xwrite /tag/sel/ctl send sel left;
 Key $MODKEY-Shift-$RIGHT  # Move selected client to the right
-    wmiir xwrite /tag/sel/ctl send sel right; 
+    wmiir xwrite /tag/sel/ctl send sel right;
 Key $MODKEY-Shift-$UP     # Move selected client up
     wmiir xwrite /tag/sel/ctl send sel up
 Key $MODKEY-Shift-$DOWN   # Move selected client down
@@ -273,10 +296,10 @@ Key $MODKEY-c
     eval wmiir setsid chromium &
 Key $MODKEY-p # I would use compgen, if nixos permitted me :(
     eval wmiir setsid $(find /run/current-system/sw/bin/ .nix-profile/bin/  -not -type d -printf "%f\n" | sort | dmenu) &
-Key $MODKEY-u      
+Key $MODKEY-u
     eval wmiir setsid uzbl-browser &
 
-Key $MODKEY-Return 
+Key $MODKEY-Return
     eval wmiir setsid $WMII_TERM &
 
 KeyGroup Other
@@ -292,7 +315,7 @@ Key $MODKEY-Control-t # Toggle all other key bindings
 
 KeyGroup Tag actions
 !
-    for i in 0 1 2 3 4 5 6 7 8 9; do 
+    for i in 0 1 2 3 4 5 6 7 8 9; do
     cat <<!
 Key $MODKEY-$i       # Move to the numbered view
     wmiir xwrite /ctl view "$i"
@@ -318,7 +341,7 @@ then
     pkill --full pdfautoopen # kill if already open
     setsid ~/dotfiles/Bash/pdfautoopen &
 fi
-    
+
 
 if [ -z "$(pidof workrave)" ]
 then
@@ -329,5 +352,6 @@ fi
 progsfile="$(wmiir namespace)/.proglist"
 action status &
 action netStatus &
+action stockStatus &
 action songStatus &
 wi_proglist $PATH >$progsfile &

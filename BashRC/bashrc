@@ -19,10 +19,11 @@ YELLOW="$(printf '%b' '\e[00;33m')"
 WHITE="$(printf '%b' '\e[00;00m')"
 RED="$(printf '%b' '\e[01;31m')"
 BLUE="$(printf '%b' '\e[00;34m')"
+PURPLE="$(printf '%b' '\e[00;35m')"
 SMILEY="${GREEN}:)"
 FROWNY="${RED}:("
 case $(hostname) in
-    lille-login2.foreman.hpc.ntnu.no)
+    lille*)
         HOSTNAME="${RED}"
         ;;
     NTNU10090)
@@ -31,8 +32,11 @@ case $(hostname) in
     miniPeskNix)
         HOSTNAME="${YELLOW}"
         ;;
+    peskNix)
+        HOSTNAME="${PURPLE}"
+        ;;
     *)
-        HOSTNAME "${WHITE}"
+        HOSTNAME="${WHITE}"
         ;;
 esac
 HOSTNAME="${HOSTNAME}$(hostname)${WHITE}"
@@ -106,7 +110,8 @@ else
     fi
 
 fi
-GIT_PROMPT_END=" $(whoami)@${HOSTNAME}\n:" 
+GIT_PROMPT_END="$(whoami)@${HOSTNAME}\n:"
+export GIT_PROMPT_END
 # Set config variables first
 export GIT_PROMPT_ONLY_IN_REPO=1
 
