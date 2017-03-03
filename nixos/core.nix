@@ -264,6 +264,7 @@ in
     vlc
     wget
     wine
+    wipe
     wireshark
     workrave
     xclip
@@ -592,5 +593,5 @@ LABEL="com_leapmotion_leap_end"
     enable = true;
     volumeStep = "1000";
   };
-  system.stateVersion = "17.03";
+  system.stateVersion = "17.09";
 }
