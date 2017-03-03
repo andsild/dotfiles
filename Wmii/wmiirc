@@ -51,6 +51,13 @@ wmiir write /rules <<!
 /Chromium/ allow+=activate
 !
 
+stockStatus() {
+    # nixos runs this scripts as /bin/sh in spite of the header,
+    # so for redirection to work (<<<), we need to invoke bash
+    /usr/bin/env bash -c "read -d '\n' nzym nasdaq osx <<< $(curl -s \"http://download.finance.yahoo.com/d/quotes.csv?s=nzym-b.co,%5EIXIC,%5EOSEAX&f=l1\") ; printf \"label NZ: %d | NQ: %d | OSX: %d\" \"${nzym:-0}\" \"${nasdaq:-0}\" \"${osx:-0}\""
+    /usr/bin/env bash -c "read -d '\n' nzym nasdaq osx <<< $(printf \"a\nb\nc\n\") ;  printf \"label NZ: %d | NQ: %d | OSX: %d\" \"${nzym:-0}\" \"${nasdaq:-0}\" \"${osx:-0}\""
+}
+
 # Song status info
 songStatus() {
     spotify="$(pidof spotify 1>/dev/null; \
@@ -204,6 +211,15 @@ Action netStatus
         downRead=$(head /sys/class/net/${device}/statistics/tx_bytes)
         sleep 1
     done
+Action stockStatus
+    set +xv
+    if wmiir remove /lbar/stockStatus 2>/dev/null; then
+        sleep 2
+    fi
+    echo colors "$WMII_NORMCOLORS" | wmiir create /lbar/stockStatus
+    while stockStatus | wmiir write /lbar/stockStatus; do
+        sleep 900
+    done
 #Action songStatus
     #set +xv
     #if wmiir remove /lbar/songStatus 2>/dev/null; then
@@ -329,5 +345,6 @@ fi
 progsfile="$(wmiir namespace)/.proglist"
 action status &
 action netStatus &
+action stockStatus &
 action songStatus &
 wi_proglist $PATH >$progsfile &
