@@ -202,7 +202,10 @@ set autoread " Auto reload if file is changed.
 set backspace=indent,eol,start
 set backupdir-=.
 set breakat=\ \ ;:,!?
-set clipboard& clipboard+=unnamed
+if has('clipboard')
+  xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
+  set clipboard& clipboard+=unnamed
+endif
 set cmdheight=2
 set cmdwinheight=5
 set colorcolumn=79
@@ -1346,8 +1349,8 @@ nnoremap <silent> <Space>m :call fzf#run({
 \ })<CR>
 
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor --ignore %s --ignore %s "%s"',
-\                   'bundle.js', 'bundle.js.map',
+\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore %s --ignore %s "%s"',
+\                   'deps', 'bundle.js', 'bundle.js.map',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.

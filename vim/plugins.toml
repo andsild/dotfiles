@@ -479,6 +479,7 @@ repo = 'https://github.com/kassio/neoterm.git'
 [[plugins]] # show yank history in unite
 repo = 'https://github.com/Shougo/neoyank.vim.git'
 depends = 'unite.vim'
+on_if = 'has("clipboard")'
 
 [[plugins]]
 repo = 'https://github.com/LnL7/vim-nix.git'

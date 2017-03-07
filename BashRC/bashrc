@@ -110,7 +110,9 @@ else
     fi
 
 fi
+# GIT_PROMPT_START="$(date +%H:%M)"
 GIT_PROMPT_END="$(whoami)@${HOSTNAME}\n:"
+# export GIT_PROMPT_START
 export GIT_PROMPT_END
 # Set config variables first
 export GIT_PROMPT_ONLY_IN_REPO=1
