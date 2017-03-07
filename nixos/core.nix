@@ -167,6 +167,7 @@ in
     graphicsmagick
     graphviz
     haskellPackages.cabal-install
+    # haskellPackages.intero
     haskellPackages.cabal2nix
     haskellPackages.ghc
     haskellPackages.ghc-mod

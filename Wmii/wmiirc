@@ -133,7 +133,7 @@ status() {
         '|' "${volume:-amixer error}" \
         ${battery} \
         '|' $(xkblayout-state print "%s") \
-        '|' $(TZ="America/New_York" date +%a\ %b\ %d\ \(%H\)"$(date +%H)":%M:%S\ %Y);
+        '|' $(TZ="America/New_York" date +%a\ %b\ %d\ \(%H\)"$(date +%H)":%M:%S);
 }
 
 echo colors $WMII_NORMCOLORS | wmiir create $noticebar
