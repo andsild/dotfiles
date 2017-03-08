@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
+#shellcheck disable=SC1091
 # Configure wmii
 wmiiscript=wmiirc # For wmii.sh
+export wmiiscript
 . wmii.sh
 
 
 # Configuration Variables
 MODKEY=Mod4
-UP=k
-DOWN=j
-LEFT=h
-RIGHT=l
+export UP=k
+export DOWN=j
+export LEFT=h
+export RIGHT=l
 
 # Bars
-noticetimeout=5
+export noticetimeout=5
 noticebar=/rbar/!notice
 
 # Colors tuples: "<text> <background> <border>"
@@ -24,7 +26,7 @@ export WMII_FOCUSCOLORS='#7F7F7F #000000 #BB0006'
 export WMII_BACKGROUND='#333333'
 export WMII_FONT='-*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*'
 
-set -- $(echo $WMII_NORMCOLORS $WMII_FOCUSCOLORS)
+set -- "$WMII_NORMCOLORS $WMII_FOCUSCOLORS"
 
 if [ -e /etc/NIXOS ]
 then
@@ -34,8 +36,8 @@ else
 fi
 
 # Menu history
-hist="${WMII_CONFPATH%%:*}/history"
-histnum=5000
+export hist="${WMII_CONFPATH%%:*}/history"
+export histnum=5000
 
 # Column Rules
 wmiir write /colrules <<!
@@ -55,20 +57,22 @@ stockStatus() {
     # nixos runs this scripts as /bin/sh in spite of the header,
     # so redirection (<<<) doesnt work, we need to invoke something else, fml.
     curlData=$(curl -s "http://download.finance.yahoo.com/d/quotes.csv?s=nzym-b.co,%5EIXIC,%5EOSEAX&f=l1")
-    # curlData=$(printf "1\n2\n3\n")
-    fromCommand=$(echo "${curlData}" | awk '
-    {
-        if (NR == 1) { printf "NZ %d DKK | ", $1; }
-        if (NR == 2) { printf "NQ %d$ | ",  $1; }
-        if (NR == 3) { printf "OSX %d NOK",   $1; }
-        }')
-    echo -n "label ${fromCommand}"
+    if [ -n "${curlData}" ]
+    then
+        fromCommand=$(echo "${curlData}" | awk '
+        {
+            if (NR == 1) { printf "NZ %d DKK | ", $1; }
+            if (NR == 2) { printf "NQ %d$ | ",  $1; }
+            if (NR == 3) { printf "OSX %d NOK",   $1; }
+            }')
+        echo -n "label ${fromCommand}"
+    fi
 }
 
 # Song status info
 songStatus() {
     spotify="$(pidof spotify 1>/dev/null; \
-        if [ "$?" -gt 0 ]
+        if pidof spotify 1>/dev/null;
         then
             printf " [[ No song playing ]]";
         else
@@ -83,7 +87,7 @@ songStatus() {
           print artist":"songName }
     ' ; fi)"
 
-    echo -n label ${spotify}
+    echo -n "label ${spotify}"
 }
 
 
@@ -92,10 +96,10 @@ netStatus()
     device=$(nmcli  -e yes -t -f DEVICE dev | head -n1)
     upRead="${1}"
     downRead="${2}"
-    upRead2=$(head /sys/class/net/${device}/statistics/rx_bytes)
-    downRead2=$(head /sys/class/net/${device}/statistics/tx_bytes)
-    downkBs=$(( (${upRead2} - ${upRead}) / 1024))
-    upkBs=$(( (${downRead2} - ${downRead}) / 1024))
+    upRead2=$(head /sys/class/net/"${device}"/statistics/rx_bytes)
+    downRead2=$(head /sys/class/net/"${device}"/statistics/tx_bytes)
+    downkBs=$(( (upRead2 - upRead) / 1024))
+    upkBs=$(( (downRead2 - downRead) / 1024))
 
     echo -n label ${downkBs}'/'${upkBs} kB/s $((upRead2 / 1024 / 1024))/$((downRead2 / 1024 / 1024)) MB
         #'|' iwgetid -r
@@ -103,7 +107,7 @@ netStatus()
 
 # Status Bar Info
 status() {
-    volume=`amixer sget Master`
+    volume=$(amixer sget Master)
     volume="${volume#Simple*\[}"
     volume="${volume%%]*]}"
     memstat="$(awk '
@@ -117,30 +121,30 @@ status() {
     END { print cacheMem":"(total-avail)"/"total" MB | "swap" MB" }' \
         /proc/meminfo)"
 
-    topProc=$(ps --user ${USER} hS -o pcpu:4,time,comm:20 --sort=-pcpu | head --lines=1)
+    topProc=$(ps --user "${USER}" hS -o pcpu:4,time,comm:20 --sort=-pcpu | head --lines=1)
 
 
     battery=""
     if [ -e "/sys/class/power_supply/BAT0/capacity" ]
     then
-        batStatus="$(printf "%.4s" "$(cat /sys/class/power_supply/BAT0/status)" | tr '[A-Z]' '[a-z]')"
+        batStatus="$(printf "%.4s" "$(cat /sys/class/power_supply/BAT0/status)" | tr '[:upper:]' '[:lower:]')"
         battery="| $(awk ' { if($1>100) { print "100%"; } else { printf("%3d%", $1); } } ' /sys/class/power_supply/BAT0/capacity) ${batStatus}"
     fi
 
-    echo -n label ${topProc} \
-        '|' ${memstat} \
-        '|' $(awk ' { gsub(".*/", "", $4); print $1, $2, $3, $4 } ' /proc/loadavg) \
+    echo -n label "${topProc}" \
+        '|' "${memstat}" \
+        '|' "$(awk ' { gsub(".*/", "", $4); print $1, $2, $3, $4 } ' /proc/loadavg)" \
         '|' "${volume:-amixer error}" \
-        ${battery} \
-        '|' $(xkblayout-state print "%s") \
-        '|' $(TZ="America/New_York" date +%a\ %b\ %d\ \(%H\)"$(date +%H)":%M:%S);
+        "${battery}" \
+        '|' "$(xkblayout-state print "%s")" \
+        '|' "$(TZ="America/New_York" date +%a\ %b\ %d\ \(%H\)"$(date +%H)":%M:%S)";
 }
 
-echo colors $WMII_NORMCOLORS | wmiir create $noticebar
+echo colors "$WMII_NORMCOLORS" | wmiir create $noticebar
 
 # Event processing
 
-wi_events <<'!'
+wi_events <<'^'
 # Events
 Event CreateTag
     echo colors "$WMII_NORMCOLORS$wi_newline" label "$@" | wmiir create "/lbar/$@"
@@ -314,7 +318,7 @@ Key $MODKEY-Control-t # Toggle all other key bindings
     esac
 
 KeyGroup Tag actions
-!
+^
     for i in 0 1 2 3 4 5 6 7 8 9; do
     cat <<!
 Key $MODKEY-$i       # Move to the numbered view
@@ -333,7 +337,8 @@ wmiir write /ctl <<!
     border 1
 !
 
-# dirty hack to avoid that the wmiirc sourced in /etc/ sets the background after this script is loaded
+# dirty hack to avoid that the wmiirc sourced from /etc/ sets the background after this script is loaded
+# SC2046 in shellcheck tries to prevent this
 setsid $(sleep 1 && echo feh --bg-scale "$(find ~/.images -type f  | sort -R | tail -1)") &
 
 if [ -e "${HOME}/dotfiles/Bash/pdfautoopen" ]
@@ -354,4 +359,4 @@ action status &
 action netStatus &
 action stockStatus &
 action songStatus &
-wi_proglist $PATH >$progsfile &
+wi_proglist "$PATH" >"$progsfile" &

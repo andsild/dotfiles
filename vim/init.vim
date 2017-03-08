@@ -1,21 +1,6 @@
 set termencoding=utf-8
 " vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
-"
-"
-let g:neomake_haskell_ghcmodlint_maker = {
-        \ 'exe': 'ghc-mod',
-        \ 'args': ['lint'],
-        \ 'mapexpr': 'substitute(v:val, "\n", "", "g")',
-        \ 'errorformat':
-            \ '%-G%\s%#,' .
-            \ '%f:%l:%c:%trror: %m,' .
-            \ '%f:%l:%c:%tarning: %m,'.
-            \ '%f:%l:%c: %trror: %m,' .
-            \ '%f:%l:%c: %tarning: %m,' .
-            \ '%E%f:%l:%c:%m,' .
-            \ '%E%f:%l:%c:,' .
-            \ '%Z%m'
-            \ }
+
 
 function! s:isWindows()
     return has('win64') || has('win32')
@@ -59,10 +44,10 @@ if len(g:path) == 0
     endif
 endif
 let g:toml_path = g:path . '/nvim/plugins.toml'
-let $MYVIMRC=g:path . '/nvim/init.vim' " normally set by default, but I use
-    " a custom script to invoke vim. When invoking from the command line with
-    " -u flag, MYVIMRC is not set. This also means that the file ".-rplugin"
-    " is not written
+" MYVIMRC is normally set by default, but I use vim with "-u" as a parementer
+" This also means that the file ".-rplugin" is not written. 
+" We fix this by setting MYVIMRC explicitly
+let $MYVIMRC=g:path . '/nvim/init.vim'
 if ! filereadable(g:toml_path)
     echom 'Could not find plugins.toml file at ' . g:toml_path
     echom 'Aborting init.vim loading'
@@ -86,7 +71,6 @@ if has('vim_starting')
     scriptencoding utf8
 
     filetype plugin indent on
-
 
     let $CACHE = expand('~/.cache')
     let s:dein_dir = finddir('dein.vim', '.;')
@@ -202,10 +186,6 @@ set autoread " Auto reload if file is changed.
 set backspace=indent,eol,start
 set backupdir-=.
 set breakat=\ \ ;:,!?
-if has('clipboard')
-  xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
-  set clipboard& clipboard+=unnamed
-endif
 set cmdheight=2
 set cmdwinheight=5
 set colorcolumn=79
@@ -230,7 +210,6 @@ set ignorecase " Ignore the case of normal letters.
 set incsearch " Enable incremental search.
 set infercase " Ignore case on insert completion.
 set isfname-== " Exclude = from isfilename.
-"set keywordprg=:help " Set keyword help.
 set laststatus=2
 set lazyredraw
 set linebreak
@@ -296,6 +275,10 @@ if $GOROOT !=? ''
 endif
 if !&verbose
   set spelllang=en_us
+endif
+if has('clipboard')
+  xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
+  set clipboard& clipboard+=unnamed
 endif
 
 nmap S <Plug>(smalls)
@@ -496,59 +479,70 @@ if has('mouse')
 endif
 
 let g:auto_save = 1
-let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
-let g:formatters_javascript = ['jscs']
-let g:myLang=0
-let g:UltiSnipsExpandTrigger='<c-s>'
-let g:UltiSnipsJumpForwardTrigger='zl'
-let g:UltiSnipsJumpBackwardTrigger='zh'
-let g:myLangList=['nospell','en_us', 'nb']
-let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_completion_start_length = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
 let g:deoplete#sources#jedi#show_docstring = 1
-let g:deoplete#omni#functions = {}
+let g:formatters_javascript = ['jscs']
 let g:jsx_ext_required = 0
-let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
+let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
+let g:myLang=0
+let g:myLangList=['nospell','en_us', 'nb']
 let g:unite#default_context = {
         \ 'vertical' : 0,
         \ 'short_source_names' : 1,
         \ }
-let g:unite_enable_split_vertically = 0
-let g:unite_winheight = 20
-let g:unite_enable_start_insert = 0
-let g:unite_enable_short_source_names = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
-let g:unite_source_rec_max_cache_files = -1
-let s:my_split = {'is_selectable': 1}
-let g:choosewin_overlay_enable = 1
-let g:choosewin_overlay_clear_multibyte = 1
-let g:choosewin_blink_on_land = 0
-let g:necoghc_enable_detailed_browse=1
-let g:haddock_browser = 'google-chrome-stable'
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:gitgutter_max_signs = 5000
+let g:Gitv_DoNotMapCtrlKey = 1
 let g:Gitv_OpenHorizontal = 'auto'
 let g:Gitv_WipeAllOnClose = 1
-let g:Gitv_DoNotMapCtrlKey = 1
+let g:choosewin_blink_on_land = 0
+let g:choosewin_overlay_clear_multibyte = 1
+let g:choosewin_overlay_enable = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
+let g:gitgutter_max_signs = 5000
+let g:haddock_browser = 'google-chrome-stable'
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:livepreview_previewer = 'zathura'
-let g:vimfiler_preview_action = 'auto_preview'
-let g:neomake_open_list = 2
-let g:neomake_list_height = 5
-let g:neomake_tex_enabled_makers = ['chktex']
+let g:necoghc_enable_detailed_browse=1
 let g:neomake_haskell_enabled_makers = ['ghcmodlint']
-let g:neomake_python_enabled_makers=['pylint']
-let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
+let g:neomake_list_height = 5
+let g:neomake_open_list = 2
+let g:neomake_tex_enabled_makers = ['chktex']
+let g:unite_enable_short_source_names = 1
+let g:unite_enable_split_vertically = 0
+let g:unite_enable_start_insert = 0
+let g:unite_source_rec_max_cache_files = -1
+let g:unite_winheight = 20
+let g:vimfiler_preview_action = 'auto_preview'
+let s:my_split = {'is_selectable': 1}
+let g:neomake_haskell_ghcmodlint_maker = {
+        \ 'exe': 'ghc-mod',
+        \ 'args': ['lint'],
+        \ 'mapexpr': 'substitute(v:val, "\n", "", "g")',
+        \ 'errorformat':
+            \ '%-G%\s%#,' .
+            \ '%f:%l:%c:%trror: %m,' .
+            \ '%f:%l:%c:%tarning: %m,'.
+            \ '%f:%l:%c: %trror: %m,' .
+            \ '%f:%l:%c: %tarning: %m,' .
+            \ '%E%f:%l:%c:%m,' .
+            \ '%E%f:%l:%c:,' .
+            \ '%Z%m'
+            \ }
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
+let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
+let g:neomake_python_enabled_makers=['pylint']
+let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_enable_clipboard = 0
 let g:vimfiler_safe_mode_by_default = 0
-let g:vimfiler_as_default_explorer = 1
 " %p : full path
 " %d : current directory
 " %f : filename
@@ -563,15 +557,15 @@ let g:vimfiler_sendto = {
       \ 'GIMP' : 'gimp %*',
       \ 'gedit' : 'gedit',
       \ }
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
+let &undodir=&directory
+let g:unite_source_menu_menus = {}
 let g:vimfiler_file_icon = ' '
 let g:vimfiler_ignore_pattern=['^\%(\.git\|\.DS_Store\)$']
-let g:vimfiler_readonly_file_icon = '✗'
-let &undodir=&directory
 let g:vimfiler_marked_file_icon = '✓'
-let g:unite_source_menu_menus = {}
+let g:vimfiler_readonly_file_icon = '✗'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
 let g:unite_source_menu_menus.enc = {
       \     'description' : 'Open with a specific character code again.',
       \ }
@@ -747,7 +741,6 @@ let g:unite_source_menu_menus.intero.command_candidates = [
     \['-> Start',
         \'InteroStart'],
 \]
-
 let g:unite_source_menu_menus.jedi = {
         \ 'description' : '            Python intellisense
             \                                [Space]i',
@@ -768,8 +761,6 @@ let g:unite_source_menu_menus.jedi.command_candidates = [
     \['-> Usages',
         \'call jedi#usages()'],
 \]
-
-
 let g:unite_source_menu_menus.tern = {
         \ 'description' : '            Javascript intellisense
             \                                [Space]i',
@@ -786,13 +777,13 @@ let g:unite_source_menu_menus.tern.command_candidates = [
     \['-> Rename',
         \'TernRename'],
 \]
-let g:finance_watchlist = ['NZYM-B.CO']
-let g:finance_format = '{symbol}: {LastTradePriceOnly} ({Change})'
-let g:finance_separator = "\n"
-let g:python_highlight_all = 1
-let g:vimsyntax_noerror = 1
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
+let g:finance_format = '{symbol}: {LastTradePriceOnly} ({Change})'
+let g:finance_separator = "\n"
+let g:finance_watchlist = ['NZYM-B.CO']
+let g:python_highlight_all = 1
+let g:vimsyntax_noerror = 1
 let g:markdown_fenced_languages = [
       \  'coffee',
       \  'css',
@@ -805,6 +796,9 @@ let g:markdown_fenced_languages = [
       \  'xml',
       \  'vim',
       \]
+let g:UltiSnipsExpandTrigger='<c-s>'
+let g:UltiSnipsJumpBackwardTrigger='zh'
+let g:UltiSnipsJumpForwardTrigger='zl'
 
 if s:IsMac()
    let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
@@ -823,7 +817,6 @@ else
 "   let g:deoplete#sources#clang#libclang_path = '/usr/lib64/llvm/libclang.so'
    "let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 endif
-
 
 if executable('ag')
     " Use ag in unite grep source.
@@ -897,7 +890,6 @@ function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
-
 function! s:set_syntax_of_user_defined_commands()
   redir => l:commandout
   silent! command
@@ -968,7 +960,6 @@ function! ToggleColorScheme()
     call s:ApplyCustomColorScheme()
   endif
 endfunction
-
 
 function! s:smart_close()
   if winnr('$') != 1
@@ -1053,7 +1044,6 @@ function! s:toggle_quickfix_window()
   endif
 endfunction
 
-
 function! ForwardParagraph()
   let l:cnt = v:count ? v:count : 1
   let l:i = 0
@@ -1099,7 +1089,6 @@ function! ToggleVariable(variable_name)
   endif
 endfunction
 
-
 if executable('pdftotext')
   command! -complete=file -nargs=1 Pdf call s:read_pdf(<q-args>)
   function! s:read_pdf(file)
@@ -1109,7 +1098,6 @@ if executable('pdftotext')
     setlocal nomodified
   endfunction
 endif
-
 
 function! GentooCleanConfig()
     " vint: -ProhibitCommandRelyOnUser
@@ -1178,13 +1166,12 @@ function! s:www_search()
     endif
 endfunction
 
-
 function! FindCabalSandboxRoot()
     return finddir('.cabal-sandbox', './;')
 endfunction
 
 function! FindCabalSandboxRootPackageConf()
-    return glob(FindCabalSandboxRoot().'/*-packages.conf.d'))
+    return glob(FindCabalSandboxRoot().'/*-packages.conf.d')
 endfunction
 
 function! s:strwidthpart(str, width)
@@ -1215,7 +1202,6 @@ function! s:all_files()
       return l:indexedFileList
   endfunction
 
-
 function! s:vimfiler_my_settings()
   call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
   call vimfiler#set_execute_file('txt', 'vim')
@@ -1236,17 +1222,6 @@ endfunction
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
-
-
-"call deoplete#enable()
-"call deoplete#custom#set('ghc', 'sorters', ['sorter_word'])
-"call deoplete#custom#set('_', 'converters', [
-"    \ 'converter_remove_paren',
-"    \ 'converter_remove_overlap',
-"    \ 'converter_truncate_abbr',
-"    \ 'converter_truncate_menu',
-"    \ 'converter_auto_delimiter',
-"    \ ])
 
 call unite#custom_action('openable', 'context_split', s:my_split)
 call unite#custom#profile('default', 'context', g:unite#default_context)
@@ -1328,8 +1303,6 @@ function! s:ag_handler(lines)
   endif
 endfunction
 
-
-
 function! s:buflist()
   redir => l:ls
   silent ls
@@ -1359,19 +1332,6 @@ command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
 \ 'down':    '50%'
 \ })
 
-let &titlestring="
-      \ %{expand('%:p:.:~')}%(%m%r%w%)
-      \ %<\(%{".s:SID_PREFIX()."strwidthpart(
-      \ fnamemodify(&filetype ==# 'vimfiler' ?
-      \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
-      \ &columns-len(expand('%:p:.:~')))}\) - VIM"
-let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-      \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"
-      \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
-      \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
-
-
 " Show which highlight group is active under cursor
 " (doesn't work with SpecialKey)
 " (see also :so $VIMRUNTIME/syntax/hitest.vim)
@@ -1393,7 +1353,6 @@ function! <SID>ToggleShowListChars()
     endif
 endfunc
 
-
 function! s:ApplyCustomColorScheme()
     if g:default_colorscheme ==# 'mayansmoke'
         highlight Comment ctermfg=27
@@ -1402,10 +1361,23 @@ function! s:ApplyCustomColorScheme()
     endif
 endfunction
 
+
+let &titlestring="
+      \ %{expand('%:p:.:~')}%(%m%r%w%)
+      \ %<\(%{".s:SID_PREFIX()."strwidthpart(
+      \ fnamemodify(&filetype ==# 'vimfiler' ?
+      \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
+      \ &columns-len(expand('%:p:.:~')))}\) - VIM"
+let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
+      \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
+      \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"
+      \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
+      \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
+
+
 call s:ApplyCustomColorScheme()
 
 " this has to be on the bottom
 if s:isWindows()
     set noshellslash
 endif
-
