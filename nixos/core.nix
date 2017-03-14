@@ -395,6 +395,7 @@ LABEL="com_leapmotion_leap_end"
     openssh.enable = true;
     openssh.extraConfig = ''Ciphers arcfour,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,arcfour128,arcfour256,aes128-cbc,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
 '';
+    openssh.permitRootLogin = "no";
     locate.enable = true;
     locate.interval = "*:0/30";
     locate.localuser = "nobody";
