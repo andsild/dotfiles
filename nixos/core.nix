@@ -24,6 +24,7 @@ in
 
 
    192.168.1.168 phone
+   129.241.103.34 baby
     '';
 
     wireless.userControlled.enable = true;
@@ -204,6 +205,8 @@ in
     nox
     ntfs3g
     nvim
+    mono
+    monodevelop
     openjdk
     openssl
     p7zip
@@ -347,6 +350,11 @@ in
     clamav.updater.enable = true;
     clamav.updater.frequency = 1;
 
+    printing = {
+      enable = true;
+      drivers = [ pkgs.hplipWithPlugin ];
+    };
+
     elk = {
       enable = false;
       systemdUnits = [ "kibana" ];
@@ -397,8 +405,6 @@ LABEL="com_leapmotion_leap_end"
     offlineimap.install = true;
     offlineimap.path = [ pkgs.gnupg1orig pkgs.python pkgs.gnupg pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite pkgs.pinentry  ];
     offlineimap.onCalendar = "*:0/3"; # every three minutes
-
-    printing.enable = true;
 
     xserver = {
       enable = true;
