@@ -2,21 +2,6 @@ set termencoding=utf-8
 " vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
 "
 "
-let g:neomake_haskell_ghcmodlint_maker = {
-        \ 'exe': 'ghc-mod',
-        \ 'args': ['lint'],
-        \ 'mapexpr': 'substitute(v:val, "\n", "", "g")',
-        \ 'errorformat':
-            \ '%-G%\s%#,' .
-            \ '%f:%l:%c:%trror: %m,' .
-            \ '%f:%l:%c:%tarning: %m,'.
-            \ '%f:%l:%c: %trror: %m,' .
-            \ '%f:%l:%c: %tarning: %m,' .
-            \ '%E%f:%l:%c:%m,' .
-            \ '%E%f:%l:%c:,' .
-            \ '%Z%m'
-            \ }
-
 function! s:isWindows()
     return has('win64') || has('win32')
 endfunction
@@ -539,7 +524,7 @@ let g:vimfiler_preview_action = 'auto_preview'
 let g:neomake_open_list = 2
 let g:neomake_list_height = 5
 let g:neomake_tex_enabled_makers = ['chktex']
-let g:neomake_haskell_enabled_makers = ['ghcmodlint']
+let g:neomake_haskell_enabled_makers = ['hlint']
 let g:neomake_python_enabled_makers=['pylint']
 let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
 let g:deoplete#keyword_patterns = {}
