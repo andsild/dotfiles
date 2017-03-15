@@ -404,10 +404,11 @@ LABEL="com_leapmotion_leap_end"
     locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" ];
 
 
-    offlineimap.enable = true;
-    offlineimap.install = true;
-    offlineimap.path = [ pkgs.gnupg1orig pkgs.python pkgs.gnupg pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite pkgs.pinentry  ];
-    offlineimap.onCalendar = "*:0/3"; # every three minutes
+    # TODO: enable doesnt disable timer, make PR...
+    offlineimap.enable = false;
+    #offlineimap.install = false;
+    #offlineimap.path = [ pkgs.gnupg1orig pkgs.python pkgs.gnupg pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite pkgs.pinentry  ];
+    #offlineimap.onCalendar = "*:0/3"; # every three minutes
 
     xserver = {
       enable = true;

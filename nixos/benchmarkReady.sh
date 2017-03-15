@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo systemctl stop clamav-daemon.service 
+# sudo systemctl stop clamav-daemon.service 
 sudo systemctl stop collectd.service 
 sudo systemctl stop cups.service 
 sudo systemctl stop display-manager.service 

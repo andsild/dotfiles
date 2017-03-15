@@ -134,7 +134,7 @@ status() {
     echo -n label "${topProc}" \
         '|' "${memstat}" \
         '|' "$(awk ' { gsub(".*/", "", $4); print $1, $2, $3, $4 } ' /proc/loadavg)" \
-        '|' "${volume:-amixer error}" \
+        '|' "${volume:-amixer error}"\
         "${battery}" \
         '|' "$(xkblayout-state print "%s")" \
         '|' "$(TZ="America/New_York" date +%a\ %b\ %d\ \(%H\)"$(date +%H)":%M:%S)";
