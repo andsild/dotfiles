@@ -451,10 +451,6 @@ on_ft = 'haskell'
 [[plugins]]
 repo = 'https://github.com/ryanoasis/vim-devicons.git'
 
-
-[[plugins]]
-repo = 'https://github.com/arakashic/chromatica.nvim.git'
-
 [[plugins]]
 repo = 'https://github.com/vim-scripts/SyntaxRange.git'
 
@@ -488,3 +484,6 @@ on_ft = 'nix'
 [[plugins]]
 repo = 'https://github.com/parsonsmatt/intero-neovim.git'
 on_ft = 'haskell'
+
+[[plugins]]
+repo = 'git@github.com:editorconfig/editorconfig-vim.git'

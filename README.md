@@ -8,11 +8,11 @@ Configuration files; pick as you please
 | Program     | Desc                                                                                                                                                  |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mitmproxy` | web interceptor |
+| `neovim`    | See vim directory |
 | `slock`     | lock your computer |
-| `xrandr`    | For connecting and configuring monitors. E.g:<br />`xrandr --auto LVDS1 --left-of VGA1`<br /> |
-| `neovim`       | See vim directory |
 | `workrave`  | prevent RSI and live healthily. |
-| `zathura`  | It has vim-bindings and color-invert. |
+| `zathura`   | It has vim-bindings and color-invert. |
+| `xrandr`    | For connecting and configuring monitors. E.g:<br />`xrandr --auto LVDS1 --left-of VGA1`<br /> |
 
 ## License
 I chose the most open one.

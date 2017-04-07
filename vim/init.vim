@@ -1183,12 +1183,12 @@ function! s:wcswidth(str)
 endfunction
 
 function! s:all_files()
-      let l:oldfilesFiltered = filter(copy(v:oldfiles),
-        \        "v:val !~# 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'")
-      let l:indexedFileList = extend(l:oldfilesFiltered,
-            \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
-      return l:indexedFileList
-  endfunction
+  let l:oldfilesFiltered = filter(copy(v:oldfiles),
+    \        "v:val !~# 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'")
+  let l:indexedFileList = extend(l:oldfilesFiltered,
+    \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+  return l:indexedFileList
+endfunction
 
 function! s:vimfiler_my_settings()
   call vimfiler#set_execute_file('vim', ['vim', 'notepad'])

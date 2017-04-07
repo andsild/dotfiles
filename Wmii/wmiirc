@@ -56,14 +56,15 @@ wmiir write /rules <<!
 stockStatus() {
     # nixos runs this scripts as /bin/sh in spite of the header,
     # so redirection (<<<) doesnt work, we need to invoke something else, fml.
-    curlData=$(curl -s "http://download.finance.yahoo.com/d/quotes.csv?s=nzym-b.co,%5EIXIC,%5EOSEAX&f=l1")
+    curlData=$(curl -s "http://download.finance.yahoo.com/d/quotes.csv?s=nzym-b.co,CXENSE.OL,%5EIXIC,%5EOSEAX&f=l1")
     if [ -n "${curlData}" ]
     then
         fromCommand=$(echo "${curlData}" | awk '
         {
-            if (NR == 1) { printf "NZ %d DKK | ", $1; }
-            if (NR == 2) { printf "NQ %d$ | ",  $1; }
-            if (NR == 3) { printf "OSX %d NOK",   $1; }
+            if (NR == 1) { printf "NZ %d | ", $1; }
+            else if (NR == 2) { printf "CX %d | ",   $1; }
+            else if (NR == 3) { printf "NQ %d | ",  $1; }
+            else if (NR == 4) { printf "OSX %d",   $1; }
             }')
         echo -n "label ${fromCommand}"
     fi

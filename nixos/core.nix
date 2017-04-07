@@ -44,29 +44,6 @@ in
       source = "${pkgs.slock.out}/bin/slock";
     };
   };
-  # deprecated flag
-  # security.setuidOwners = [
-  #     (lib.mkIf (builtins.elem pkgs.wireshark config.environment.systemPackages) {
-  #     # Limit access to dumpcap to root and members of the wireshark group.
-  #     source = "${pkgs.wireshark}/bin/dumpcap";
-  #     program = "dumpcap";
-  #     owner = "root";
-  #     group = "wireshark";
-  #     setuid = true;
-  #     setgid = false;
-  #     permissions = "u+rx,g+x";
-  #     })
-  #     (lib.mkIf (builtins.elem pkgs.smartmontools config.environment.systemPackages) {
-  #     # Limit access to smartctl to root and members of the munin group.
-  #     source = "${pkgs.smartmontools}/bin/smartctl";
-  #     program = "smartctl";
-  #     owner = "root";
-  #     group = "munin";
-  #     setuid = true;
-  #     setgid = false;
-  #     permissions = "u+rx,g+x";
-  #     })
-  # ];
 
   i18n = {
     consoleFont = "Lat2-Terminus16";
@@ -146,6 +123,7 @@ in
     ctags
     dmenu
     dos2unix
+    dotnetPackages.Nuget
     dpkg
     dzen2
     enlightenment.terminology
@@ -168,7 +146,6 @@ in
     graphicsmagick
     graphviz
     haskellPackages.cabal-install
-    # haskellPackages.intero
     haskellPackages.cabal2nix
     haskellPackages.ghc
     haskellPackages.ghc-mod
@@ -205,7 +182,7 @@ in
     nox
     ntfs3g
     nvim
-    mono
+    mono46
     monodevelop
     openjdk
     openssl
@@ -214,7 +191,6 @@ in
     pavucontrol
     pdftk
     perlPackages.ImageExifTool
-    pinentry
     pinentry
     pkgconfig
     posix_man_pages
@@ -259,7 +235,6 @@ in
     travis
     tree
     unetbootin
-    unzip
     unzip
     usbutils
     valgrind
@@ -403,18 +378,10 @@ LABEL="com_leapmotion_leap_end"
     locate.localuser = "nobody";
     locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" ];
 
-
-    # TODO: enable doesnt disable timer, make PR...
-    offlineimap.enable = false;
-    #offlineimap.install = false;
-    #offlineimap.path = [ pkgs.gnupg1orig pkgs.python pkgs.gnupg pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite pkgs.pinentry  ];
-    #offlineimap.onCalendar = "*:0/3"; # every three minutes
-
     xserver = {
       enable = true;
       layout = "us,no";
       xkbOptions = "eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no";
-     #exportConfiguration = true;
       windowManager.wmii.enable = true;
       windowManager.xmonad.enable = true;
       windowManager.xmonad.enableContribAndExtras = true;
