@@ -26,3 +26,6 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+
+GPG_TTY=$(tty)
+export GPG_TTY

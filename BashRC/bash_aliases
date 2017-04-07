@@ -26,7 +26,7 @@ alias hindent="hindent --style johan-tibell"
 alias l='ls'
 alias la='ls -A'
 alias lear="clear"
-alias ll='ls -al'
+alias ll='ls -alh'
 alias ls='ls -G --color=auto '
 alias lt='ls -t -r'
 alias m="make"
