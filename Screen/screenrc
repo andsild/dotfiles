@@ -24,3 +24,5 @@ bindkey ^[[1;3B focus bottom
 term screen-256color # match the color settings of st, which is 256color
 
 altscreen on # prevent vim, etc, from appearing in scrollback
+maptimeout 5
+term xterm

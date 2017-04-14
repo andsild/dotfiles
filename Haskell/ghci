@@ -42,4 +42,7 @@ let uli = U.fromList li
 mli <- V.thaw vli
 umli <- U.thaw uli
 
+:load ~/dotfiles/Haskell/ghciLess.hs
+:def rl reloadInLess
+
 :set +c
