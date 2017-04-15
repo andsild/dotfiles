@@ -44,14 +44,7 @@ alias upd="sudo emerge -uDN @world"
 alias us="setxkbmap us"
 alias vs=": vsplit  "
 alias www='cd /var/www/'
-
-if [ "$(hostname)" == "lille-login2.foreman.hpc.ntnu.no" ]
-then
-  alias stack='stack --stack-yaml=stack_sandbox.yaml'
-  alias nstack='nice stack --stack-yaml=stack_sandbox.yaml'
-else
-  alias nstack='nice stack'
-fi
+alias nstack='nice stack'
 
 function smallimg()
 {
