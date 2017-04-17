@@ -44,7 +44,6 @@ alias upd="sudo emerge -uDN @world"
 alias us="setxkbmap us"
 alias vs=": vsplit  "
 alias www='cd /var/www/'
-
 alias nstack='nice stack'
 
 function smallimg()

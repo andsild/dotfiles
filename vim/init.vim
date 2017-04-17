@@ -1310,8 +1310,8 @@ nnoremap <silent> <Space>m :call fzf#run({
 \ })<CR>
 
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore %s --ignore %s "%s"',
-\                   'deps', 'bundle.js', 'bundle.js.map',
+\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore %s --ignore %s --ignore-dir %s --ignore-dir %s "%s"',
+\                   'deps', 'bundle.js', 'bundle.js.map', '.stack-work', 'thesisexe/input',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
@@ -1348,7 +1348,6 @@ function! s:ApplyCustomColorScheme()
         highlight SpecialKey ctermfg=247 ctermbg=255
     endif
 endfunction
-
 
 let &titlestring="
       \ %{expand('%:p:.:~')}%(%m%r%w%)
