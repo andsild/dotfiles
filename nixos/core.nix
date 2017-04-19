@@ -155,6 +155,8 @@ in
     haskellPackages.hoogle
     haskellPackages.stylish-haskell
     haskellPackages.threadscope
+    hasklig
+    fira-code
     hicolor_icon_theme
     htop
     ii
