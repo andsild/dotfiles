@@ -235,18 +235,18 @@ set report=0
 set secure
 set sessionoptions="blank,curdir,folds,help,winsize"
 set shiftround
-set shiftwidth=4 " Round indent by shiftwidth.
+set shiftwidth=2 " Round indent by shiftwidth.
 set shortmess=aTI
 set showbreak=>\
 set showfulltag
 set showmatch " Highlight parenthesis.
 set showtabline=2
 set smarttab " Smart insert tab setting.
-set softtabstop=4 " Spaces instead <Tab>.
+set softtabstop=2 " Spaces instead <Tab>.
 set splitbelow
 set splitright
 set t_vb=
-set tabstop=4 " Substitute <Tab> with blanks.
+set tabstop=2 " Substitute <Tab> with blanks.
 set tags=./tags,tags,../tags
 set timeout timeoutlen=3000 ttimeoutlen=100 " Keymapping timeout.
 set title
@@ -355,7 +355,7 @@ nnoremap <C-o> <C-o>zz
 nnoremap <Down> :res -5<CR>
 nnoremap <Esc><Esc> :noh<CR>
 nnoremap <F1> <Esc>
-nnoremap <F9> :silent make <bar> redraw!<CR>
+nnoremap <F9> :silent make! <bar> redraw!<CR>
 nnoremap <Leader>w :<C-u>call ToggleOption('wrap')<CR>
 nnoremap <Left> :10winc<<CR>
 nnoremap <Plug>(open-browser-wwwsearch) :<C-u>call <SID>www_search()<CR>
