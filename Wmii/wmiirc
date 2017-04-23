@@ -304,8 +304,11 @@ Key $MODKEY-p # I would use compgen, if nixos permitted me :(
 Key $MODKEY-u
     eval wmiir setsid uzbl-browser &
 
-Key $MODKEY-Return
+Key $MODKEY-Shift-Return
     eval wmiir setsid $WMII_TERM &
+
+Key $MODKEY-Return
+    eval wmiir setsid st &
 
 KeyGroup Other
 Key $MODKEY-Control-t # Toggle all other key bindings
