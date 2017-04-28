@@ -232,6 +232,7 @@ in
     stress-ng
     sxiv
     sysstat
+    tcptrack
     telnet
     toilet
     travis
