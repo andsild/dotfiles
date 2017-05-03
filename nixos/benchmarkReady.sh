@@ -10,4 +10,3 @@ sudo systemctl stop docker.socket
 sudo systemctl stop phpfpm-pool1.service 
 sudo systemctl stop phpfpm.slice 
 sudo systemctl stop phpfpm.target 
-sudo systemctl --global stop offlineimap.timer

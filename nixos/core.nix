@@ -204,7 +204,7 @@ in
     python3Packages.virtualenv
     python3Packages.yamllint
     pythonPackages.goobook
-    pythonPackages.ipython
+    # pythonPackages.ipython
     pythonPackages.neovim
     pythonPackages.scipy
     pythonPackages.virtualenv
