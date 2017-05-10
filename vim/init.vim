@@ -2,44 +2,42 @@ set termencoding=utf-8
 " vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
 
 function! s:isWindows()
-    return has('win64') || has('win32')
+  return has('win64') || has('win32')
 endfunction
 
 function! s:IsMac()
-    let l:sysout=system('uname')
-    return has('unix') && match(l:sysout, '\cDarwin') == 0
+  let l:sysout=system('uname')
+  return has('unix') && match(l:sysout, '\cDarwin') == 0
 endfunction
 
 if s:isWindows()
     set shellslash
-    let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\' .
-    	\	';C:\Program Files (x86)\Python35-32;C:\Program Files (x86)\Python35-32\Scripts'
+    let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\' .  ';C:\Program Files (x86)\Python35-32;C:\Program Files (x86)\Python35-32\Scripts'
     let $PATH = s:winpythonpath . ';' . $VIM . ';' . $PATH
     let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
 elseif s:IsMac()
-    nnoremap <silent> ± ~
-    cnoremap ± ~
-    inoremap ± ~
-    inoremap § `
-    nnoremap ± ~
-    nnoremap § `
-    cnoremap ± ~
-    cnoremap § `
-    vnoremap ± ~
-    vnoremap § `
+  nnoremap <silent> ± ~
+  cnoremap ± ~
+  inoremap ± ~
+  inoremap § `
+  nnoremap ± ~
+  nnoremap § `
+  cnoremap ± ~
+  cnoremap § `
+  vnoremap ± ~
+  vnoremap § `
 
-    set shell=bash
+  set shell=bash
 else
-    set shell=bash
+  set shell=bash
 endif
-
 
 let g:path = expand($XDG_CONFIG_HOME)
 if len(g:path) == 0
     if s:isWindows()
-        let g:path = $USERPROFILE . expand('/AppData/Local')
+      let g:path = $USERPROFILE . expand('/AppData/Local')
     else
-        let g:path = expand('~/.config/')
+      let g:path = expand('~/.config/')
     endif
 endif
 let g:toml_path = g:path . '/nvim/plugins.toml'
@@ -66,52 +64,50 @@ if !isdirectory(expand($CACHE))
 endif
 
 if has('vim_starting')
-    set encoding=utf-8
-    scriptencoding utf8
+  set encoding=utf-8
+  scriptencoding utf8
 
-    filetype plugin indent on
+  filetype plugin indent on
 
-    let $CACHE = expand('~/.cache')
-    let s:dein_dir = finddir('dein.vim', '.;')
-    let g:dein_firsttime = 0
-    if s:dein_dir !=? '' || &runtimepath !~# '/dein.vim'
-    if s:dein_dir ==? '' && &runtimepath !~# '/dein.vim'
-        let s:dein_dir = expand('$CACHE/dein')
-            \. '/repos/github.com/Shougo/dein.vim'
-        if !isdirectory(s:dein_dir)
-        execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
-        let g:dein_firsttime = 1
-        endif
+  let $CACHE = expand('~/.cache')
+  let s:dein_dir = finddir('dein.vim', '.;')
+  let g:dein_firsttime = 0
+  if s:dein_dir !=? '' || &runtimepath !~# '/dein.vim'
+  if s:dein_dir ==? '' && &runtimepath !~# '/dein.vim'
+    let s:dein_dir = expand('$CACHE/dein')
+      \. '/repos/github.com/Shougo/dein.vim'
+    if !isdirectory(s:dein_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+    let g:dein_firsttime = 1
     endif
-    execute ' set runtimepath^=' . substitute(
-            \ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
-    endif
+  endif
+  execute ' set runtimepath^=' . substitute(
+    \ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
+  endif
 
-    let g:dein#install_progress_type = 'title'
-    let g:dein#install_message_type = 'none'
-    let g:dein#enable_notification = 1
+  let g:dein#install_progress_type = 'title'
+  let g:dein#install_message_type = 'none'
+  let g:dein#enable_notification = 1
 
-    let s:path = expand('$CACHE/dein')
-    call dein#begin(s:path, [expand('<sfile>')])
-
-
-    if has('nvim')
-        call dein#load_toml(g:toml_path, {'lazy': 0})
-    endif
-
-    call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  let s:path = expand('$CACHE/dein')
+  call dein#begin(s:path, [expand('<sfile>')])
 
 
-    call dein#end()
-    call dein#save_state()
+  call dein#load_toml(g:toml_path, {'lazy': 0})
 
-    if g:dein_firsttime
-        " call dein#install()
-        echom 'Please restart nvim and do: call dein#install()'
-        finish
-    endif
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
-    exe 'silent! colorscheme ' . g:default_colorscheme
+
+  call dein#end()
+  call dein#save_state()
+
+  if g:dein_firsttime
+    " call dein#install()
+    echom 'Please restart nvim and do: call dein#install()'
+    finish
+  endif
+
+  exe 'silent! colorscheme ' . g:default_colorscheme
 endif
 
 if !has('vim_starting') && dein#check_install()
@@ -190,7 +186,6 @@ set cmdwinheight=5
 set colorcolumn=79
 set commentstring=%s
 set complete=.
-set completeopt+=noinsert,noselect,preview,menu
 set conceallevel=2 concealcursor=iv
 set cpoptions-=m " Highlight when CursorMoved.
 set directory-=. " Set swap directory.
@@ -212,7 +207,7 @@ set isfname-== " Exclude = from isfilename.
 set laststatus=2
 set lazyredraw
 set linebreak
-set list
+" set list
 set matchpairs+=<:> " Highlight <>.
 set matchtime=3
 set modeline " Enable modeline.
@@ -280,6 +275,15 @@ if has('clipboard')
   set clipboard& clipboard+=unnamed
 endif
 
+if has('nvim')
+  set completeopt+=noinsert,noselect,preview,menu
+  tnoremap <ESC><ESC> <C-\><C-n>
+  tnoremap <C-6> <C-\><C-n><C-6>zz
+  tnoremap <Esc><Esc> <C-\><C-n>
+  tnoremap jj <C-\><C-n>
+  tnoremap kk <C-\><C-n>
+endif
+
 nmap S <Plug>(smalls)
 cmap <C-o>          <Plug>(unite_cmdmatch_complete)
 cmap w!! w !sudo tee > /dev/null %
@@ -325,8 +329,6 @@ nmap <buffer> tcd         <Plug>(unite_quick_match_default_action)
 nmap <silent> <F7> :call ToggleSpell()<CR>
 nmap <silent> B <Plug>CamelCaseMotion_b
 nmap <silent> W <Plug>CamelCaseMotion_w
-nmap <silent>j <Plug>(accelerated_jk_gj)
-nmap <silent>k <Plug>(accelerated_jk_gk)
 nmap <silent>sa <Plug>(operator-surround-append)a
 nmap <silent>sc <Plug>(operator-surround-replace)a
 nmap <silent>sd <Plug>(operator-surround-delete)a
@@ -423,11 +425,6 @@ omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 silent! nnoremap < <<
-tnoremap <ESC><ESC> <C-\><C-n>
-tnoremap <C-6> <C-\><C-n><C-6>zz
-tnoremap <Esc><Esc> <C-\><C-n>
-tnoremap jj <C-\><C-n>
-tnoremap kk <C-\><C-n>
 vmap <silent> gs <Plug>(openbrowser-search)
 vnoremap ; <Esc>
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
@@ -465,6 +462,11 @@ else
     nnoremap [Space]o :FZFMru<CR>
 endif
 
+if dein#check_install('accelerated_jk')
+  nmap <silent>j <Plug>(accelerated_jk_gj)
+  nmap <silent>k <Plug>(accelerated_jk_gk)
+endif
+
 if has('clipboard')
   xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
 endif
@@ -491,9 +493,9 @@ let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let g:myLang=0
 let g:myLangList=['nospell','en_us', 'nb']
 let g:unite#default_context = {
-        \ 'vertical' : 0,
-        \ 'short_source_names' : 1,
-        \ }
+    \ 'vertical' : 0,
+    \ 'short_source_names' : 1,
+    \ }
 let g:Gitv_DoNotMapCtrlKey = 1
 let g:Gitv_OpenHorizontal = 'auto'
 let g:Gitv_WipeAllOnClose = 1
@@ -538,13 +540,13 @@ let g:vimfiler_safe_mode_by_default = 0
 " %* : filenames
 " %# : filenames fullpath
 let g:vimfiler_sendto = {
-      \ 'unzip' : 'unzip %f',
-      \ 'zip' : 'zip -r %F.zip %*',
-      \ 'wav' : 'setsid mplayer %f &',
-      \ 'Inkscape' : 'inkspace',
-      \ 'GIMP' : 'gimp %*',
-      \ 'gedit' : 'gedit',
-      \ }
+  \ 'unzip' : 'unzip %f',
+  \ 'zip' : 'zip -r %F.zip %*',
+  \ 'wav' : 'setsid mplayer %f &',
+  \ 'Inkscape' : 'inkspace',
+  \ 'GIMP' : 'gimp %*',
+  \ 'gedit' : 'gedit',
+  \ }
 let &undodir=&directory
 let g:unite_source_menu_menus = {}
 let g:vimfiler_file_icon = ' '
@@ -555,54 +557,54 @@ let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_tree_leaf_icon = ' '
 let g:vimfiler_tree_opened_icon = '▾'
 let g:unite_source_menu_menus.enc = {
-      \     'description' : 'Open with a specific character code again.',
-      \ }
+  \     'description' : 'Open with a specific character code again.',
+  \ }
 let g:unite_source_menu_menus.enc.command_candidates = [
-      \       ['utf8', 'Utf8'],
-      \       ['iso2022jp', 'Iso2022jp'],
-      \       ['cp932', 'Cp932'],
-      \       ['euc', 'Euc'],
-      \       ['utf16', 'Utf16'],
-      \       ['utf16-be', 'Utf16be'],
-      \       ['jis', 'Jis'],
-      \       ['sjis', 'Sjis'],
-      \       ['unicode', 'Unicode'],
-      \     ]
+  \       ['utf8', 'Utf8'],
+  \       ['iso2022jp', 'Iso2022jp'],
+  \       ['cp932', 'Cp932'],
+  \       ['euc', 'Euc'],
+  \       ['utf16', 'Utf16'],
+  \       ['utf16-be', 'Utf16be'],
+  \       ['jis', 'Jis'],
+  \       ['sjis', 'Sjis'],
+  \       ['unicode', 'Unicode'],
+  \     ]
 let g:unite_source_menu_menus.fenc = {
-      \     'description' : 'Change file fenc option.',
-      \ }
+  \     'description' : 'Change file fenc option.',
+  \ }
 let g:unite_source_menu_menus.fenc.command_candidates = [
-      \       ['utf8', 'WUtf8'],
-      \       ['iso2022jp', 'WIso2022jp'],
-      \       ['cp932', 'WCp932'],
-      \       ['euc', 'WEuc'],
-      \       ['utf16', 'WUtf16'],
-      \       ['utf16-be', 'WUtf16be'],
-      \       ['jis', 'WJis'],
-      \       ['sjis', 'WSjis'],
-      \       ['unicode', 'WUnicode'],
-      \     ]
+  \       ['utf8', 'WUtf8'],
+  \       ['iso2022jp', 'WIso2022jp'],
+  \       ['cp932', 'WCp932'],
+  \       ['euc', 'WEuc'],
+  \       ['utf16', 'WUtf16'],
+  \       ['utf16-be', 'WUtf16be'],
+  \       ['jis', 'WJis'],
+  \       ['sjis', 'WSjis'],
+  \       ['unicode', 'WUnicode'],
+  \     ]
 let g:unite_source_menu_menus.ff = {
-      \     'description' : 'Change file format option.',
-      \ }
+  \     'description' : 'Change file format option.',
+  \ }
 let g:unite_source_menu_menus.ff.command_candidates = {
-      \       'unix'   : 'WUnix',
-      \       'dos'    : 'WDos',
-      \       'mac'    : 'WMac',
-      \     }
+  \       'unix'   : 'WUnix',
+  \       'dos'    : 'WDos',
+  \       'mac'    : 'WMac',
+  \     }
 let g:unite_source_menu_menus.unite = {
-      \     'description' : 'Start unite sources',
-      \ }
+  \     'description' : 'Start unite sources',
+  \ }
 let g:unite_source_menu_menus.unite.command_candidates = {
-      \       'history'    : 'Unite history/command',
-      \       'quickfix'   : 'Unite qflist -no-quit',
-      \       'resume'     : 'Unite -buffer-name=resume resume',
-      \       'directory'  : 'Unite -buffer-name=files '.
-      \             '-default-action=lcd directory_mru',
-      \       'mapping'    : 'Unite mapping',
-      \       'message'    : 'Unite output:message',
-      \       'scriptnames': 'Unite output:scriptnames',
-      \     }
+  \       'history'    : 'Unite history/command',
+  \       'quickfix'   : 'Unite qflist -no-quit',
+  \       'resume'     : 'Unite -buffer-name=resume resume',
+  \       'directory'  : 'Unite -buffer-name=files '.
+  \             '-default-action=lcd directory_mru',
+  \       'mapping'    : 'Unite mapping',
+  \       'message'    : 'Unite output:message',
+  \       'scriptnames': 'Unite output:scriptnames',
+  \     }
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_alias_aliases = {}
 let g:unite_source_alias_aliases.test = {
@@ -706,48 +708,48 @@ let g:unite_source_menu_menus.markdown.command_candidates = [
 \]
 
 let g:unite_source_menu_menus.intero = {
-        \ 'description' : '            Haskell intellisense
-            \                                [Space]i',
-    \}
+  \ 'description' : '            Haskell intellisense
+    \                                [Space]i',
+  \}
 let g:unite_source_menu_menus.intero.command_candidates = [
-    \['-> Eval',
-        \'InteroEval'],
-    \['-> Def',
-        \'InteroDef'],
-   \['-> Info',
-        \'InteroInfo'],
-    \['-> Type',
-        \'InteroType'],
-    \['-> Uses',
-        \'InteroUses'],
-    \['-> Rel04d',
-        \'InteroReload'],
-    \['-> Open REPL',
-        \'InteroOpen'],
-    \['-> Load',
-        \'InteroLoadCurrentModule'],
-    \['-> Start',
-        \'InteroStart'],
+  \['-> Eval',
+      \'InteroEval'],
+  \['-> Def',
+      \'InteroDef'],
+  \['-> Info',
+      \'InteroInfo'],
+  \['-> Type',
+      \'InteroType'],
+  \['-> Uses',
+      \'InteroUses'],
+  \['-> Rel04d',
+      \'InteroReload'],
+  \['-> Open REPL',
+      \'InteroOpen'],
+  \['-> Load',
+      \'InteroLoadCurrentModule'],
+  \['-> Start',
+      \'InteroStart'],
 \]
 let g:unite_source_menu_menus.jedi = {
         \ 'description' : '            Python intellisense
             \                                [Space]i',
     \}
 let g:unite_source_menu_menus.jedi.command_candidates = [
-    \['-> Assingments',
-        \'call jedi#goto_assignments()'],
-   \['-> Call signture',
-        \'call jedi#configure_call_signatures()'],
-    \['-> Definition',
-        \'call jedi#goto_definitions()'],
-    \['-> Rename',
-        \'call jedi#rename()'],
-    \['-> Documentation',
-        \'call jedi#show_documentation()'],
-    \['-> Import',
-        \'call jedi#py_import()'],
-    \['-> Usages',
-        \'call jedi#usages()'],
+  \['-> Assingments',
+      \'call jedi#goto_assignments()'],
+  \['-> Call signture',
+      \'call jedi#configure_call_signatures()'],
+  \['-> Definition',
+      \'call jedi#goto_definitions()'],
+  \['-> Rename',
+      \'call jedi#rename()'],
+  \['-> Documentation',
+      \'call jedi#show_documentation()'],
+  \['-> Import',
+      \'call jedi#py_import()'],
+  \['-> Usages',
+      \'call jedi#usages()'],
 \]
 let g:unite_source_menu_menus.tern = {
         \ 'description' : '            Javascript intellisense
@@ -773,17 +775,17 @@ let g:finance_watchlist = ['NZYM-B.CO']
 let g:python_highlight_all = 1
 let g:vimsyntax_noerror = 1
 let g:markdown_fenced_languages = [
-      \  'coffee',
-      \  'css',
-      \  'erb=eruby',
-      \  'javascript',
-      \  'js=javascript',
-      \  'json=javascript',
-      \  'ruby',
-      \  'sass',
-      \  'xml',
-      \  'vim',
-      \]
+  \  'coffee',
+  \  'css',
+  \  'erb=eruby',
+  \  'javascript',
+  \  'js=javascript',
+  \  'json=javascript',
+  \  'ruby',
+  \  'sass',
+  \  'xml',
+  \  'vim',
+  \]
 let g:UltiSnipsExpandTrigger='<c-s>'
 let g:UltiSnipsJumpBackwardTrigger='zh'
 let g:UltiSnipsJumpForwardTrigger='zl'
@@ -792,28 +794,28 @@ if s:IsMac()
    let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
    let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/include'
 else
-	let g:deoplete#sources#clang#libclang_path=system(
-		\ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
-		\ . 'IFS=":" ; for dir in ${paths} ; do '
-		\ . 'test -e ${dir}/libclang.so && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
-		\ . 'done ; unset IFS')
-   let g:deoplete#sources#clang#clang_header = system(
-	        \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
-		\ . 'IFS=":" ; for dir in ${paths} ; do '
-		\ . 'test -e ${dir}/../include/clang && echo -n $(readlink -f ${dir}/../include/clang) && break; '
-		\ . 'done ; unset IFS')
+  let g:deoplete#sources#clang#libclang_path=system(
+    \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
+    \ . 'IFS=":" ; for dir in ${paths} ; do '
+    \ . 'test -e ${dir}/libclang.so && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
+    \ . 'done ; unset IFS')
+ let g:deoplete#sources#clang#clang_header = system(
+    \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
+    \ . 'IFS=":" ; for dir in ${paths} ; do '
+    \ . 'test -e ${dir}/../include/clang && echo -n $(readlink -f ${dir}/../include/clang) && break; '
+    \ . 'done ; unset IFS')
 "   let g:deoplete#sources#clang#libclang_path = '/usr/lib64/llvm/libclang.so'
    "let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 endif
 
 if executable('ag')
-    " Use ag in unite grep source.
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts =
-    \ '-i --ignore-dir "*bin*" -U --line-numbers --nocolor --nogroup --hidden --ignore ' .
-    \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' --ignore ''tags'' ' .
-    \ '--ignore ''.trx'' --ignore ''.xml'' --ignore ''.tt'''
-    let g:unite_source_grep_recursive_opt = ''
+  " Use ag in unite grep source.
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts =
+  \ '-i --ignore-dir "*bin*" -U --line-numbers --nocolor --nogroup --hidden --ignore ' .
+  \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' --ignore ''tags'' ' .
+  \ '--ignore ''.trx'' --ignore ''.xml'' --ignore ''.tt'''
+  let g:unite_source_grep_recursive_opt = ''
 endif
 
 
@@ -826,15 +828,15 @@ command! WUtf8 setlocal fenc=utf-8
 command! WUnicode WUtf16
 
 command! FZFGit call fzf#run({
-            \ 'source':  'git ls-files',
-            \ 'sink':    'edit',
-            \ 'options': '-m -x +s -e',
-            \ 'down':    '40%' })
+  \ 'source':  'git ls-files',
+  \ 'sink':    'edit',
+  \ 'options': '-m -x +s -e',
+  \ 'down':    '40%' })
 command! FZFMru call fzf#run({
-            \ 'source':  reverse(s:all_files()),
-            \ 'sink':    'edit',
-            \ 'options': '-m -x +s -e',
-            \ 'down':    '40%' })
+  \ 'source':  reverse(s:all_files()),
+  \ 'sink':    'edit',
+  \ 'options': '-m -x +s -e',
+  \ 'down':    '40%' })
 command! -bang -complete=file -nargs=? WUnix write<bang> ++fileformat=unix <args> | edit <args>
 " Display diff with the file.
 command! -nargs=1 -complete=file Diff vertical diffsplit <args>
@@ -843,9 +845,9 @@ command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd 
 " Disable diff mode.
 command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
 command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
-      \ strftime('%Y-%m-%d.md'))
+  \ strftime('%Y-%m-%d.md'))
 command! -range -nargs=1 AddNumbers
-      \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
+  \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
 command! FZFLines mksession! /tmp/layout.vim | call fzf#run({
 \   'source':  <sid>buffer_lines(),
 \   'sink':    function('<sid>line_handler'),
@@ -1088,61 +1090,60 @@ if executable('pdftotext')
 endif
 
 function! GentooCleanConfig()
-    " vint: -ProhibitCommandRelyOnUser
-    silent! normal :%s/^#.*//g
-    silent! normal :%s/-\v(\d{1,2}(\.)?){1,4}(-r\d)?//g
-    silent! normal %s/>=//g
-    silent! normal :g/^$/d
-    " vint: +ProhibitCommandRelyOnUser
-    :sort u<CR>
-    :noh<CR>
+  " vint: -ProhibitCommandRelyOnUser
+  silent! normal :%s/^#.*//g
+  silent! normal :%s/-\v(\d{1,2}(\.)?){1,4}(-r\d)?//g
+  silent! normal %s/>=//g
+  silent! normal :g/^$/d
+  " vint: +ProhibitCommandRelyOnUser
+  :sort u<CR>
+  :noh<CR>
 endfunction
 
 function! s:check_back_space() abort
-    let l:col = col('.') - 1
-    return !l:col || getline('.')[l:col - 1]  =~? '\s'
+  let l:col = col('.') - 1
+  return !l:col || getline('.')[l:col - 1]  =~? '\s'
 endfunction
 
-
 function! s:smart_search_expr(expr1, expr2)
-    return line('$') > 5000 ?  a:expr1 : a:expr2
+  return line('$') > 5000 ?  a:expr1 : a:expr2
 endfunction
 
 function! s:unite_my_settings()
-    mksession! /tmp/layout.vim
-    " Directory partial match.
-    call unite#custom#alias('file', 'h', 'left')
-    call unite#custom#default_action('directory', 'narrow')
-    " call unite#custom#default_action('file', 'my_tabopen')
+  mksession! /tmp/layout.vim
+  " Directory partial match.
+  call unite#custom#alias('file', 'h', 'left')
+  call unite#custom#default_action('directory', 'narrow')
+  " call unite#custom#default_action('file', 'my_tabopen')
 
-    call unite#custom#default_action('versions/git/status', 'commit')
-    imap <buffer>  jj        <Plug>(unite_insert_leave)
-    imap <buffer> ;          <Plug>(unite_quick_match_default_action)
-    imap <buffer> <C-w>      <Plug>(unite_delete_backward_path)
-    imap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
-    nmap <buffer> ;          <Plug>(unite_quick_match_default_action)
-    nmap <buffer> <C-j>      <Plug>(unite_toggle_auto_preview)
-    nmap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
-    nmap <buffer> ZQ      ZQ:wincmd p<CR>
-    nmap <buffer> cd         <Plug>(unite_quick_match_default_action)
-    nnoremap <silent><buffer><expr> l unite#smart_map('l', unite#do_action('default'))
+  call unite#custom#default_action('versions/git/status', 'commit')
+  imap <buffer>  jj        <Plug>(unite_insert_leave)
+  imap <buffer> ;          <Plug>(unite_quick_match_default_action)
+  imap <buffer> <C-w>      <Plug>(unite_delete_backward_path)
+  imap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
+  nmap <buffer> ;          <Plug>(unite_quick_match_default_action)
+  nmap <buffer> <C-j>      <Plug>(unite_toggle_auto_preview)
+  nmap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
+  nmap <buffer> ZQ      ZQ:wincmd p<CR>
+  nmap <buffer> cd         <Plug>(unite_quick_match_default_action)
+  nnoremap <silent><buffer><expr> l unite#smart_map('l', unite#do_action('default'))
 
 
-    let l:unite = unite#get_current_unite()
-    if l:unite.profile_name ==# '^search'
-        nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-    else
-        nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-    endif
-    nnoremap <silent><buffer><expr> !     unite#do_action('start')
-    nnoremap <buffer><expr> S      unite#mappings#set_current_filters(empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
+  let l:unite = unite#get_current_unite()
+  if l:unite.profile_name ==# '^search'
+    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+  else
+    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+  endif
+  nnoremap <silent><buffer><expr> !     unite#do_action('start')
+  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
 endfunction
 
 " My custom split action
 function! s:my_split.func(candidate)
     let l:split_action = 'vsplit'
     if winwidth(winnr('#')) <= 2 * (&textwidth ? &textwidth : 80)
-        let l:split_action = 'split'
+      let l:split_action = 'split'
     endif
     call unite#take_action(l:split_action, a:candidate)
 endfunction
@@ -1202,7 +1203,7 @@ function! s:vimfiler_my_settings()
   " Migemo search.
   if !empty(unite#get_filters('matcher_migemo'))
     nnoremap <silent><buffer><expr> /  line('$') > 10000 ?  'g/' :
-          \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
+      \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
   endif
 
 endfunction
@@ -1211,25 +1212,27 @@ function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
-call unite#custom_action('openable', 'context_split', s:my_split)
-call unite#custom#profile('default', 'context', g:unite#default_context)
-call unite#custom#source(
-        \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
-        \ ['converter_relative_word', 'matcher_fuzzy',
-        \  'matcher_project_ignore_files'])
-call unite#custom#source(
-        \ 'file_mru', 'matchers',
-        \ ['matcher_project_files', 'matcher_fuzzy',
-        \  'matcher_hide_hidden_files', 'matcher_hide_current_file'])
-call unite#custom#source(
-        \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
-        \ ['converter_file_directory'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#profile('action', 'context', {
-        \ 'start_insert' : 1
-        \ })
+if has('nvim')
+  call unite#custom_action('openable', 'context_split', s:my_split)
+  call unite#custom#profile('default', 'context', g:unite#default_context)
+  call unite#custom#source(
+    \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
+    \ ['converter_relative_word', 'matcher_fuzzy',
+    \  'matcher_project_ignore_files'])
+  call unite#custom#source(
+    \ 'file_mru', 'matchers',
+    \ ['matcher_project_files', 'matcher_fuzzy',
+    \  'matcher_hide_hidden_files', 'matcher_hide_current_file'])
+  call unite#custom#source(
+    \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
+    \ ['converter_file_directory'])
+  call unite#filters#sorter_default#use(['sorter_rank'])
+  call unite#custom#profile('action', 'context', {
+    \ 'start_insert' : 1
+    \ })
+  call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
+endif
 
-call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
 
 function! s:line_handler(l)
   let l:keys = split(a:l, ':\t')
@@ -1331,40 +1334,40 @@ function! <SID>SynStack()
 endfunc
 
 function! <SID>ToggleShowListChars()
-    redir => l:listchars
-    silent set listchars
-    redir end
-    if l:listchars =~# '.*trail.*'
-        set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:%
-    else
-        setlocal listchars+=trail:»,space:␣,eol:┌
-    endif
+  redir => l:listchars
+  silent set listchars
+  redir end
+  if l:listchars =~# '.*trail.*'
+    set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:%
+  else
+    setlocal listchars+=trail:»,space:␣,eol:┌
+  endif
 endfunc
 
 function! s:ApplyCustomColorScheme()
-    if g:default_colorscheme ==# 'mayansmoke'
-        highlight Comment ctermfg=27
-        highlight Conceal ctermfg=019 ctermbg=255
-        highlight SpecialKey ctermfg=247 ctermbg=255
-    endif
+  if g:default_colorscheme ==# 'mayansmoke'
+    highlight Comment ctermfg=27
+    highlight Conceal ctermfg=019 ctermbg=255
+    highlight SpecialKey ctermfg=247 ctermbg=255
+  endif
 endfunction
 
 let &titlestring="
-      \ %{expand('%:p:.:~')}%(%m%r%w%)
-      \ %<\(%{".s:SID_PREFIX()."strwidthpart(
-      \ fnamemodify(&filetype ==# 'vimfiler' ?
-      \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
-      \ &columns-len(expand('%:p:.:~')))}\) - VIM"
+  \ %{expand('%:p:.:~')}%(%m%r%w%)
+  \ %<\(%{".s:SID_PREFIX()."strwidthpart(
+  \ fnamemodify(&filetype ==# 'vimfiler' ?
+  \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
+  \ &columns-len(expand('%:p:.:~')))}\) - VIM"
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-      \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"
-      \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
-      \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
+  \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
+  \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"
+  \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
+  \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
 
 call s:ApplyCustomColorScheme()
 
 " this has to be on the bottom
 if s:isWindows()
-    set noshellslash
+  set noshellslash
 endif
