@@ -462,7 +462,7 @@ else
     nnoremap [Space]o :FZFMru<CR>
 endif
 
-if dein#check_install('accelerated_jk')
+if dein#check_install(['accelerated_jk'])
   nmap <silent>j <Plug>(accelerated_jk_gj)
   nmap <silent>k <Plug>(accelerated_jk_gk)
 endif

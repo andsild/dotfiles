@@ -22,7 +22,6 @@ in
     127.0.0.1 www.imgur.com
     127.0.0.1 imgur.com
 
-
    192.168.1.168 phone
    129.241.103.34 baby
     '';
@@ -55,15 +54,15 @@ in
   time.timeZone = "Europe/Oslo";
 
   nixpkgs.config = {
-    allowUnfree = true;
-    chromium = {
-      enablePepperFlash = true;
-      enablePepperPDF = true;
-    };
-    firefox = {
-      enableGoogleTalkPlugin = true;
-      enableAdobeFlash = true;
-    };
+    allowUnfree = false;
+    # chromium = {
+    #   enablePepperFlash = true;
+    #   enablePepperPDF = true;
+    # };
+    # firefox = {
+    #   enableGoogleTalkPlugin = true;
+    #   enableAdobeFlash = true;
+    # };
     virtualbox.enableExtenstionPack = true;
     zathura.useMupdf = true;
   };
@@ -80,7 +79,7 @@ in
   };
 
   fonts = {
-    enableCoreFonts = true;
+    enableCoreFonts = false;
     enableFontDir = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
@@ -173,6 +172,7 @@ in
     man-pages
     manpages
     mplayer
+    mpv
     msmtp
     ncurses
     neomutt
@@ -211,6 +211,7 @@ in
     pythonPackages.youtube-dl
     qalculate-gtk
     qemu
+    qutebrowser
     rdesktop
     rsync
     ruby
@@ -328,10 +329,10 @@ in
     clamav.updater.enable = true;
     clamav.updater.frequency = 1;
 
-    printing = {
-      enable = true;
-      drivers = [ pkgs.hplipWithPlugin ];
-    };
+    offlineimap.enable = true;
+    offlineimap.install = true;
+    offlineimap.path = [ pkgs.gnupg1orig pkgs.python pkgs.gnupg pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite pkgs.pinentry  ];
+    offlineimap.onCalendar = "*:0/4"; # every three minutes
 
     elk = {
       enable = false;
@@ -558,7 +559,6 @@ LABEL="com_leapmotion_leap_end"
   virtualisation.virtualbox.host.enable = true;
   virtualisation.docker.enable = true;
 
-
   users.extraUsers.andesil =
   {
     isNormalUser = true;
@@ -566,11 +566,9 @@ LABEL="com_leapmotion_leap_end"
     description = "Anders Sildnes";
     extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" "wireshark" ];
   };
-  users.extraGroups.wireshark.gid = 500;
 
   sound.mediaKeys = {
     enable = true;
-    volumeStep = "1000";
   };
   system.stateVersion = "17.09";
 }

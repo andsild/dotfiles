@@ -297,6 +297,8 @@ Key $MODKEY-m # Set column to max mode
     wmiir xwrite /tag/sel/ctl colmode sel stack+max
 
 KeyGroup Running programs
+Key $MODKEY-q
+    eval wmiir setsid qutebrowser &
 Key $MODKEY-c
     eval wmiir setsid chromium &
 Key $MODKEY-p # I would use compgen, if nixos permitted me :(
