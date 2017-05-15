@@ -333,8 +333,8 @@ nmap <silent>sa <Plug>(operator-surround-append)a
 nmap <silent>sc <Plug>(operator-surround-replace)a
 nmap <silent>sd <Plug>(operator-surround-delete)a
 nmap <silent>sr <Plug>(operator-surround-replace)a
-nmap gj j
-nmap gk k
+nmap j gj
+nmap k gk
 nmap gs <Plug>(open-browser-wwwsearch)
 nnoremap    ;u [unite]
 nnoremap <leader>u :diffupdate<CR>
