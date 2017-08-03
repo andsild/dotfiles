@@ -134,7 +134,7 @@ unite_sources = 'tab'
 # scrolling faster
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
-mappings = '<Plug>(accelerated_jk_'
+mappings = '<Plug>(accelerated_jk)'
 
 [[plugins]]
 repo = 'vim-jp/autofmt'

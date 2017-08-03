@@ -338,6 +338,7 @@ nmap k gk
 nmap gs <Plug>(open-browser-wwwsearch)
 nnoremap    ;u [unite]
 nnoremap <leader>u :diffupdate<CR>
+nnoremap <leader>t :term<CR>
 nnoremap    [Space]fe   :<C-u>VimFilerExplorer<CR>
 nnoremap    [Tag]   <Nop>
 nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
@@ -383,7 +384,8 @@ nnoremap <silent> [Space]1 :QuickRun<CR>
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
-nnoremap <silent> [Space]t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+" nnoremap <silent> [Space]t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+nnoremap <silent> [Space]t :Tags<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 nnoremap <silent> [Space]di :Unite menu:diff -silent -start-insert -winheight=10 <CR>
 nnoremap <silent> <leader>en :<C-u>setlocal encoding? fenc? fencs?<CR>
@@ -462,7 +464,7 @@ else
     nnoremap [Space]o :FZFMru<CR>
 endif
 
-if dein#check_install(['accelerated_jk'])
+if dein#check_install(['accelerated-jk'])
   nmap <silent>j <Plug>(accelerated_jk_gj)
   nmap <silent>k <Plug>(accelerated_jk_gk)
 endif
@@ -797,7 +799,7 @@ else
   let g:deoplete#sources#clang#libclang_path=system(
     \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
     \ . 'IFS=":" ; for dir in ${paths} ; do '
-    \ . 'test -e ${dir}/libclang.so && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
+    \ . 'test -e ${dir}/libclang.so.1 && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
     \ . 'done ; unset IFS')
  let g:deoplete#sources#clang#clang_header = system(
     \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
@@ -1313,8 +1315,8 @@ nnoremap <silent> <Space>m :call fzf#run({
 \ })<CR>
 
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore %s --ignore %s --ignore-dir %s --ignore-dir %s "%s"',
-\                   'deps', 'bundle.js', 'bundle.js.map', '.stack-work', 'thesisexe/input',
+\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore %s --ignore %s --ignore-dir %s --ignore-dir %s "%s"',
+\                   'tools', 'apidoc', 'apps', 'build-tools', 'build-redo', 'dummy-data', 'deps', 'bundle.js', 'bundle.js.map', '.stack-work', 'thesisexe/input',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
@@ -1322,6 +1324,35 @@ command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
 \            '--color hl:68,hl+:110',
 \ 'down':    '50%'
 \ })
+
+function! s:tags_sink(line)
+  let parts = split(a:line, '\t\zs')
+  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
+  execute 'silent e' parts[1][:-2]
+  let [magic, &magic] = [&magic, 0]
+  execute excmd
+  let &magic = magic
+endfunction
+
+function! s:tags()
+  if empty(tagfiles())
+    echohl WarningMsg
+    echom 'Preparing tags'
+    echohl None
+    call system('ctags -R --force-language=java')
+  endif
+
+  call fzf#run({
+  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+  \            '| grep -v -a ^!',
+  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index ' .
+  \            '--multi --bind ctrl-a:select-all,ctrl-d:deselect-all ' .
+  \            '--color hl:68,hl+:110',
+  \ 'down':    '40%',
+  \ 'sink':    function('s:tags_sink')})
+endfunction
+
+command! Tags call s:tags()
 
 " Show which highlight group is active under cursor
 " (doesn't work with SpecialKey)
@@ -1363,7 +1394,6 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
   \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"
   \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
   \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
-
 
 call s:ApplyCustomColorScheme()
 

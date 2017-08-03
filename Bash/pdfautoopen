@@ -3,7 +3,7 @@
 
 # "pdf" is just a function to open up a pdf, it can be replaced by
 # "setsid evince ${file}" or similar
-source /home/andesil/dotfiles/Bash/pdf
+source "/home/andsild/dotfiles/Bash/pdf"
 
 pdfautoopen()
 {
