@@ -487,3 +487,6 @@ on_ft = 'haskell'
 
 [[plugins]]
 repo = 'git@github.com:editorconfig/editorconfig-vim.git'
+
+[[plugins]]
+repo = 'https://github.com/majutsushi/tagbar'

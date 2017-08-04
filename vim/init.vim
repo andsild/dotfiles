@@ -336,6 +336,7 @@ nmap <silent>sr <Plug>(operator-surround-replace)a
 nmap j gj
 nmap k gk
 nmap gs <Plug>(open-browser-wwwsearch)
+nmap <F8> :TagbarToggle<CR>
 nnoremap    ;u [unite]
 nnoremap <leader>u :diffupdate<CR>
 nnoremap <leader>t :term<CR>
@@ -385,7 +386,7 @@ nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespa
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 " nnoremap <silent> [Space]t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-nnoremap <silent> [Space]t :Tags<CR>
+nnoremap <silent> [Space]T :Tags<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 nnoremap <silent> [Space]di :Unite menu:diff -silent -start-insert -winheight=10 <CR>
 nnoremap <silent> <leader>en :<C-u>setlocal encoding? fenc? fencs?<CR>
@@ -1315,8 +1316,8 @@ nnoremap <silent> <Space>m :call fzf#run({
 \ })<CR>
 
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore %s --ignore %s --ignore-dir %s --ignore-dir %s "%s"',
-\                   'tools', 'apidoc', 'apps', 'build-tools', 'build-redo', 'dummy-data', 'deps', 'bundle.js', 'bundle.js.map', '.stack-work', 'thesisexe/input',
+\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore %s --ignore %s --ignore-dir %s --ignore-dir %s "%s"',
+\                   'bazel', 'tools', 'apidoc', 'apps', 'build-tools', 'build-redo', 'dummy-data', 'deps', 'bundle.js', 'bundle.js.map', '.stack-work', 'thesisexe/input',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
@@ -1346,9 +1347,8 @@ function! s:tags()
   \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
   \            '| grep -v -a ^!',
   \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index ' .
-  \            '--multi --bind ctrl-a:select-all,ctrl-d:deselect-all ' .
-  \            '--color hl:68,hl+:110',
-  \ 'down':    '40%',
+  \            '--multi --bind ctrl-a:select-all,ctrl-d:deselect-all ',
+  \ 'down':    '30%',
   \ 'sink':    function('s:tags_sink')})
 endfunction
 
