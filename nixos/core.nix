@@ -384,6 +384,7 @@ LABEL="com_leapmotion_leap_end"
 
     xserver = {
       enable = true;
+      # setxkbmap  -option eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no
       layout = "us,no";
       xkbOptions = "eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no";
       windowManager.wmii.enable = true;

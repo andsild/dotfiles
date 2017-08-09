@@ -136,3 +136,6 @@ _pip_completion()
 complete -o default -F _pip_completion pip
 # pip bash completion end
 
+
+[ -f "/etc/bash_completion.d/git-prompt" ] && source /etc/bash_completion.d/git-prompt
+[ -f "/etc/bash_completion.d/bazel" ] && source /etc/bash_completion.d/bazel

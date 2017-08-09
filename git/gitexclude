@@ -1,6 +1,12 @@
 todo.txt
 todo
-concern.txt
 tags
 *.dll
 *.swp
+*.class
+*.project
+*.classpath
+*snapshot/
+*[Pp]lay[Gg]round*
+testng.xml
+collections/
