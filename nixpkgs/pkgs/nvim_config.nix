@@ -10,7 +10,26 @@
         {
             names = [
             # This plugin parses nix configuration files in vim
-                "vim-nix"
+            "vim-nix"
+            "fugitive"
+            "ghcmod"
+            "vim-auto-save"
+            "vim-autoformat"
+            "neomake"
+            "deoplete-nvim"
+            "deoplete-jedi"
+            "deoplete-go"
+            "editorconfig-vim"
+            "vim-webdevicons"
+            "neco-ghc"
+            "tagbar"
+            "UltiSnips"
+            "vim-haskellConcealPlus"
+            "vim-markdown"
+            "vim-coffee-script"
+            "fzf-vim"
+            "neco-vim"
+            "vim-quickrun"
             ];
         }
     ];

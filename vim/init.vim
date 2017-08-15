@@ -137,7 +137,7 @@ augroup DefaultAuGroup
     autocmd FileType go highlight default link goErr WarningMsg | match goErr /\<err\>/
     autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=./;/
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    " autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
     autocmd FileType javascript,javascript.jsx nnoremap <buffer> [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
     autocmd FileType markdown nnoremap <buffer> [Space]i :Unite menu:markdown -silent -winheight=25 -start-insert<CR>
@@ -1380,6 +1380,8 @@ function! s:ApplyCustomColorScheme()
     highlight Comment ctermfg=27
     highlight Conceal ctermfg=019 ctermbg=255
     highlight SpecialKey ctermfg=247 ctermbg=255
+    highlight Search term=bold ctermfg=015 ctermbg=134
+    " highlight ctermbg=254 
   endif
 endfunction
 
@@ -1396,6 +1398,115 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
   \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
 call s:ApplyCustomColorScheme()
+
+
+"" denite
+call denite#custom#source('file_old', 'matchers',
+      \ ['matcher_fuzzy', 'matcher_project_files'])
+call denite#custom#source('tag', 'matchers', ['matcher_substring'])
+if has('nvim')
+  call denite#custom#source('file_rec,grep', 'matchers',
+        \ ['matcher_cpsm'])
+endif
+
+call denite#custom#var('file_rec', 'command',
+      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+call denite#custom#source('file_old', 'converters',
+      \ ['converter_relative_word'])
+
+call denite#custom#map('insert', '<C-r>',
+      \ '<denite:toggle_matchers:matcher_substring>', 'noremap')
+call denite#custom#map('insert', '<C-s>',
+      \ '<denite:toggle_sorters:sorter_reverse>', 'noremap')
+call denite#custom#map('insert', '<C-j>',
+      \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<C-k>',
+      \ '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('insert', 'jj',
+      \ '<denite:enter_mode:normal>', 'noremap')
+call denite#custom#map('insert', 'kk',
+      \ '<denite:enter_mode:normal>', 'noremap')
+call denite#custom#map('insert', "<c-a>",
+      \ '<denite:move_caret_to_head>', 'noremap')
+call denite#custom#map('insert', "<c-e>",
+      \ '<denite:move_caret_to_tail>', 'noremap')
+call denite#custom#map('insert', "'",
+      \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('normal', 'r',
+      \ '<denite:do_action:quickfix>', 'noremap')
+call denite#custom#map('normal', 'ZQ',
+      \ '<denite:quit>', 'noremap')
+call denite#custom#map('normal', 'ZZ',
+      \ '<denite:quit>', 'noremap')
+call denite#custom#map('insert', ';',
+      \ 'vimrc#sticky_func()', 'expr')
+
+call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+call denite#custom#var('file_rec/git', 'command',
+      \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+
+call denite#custom#option('default', {
+      \ 'auto_accel': v:true,
+      \ 'prompt': '>',
+      \ 'short_source_names': v:true
+      \ })
+
+let s:menus = {}
+let s:menus.vim = {
+    \ 'description': 'Vim',
+    \ }
+let s:menus.vim.file_candidates = [
+    \ ['    > Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
+    \ ]
+call denite#custom#var('menu', 'menus', s:menus)
+
+call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+      \ [ '.git/', '.ropeproject/', '__pycache__/',
+      \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
+
+
+nnoremap <silent> ;r
+      \ :<C-u>Denite -buffer-name=register
+      \ register neoyank<CR>
+xnoremap <silent> ;r
+      \ :<C-u>Denite -default-action=replace -buffer-name=register
+      \ register neoyank<CR>
+
+" nnoremap <silent> [Window]<Space>
+"       \ :<C-u>Denite file_rec:~/.vim/rc<CR>
+nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-highlight
+      \ line<CR>
+nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search
+      \ -auto-highlight -mode=normal line<CR>
+" nnoremap <silent> [Window]s :<C-u>Denite file_point file_old
+"       \ -sorters=sorter_rank
+"       \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+
+nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
+      \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately
+      \  tag:include\<CR>"
+nnoremap <silent><expr> tp  &filetype == 'help' ?
+      \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
+
+" nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
+" nnoremap <silent> [Window]g :<C-u>Denite ghq<CR>
+" nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
+      \ -no-empty -mode=normal grep<CR>
+nnoremap <silent> n :<C-u>Denite -buffer-name=search
+      \ -resume -mode=normal -refresh<CR>
+nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
+nnoremap <silent> <C-t> :<C-u>Denite
+      \ -select=`tabpagenr()-1` -mode=normal deol<CR>
+nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
+
+nnoremap <silent> [Space]ss :<C-u>Denite gitstatus<CR>
+nnoremap <silent> ;;
+      \ :<C-u>Denite command command_history<CR>
+
+"" end denite
 
 " this has to be on the bottom
 if s:isWindows()

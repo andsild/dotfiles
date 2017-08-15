@@ -9,8 +9,8 @@ on_if = 'tabpagenr() > 1'
 repo = 'Shougo/neomru.vim'
 on_if = 1
 
-[[plugins]]
-repo = 'Chiel92/vim-autoformat.git'
+# [[plugins]]
+# repo = 'Chiel92/vim-autoformat.git'
 
 # lets you use visual blocks like visual blockwise
 # e.g. vapATEXT" will append the work "TEXT" at the end of
@@ -78,9 +78,9 @@ on_ft = ['unite', 'quickfix']
 
 # Quickly run a file with a preview window
 #
-[[plugins]]
-repo = 'thinca/vim-quickrun'
-mappings = '<Plug>'
+# [[plugins]]
+# repo = 'thinca/vim-quickrun'
+# mappings = '<Plug>'
 
 [[plugins]]
 repo = 'thinca/vim-scouter'
@@ -109,9 +109,9 @@ gui = 1
 commands = 'Restart'
 
 # Nice auto-stuff for haskell
-[[plugins]]
-repo = 'eagletmt/neco-ghc'
-on_ft = 'haskell'
+# [[plugins]]
+# repo = 'eagletmt/neco-ghc'
+# on_ft = 'haskell'
 
 # see "man look" - used for auto-complete of dictionary words
 [[plugins]]
@@ -249,9 +249,9 @@ mappings = [['ox', '<Plug>']]
 repo = 'Rykka/riv.vim'
 on_ft = 'rst'
 
-[[plugins]] 
-repo = 'rcmdnk/vim-markdown'
-on_ft = ['markdown', 'mkd']
+# [[plugins]] 
+# repo = 'rcmdnk/vim-markdown'
+# on_ft = ['markdown', 'mkd']
 
 [[plugins]] # markdown preview
 repo = 'kannokanno/previm'
@@ -299,15 +299,15 @@ repo = 'rstacruz/sparkup'
 [[plugins]]
 repo = 'tpope/vim-dispatch'
 
-[[plugins]]
-repo = 'https://github.com/neomake/neomake.git'
+# [[plugins]]
+# repo = 'https://github.com/neomake/neomake.git'
 
-[[plugins]] # "essential" git plugin
-repo = 'tpope/vim-fugitive.git'
+# [[plugins]] # "essential" git plugin
+# repo = 'tpope/vim-fugitive.git'
 
-[[plugins]] # moar git
-repo = 'gregsexton/gitv'
-depends = 'vim-fugitive'
+# [[plugins]] # moar git
+# repo = 'gregsexton/gitv'
+# depends = 'vim-fugitive'
 
 [[plugins]] # wmii-ish window/tiling manager
 repo = 'andsild/suckless.vim.git'
@@ -316,9 +316,9 @@ repo = 'andsild/suckless.vim.git'
 repo = 'https://github.com/ehamberg/vim-cute-python.git'
 on_ft = 'python'
 
-[[plugins]] # use vim's conceal features in haskell
-repo = 'https://github.com/enomsg/vim-haskellConcealPlus.git'
-on_ft = 'haskell'
+# [[plugins]] # use vim's conceal features in haskell
+# repo = 'https://github.com/enomsg/vim-haskellConcealPlus.git'
+# on_ft = 'haskell'
 
 [[plugins]]
 repo = 'https://github.com/neovimhaskell/haskell-vim.git'
@@ -335,10 +335,10 @@ repo = 'https://github.com/andsild/vim-unimpaired.git'
 repo = 'davidhalter/jedi-vim'
 on_ft = 'python'
 
-[[plugins]]
-repo = 'Shougo/neco-vim'
-on_ft = 'vim'
-insert = 1
+# [[plugins]]
+# repo = 'Shougo/neco-vim'
+# on_ft = 'vim'
+# insert = 1
 
 [[plugins]]
 repo = 'https://github.com/junegunn/vim-github-dashboard.git'
@@ -382,16 +382,16 @@ repo = 'https://github.com/janko-m/vim-test.git'
 [[plugins]]
 repo = 'https://github.com/KabbAmine/zeavim.vim.git'
 
-[[plugins]]
-repo = 'https://github.com/Shougo/deoplete.nvim.git'
+# [[plugins]]
+# repo = 'https://github.com/Shougo/deoplete.nvim.git'
 
-[[plugins]]
-repo = 'zchee/deoplete-clang'
-on_ft = ['c', 'cpp']
+# [[plugins]]
+# repo = 'zchee/deoplete-clang'
+# on_ft = ['c', 'cpp']
 
-[[plugins]]
-repo = 'https://github.com/zchee/deoplete-jedi'
-on_ft = 'python'
+# [[plugins]]
+# repo = 'https://github.com/zchee/deoplete-jedi'
+# on_ft = 'python'
 
 
 [[plugins]]
@@ -400,8 +400,8 @@ repo = 'https://github.com/7kfpun/finance.vim.git'
 [[plugins]]
 repo = 'https://github.com/vim-scripts/BufOnly.vim.git'
 
-[[plugins]]
-repo = 'https://github.com/kchmck/vim-coffee-script.git'
+# [[plugins]]
+# repo = 'https://github.com/kchmck/vim-coffee-script.git'
 
 [[plugins]]
 repo = 'andsild/peskcolor.vim.git'
@@ -413,19 +413,20 @@ repo = 'andsild/missing-spellfiles-neovim.git'
 repo = 'https://github.com/mxw/vim-jsx.git'
 on_ft = ['javascript', 'javascript.jsx']
 
-[[plugins]]
-repo = 'https://github.com/artur-shaik/vim-javacomplete2.git'
-on_ft = 'java'
+# [[plugins]]
+# repo = 'https://github.com/artur-shaik/vim-javacomplete2.git'
+# # on_ft = 'java'
+# lazy = 1
 
-[[plugins]]
-repo = 'https://github.com/SirVer/ultisnips.git'
+# [[plugins]]
+# repo = 'https://github.com/SirVer/ultisnips.git'
 
-[[plugins]]
-repo = 'honza/vim-snippets'
+# [[plugins]]
+# repo = 'honza/vim-snippets'
 
-[[plugins]]
-repo = 'https://github.com/carlitux/deoplete-ternjs.git'
-on_ft = ['javascript', 'javascript.jsx']
+# [[plugins]]
+# repo = 'https://github.com/carlitux/deoplete-ternjs.git'
+# on_ft = ['javascript', 'javascript.jsx']
 
 [[plugins]]
 repo = 'marijnh/tern_for_vim'
@@ -445,10 +446,6 @@ on_ft = ['javascript', 'javascript.jsx']
 
 
 [[plugins]]
-repo = 'https://github.com/eagletmt/ghcmod-vim.git'
-on_ft = 'haskell'
-
-[[plugins]]
 repo = 'https://github.com/ryanoasis/vim-devicons.git'
 
 [[plugins]]
@@ -466,8 +463,8 @@ repo = 'https://github.com/vim-scripts/mayansmoke.git'
 [[plugins]] # colorscheme
 repo = 'https://github.com/vim-scripts/Blueshift.git'
 
-[[plugins]] # auto save. so smooth..
-repo = 'https://github.com/907th/vim-auto-save.git'
+# [[plugins]] # auto save. so smooth..
+# repo = 'https://github.com/907th/vim-auto-save.git'
 
 [[plugins]] # control neovim terms from any buffer
 repo = 'https://github.com/kassio/neoterm.git'
@@ -485,8 +482,30 @@ on_ft = 'nix'
 repo = 'https://github.com/parsonsmatt/intero-neovim.git'
 on_ft = 'haskell'
 
-[[plugins]]
-repo = 'git@github.com:editorconfig/editorconfig-vim.git'
+# [[plugins]]
+# repo = 'git@github.com:editorconfig/editorconfig-vim.git'
+
+# [[plugins]]
+# repo = 'https://github.com/majutsushi/tagbar'
 
 [[plugins]]
-repo = 'https://github.com/majutsushi/tagbar'
+repo = 'https://github.com/Shougo/denite.nvim'
+
+[[plugins]]
+repo = 'chemzqm/denite-git'
+
+[[plugins]]
+repo = 'https://github.com/chemzqm/denite-extra'
+
+[[plugins]]
+repo = 'https://github.com/thinca/vim-localrc'
+
+[[plugins]]
+repo = 'https://github.com/guns/xterm-color-table.vim'
+
+[[plugins]]
+repo = 'google/vim-maktaba'
+
+[[plugins]]
+repo = 'bazelbuild/vim-bazel'
+depends = 'vim-maktaba'
