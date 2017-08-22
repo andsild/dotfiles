@@ -509,3 +509,12 @@ repo = 'google/vim-maktaba'
 [[plugins]]
 repo = 'bazelbuild/vim-bazel'
 depends = 'vim-maktaba'
+
+[[plugins]]
+repo = 'https://github.com/itchyny/vim-cursorword'
+
+[[plugins]]
+repo = 'https://github.com/chrisbra/csv.vim'
+
+[[plugins]]
+repo = 'https://github.com/andreshazard/vim-logreview'

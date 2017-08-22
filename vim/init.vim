@@ -125,7 +125,9 @@ augroup DefaultAuGroup
     autocmd!
 
     autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()
+    autocmd FileType gitcommit setlocal textwidth=72
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
+    autocmd BufWritePost,FileWritePost *.local.vimrc if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
     autocmd FileType python nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
     autocmd FileType haskell nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:intero -silent  -start-insert<CR>
@@ -175,8 +177,8 @@ augroup syntax-highlight-extends
 augroup END
 
 
+" set list
 set autoindent
-set smartindent
 set autoread " Auto reload if file is changed.
 set backspace=indent,eol,start
 set backupdir-=.
@@ -186,11 +188,13 @@ set cmdwinheight=5
 set colorcolumn=79
 set commentstring=%s
 set complete=.
+set completeopt=menu
 set conceallevel=2 concealcursor=iv
 set cpoptions-=m " Highlight when CursorMoved.
 set directory-=. " Set swap directory.
 set display=lastline
 set expandtab " Exchange tab to spaces.
+set fileignorecase
 set fillchars=vert:\|
 set foldcolumn=0 " Show folding level.
 set foldenable " Enable folding.
@@ -200,6 +204,7 @@ set grepprg=grep\ -inH " Use grep.
 set helpheight=12
 set hidden " Display another buffer when current buffer isn't saved.
 set history=1000
+set hlsearch " Don't highlight search result.
 set ignorecase " Ignore the case of normal letters.
 set incsearch " Enable incremental search.
 set infercase " Ignore case on insert completion.
@@ -207,13 +212,11 @@ set isfname-== " Exclude = from isfilename.
 set laststatus=2
 set lazyredraw
 set linebreak
-" set list
 set matchpairs+=<:> " Highlight <>.
 set matchtime=3
 set modeline " Enable modeline.
 set nobackup
 set noequalalways
-set hlsearch " Don't highlight search result.
 set nonumber
 set noshowcmd
 set noshowmode
@@ -223,8 +226,8 @@ set noswapfile
 set novisualbell
 set nowildmenu
 set nowritebackup
-set previewheight=8
-set pumheight=20
+set previewheight=5
+set pumheight=0
 set relativenumber
 set report=0
 set secure
@@ -236,6 +239,7 @@ set showbreak=>\
 set showfulltag
 set showmatch " Highlight parenthesis.
 set showtabline=2
+set smartindent
 set smarttab " Smart insert tab setting.
 set softtabstop=2 " Spaces instead <Tab>.
 set splitbelow
@@ -252,10 +256,9 @@ set updatetime=1000 " CursorHold time.
 set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
 set virtualedit=block " Enable virtualedit in visual block mode.
 set whichwrap+=h,l,<,>,[,],b,s,~
+set wildignorecase
 set wildmode=list:longest
 set wildoptions=tagfile
-set fileignorecase
-set wildignorecase
 set winminheight=0
 set winminwidth=0
 set winwidth=1
@@ -276,7 +279,7 @@ if has('clipboard')
 endif
 
 if has('nvim')
-  set completeopt+=noinsert,noselect,preview,menu
+  set completeopt+=noinsert,noselect,menu
   tnoremap <ESC><ESC> <C-\><C-n>
   tnoremap <C-6> <C-\><C-n><C-6>zz
   tnoremap <Esc><Esc> <C-\><C-n>
@@ -858,6 +861,7 @@ command! FZFLines mksession! /tmp/layout.vim | call fzf#run({
 \   'down':    '60%'
 \})
 command! Wa wa
+command! Wqa wqa
 command! W w
 
 function! s:mkdir_as_necessary(dir, force)
@@ -1316,8 +1320,8 @@ nnoremap <silent> <Space>m :call fzf#run({
 \ })<CR>
 
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore %s --ignore %s --ignore-dir %s --ignore-dir %s "%s"',
-\                   'bazel', 'tools', 'apidoc', 'apps', 'build-tools', 'build-redo', 'dummy-data', 'deps', 'bundle.js', 'bundle.js.map', '.stack-work', 'thesisexe/input',
+\ 'source':  printf('ag --nogroup --column --nocolor --ignore %s --ignore %s --ignore-dir %s --ignore-dir %s "%s"',
+\                   'tools', 'apidoc', 'apps', 'thesisexe/input',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
@@ -1505,6 +1509,8 @@ nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
 nnoremap <silent> [Space]ss :<C-u>Denite gitstatus<CR>
 nnoremap <silent> ;;
       \ :<C-u>Denite command command_history<CR>
+
+let g:EclimJavaSearchSingleResult='edit'
 
 "" end denite
 
