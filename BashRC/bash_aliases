@@ -12,7 +12,7 @@ alias diffsmooth="diff --side-by-side --suppress-common-lines --ignore-trailing-
 alias du="du -h"
 alias e=": edit "
 alias eix="dnf search"
-alias emerge="sudo dnf install -y"
+alias emerge="sudo apt install -y "
 alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
 alias ga="git add . "
 alias gac="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" "
@@ -31,6 +31,7 @@ alias ls='ls -G --color=auto '
 alias lt='ls -t -r'
 alias m="make"
 alias mkdir='mkdir'
+alias nox='apt search '
 alias mv='mv -v -i'
 alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
 alias no="setxkbmap no"
@@ -38,6 +39,7 @@ alias paste="xclip -o && echo"
 alias pg="ps aux | grep "
 alias py="ipython"
 alias rmdir='rmdir'
+alias screen='screen -T xterm'
 alias sp=": split  "
 alias stream="vlc   --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
 alias upd="sudo emerge -uDN @world"

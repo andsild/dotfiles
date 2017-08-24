@@ -2,7 +2,6 @@ $include /etc/inputrc
 
 set visible-stats on
 
-
 # set editing-mode vi
 $if mode=vi
 
@@ -24,8 +23,10 @@ Control-l: clear-screen
 "\C-w": backward-kill-word
 "\C-p": history-search-backward
 
-
-
 $endif
 
 set completion-ignore-case on
+
+$if jdb
+    set show-all-if-unmodified On
+$endif

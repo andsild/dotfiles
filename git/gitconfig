@@ -8,20 +8,29 @@
 	default = current
 [merge]
 	tool = diffconflicts
+  stat = true
 [core]
 	excludesfile = ~/dotfiles/git/gitexclude
 	editor = vim
+  whitespace = trailing-space
 [alias]
-    root = rev-parse --show-toplevel
+  root = rev-parse --show-toplevel
+  pr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+  pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+  # for bitbucket/stash remotes
+  spr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
+  plog = log --all --graph --pretty=format:'%C(auto)%h%C(auto)%d %s %C(dim white)(%aN, %ar)'
+  setup = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+  changedfiles = "!f(){ git diff --name-only \"$1\"...HEAD ; };f"
 [mergetool]
 	keepBackup = false
 [mergetool "diffconflicts"]
 	cmd = diffconflicts nvim $BASE $LOCAL $REMOTE $MERGED
 	trustExitCode = true
 	keepBackup = false
-[alias]
-    setup = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
 [commit]
-    gpgsign = true
+    gpgsign = false
 [gpg]
 	program = gpg2
+[branch]
+	autosetupmerge = true

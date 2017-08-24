@@ -125,7 +125,9 @@ augroup DefaultAuGroup
     autocmd!
 
     autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()
+    autocmd FileType gitcommit setlocal textwidth=72
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
+    autocmd BufWritePost,FileWritePost *.local.vimrc if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
     autocmd FileType python nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
     autocmd FileType haskell nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:intero -silent  -start-insert<CR>
@@ -137,7 +139,7 @@ augroup DefaultAuGroup
     autocmd FileType go highlight default link goErr WarningMsg | match goErr /\<err\>/
     autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=./;/
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    " autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
     autocmd FileType javascript,javascript.jsx nnoremap <buffer> [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
     autocmd FileType markdown nnoremap <buffer> [Space]i :Unite menu:markdown -silent -winheight=25 -start-insert<CR>
@@ -175,8 +177,8 @@ augroup syntax-highlight-extends
 augroup END
 
 
+" set list
 set autoindent
-set smartindent
 set autoread " Auto reload if file is changed.
 set backspace=indent,eol,start
 set backupdir-=.
@@ -186,11 +188,13 @@ set cmdwinheight=5
 set colorcolumn=79
 set commentstring=%s
 set complete=.
+set completeopt=menu
 set conceallevel=2 concealcursor=iv
 set cpoptions-=m " Highlight when CursorMoved.
 set directory-=. " Set swap directory.
 set display=lastline
 set expandtab " Exchange tab to spaces.
+set fileignorecase
 set fillchars=vert:\|
 set foldcolumn=0 " Show folding level.
 set foldenable " Enable folding.
@@ -200,6 +204,7 @@ set grepprg=grep\ -inH " Use grep.
 set helpheight=12
 set hidden " Display another buffer when current buffer isn't saved.
 set history=1000
+set hlsearch " Don't highlight search result.
 set ignorecase " Ignore the case of normal letters.
 set incsearch " Enable incremental search.
 set infercase " Ignore case on insert completion.
@@ -207,13 +212,11 @@ set isfname-== " Exclude = from isfilename.
 set laststatus=2
 set lazyredraw
 set linebreak
-" set list
 set matchpairs+=<:> " Highlight <>.
 set matchtime=3
 set modeline " Enable modeline.
 set nobackup
 set noequalalways
-set hlsearch " Don't highlight search result.
 set nonumber
 set noshowcmd
 set noshowmode
@@ -223,8 +226,8 @@ set noswapfile
 set novisualbell
 set nowildmenu
 set nowritebackup
-set previewheight=8
-set pumheight=20
+set previewheight=5
+set pumheight=0
 set relativenumber
 set report=0
 set secure
@@ -236,6 +239,7 @@ set showbreak=>\
 set showfulltag
 set showmatch " Highlight parenthesis.
 set showtabline=2
+set smartindent
 set smarttab " Smart insert tab setting.
 set softtabstop=2 " Spaces instead <Tab>.
 set splitbelow
@@ -252,10 +256,9 @@ set updatetime=1000 " CursorHold time.
 set viewdir=$CACHE/vim_view viewoptions-=options viewoptions+=slash,unix
 set virtualedit=block " Enable virtualedit in visual block mode.
 set whichwrap+=h,l,<,>,[,],b,s,~
+set wildignorecase
 set wildmode=list:longest
 set wildoptions=tagfile
-set fileignorecase
-set wildignorecase
 set winminheight=0
 set winminwidth=0
 set winwidth=1
@@ -276,7 +279,7 @@ if has('clipboard')
 endif
 
 if has('nvim')
-  set completeopt+=noinsert,noselect,preview,menu
+  set completeopt+=noinsert,noselect,menu
   tnoremap <ESC><ESC> <C-\><C-n>
   tnoremap <C-6> <C-\><C-n><C-6>zz
   tnoremap <Esc><Esc> <C-\><C-n>
@@ -336,8 +339,10 @@ nmap <silent>sr <Plug>(operator-surround-replace)a
 nmap j gj
 nmap k gk
 nmap gs <Plug>(open-browser-wwwsearch)
+nmap <F8> :TagbarToggle<CR>
 nnoremap    ;u [unite]
 nnoremap <leader>u :diffupdate<CR>
+nnoremap <leader>t :term<CR>
 nnoremap    [Space]fe   :<C-u>VimFilerExplorer<CR>
 nnoremap    [Tag]   <Nop>
 nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
@@ -383,7 +388,8 @@ nnoremap <silent> [Space]1 :QuickRun<CR>
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
-nnoremap <silent> [Space]t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+" nnoremap <silent> [Space]t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+nnoremap <silent> [Space]T :Tags<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 nnoremap <silent> [Space]di :Unite menu:diff -silent -start-insert -winheight=10 <CR>
 nnoremap <silent> <leader>en :<C-u>setlocal encoding? fenc? fencs?<CR>
@@ -462,7 +468,7 @@ else
     nnoremap [Space]o :FZFMru<CR>
 endif
 
-if dein#check_install(['accelerated_jk'])
+if dein#check_install(['accelerated-jk'])
   nmap <silent>j <Plug>(accelerated_jk_gj)
   nmap <silent>k <Plug>(accelerated_jk_gk)
 endif
@@ -797,7 +803,7 @@ else
   let g:deoplete#sources#clang#libclang_path=system(
     \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
     \ . 'IFS=":" ; for dir in ${paths} ; do '
-    \ . 'test -e ${dir}/libclang.so && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
+    \ . 'test -e ${dir}/libclang.so.1 && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
     \ . 'done ; unset IFS')
  let g:deoplete#sources#clang#clang_header = system(
     \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
@@ -855,6 +861,7 @@ command! FZFLines mksession! /tmp/layout.vim | call fzf#run({
 \   'down':    '60%'
 \})
 command! Wa wa
+command! Wqa wqa
 command! W w
 
 function! s:mkdir_as_necessary(dir, force)
@@ -1313,8 +1320,8 @@ nnoremap <silent> <Space>m :call fzf#run({
 \ })<CR>
 
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore %s --ignore %s --ignore-dir %s --ignore-dir %s "%s"',
-\                   'deps', 'bundle.js', 'bundle.js.map', '.stack-work', 'thesisexe/input',
+\ 'source':  printf('ag --nogroup --column --nocolor --ignore %s --ignore %s --ignore-dir %s --ignore-dir %s "%s"',
+\                   'tools', 'apidoc', 'apps', 'thesisexe/input',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
@@ -1322,6 +1329,34 @@ command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
 \            '--color hl:68,hl+:110',
 \ 'down':    '50%'
 \ })
+
+function! s:tags_sink(line)
+  let parts = split(a:line, '\t\zs')
+  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
+  execute 'silent e' parts[1][:-2]
+  let [magic, &magic] = [&magic, 0]
+  execute excmd
+  let &magic = magic
+endfunction
+
+function! s:tags()
+  if empty(tagfiles())
+    echohl WarningMsg
+    echom 'Preparing tags'
+    echohl None
+    call system('ctags -R --force-language=java')
+  endif
+
+  call fzf#run({
+  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+  \            '| grep -v -a ^!',
+  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index ' .
+  \            '--multi --bind ctrl-a:select-all,ctrl-d:deselect-all ',
+  \ 'down':    '30%',
+  \ 'sink':    function('s:tags_sink')})
+endfunction
+
+command! Tags call s:tags()
 
 " Show which highlight group is active under cursor
 " (doesn't work with SpecialKey)
@@ -1349,6 +1384,8 @@ function! s:ApplyCustomColorScheme()
     highlight Comment ctermfg=27
     highlight Conceal ctermfg=019 ctermbg=255
     highlight SpecialKey ctermfg=247 ctermbg=255
+    highlight Search term=bold ctermfg=015 ctermbg=134
+    " highlight ctermbg=254 
   endif
 endfunction
 
@@ -1364,8 +1401,118 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
   \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
   \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
-
 call s:ApplyCustomColorScheme()
+
+
+"" denite
+call denite#custom#source('file_old', 'matchers',
+      \ ['matcher_fuzzy', 'matcher_project_files'])
+call denite#custom#source('tag', 'matchers', ['matcher_substring'])
+if has('nvim')
+  call denite#custom#source('file_rec,grep', 'matchers',
+        \ ['matcher_cpsm'])
+endif
+
+call denite#custom#var('file_rec', 'command',
+      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+call denite#custom#source('file_old', 'converters',
+      \ ['converter_relative_word'])
+
+call denite#custom#map('insert', '<C-r>',
+      \ '<denite:toggle_matchers:matcher_substring>', 'noremap')
+call denite#custom#map('insert', '<C-s>',
+      \ '<denite:toggle_sorters:sorter_reverse>', 'noremap')
+call denite#custom#map('insert', '<C-j>',
+      \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<C-k>',
+      \ '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('insert', 'jj',
+      \ '<denite:enter_mode:normal>', 'noremap')
+call denite#custom#map('insert', 'kk',
+      \ '<denite:enter_mode:normal>', 'noremap')
+call denite#custom#map('insert', "<c-a>",
+      \ '<denite:move_caret_to_head>', 'noremap')
+call denite#custom#map('insert', "<c-e>",
+      \ '<denite:move_caret_to_tail>', 'noremap')
+call denite#custom#map('insert', "'",
+      \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('normal', 'r',
+      \ '<denite:do_action:quickfix>', 'noremap')
+call denite#custom#map('normal', 'ZQ',
+      \ '<denite:quit>', 'noremap')
+call denite#custom#map('normal', 'ZZ',
+      \ '<denite:quit>', 'noremap')
+call denite#custom#map('insert', ';',
+      \ 'vimrc#sticky_func()', 'expr')
+
+call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+call denite#custom#var('file_rec/git', 'command',
+      \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+
+call denite#custom#option('default', {
+      \ 'auto_accel': v:true,
+      \ 'prompt': '>',
+      \ 'short_source_names': v:true
+      \ })
+
+let s:menus = {}
+let s:menus.vim = {
+    \ 'description': 'Vim',
+    \ }
+let s:menus.vim.file_candidates = [
+    \ ['    > Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
+    \ ]
+call denite#custom#var('menu', 'menus', s:menus)
+
+call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+      \ [ '.git/', '.ropeproject/', '__pycache__/',
+      \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
+
+
+nnoremap <silent> ;r
+      \ :<C-u>Denite -buffer-name=register
+      \ register neoyank<CR>
+xnoremap <silent> ;r
+      \ :<C-u>Denite -default-action=replace -buffer-name=register
+      \ register neoyank<CR>
+
+" nnoremap <silent> [Window]<Space>
+"       \ :<C-u>Denite file_rec:~/.vim/rc<CR>
+nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-highlight
+      \ line<CR>
+nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search
+      \ -auto-highlight -mode=normal line<CR>
+" nnoremap <silent> [Window]s :<C-u>Denite file_point file_old
+"       \ -sorters=sorter_rank
+"       \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+
+nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
+      \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately
+      \  tag:include\<CR>"
+nnoremap <silent><expr> tp  &filetype == 'help' ?
+      \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
+
+" nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
+" nnoremap <silent> [Window]g :<C-u>Denite ghq<CR>
+" nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
+      \ -no-empty -mode=normal grep<CR>
+nnoremap <silent> n :<C-u>Denite -buffer-name=search
+      \ -resume -mode=normal -refresh<CR>
+nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
+nnoremap <silent> <C-t> :<C-u>Denite
+      \ -select=`tabpagenr()-1` -mode=normal deol<CR>
+nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
+
+nnoremap <silent> [Space]ss :<C-u>Denite gitstatus<CR>
+nnoremap <silent> ;;
+      \ :<C-u>Denite command command_history<CR>
+
+let g:EclimJavaSearchSingleResult='edit'
+
+"" end denite
 
 " this has to be on the bottom
 if s:isWindows()

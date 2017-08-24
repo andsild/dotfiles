@@ -67,7 +67,7 @@ stty -ixon
 # XMonad needs this to run java nicely
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-export NIX_PATH=peskOverrides=/home/andesil/dotfiles/nixpkgs:${NIX_PATH}
+export NIX_PATH=myOverride="${HOME}/dotfiles/nixpkgs:${NIX_PATH}"
 
 # My jedi-vim needs this(ugh!)
 export IPYTHONDIR="${HOME}/.ipython"
@@ -125,3 +125,17 @@ export GIT_PROMPT_ONLY_IN_REPO=1
 # added by travis gem
 [ -f "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
 export PATH=~/.local/bin:$PATH
+
+# pip bash completion start
+_pip_completion()
+{
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   PIP_AUTO_COMPLETE=1 $1 ) )
+}
+complete -o default -F _pip_completion pip
+# pip bash completion end
+
+
+[ -f "/etc/bash_completion.d/git-prompt" ] && source /etc/bash_completion.d/git-prompt
+[ -f "/etc/bash_completion.d/bazel" ] && source /etc/bash_completion.d/bazel
