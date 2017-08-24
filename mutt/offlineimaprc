@@ -25,7 +25,6 @@ fsync = False
 localrepository = andsild-Local
 remoterepository = andsild-Remote
 
-
 # Hooks to be executed before and after sync
 postsynchook = notmuch new
 

@@ -1,0 +1,17 @@
+set my_profile = "andsild"
+
+source ~/.mutt/common
+
+set realname = "Anders Sildnes"
+set from = "andsild@posteo.net"
+set spoolfile = "+andsild/INBOX"
+
+mailboxes +andsild/INBOX \
+          +andsild/archive \
+          +andsild/sent \
+          +andsild/trash \
+          +temporary/search
+
+set mbox         = "+andsild/archive"
+set postponed    = "+andsild/drafts"
+set reverse_name = yes

@@ -144,17 +144,16 @@ in
     gparted
     graphicsmagick
     graphviz
-    haskellPackages.cabal-install
-    haskellPackages.cabal2nix
-    haskellPackages.ghc
-    haskellPackages.ghc-mod
-    haskellPackages.happy
-    haskellPackages.hlint
+    # haskellPackages.cabal-install
+    # haskellPackages.cabal2nix
+    # haskellPackages.ghc
+    # haskellPackages.ghc-mod
+    # haskellPackages.happy
     haskellPackages.hindent
     haskellPackages.hoogle
-    haskellPackages.stylish-haskell
-    haskellPackages.threadscope
-    hasklig
+    # haskellPackages.stylish-haskell
+    # haskellPackages.threadscope
+    # hasklig
     fira-code
     hicolor_icon_theme
     htop
@@ -197,14 +196,11 @@ in
     pkgconfig
     posix_man_pages
     python
-    python3
-    python3Packages.ipython
-    python3Packages.neovim
-    python3Packages.scipy
-    python3Packages.virtualenv
-    python3Packages.yamllint
-    pythonPackages.goobook
-    # pythonPackages.ipython
+    pythonPackages.ipython
+    pythonPackages.neovim
+    pythonPackages.scipy
+    pythonPackages.virtualenv
+    pythonPackages.yamllint
     pythonPackages.neovim
     pythonPackages.scipy
     pythonPackages.virtualenv
@@ -235,6 +231,7 @@ in
     sysstat
     tcptrack
     telnet
+    thunderbird
     toilet
     travis
     tree
