@@ -1,11 +1,16 @@
-[user]
-	name = asildnes
-	email = andsild@gmail.com
-	signingkey = DA081E1E3C23A731DF379ECA5BE9DE7FF21E68FE
+[includeIf "gitdir:~/"]
+  path = ~/dotfiles/git/gitconfig-default
+[includeIf "gitdir:~/work/cx"]
+  path = ~/dotfiles/git/gitconfig-work
+# [user]
+# 	name = andsild
+# 	email = anders.sildnes@cxense.com
 [credential]
 	helper = cache --timeout=3600
 [push]
 	default = current
+[pull]
+  rebase = true
 [merge]
 	tool = diffconflicts
   stat = true

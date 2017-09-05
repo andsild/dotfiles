@@ -518,3 +518,6 @@ repo = 'https://github.com/chrisbra/csv.vim'
 
 [[plugins]]
 repo = 'https://github.com/andreshazard/vim-logreview'
+
+[[plugins]]
+repo = 'https://github.com/reedes/vim-wordy'

@@ -11,7 +11,8 @@ pdfautoopen()
     watchedFolder="${HOME}/Downloads/"
     while out="$(inotifywait  -e create "${watchedFolder}")"
     do 
-        file="$(ls -t -r -1 "${watchedFolder}" | tail -n1)"
+        file="$(find "${watchedFolder}" -maxdepth 1 -type f -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1)"
+        # file="$(ls -t -r -1 "${watchedFolder}" | tail -n1)"
         [[ "${out}" == *"chromium"* ]] || [[ "${file}" == *".crdownload" ]] \
             && continue
 

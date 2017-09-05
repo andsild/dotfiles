@@ -117,14 +117,14 @@ status() {
     END { print cacheMem":"(total-avail)"/"total" MB | "swap" MB" }' \
         /proc/meminfo)"
 
-    topProc=$(ps --user "${USER}" hS -o pcpu:4,time,comm:20 --sort=-pcpu | head --lines=1)
-
+    topProc=$(ps --user "${USER}" hS -o pcpu:4,etime:4,comm:20 --sort=-pcpu | head --lines=1)
 
     battery=""
     if [ -e "/sys/class/power_supply/BAT0/capacity" ]
     then
         batStatus="$(printf "%.4s" "$(cat /sys/class/power_supply/BAT0/status)" | tr '[:upper:]' '[:lower:]')"
-        #battery="|$(awk ' { if($1>100) { print "100%"; } else { printf("%3d%", $1); } } ' /sys/class/power_supply/BAT0/capacity) ${batStatus}"
+        batCapacity="$(awk ' { if($1>100) { print "100%"; } else { printf("%3d", $1); } } ' /sys/class/power_supply/BAT0/capacity)"
+        battery="|${batCapacity} ${batStatus}"
     fi
 
     echo -n label "${topProc}" \
@@ -339,8 +339,7 @@ wmiir write /ctl <<!
 !
 
 # dirty hack to avoid that the wmiirc sourced from /etc/ sets the background after this script is loaded
-# SC2046 in shellcheck tries to prevent this
-setsid $(sleep 1 && echo feh --bg-scale "$(find ~/.images -type f  | sort -R | tail -1)") &
+(sleep 2 && echo feh --bg-scale "$(find ~/.images -type f  | sort -R | tail -1)") &
 
 if [ -e "${HOME}/dotfiles/Bash/pdfautoopen" ]
 then
@@ -348,16 +347,18 @@ then
     setsid ~/dotfiles/Bash/pdfautoopen &
 fi
 
-
 if [ -z "$(pidof workrave)" ]
 then
     command -v workrave 2>&1 && setsid workrave &
 fi
 
 # Misc
-progsfile="$(wmiir namespace)/.proglist"
+# progsfile="$(wmiir namespace)/.proglist"
 action status &
 action netStatus &
 action stockStatus &
-#action songStatus &
-wi_proglist "$PATH" >"$progsfile" &
+action songStatus &
+# wi_proglist "$PATH" >"$progsfile" &
+
+# needed in ubuntu?
+# wi_eventloop

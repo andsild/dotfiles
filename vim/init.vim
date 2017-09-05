@@ -139,7 +139,7 @@ augroup DefaultAuGroup
     autocmd FileType go highlight default link goErr WarningMsg | match goErr /\<err\>/
     autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=./;/
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    " autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    autocmd FileType java nnoremap <buffer> <C-t> :JUnitFindTest<CR>
     autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
     autocmd FileType javascript,javascript.jsx nnoremap <buffer> [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
     autocmd FileType markdown nnoremap <buffer> [Space]i :Unite menu:markdown -silent -winheight=25 -start-insert<CR>
@@ -330,6 +330,7 @@ nmap gcc <Plug>(caw:hatpos:toggle)
 vmap gcc <Plug>(caw:hatpos:toggle)
 nmap <buffer> tcd         <Plug>(unite_quick_match_default_action)
 nmap <silent> <F7> :call ToggleSpell()<CR>
+nmap <silent> <F6> :silent NextWordy<CR>
 nmap <silent> B <Plug>CamelCaseMotion_b
 nmap <silent> W <Plug>CamelCaseMotion_w
 nmap <silent>sa <Plug>(operator-surround-append)a
@@ -371,7 +372,6 @@ nnoremap <SID>(command-line-enter) q:
 nnoremap <SID>(command-line-norange) q:<C-u>
 nnoremap <Tab> <Tab>zz
 nnoremap <Up> :res +5<CR>
-nnoremap <c-t> :FZFMru<CR>
 nnoremap <leader>sp :<C-u>call ToggleOption('spell')<CR>
 nnoremap <silent>   [Space]v   :<C-u>VimFiler -invisible<CR>
 nnoremap <silent> ;o  :<C-u>only<CR>
@@ -497,7 +497,7 @@ let g:formatters_javascript = ['jscs']
 let g:jsx_ext_required = 0
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let g:myLang=0
-let g:myLangList=['nospell','en_us', 'nb']
+let g:myLangList=['nospell','en_us', 'nb', 'weak']
 let g:unite#default_context = {
     \ 'vertical' : 0,
     \ 'short_source_names' : 1,
@@ -873,14 +873,16 @@ function! s:mkdir_as_necessary(dir, force)
 endfunction
 
 function! ToggleSpell()
-  let b:myLang=g:myLang+1
-  if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
-  if b:myLang==0
+  let g:myLang=g:myLang+1
+  if g:myLang==len(g:myLangList) 
+    let g:myLang=0 
+  endif
+  if g:myLang==0
     setlocal nospell
   else
-    execute 'setlocal spell spelllang='.get(g:myLangList, b:myLang)
+    execute 'setlocal spell spelllang=' . get(g:myLangList, g:myLang)
   endif
-  echo 'spell checking language:' g:myLangList[b:myLang]
+  echo 'spell checking language:' g:myLangList[g:myLang]
 endfunction
 
 function! s:SID_PREFIX()
@@ -1331,12 +1333,12 @@ command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
 \ })
 
 function! s:tags_sink(line)
-  let parts = split(a:line, '\t\zs')
-  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
-  execute 'silent e' parts[1][:-2]
-  let [magic, &magic] = [&magic, 0]
-  execute excmd
-  let &magic = magic
+  let l:parts = split(a:line, '\t\zs')
+  let l:excmd = matchstr(l:parts[2:], '^.*\ze;"\t')
+  execute 'silent e' l:parts[1][:-2]
+  let [l:magic, &magic] = [&magic, 0]
+  execute l:excmd
+  let &magic = l:magic
 endfunction
 
 function! s:tags()
@@ -1348,7 +1350,7 @@ function! s:tags()
   endif
 
   call fzf#run({
-  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, '':S'')')).
   \            '| grep -v -a ^!',
   \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index ' .
   \            '--multi --bind ctrl-a:select-all,ctrl-d:deselect-all ',
@@ -1431,9 +1433,9 @@ call denite#custom#map('insert', 'jj',
       \ '<denite:enter_mode:normal>', 'noremap')
 call denite#custom#map('insert', 'kk',
       \ '<denite:enter_mode:normal>', 'noremap')
-call denite#custom#map('insert', "<c-a>",
+call denite#custom#map('insert', '<c-a>',
       \ '<denite:move_caret_to_head>', 'noremap')
-call denite#custom#map('insert', "<c-e>",
+call denite#custom#map('insert', '<c-e>',
       \ '<denite:move_caret_to_tail>', 'noremap')
 call denite#custom#map('insert', "'",
       \ '<denite:move_to_next_line>', 'noremap')
@@ -1502,8 +1504,6 @@ nnoremap <silent><expr> tp  &filetype == 'help' ?
 nnoremap <silent> n :<C-u>Denite -buffer-name=search
       \ -resume -mode=normal -refresh<CR>
 nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
-nnoremap <silent> <C-t> :<C-u>Denite
-      \ -select=`tabpagenr()-1` -mode=normal deol<CR>
 nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
 
 nnoremap <silent> [Space]ss :<C-u>Denite gitstatus<CR>
@@ -1511,6 +1511,7 @@ nnoremap <silent> ;;
       \ :<C-u>Denite command command_history<CR>
 
 let g:EclimJavaSearchSingleResult='edit'
+
 
 "" end denite
 

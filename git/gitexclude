@@ -13,5 +13,5 @@ collections/
 .local.vimrc
 init.sh
 javaFiles.txt
-shell.nix
 debug.sh
+*.nix
