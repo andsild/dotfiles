@@ -4,5 +4,5 @@
   imports = [ 
     ./core.nix ];
 
- networking.hostName = "NTNU10090";
+ networking.hostName = "Caligula";
 }

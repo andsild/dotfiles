@@ -30,7 +30,6 @@ alias ls='ls -G --color=auto '
 alias lt='ls -t -r'
 alias m="make"
 alias mkdir='mkdir'
-alias nox='apt search '
 alias mv='mv -v -i'
 alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
 alias no="setxkbmap no"

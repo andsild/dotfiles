@@ -2,6 +2,7 @@
 
 let
   phpSockName1 = "/run/phpfpm/pool1.sock";
+  username = "andsild";
 in
 {
   imports = [
@@ -112,9 +113,11 @@ in
     astyle
     automake
     bash
+    bazel
     bc
     bind
     boost
+    checkstyle
     chromium
     clang
     cmake
@@ -125,8 +128,10 @@ in
     dotnetPackages.Nuget
     dpkg
     dzen2
+    eclipses.eclipse-platform
     enlightenment.terminology
     file
+    findbugs
     fortune
     fzf
     gcc
@@ -196,11 +201,15 @@ in
     pkgconfig
     posix_man_pages
     python
+    python3Packages.ipython
+    python3Packages.python
+    python3Packages.neovim
+   #python3Packages.yamllint
     pythonPackages.ipython
     pythonPackages.scipy
     pythonPackages.virtualenv
     pythonPackages.yamllint
-    pythonPackages.scipy
+   pythonPackages.scipy
     python3Packages.scipy
     pythonPackages.virtualenv
     pythonPackages.youtube-dl
@@ -208,7 +217,9 @@ in
     qemu
     qutebrowser
     rdesktop
+    redo
     rsync
+    rrsync
     ruby
     screen
     shellcheck
@@ -218,6 +229,7 @@ in
     simplescreenrecorder
     sl
     sloccount
+    #slack
     slock
     slop
     sqlite
@@ -367,8 +379,8 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="2936", ATTRS{idProduct}=="1004", MODE="666",
 LABEL="com_leapmotion_leap_end"
 
 # dinivo edge
-KERNEL=="hidraw*", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c70[345abce]|c71[34bc]", \ RUN+="hid2hci --method=logitech-hid --devpath=%p";
-      '';
+#KERNEL=="hidraw*", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c70[345abce]|c71[34bc]", \ RUN+="hid2hci --method=logitech-hid --devpath=%p";
+#'';
 
     openssh.enable = true;
     openssh.extraConfig = ''Ciphers arcfour,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,arcfour128,arcfour256,aes128-cbc,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
@@ -393,7 +405,7 @@ KERNEL=="hidraw*", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c70[345abce]|c71[
         sessionCommands = "${pkgs.networkmanagerapplet}/bin/nm-applet &";
         slim = {
           enable = true;
-          defaultUser = "andesil";
+          defaultUser = username;
           theme = pkgs.fetchurl {
               url = "https://github.com/edwtjo/nixos-black-theme/archive/v1.0.tar.gz";
               sha256 = "13bm7k3p6k7yq47nba08bn48cfv536k4ipnwwp1q1l2ydlp85r9d";
@@ -559,10 +571,10 @@ KERNEL=="hidraw*", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c70[345abce]|c71[
   virtualisation.virtualbox.host.enable = true;
   virtualisation.docker.enable = true;
 
-  users.extraUsers.andesil =
+  users.extraUsers.andsild =
   {
     isNormalUser = true;
-    home = "/home/andesil";
+    home = "/home/" + username;
     description = "Anders Sildnes";
     extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" "wireshark" ];
   };
@@ -570,5 +582,5 @@ KERNEL=="hidraw*", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c70[345abce]|c71[
   sound.mediaKeys = {
     enable = true;
   };
-  system.stateVersion = "17.09";
+  system.stateVersion = "18.03";
 }
