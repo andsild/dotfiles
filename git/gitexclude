@@ -15,3 +15,5 @@ init.sh
 javaFiles.txt
 debug.sh
 *.nix
+builder.sh
+testng.yaml

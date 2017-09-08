@@ -6,7 +6,6 @@ alias bd='cd /home/andesil/Homework/TDT4305/'
 alias cal3="cal -3"
 alias check="aspell check -d en_US"
 alias checkNO="aspell check -d no"
-alias ct='cd /home/andesil/Homework/TDT4205/ex6/ps6_skeleton'
 alias df="df -H"
 alias diffsmooth="diff --side-by-side --suppress-common-lines --ignore-trailing-space --ignore-space-change --ignore-all-space"
 alias du="du -h"

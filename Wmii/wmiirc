@@ -73,15 +73,15 @@ songStatus() {
             printf " [[ No song playing ]]";
         else
             dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' \
-        | awk '
-    BEGIN { songName=""; artist="" }
-    {
-        if(NR==22) { for(i=2; i<NF+1; i++) { artist  =artist" "$i; } }
-        if(NR==39) { for(i=3; i<NF+1; i++) { songName=songName" "$i } }
-    }
-    END { gsub(/"/,"", artist); gsub(/"/,"",songName);
-          print artist":"songName }
-    ' ; fi)"
+            | awk '
+                BEGIN { songName=""; artist="" }
+                {
+                    if(NR==22) { for(i=2; i<NF+1; i++) { artist  =artist" "$i; } }
+                    if(NR==39) { for(i=3; i<NF+1; i++) { songName=songName" "$i } }
+                }
+                END { gsub(/"/,"", artist); gsub(/"/,"",songName);
+                      print artist":"songName }
+        ' ; fi)"
 
     echo -n "label ${spotify}"
 }
@@ -339,7 +339,7 @@ wmiir write /ctl <<!
 !
 
 # dirty hack to avoid that the wmiirc sourced from /etc/ sets the background after this script is loaded
-(sleep 2 && echo feh --bg-scale "$(find ~/.images -type f  | sort -R | tail -1)") &
+(sleep 1 && feh --bg-scale "$(find ~/.images -type f  | sort -R | tail -1)") &
 
 if [ -e "${HOME}/dotfiles/Bash/pdfautoopen" ]
 then

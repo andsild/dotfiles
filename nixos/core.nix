@@ -197,12 +197,11 @@ in
     posix_man_pages
     python
     pythonPackages.ipython
-    pythonPackages.neovim
     pythonPackages.scipy
     pythonPackages.virtualenv
     pythonPackages.yamllint
-    pythonPackages.neovim
     pythonPackages.scipy
+    python3Packages.scipy
     pythonPackages.virtualenv
     pythonPackages.youtube-dl
     qalculate-gtk
