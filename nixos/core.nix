@@ -163,6 +163,7 @@ in
     hicolor_icon_theme
     htop
     ii
+    jq
     imagemagick
     inotify-tools
     iotop
