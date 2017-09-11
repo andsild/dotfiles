@@ -55,7 +55,7 @@ in
   time.timeZone = "Europe/Oslo";
 
   nixpkgs.config = {
-    allowUnfree = false;
+    allowUnfree = true;
     # chromium = {
     #   enablePepperFlash = true;
     #   enablePepperPDF = true;
@@ -196,6 +196,7 @@ in
     parted
     pavucontrol
     pdftk
+    pciutils
     perlPackages.ImageExifTool
     pinentry
     pkgconfig
@@ -204,12 +205,10 @@ in
     python3Packages.ipython
     python3Packages.python
     python3Packages.neovim
-   #python3Packages.yamllint
     pythonPackages.ipython
     pythonPackages.scipy
     pythonPackages.virtualenv
-    pythonPackages.yamllint
-   pythonPackages.scipy
+    pythonPackages.scipy
     python3Packages.scipy
     pythonPackages.virtualenv
     pythonPackages.youtube-dl
@@ -229,7 +228,6 @@ in
     simplescreenrecorder
     sl
     sloccount
-    #slack
     slock
     slop
     sqlite
@@ -386,7 +384,7 @@ LABEL="com_leapmotion_leap_end"
     openssh.extraConfig = ''Ciphers arcfour,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,arcfour128,arcfour256,aes128-cbc,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
 '';
     openssh.permitRootLogin = "no";
-    openssh.passwordAuthentication = false;
+    #openssh.passwordAuthentication = false;
     openssh.challengeResponseAuthentication = false;
     locate.enable = true;
     locate.interval = "*:0/30";
@@ -534,6 +532,12 @@ LABEL="com_leapmotion_leap_end"
    source "$HOME/.bash_profile"
   fi
    '';
+
+  environment.extraInit = ''
+    xdg-mime default zathura.desktop application/pdf
+    xdg-mime default qutebrowser.desktop text/html
+    xdg-settings set default-web-browser qutebrowser.desktop
+    '';
 
   environment.etc."inputrc".text = ''
   set visible-stats on
