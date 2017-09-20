@@ -19,6 +19,10 @@ let
 	      BROWSER = "chromium-browser";
 	    };
 
+
+    checkstyle = pkgs.callPackage ./pkgs/checkstyle {
+    };
+
 	  neovim = pkgs.neovim.override {
 	    vimAlias = true;
 	    withPython = true;

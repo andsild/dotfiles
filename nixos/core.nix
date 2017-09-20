@@ -92,7 +92,7 @@ in
   environment.variables = rec {
     VISUAL  = "nvim";
     EDITOR  = VISUAL;
-    BROWSER = "chromium-browser";
+    BROWSER = "qutebrowser";
     SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
   };
 
@@ -177,6 +177,7 @@ in
     lua
     man-pages
     manpages
+    maven
     mplayer
     mpv
     msmtp
@@ -251,6 +252,7 @@ in
     unzip
     usbutils
     valgrind
+    vim-vint
     vlc
     wget
     wine

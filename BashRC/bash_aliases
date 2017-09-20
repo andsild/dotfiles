@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 alias annoying="find -type f -print0 | grep --color=never -Ez '[^/]{5}$' | xargs -0 "
+alias amend="git commit --amend --no-edit"
+alias ammend="git commit --amend"
 alias bc='bc -l -q'
 alias bd='cd /home/andesil/Homework/TDT4305/'
 alias cal3="cal -3"

@@ -487,59 +487,56 @@ if has('mouse')
   cnoremap <RightMouse> <C-r>+
 endif
 
+let g:EclimJavaSearchSingleResult='edit'
+let g:Gitv_DoNotMapCtrlKey = 1
+let g:Gitv_OpenHorizontal = 'auto'
+let g:Gitv_WipeAllOnClose = 1
 let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0
+let g:choosewin_blink_on_land = 0
+let g:choosewin_overlay_clear_multibyte = 1
+let g:choosewin_overlay_enable = 1
 let g:deoplete#auto_completion_start_length = 1
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
+let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:formatters_javascript = ['jscs']
-let g:jsx_ext_required = 0
-let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
-let g:myLang=0
-let g:myLangList=['nospell','en_us', 'nb', 'weak']
-let g:unite#default_context = {
-    \ 'vertical' : 0,
-    \ 'short_source_names' : 1,
-    \ }
-let g:Gitv_DoNotMapCtrlKey = 1
-let g:Gitv_OpenHorizontal = 'auto'
-let g:Gitv_WipeAllOnClose = 1
-let g:choosewin_blink_on_land = 0
-let g:choosewin_overlay_clear_multibyte = 1
-let g:choosewin_overlay_enable = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
 let g:gitgutter_max_signs = 5000
 let g:haddock_browser = 'google-chrome-stable'
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:jsx_ext_required = 0
 let g:livepreview_previewer = 'zathura'
+let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
+let g:myLang=0
+let g:myLangList=['nospell','en_us', 'nb', 'weak']
 let g:necoghc_enable_detailed_browse=1
 let g:neomake_haskell_enabled_makers = ['ghcmodlint']
+let g:neomake_haskell_enabled_makers = ['hlint']
+let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
+let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
 let g:neomake_list_height = 5
 let g:neomake_open_list = 2
-let g:neomake_tex_enabled_makers = ['chktex']
-let g:neomake_haskell_enabled_makers = ['hlint']
 let g:neomake_python_enabled_makers=['pylint']
-let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
+let g:neomake_python_enabled_makers=['pylint']
+let g:neomake_tex_enabled_makers = ['chktex']
 let g:unite_enable_short_source_names = 1
 let g:unite_enable_split_vertically = 0
 let g:unite_enable_start_insert = 0
 let g:unite_source_rec_max_cache_files = -1
 let g:unite_winheight = 20
-let g:vimfiler_preview_action = 'auto_preview'
-let s:my_split = {'is_selectable': 1}
-let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_ngdoc = 1
-let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
-let g:neomake_python_enabled_makers=['pylint']
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_enable_clipboard = 0
+let g:vimfiler_preview_action = 'auto_preview'
 let g:vimfiler_safe_mode_by_default = 0
 " %p : full path
 " %d : current directory
@@ -556,6 +553,10 @@ let g:vimfiler_sendto = {
   \ 'gedit' : 'gedit',
   \ }
 let &undodir=&directory
+let g:unite#default_context = {
+    \ 'vertical' : 0,
+    \ 'short_source_names' : 1,
+    \ }
 let g:unite_source_menu_menus = {}
 let g:vimfiler_file_icon = ' '
 let g:vimfiler_ignore_pattern=['^\%(\.git\|\.DS_Store\)$']
@@ -797,6 +798,7 @@ let g:markdown_fenced_languages = [
 let g:UltiSnipsExpandTrigger='<c-s>'
 let g:UltiSnipsJumpBackwardTrigger='zh'
 let g:UltiSnipsJumpForwardTrigger='zl'
+let s:my_split = {'is_selectable': 1}
 
 if s:IsMac()
    let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
@@ -1523,9 +1525,8 @@ nnoremap <silent> [Space]ss :<C-u>Denite gitstatus<CR>
 nnoremap <silent> ;;
       \ :<C-u>Denite command command_history<CR>
 
-let g:EclimJavaSearchSingleResult='edit'
-
 inoremap <c-b> <Esc>i
+
 
 "" end denite
 
