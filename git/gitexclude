@@ -17,3 +17,5 @@ debug.sh
 *.nix
 builder.sh
 testng.yaml
+*.iml
+*build-redo*

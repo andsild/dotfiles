@@ -1,3 +1,5 @@
+*Warning*: Currently not stable for copy-pasting. I've begun refactoring to put as many plugins as I can in [a different plugin manager](https://github.com/MarcWeber/vim-addon-manager). That means that some of my plugins have to be installed using nix-env (from [here](https://github.com/andsild/dotfiles/blob/master/nixpkgs/pkgs/nvim_config.nix)). Contact me if you have any requests, and I might prioritize this work over other items in my TODO.
+
 # NVIM
 A vimrc for linux and mac.
 I use neovim in Windows as well, but with some limitations because of

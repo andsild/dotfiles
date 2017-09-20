@@ -148,6 +148,7 @@ augroup DefaultAuGroup
     autocmd FileType python setlocal formatprg=autopep8\ --aggressive\ --ignore=E309\ -
     autocmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
     autocmd FileType unite call s:unite_my_settings()
+    autocmd FileType denite call s:denite_my_settings()
     autocmd FileType vimfiler call s:vimfiler_my_settings()
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
@@ -156,6 +157,7 @@ augroup DefaultAuGroup
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc  | setlocal formatprg=stylish-haskell | nnoremap <buffer> gqa gggqG:silent %!hindent --style johan-tibell<CR><c-o><c-o>zz
     autocmd FileType haskell nnoremap <silent><buffer>K :GhcModInfoPreview<CR>
     autocmd BufLeave unite source /tmp/layout.vim
+    autocmd BufLeave denite source /tmp/layout.vim
 
     if has('python3')
         autocmd FileType python setlocal omnifunc=python3complete#Complete
@@ -834,7 +836,7 @@ command! WUtf8 setlocal fenc=utf-8
 command! WUnicode WUtf16
 
 command! FZFGit call fzf#run({
-  \ 'source':  'git ls-files',
+  \ 'source':  'git ls-files --no-empty-directory --exclude-standard',
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
@@ -1118,6 +1120,10 @@ function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
 endfunction
 
+function! s:denite_my_settings()
+  mksession! /tmp/layout.vim
+endfunction
+
 function! s:unite_my_settings()
   mksession! /tmp/layout.vim
   " Directory partial match.
@@ -1314,16 +1320,19 @@ function! s:bufopen(e)
   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-nnoremap <silent> <Space>m :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
+
+nnoremap <silent> <Space>m :Denite buffer<CR>
+" nnoremap <silent> <Space>m :call fzf#run({
+" " \   'source':  reverse(<sid>buflist()),
+" \   'source':  echo g:fzf#vim#buffers,
+" \   'sink':    function('<sid>bufopen'),
+" \   'options': '+m',
+" \   'down':    len(<sid>buflist()) + 2
+" \ })<CR>
 
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor --ignore %s --ignore %s --ignore-dir %s --ignore-dir %s "%s"',
-\                   'tools', 'apidoc', 'apps', 'thesisexe/input',
+\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s "%s"',
+\                   'tools', 'apidoc', 'apps',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
@@ -1405,6 +1414,8 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
 
 call s:ApplyCustomColorScheme()
 
+nnoremap t/ :Denite -mode=insert outline<CR>
+
 
 "" denite
 call denite#custom#source('file_old', 'matchers',
@@ -1446,7 +1457,9 @@ call denite#custom#map('normal', 'ZQ',
 call denite#custom#map('normal', 'ZZ',
       \ '<denite:quit>', 'noremap')
 call denite#custom#map('insert', ';',
-      \ 'vimrc#sticky_func()', 'expr')
+      \ '<denite:quick_move>', 'noremap')
+call denite#custom#map('normal', ';',
+    \ '<denite:quick_move>', 'noremap')
 
 call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 call denite#custom#var('file_rec/git', 'command',
@@ -1500,7 +1513,7 @@ nnoremap <silent><expr> tp  &filetype == 'help' ?
 " nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
 " nnoremap <silent> [Window]g :<C-u>Denite ghq<CR>
 " nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
-      \ -no-empty -mode=normal grep<CR>
+      " \ -no-empty -mode=normal grep<CR>
 nnoremap <silent> n :<C-u>Denite -buffer-name=search
       \ -resume -mode=normal -refresh<CR>
 nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
@@ -1512,6 +1525,7 @@ nnoremap <silent> ;;
 
 let g:EclimJavaSearchSingleResult='edit'
 
+inoremap <c-b> <Esc>i
 
 "" end denite
 
