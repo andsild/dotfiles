@@ -48,6 +48,14 @@ alias vs=": vsplit  "
 alias www='cd /var/www/'
 alias nstack='nice stack'
 
+function git()
+{
+  case $* in
+    log* ) shift 1; command git log --max-count=10 "$@" ;;
+    * ) command git "$@" ;;
+  esac
+}
+
 function smallimg()
 {
     convert -size 32x32 "xc:${2:-orange}" "${1:-empty.jpg}"

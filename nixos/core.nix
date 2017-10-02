@@ -541,7 +541,6 @@ LABEL="com_leapmotion_leap_end"
   environment.extraInit = ''
     xdg-mime default zathura.desktop application/pdf
     xdg-mime default qutebrowser.desktop text/html
-    xdg-settings set default-web-browser qutebrowser.desktop
     '';
 
   environment.etc."inputrc".text = ''

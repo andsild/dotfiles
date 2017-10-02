@@ -11,10 +11,10 @@
 # merges and a specific branch):
 # git pagediffs origin/master.. --no-merges --not uninteresting_branch
 
-setopt RC_EXPAND_PARAM
+# setopt RC_EXPAND_PARAM
 declare -a revisions
 
-revisions="( ${(f)$(git rev-list --reverse "${@}")} )"
+revisions="( $(git rev-list --reverse "${@}") )"
 [[ ${#revisions} -gt 0 ]] || exit 1
 
-eval "${EDITOR}" "<(git show -p --stat ${=revisions})"
+eval "${EDITOR}" "<(git show -p --stat ${revisions})"

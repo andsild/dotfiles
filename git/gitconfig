@@ -12,8 +12,9 @@
 	tool = diffconflicts
   stat = true
 [core]
-	excludesfile = ~/dotfiles/git/gitexclude
 	editor = vim
+	excludesfile = ~/dotfiles/git/gitexclude
+  pager = "if [ -n \"${NVIM_LISTEN_ADDRESS}\" ] ; then tee /tmp/hackzorDiffout.txt && less /tmp/hackzorDiffout.txt ;  else nvim -R -c AnsiEsc - ; fi " 
   whitespace = trailing-space
 [alias]
   root = rev-parse --show-toplevel
@@ -36,3 +37,12 @@
 	program = gpg2
 [branch]
 	autosetupmerge = true
+[help]
+  autocorrect = 5
+[color]
+  ui = true
+[color "diff"]
+  meta = yellow black bold
+  frag = magenta bold
+  old = red bold
+  new = blue bold

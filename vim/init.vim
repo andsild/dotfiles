@@ -1398,7 +1398,6 @@ function! s:ApplyCustomColorScheme()
     highlight Conceal ctermfg=019 ctermbg=255
     highlight SpecialKey ctermfg=247 ctermbg=255
     highlight Search term=bold ctermfg=015 ctermbg=134
-    " highlight ctermbg=254 
   endif
 endfunction
 
