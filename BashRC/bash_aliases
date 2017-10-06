@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-alias annoying="find -type f -print0 | grep --color=never -Ez '[^/]{5}$' | xargs -0 "
 alias amend="git commit --amend --no-edit"
 alias ammend="git commit --amend"
+alias annoying="find -type f -print0 | grep --color=never -Ez '[^/]{5}$' | xargs -0 "
 alias bc='bc -l -q'
 alias bd='cd /home/andesil/Homework/TDT4305/'
 alias cal3="cal -3"
@@ -14,9 +14,9 @@ alias du="du -h"
 alias e=": edit "
 alias eix="dnf search"
 alias emerge="sudo apt install -y "
-alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
 alias ga="git add . "
 alias gac="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" "
+alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
 alias gc="git commit -m \"\$(fortune | tr '\n' ' ')\""
 alias gclean='(git gc --prune=now  ; git remote prune origin) && git pull'
 alias gdb="gdb --quiet"
@@ -24,6 +24,9 @@ alias gpg="gpg2"
 alias grep="grep --color=always"
 alias gs="git status"
 alias hindent="hindent --style johan-tibell"
+alias jkm='make'
+alias kjm='make'
+alias km='make'
 alias l='ls'
 alias la='ls -A'
 alias lear="clear"
@@ -31,10 +34,16 @@ alias ll='ls -alh'
 alias ls='ls -G --color=auto '
 alias lt='ls -t -r'
 alias m="make"
+alias mj='make'
+alias mj='make'
+alias mjk='make'
+alias mk='make'
 alias mkdir='mkdir'
+alias mkj='make'
 alias mv='mv -v -i'
 alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
 alias no="setxkbmap no"
+alias nstack='nice stack'
 alias paste="xclip -o && echo"
 alias pg="ps aux | grep "
 alias py="ipython"
@@ -46,7 +55,6 @@ alias upd="sudo emerge -uDN @world"
 alias us="setxkbmap us"
 alias vs=": vsplit  "
 alias www='cd /var/www/'
-alias nstack='nice stack'
 
 function git()
 {

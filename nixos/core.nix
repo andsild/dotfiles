@@ -130,6 +130,7 @@ in
     dzen2
     eclipses.eclipse-platform
     enlightenment.terminology
+    evince
     file
     findbugs
     fortune
@@ -153,6 +154,7 @@ in
     # haskellPackages.cabal-install
     # haskellPackages.cabal2nix
     haskellPackages.ghc
+    haskellPackages.ihaskell
     # haskellPackages.ghc-mod
     # haskellPackages.happy
     haskellPackages.hindent
