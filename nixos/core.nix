@@ -25,6 +25,8 @@ in
 
    192.168.1.168 phone
    129.241.103.34 baby
+
+      10.40.119.152 caligula
     '';
 
     wireless.userControlled.enable = true;
