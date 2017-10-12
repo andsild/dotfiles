@@ -277,6 +277,7 @@ in
     xournal
     xpdf
     xscreensaver
+    xxd
     zathura
     zeal
     zip
