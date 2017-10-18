@@ -1407,10 +1407,9 @@ let &titlestring="
   \ fnamemodify(&filetype ==# 'vimfiler' ?
   \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
   \ &columns-len(expand('%:p:.:~')))}\) - VIM"
-let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-  \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
+let &statusline=" "
   \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"
-  \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
+  \ . " [%{gitbranch#name()}]\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
   \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
 call s:ApplyCustomColorScheme()

@@ -19,3 +19,4 @@ builder.sh
 testng.yaml
 *.iml
 *build-redo*
+*.classpath

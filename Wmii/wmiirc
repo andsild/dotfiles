@@ -297,7 +297,7 @@ Key $MODKEY-q
 Key $MODKEY-c
     eval wmiir setsid chromium-browser &
 Key $MODKEY-p # I would use compgen, if nixos permitted me :(
-    eval wmiir setsid "$(compgen -c | dmenu)" &
+    eval wmiir setsid dmenu_run &
 Key $MODKEY-u
     eval wmiir setsid uzbl-browser &
 

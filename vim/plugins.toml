@@ -454,3 +454,6 @@ repo = 'https://github.com/reedes/vim-wordy'
 
 [[plugins]]
 repo = 'https://github.com/vim-scripts/Improved-AnsiEsc'
+
+[[plugins]]
+repo = 'https://github.com/itchyny/vim-gitbranch'
