@@ -391,7 +391,8 @@ nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespa
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 " nnoremap <silent> [Space]t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-nnoremap <silent> [Space]T :Tags<CR>
+nnoremap <silent> [Space]T :FZFTags<CR>
+nnoremap <silent> z/ :Zeavim<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 nnoremap <silent> [Space]di :Unite menu:diff -silent -start-insert -winheight=10 <CR>
 nnoremap <silent> <leader>en :<C-u>setlocal encoding? fenc? fencs?<CR>
@@ -1369,7 +1370,7 @@ function! s:tags()
   \ 'sink':    function('s:tags_sink')})
 endfunction
 
-command! Tags call s:tags()
+command! FZFTags call s:tags()
 
 " Show which highlight group is active under cursor
 " (doesn't work with SpecialKey)

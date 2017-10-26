@@ -185,16 +185,18 @@ in
     mplayer
     mpv
     msmtp
+    ncdu
     ncurses
     neomutt
     networkmanagerapplet
-    newsbeuter-dev
+    nix-repl
     nmap
     nodejs
     notmuch
     nox
     ntfs3g
     nvim
+    mc
     mono46
     monodevelop
     openjdk
@@ -282,6 +284,7 @@ in
     zeal
     zip
     zlib
+    zstd
 
     (texlive.combine {
         inherit (texlive)
