@@ -48,6 +48,18 @@ wmiir write /rules <<!
 /Chromium/ allow+=activate
 !
 
+# Song status info
+songStatus() {
+  spotify=""
+  if pidof .spotify-wrapped 1> /dev/null
+  then
+      spotify="$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' \
+        | sed -n '/xesam:albumArtist/{n;n;H} ; /xesam:title/{n;H} ; ${x;s/^[^"]*"//g;s/"[^"]*"/: /g;s/"//g;p}')"
+  fi
+  echo -n label "${spotify}"
+}
+
+# Yahoo has currently shut down their API :(
 stockStatus() {
     # nixos runs this scripts as /bin/sh in spite of the header,
     # so redirection (<<<) doesnt work, we need to invoke something else, fml.
@@ -65,31 +77,9 @@ stockStatus() {
     fi
 }
 
-# Song status info
-songStatus() {
-    spotify="$(pidof spotify 1>/dev/null; \
-        if pidof spotify 1>/dev/null;
-        then
-            printf " [[ No song playing ]]";
-        else
-            dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' \
-            | awk '
-                BEGIN { songName=""; artist="" }
-                {
-                    if(NR==22) { for(i=2; i<NF+1; i++) { artist  =artist" "$i; } }
-                    if(NR==39) { for(i=3; i<NF+1; i++) { songName=songName" "$i } }
-                }
-                END { gsub(/"/,"", artist); gsub(/"/,"",songName);
-                      print artist":"songName }
-        ' ; fi)"
-
-    echo -n "label ${spotify}"
-}
-
-
 netStatus()
 {
-    device=$(nmcli  -e yes -t -f DEVICE dev | head -n1)
+    device=$(nmcli  -e yes -t -f DEVICE dev | grep -v "docker" | head -n1)
     upRead="${1}"
     downRead="${2}"
     upRead2=$(head /sys/class/net/"${device}"/statistics/rx_bytes)
@@ -103,19 +93,14 @@ netStatus()
 
 # Status Bar Info
 status() {
-    volume=$(amixer sget Master)
-    volume="${volume#Simple*\[}"
-    volume="${volume%%]*]}"
+    volume=$(amixer sget Master | grep --color=none -Eom1 '[[:digit:]]+%')
     memstat="$(awk '
-    BEGIN { swap=0; total=0; avail=0; cacheMem }
-    {
-        if     (NR == 1) { total=int($2 / 1024); }
-        else if(NR == 2) { avail=int($2 / 1024); }
-        else if(NR == 5) { cacheMem=int($2 / 1024); }
-        else if(NR == 6) { swap=int($2 / 1024); }
-    }
-    END { print cacheMem":"(total-avail)"/"total" MB | "swap" MB" }' \
-        /proc/meminfo)"
+    BEGIN { swap=0; total=0; avail=0; cacheMem=0; }
+    /^Cached:/ { cacheMem=int($2 / 1024); }
+    /^MemTotal:/ { total=int($2 / 1024); }
+    /^MemFree:/ { avail=int($2 / 1024); }
+    /^SwapCached:/ { swap=int($2 / 1024); }
+    END { print cacheMem":"(total-avail)"/"total" MB | "swap" MB" }' /proc/meminfo)"
 
     topProc=$(ps --user "${USER}" hS -o pcpu:4,etime:4,comm:20 --sort=-pcpu | head --lines=1)
 
@@ -131,7 +116,7 @@ status() {
         '|' "${memstat}" \
         '|' "$(awk ' { gsub(".*/", "", $4); print $1, $2, $3, $4 } ' /proc/loadavg)" \
         '|' "${volume:-amixer error}"\
-        "${battery}" \
+        "${battery}"\
         '|' "$(xkblayout-state print "%s")" \
         '|' "$(TZ="America/New_York" date +%a\ %b\ %d\ \(%H\)"$(date +%H)":%M:%S)";
 }
@@ -213,29 +198,29 @@ Action netStatus
     upRead=0
     downRead=0
     while netStatus ${upRead} ${downRead} | wmiir write /rbar/netStatus ; do
-        device=$(nmcli  -e yes -t -f DEVICE dev | head -n1)
+        device=$(nmcli  -e yes -t -f DEVICE dev | grep -v "docker" | head -n1)
         upRead=$(head /sys/class/net/${device}/statistics/rx_bytes)
         downRead=$(head /sys/class/net/${device}/statistics/tx_bytes)
         sleep 1
     done
-Action stockStatus
+# Action stockStatus
+#     set +xv
+#     if wmiir remove /lbar/stockStatus 2>/dev/null; then
+#         sleep 2
+#     fi
+#     echo colors "$WMII_NORMCOLORS" | wmiir create /lbar/stockStatus
+#     while stockStatus | wmiir write /lbar/stockStatus; do
+#         sleep 900
+#     done
+Action songStatus
     set +xv
-    if wmiir remove /lbar/stockStatus 2>/dev/null; then
+    if wmiir remove /lbar/songStatus 2>/dev/null; then
         sleep 2
     fi
-    echo colors "$WMII_NORMCOLORS" | wmiir create /lbar/stockStatus
-    while stockStatus | wmiir write /lbar/stockStatus; do
-        sleep 900
+    echo colors "$WMII_NORMCOLORS" | wmiir create /lbar/songStatus
+    while songStatus | wmiir write /lbar/songStatus; do
+        sleep 7
     done
-#Action songStatus
-    #set +xv
-    #if wmiir remove /lbar/songStatus 2>/dev/null; then
-        #sleep 2
-    #fi
-    #echo colors "$WMII_NORMCOLORS" | wmiir create /lbar/songStatus
-    #while songStatus | wmiir write /lbar/songStatus; do
-        #sleep 7
-    #done
 # Key Bindings
 KeyGroup Moving around
 Key $MODKEY-$LEFT   # Select the client to the left
@@ -294,6 +279,8 @@ Key $MODKEY-m # Set column to max mode
 KeyGroup Running programs
 Key $MODKEY-q
     eval wmiir setsid qutebrowser &
+Key $MODKEY-i
+    eval wmiir setsid slock &
 Key $MODKEY-c
     eval wmiir setsid chromium-browser &
 Key $MODKEY-p # I would use compgen, if nixos permitted me :(
@@ -347,7 +334,7 @@ then
     setsid ~/dotfiles/Bash/pdfautoopen &
 fi
 
-if [ -z "$(pidof workrave)" ]
+if ! pidof workrave
 then
     command -v workrave 2>&1 && setsid workrave &
 fi
@@ -356,7 +343,7 @@ fi
 # progsfile="$(wmiir namespace)/.proglist"
 action status &
 action netStatus &
-action stockStatus &
+# action stockStatus &
 action songStatus &
 # wi_proglist "$PATH" >"$progsfile" &
 

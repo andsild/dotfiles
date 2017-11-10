@@ -123,6 +123,7 @@ in
     chromium
     clang
     cmake
+    consul
     cowsay
     ctags
     dmenu
@@ -155,12 +156,11 @@ in
     graphviz
     # haskellPackages.cabal-install
     # haskellPackages.cabal2nix
-    haskellPackages.ghc
-    haskellPackages.ihaskell
+    # haskellPackages.ghc
     # haskellPackages.ghc-mod
     # haskellPackages.happy
-    haskellPackages.hindent
-    haskellPackages.hoogle
+    # haskellPackages.hindent
+    # haskellPackages.hoogle
     # haskellPackages.stylish-haskell
     # haskellPackages.threadscope
     # hasklig
@@ -204,12 +204,14 @@ in
     p7zip
     parted
     pavucontrol
-    pdftk
+    # pdftk
     pciutils
     perlPackages.ImageExifTool
     pinentry
     pkgconfig
+    protobuf
     posix_man_pages
+    postgresql
     python
     python3Packages.ipython
     python3Packages.python
@@ -240,11 +242,13 @@ in
     sloccount
     slock
     slop
+    spotify # don't know a better, more reasonable free software alternative
     sqlite
     sshfs-fuse
-    stack
+    # stack
     stdmanpages
     stepmania
+    stress
     stress-ng
     sxiv
     sysstat
@@ -410,8 +414,8 @@ LABEL="com_leapmotion_leap_end"
       layout = "us,no";
       xkbOptions = "eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no";
       windowManager.wmii.enable = true;
-      windowManager.xmonad.enable = true;
-      windowManager.xmonad.enableContribAndExtras = true;
+      # windowManager.xmonad.enable = true;
+      # windowManager.xmonad.enableContribAndExtras = true;
       displayManager = {
         sessionCommands = "${pkgs.networkmanagerapplet}/bin/nm-applet &";
         slim = {
