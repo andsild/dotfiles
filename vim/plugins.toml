@@ -457,3 +457,9 @@ repo = 'https://github.com/vim-scripts/Improved-AnsiEsc'
 
 [[plugins]]
 repo = 'https://github.com/itchyny/vim-gitbranch'
+
+[[plugins]]
+repo = 'https://github.com/jiangmiao/auto-pairs'
+
+[[plugins]]
+repo = 'https://github.com/lfilho/cosco.vim'

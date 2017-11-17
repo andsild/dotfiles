@@ -124,6 +124,8 @@ let t:cwd = getcwd()
 augroup DefaultAuGroup
     autocmd!
 
+    " autocmd FileType java let g:deoplete#complete_method="omnifunc"
+    autocmd FileType javascript,css,java nmap <silent> ;; <Plug>(cosco-commaOrSemiColon)
     autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()
     autocmd FileType gitcommit setlocal textwidth=72
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
@@ -506,6 +508,9 @@ let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
+" let g:deoplete#omni#input_patterns.java = '[^. \t0-9]\.\w*'
+" let g:deoplete#omni_patterns = {}
+" let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
 let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:formatters_javascript = ['jscs']
@@ -1521,13 +1526,8 @@ nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
 nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
 
 nnoremap <silent> [Space]ss :<C-u>Denite gitstatus<CR>
-nnoremap <silent> ;;
-      \ :<C-u>Denite command command_history<CR>
 
 inoremap <c-b> <Esc>i
-
-
-"" end denite
 
 " this has to be on the bottom
 if s:isWindows()

@@ -6,13 +6,12 @@ let
 in
 {
   imports = [
-    ./hardware-configuration.nix ./private.nix ./elk.nix ];
-
-
+    ./hardware-configuration.nix ./private.nix ./elk.nix ./customXserver.nix  ];
+    
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking = {
     networkmanager.enable = true;
@@ -41,6 +40,12 @@ in
 
   security.sudo.enable = true;
   security.polkit.enable = true;
+  security.pam.loginLimits = [{
+    domain = "*";
+    type = "soft";
+    item = "nofile";
+    value = "4096";
+  }];
   security.wrappers = {
     slock = {
       source = "${pkgs.slock.out}/bin/slock";
@@ -66,7 +71,7 @@ in
     #   enableGoogleTalkPlugin = true;
     #   enableAdobeFlash = true;
     # };
-    virtualbox.enableExtenstionPack = true;
+    virtualbox.enableExtenstionPack = false;
     zathura.useMupdf = true;
   };
 
@@ -164,6 +169,7 @@ in
     # haskellPackages.stylish-haskell
     # haskellPackages.threadscope
     # hasklig
+    hdparm
     fira-code
     hicolor_icon_theme
     htop
@@ -408,6 +414,7 @@ LABEL="com_leapmotion_leap_end"
     locate.localuser = "nobody";
     locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" ];
 
+    # customXServer = {
     xserver = {
       enable = true;
       # setxkbmap  -option eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no
@@ -541,6 +548,16 @@ LABEL="com_leapmotion_leap_end"
         </Plugin>
       '';
     };
+
+    postgresql = {
+      enable = true;
+      authentication = lib.mkForce ''
+# Generated file; do not edit!
+local all all              trust
+host  all all 127.0.0.1/32 trust
+host  all all ::1/128      trust
+      '';
+    };
   };
 
   environment.etc."profile.local".text = ''
@@ -588,7 +605,7 @@ LABEL="com_leapmotion_leap_end"
     ssh.startAgent = true;
   };
 
-  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enable = false;
   virtualisation.docker.enable = true;
 
   users.extraUsers.andsild =

@@ -15,8 +15,6 @@
 
   imports = [ ./core.nix ];
 
-
-
  networking.hostName = "peskNix";
  networking.extraHosts = ''
  192.168.1.207 laptop

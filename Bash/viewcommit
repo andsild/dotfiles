@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Load each file from a git commit into vim, and use fugitive.vim to view the diff from master.
+
+# TODO: support running from inside a vim (don't open up vim inside vim)
+# TODO: get the commit message in a last tab
+# TODO: view multiple commits... as one, if possible?
+
+commit="${1:-HEAD}"
+commits=$(git diff-tree --no-commit-id --name-only -r "$commit")
+vim -p ${commits} -c "tabdo silent Gdiff master"

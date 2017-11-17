@@ -73,14 +73,14 @@ export NIX_PATH=myOverride="${HOME}/dotfiles/nixpkgs:${NIX_PATH}"
 export IPYTHONDIR="${HOME}/.ipython"
 
 # It's a lot more annoying to not have an old command in history than having a large file
-export HISTSIZE=100000
-export HISTFILE_SIZE=1000000
+export HISTSIZE=10000000
+export HISTFILE_SIZE=100000000
 
 # need the if statement for e.g. mac
 if [ "${BASH_VERSINFO[0]}" -ge 4 ]
 then
-    shopt -s autocd
-    shopt -s histappend
+  shopt -s autocd 
+  shopt -s histappend
 fi
 
 # Enable directory autocorrection
@@ -96,19 +96,18 @@ export FZF_COMPLETION_OPTS='--extended --exact'
 
 if command -v brew
 then
-    # brew install bash-completion bash-git-prompt
-    . "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
-    . "$(brew --prefix)/etc/bash_completion"
-    if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
-        . "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
-    fi
+  # brew install bash-completion bash-git-prompt
+  . "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+  . "$(brew --prefix)/etc/bash_completion"
+  if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+      . "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+  fi
 else
-    [ -e "${HOME}/.bash-git-prompt/gitprompt.sh" ] && . "${HOME}/.bash-git-prompt/gitprompt.sh"
-    # Get proper auto-completion
-    if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-        . /etc/bash_completion
-    fi
-
+  [ -e "${HOME}/.bash-git-prompt/gitprompt.sh" ] && . "${HOME}/.bash-git-prompt/gitprompt.sh"
+  # Get proper auto-completion
+  if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+      . /etc/bash_completion
+  fi
 fi
 # GIT_PROMPT_START="$(date +%H:%M)"
 GIT_PROMPT_END="$(whoami)@${HOSTNAME}\n:"
@@ -121,7 +120,6 @@ export GIT_PROMPT_ONLY_IN_REPO=1
 
 [ -n "$NVIM_LISTEN_ADDRESS" ] && alias :='~/.nvimex.py'
 
-
 # added by travis gem
 [ -f "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
 export PATH=~/.local/bin:$PATH
@@ -129,13 +127,12 @@ export PATH=~/.local/bin:$PATH
 # pip bash completion start
 _pip_completion()
 {
-    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                   COMP_CWORD=$COMP_CWORD \
-                   PIP_AUTO_COMPLETE=1 $1 ) )
+  COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                 COMP_CWORD=$COMP_CWORD \
+                 PIP_AUTO_COMPLETE=1 $1 ) )
 }
 complete -o default -F _pip_completion pip
 # pip bash completion end
-
 
 [ -f "/etc/bash_completion.d/git-prompt" ] && source /etc/bash_completion.d/git-prompt
 [ -f "/etc/bash_completion.d/bazel" ] && source /etc/bash_completion.d/bazel
