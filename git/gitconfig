@@ -40,9 +40,9 @@
 [help]
   autocorrect = 5
 [color]
-  ui = true
-[color "diff"]
-  meta = yellow black bold
-  frag = magenta bold
-  old = red bold
-  new = blue bold
+  ui = auto
+# [color "diff"]
+#   meta = yellow black bold
+#   frag = magenta bold
+#   old = red bold
+#   new = blue bold

@@ -139,6 +139,7 @@ in
     eclipses.eclipse-platform
     enlightenment.terminology
     evince
+    libfaketime
     file
     findbugs
     fortune
@@ -358,7 +359,7 @@ in
     clamav.updater.enable = true;
     clamav.updater.frequency = 1;
 
-    offlineimap.enable = true;
+    offlineimap.enable = false; # so much hassling with the setup, not sure if CLI email is worth it yet
     offlineimap.install = true;
     offlineimap.path = [ pkgs.gnupg1orig pkgs.python pkgs.gnupg pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite pkgs.pinentry  ];
     offlineimap.onCalendar = "*:0/4"; # every three minutes
@@ -404,15 +405,13 @@ LABEL="com_leapmotion_leap_end"
 #'';
 
     openssh.enable = true;
-    openssh.extraConfig = ''Ciphers arcfour,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,arcfour128,arcfour256,aes128-cbc,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
-'';
     openssh.permitRootLogin = "no";
     openssh.passwordAuthentication = false;
     openssh.challengeResponseAuthentication = false;
     locate.enable = true;
     locate.interval = "*:0/30";
-    locate.localuser = "nobody";
-    locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" ];
+    locate.localuser = username;
+    locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" "/boot/grub" "/var/lib/docker" "/lost+found" "/var/lib/containers" "/root" "/var/db/sudo" "/var/lib/postgresql" "/var/lib/bluetooth" "/etc/docker" "/etc/NetworkManager" "/nix/var" "/home/andsild/Downloads" "/home/andsild/.cache" "/home/andsild/.thunderbird" "/home/andsild/.gitfat" "/home/andsild/.stack"];
 
     # customXServer = {
     xserver = {
