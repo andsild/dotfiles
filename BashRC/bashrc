@@ -23,14 +23,11 @@ PURPLE="$(printf '%b' '\e[00;35m')"
 SMILEY="${GREEN}:)"
 FROWNY="${RED}:("
 case $(hostname) in
-    lille*)
-        HOSTNAME="${RED}"
-        ;;
-    NTNU10090)
-        HOSTNAME="${BLUE}"
-        ;;
-    miniPeskNix)
+    drusus*)
         HOSTNAME="${YELLOW}"
+        ;;
+    Caligula)
+        HOSTNAME="${BLUE}"
         ;;
     peskNix)
         HOSTNAME="${PURPLE}"
@@ -118,7 +115,7 @@ export GIT_PROMPT_ONLY_IN_REPO=1
 
 [ -d "${HOME}/python3env" ] &&  . "${HOME}/python3env/bin/activate"
 
-[ -n "$NVIM_LISTEN_ADDRESS" ] && alias :='~/.nvimex.py'
+[ -n "$NVIM_LISTEN_ADDRESS" ] && alias :='~/dotfiles/BashRC/nvimex.py'
 
 # added by travis gem
 [ -f "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
@@ -134,5 +131,5 @@ _pip_completion()
 complete -o default -F _pip_completion pip
 # pip bash completion end
 
-[ -f "/etc/bash_completion.d/git-prompt" ] && source /etc/bash_completion.d/git-prompt
-[ -f "/etc/bash_completion.d/bazel" ] && source /etc/bash_completion.d/bazel
+[ -f "/etc/bash_completion.d/git-prompt" ] && . /etc/bash_completion.d/git-prompt
+[ -f "/etc/bash_completion.d/bazel" ] && . /etc/bash_completion.d/bazel

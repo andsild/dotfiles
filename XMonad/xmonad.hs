@@ -48,7 +48,7 @@ import 		 XMonad.Hooks.SetWMName
 --
 myTerminal :: String
 -- myTerminal = "konsole"
-myTerminal = "st -e screen \\-c .screenST"
+myTerminal = "st"
  
 -- Width of the window border in pixels.
 --
@@ -61,7 +61,7 @@ myBorderWidth = 1
 -- "windows key" is usually mod4Mask.
 --
 myModMask :: KeyMask
-myModMask = mod1Mask
+myModMask = mod4Mask
  
 -- The mask for the numlock key. Numlock status is "masked" from the
 -- current modifier status, so the keybindings will work with numlock on or
@@ -421,7 +421,7 @@ gsConfig = defaultGSConfig { gs_navigate = fix $ \self ->
 --
 main :: IO ()
 main = do
-    mapM_ spawn ["xloadimage -onroot -fork -center  -fullscreen -center /home/andesil/Dropbox/personal/Pictures/xmonadBackground.png"]
+    mapM_ spawn ["xloadimage -onroot -fork -center  -fullscreen -center /home/andsild/.images/doggo.jpg"]
     
     xmproc <- spawnPipe "`which xmobar` ~/.xmobarrc"
     xmonad $ withUrgencyHook NoUrgencyHook defaults {

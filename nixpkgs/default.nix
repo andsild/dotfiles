@@ -6,8 +6,6 @@ let
 	callPackage = pkgs.lib.callPackageWith (pkgs // self);
 
 	self = {
-    bazel = pkgs.callPackage ./pkgs/bazel {
-    };
 
 	  st = pkgs.callPackage ./pkgs/st {
 	    conf = import ./pkgs/st_config.nix {} ;
@@ -20,8 +18,6 @@ let
 	    };
 
 
-    checkstyle = pkgs.callPackage ./pkgs/checkstyle {
-    };
 
 	  neovim = pkgs.neovim.override {
 	    vimAlias = true;
