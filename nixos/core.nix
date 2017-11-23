@@ -163,7 +163,8 @@ in
     # haskellPackages.cabal-install
     # haskellPackages.cabal2nix
     # haskellPackages.ghc
-    # haskellPackages.ghc-mod
+    haskellPackages.ghc-mod
+    haskellPackages.xmobar
     # haskellPackages.happy
     # haskellPackages.hindent
     # haskellPackages.hoogle

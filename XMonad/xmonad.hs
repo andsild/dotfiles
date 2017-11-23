@@ -1,4 +1,3 @@
-
 -- File     : ~/.xmonad/xmonad.hs
 -- Author   : Yiannis Tsiouris (yiannist)
 -- Modified by: Anders Sildnes (this pretty much involves merging stuff from other config files, heh)
@@ -421,7 +420,7 @@ gsConfig = defaultGSConfig { gs_navigate = fix $ \self ->
 --
 main :: IO ()
 main = do
-    mapM_ spawn ["xloadimage -onroot -fork -center  -fullscreen -center /home/andsild/.images/doggo.jpg"]
+    mapM_ spawn ["feh --bg-scale /home/andsild/.images/swahili.png"]
     
     xmproc <- spawnPipe "`which xmobar` ~/.xmobarrc"
     xmonad $ withUrgencyHook NoUrgencyHook defaults {
