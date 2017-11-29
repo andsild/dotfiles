@@ -17,7 +17,16 @@ let
 	      BROWSER = "chromium-browser";
 	    };
 
+    checkstyle = pkgs.callPackage ./pkgs/checkstyle {
+j
+    };
 
+	  workrave = pkgs.callPackage ./pkgs/workrave {
+      inherit (pkgs.gnome2) GConf gconfmm;
+      inherit (pkgs.python27Packages) cheetah;
+      gtk = pkgs.gtk2;
+      gtkmm = pkgs.gtkmm2;
+	  };
 
 	  neovim = pkgs.neovim.override {
 	    vimAlias = true;

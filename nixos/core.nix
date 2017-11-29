@@ -164,12 +164,13 @@ in
     # haskellPackages.cabal2nix
     # haskellPackages.ghc
     haskellPackages.ghc-mod
+    haskellPackages.intero
     haskellPackages.xmobar
     # haskellPackages.happy
     # haskellPackages.hindent
-    # haskellPackages.hoogle
-    # haskellPackages.stylish-haskell
-    # haskellPackages.threadscope
+    haskellPackages.hoogle
+    haskellPackages.stylish-haskell
+    haskellPackages.threadscope
     # hasklig
     hdparm
     fira-code

@@ -1,9 +1,6 @@
-[includeIf "gitdir:~/*"]
-  path = ~/dotfiles/git/gitconfig-default
-[includeIf "gitdir:~/work/cx"]
-  path = ~/dotfiles/git/gitconfig-work
-[includeIf "gitdir:~/work/cxclone"]
-  path = ~/dotfiles/git/gitconfig-work
+[user]
+	name  = andsild
+	email = anders.sildnes@cxense.com
 [push]
 	default = current
 [pull]

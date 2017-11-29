@@ -122,7 +122,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
  
     -- launch gmrun
-    --, ((modMask,               xK_p     ), spawn "gmrun")
     , ((modMask,               xK_p     ), spawn "dmenu_run")
     -- close focused window
     , ((modMask .|. shiftMask, xK_c     ), kill)
@@ -181,23 +180,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- Launch pretty menu with active apps
     , ((modMask, 	       xK_a	), warpToCentre >> goToSelected gsConfig)
 
-    -- Launch eclipse
-    , ((modMask, 	       xK_e	), spawn "eclipse") -- not working!
-
     -- Launch spotify
     , ((modMask,	       xK_s	), spawn "spotify")
 
     -- Launch uzbl
-    , ((modMask,	       xK_u	), spawn "uzbl-browser")
+    , ((modMask,	       xK_u	), spawn "qutebrowser")
 
-    -- Launch opera
-    , ((modMask,	       xK_o	), spawn "opera")
-	--
     -- Launch chromium
     , ((modMask,	       xK_c	), spawn "chromium")
-
-	-- Firefox
-    , ((modMask,	       xK_f	), spawn "firefox")
 
     ]
     ++
@@ -212,7 +202,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     ]
     ++
  
-    --
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     --
