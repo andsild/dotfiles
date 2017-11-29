@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+tree "${1:-$HOME}" -L "${2:-1}" \
+  | awk  'NR==1 { path=$0 } 
+          /── [a-z]+$/ { 
+            "ls -1 " path"/"$2 " | wc -l" | getline cmdout 
+            print $0" -- "cmdout " files "
+            next 
+          } 
+          { print } '
