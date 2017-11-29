@@ -22,7 +22,6 @@ import           Data.Ratio
 import           System.Exit
 import           System.IO
 
-import		 XMonad.Actions.GridSelect  -- for gsConfig og ymst
 import 		 Control.Monad.Writer	    -- for writer
 import 		 XMonad.Layout.MultiToggle  -- for transformer
 import		 XMonad.Layout.Master	    -- for mastered
@@ -191,12 +190,4 @@ main = do
     mapM_ spawn ["feh --bg-scale /home/andsild/.images/swahili.png"]
     
     xmproc <- spawnPipe "`which xmobar` ~/.xmonad/xmobarrc"
-    -- xmonad $ withUrgencyHook NoUrgencyHook defaults {
     xmonad defaults
-        --logHook = do FI.fadeInactiveLogHook 0xbbbbbbbb
-          --           dynamicLogWithPP $ xmobarPP {
-            --               ppOutput = hPutStrLn xmproc
-              --           , ppTitle  = xmobarColor "#ff66ff" "" . shorten 50
-                --         , ppUrgent = xmobarColor "yellow" "red" . xmobarStrip
-                  --   }
-    -- }
