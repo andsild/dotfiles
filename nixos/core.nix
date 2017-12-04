@@ -11,7 +11,7 @@ in
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking = {
     networkmanager.enable = true;
@@ -25,7 +25,7 @@ in
    192.168.1.168 phone
    129.241.103.34 baby
 
-      10.40.119.152 caligula
+    10.40.119.152 caligula
     '';
 
     wireless.userControlled.enable = true;
@@ -44,8 +44,10 @@ in
     domain = "*";
     type = "soft";
     item = "nofile";
-    value = "4096";
-  }];
+    value = "524288";
+  }
+  ];
+  
   security.wrappers = {
     slock = {
       source = "${pkgs.slock.out}/bin/slock";
@@ -160,9 +162,9 @@ in
     gradle
     graphicsmagick
     graphviz
-    # haskellPackages.cabal-install
+    haskellPackages.cabal-install
     # haskellPackages.cabal2nix
-    # haskellPackages.ghc
+    haskellPackages.ghc
     haskellPackages.ghc-mod
     haskellPackages.intero
     haskellPackages.xmobar

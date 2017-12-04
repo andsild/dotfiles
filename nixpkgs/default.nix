@@ -18,7 +18,10 @@ let
 	    };
 
     checkstyle = pkgs.callPackage ./pkgs/checkstyle {
-j
+    };
+
+    bazel = pkgs.callPackage ./pkgs/bazel {
+      jdk = pkgs.oraclejdk;
     };
 
 	  workrave = pkgs.callPackage ./pkgs/workrave {
