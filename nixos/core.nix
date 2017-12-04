@@ -46,6 +46,16 @@ in
     item = "nofile";
     value = "524288";
   }
+  # The segment below can result in "permission denied" for logging into your system. 
+  # I recommend logging in as root into another shell before experimenting to
+  # ensure you can rollback changes
+  # (use `su - $(id -un)` to experiment  )
+  {
+    domain = "*";
+    type = "hard";
+    item = "nofile";
+    value = "16192";
+  }
   ];
   
   security.wrappers = {
@@ -166,7 +176,6 @@ in
     # haskellPackages.cabal2nix
     haskellPackages.ghc
     haskellPackages.ghc-mod
-    haskellPackages.intero
     haskellPackages.xmobar
     # haskellPackages.happy
     # haskellPackages.hindent
@@ -256,7 +265,7 @@ in
     spotify # don't know a better, more reasonable free software alternative
     sqlite
     sshfs-fuse
-    # stack
+    stack
     stdmanpages
     stepmania
     stress
