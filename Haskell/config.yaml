@@ -17,4 +17,4 @@ templates:
 system-ghc: true
 nix:
   enable: true
-  packages: [gcc ncurses haskellPackages.intero haskellPackages.xmonad]
+  packages: [gcc ncurses haskellPackages.intero haskellPackages.xmonad haskellPackages.xmonad-extras  haskellPackages.xmonad-contrib  haskellPackages.ghc-mod ]

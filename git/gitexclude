@@ -20,3 +20,4 @@ testng.yaml
 *.iml
 *build-redo*
 *.classpath
+service.json

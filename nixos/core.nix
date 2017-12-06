@@ -122,6 +122,13 @@ in
     };
   in
   with pkgs; [
+  # TODO: fix eclim
+  # ECLIPSE_DIR=/nix/store/8pcdjggfcahgsdid3l31ckqhw3rw5smw-eclipse-platform-4.7.1a/eclipse ; ECLIPSE_VERSION=$(awk -F = '/version/ { print $2 }' $ECLIPSE_DIR/.eclipseproduct) ; test -n ${ECLIPSE_VERSION} && ant -Declipse.home=$ECLIPSE_DIR -Declipse.local=$HOME/.eclipse/org.eclipse.platform_$ECLIPSE_VERSION  -Dvim.files=$HOME/.config/nvim
+    (eclipses.eclipseWithPlugins {
+          eclipse = eclipses.eclipse-platform-47;
+          jvmArgs = [ "-Xmx2048m" "-Xms2048m" ];
+          plugins = with eclipses.plugins; [ checkstyle color-theme findbugs jdt vrapper testng  ];
+    })
     aalib
     acpitool
     androidsdk
@@ -148,7 +155,8 @@ in
     dotnetPackages.Nuget
     dpkg
     dzen2
-    eclipses.eclipse-platform
+    # eclipses.eclipse-platform
+    # eclipse-plugin-testng
     enlightenment.terminology
     evince
     libfaketime
@@ -174,9 +182,8 @@ in
     graphviz
     haskellPackages.cabal-install
     # haskellPackages.cabal2nix
-    haskellPackages.ghc
-    haskellPackages.ghc-mod
-    haskellPackages.xmobar
+    # haskellPackages.ghc
+    # haskellPackages.ghc-mod
     # haskellPackages.happy
     # haskellPackages.hindent
     haskellPackages.hoogle
@@ -232,6 +239,7 @@ in
     protobuf
     posix_man_pages
     postgresql
+    pssh
     python
     python3Packages.ipython
     python3Packages.python
@@ -417,10 +425,18 @@ LABEL="com_leapmotion_leap_end"
 #KERNEL=="hidraw*", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c70[345abce]|c71[34bc]", \ RUN+="hid2hci --method=logitech-hid --devpath=%p";
 #'';
 
-    openssh.enable = true;
-    openssh.permitRootLogin = "no";
-    openssh.passwordAuthentication = false;
-    openssh.challengeResponseAuthentication = false;
+    openssh = {
+      enable = true;
+      permitRootLogin = "no";
+      passwordAuthentication = false;
+      challengeResponseAuthentication = false;
+      knownHosts = [
+        { 
+          hostNames = ["self"];
+          publicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDntHshA0NiBwAT1v+aCsOuwKp7qQeyKhy3rWGlYN9rDxbqayIsYtg1zLYRExBpstCni9GUyPwyQXX69qOkVdpXNH9XyIz/LD4xL/Fp8niNUuAU0xaHO2nNC6oOE4tN1oN2ic5EC6ZPpdUvD1KnQl6FFsBWaM9UrBemX7u+ATt2faVUE0tFEzkNScggP2MUxJMPxagnAr2Ro1tetpSxmx61Nd7IBMHI4j4eoSHj6Hav4DbGDgMaK6IMfAyoPMwC7eqYCFx+1vXm55EQna3mIHC9+tnxwvXoFlOxvtPEj0A78h3OMA/gICmPDZtF+i9Al46sTJ7f5sebilx6cJQJYW8J1fOV+dGcy8P2baVXuxRdNSj97B+iX6/RXZtwB/WcBKnhAv5r+yMgVapXs7pb3sh1Q5js5RV4LwBp1sd7o1NPTJE9WKTeWdUt/ggvZ4gZFNtasTevWe1F8sw5y6wYM1mQq0HrtfESG61TDtT6Lc2HWJnX3i6B6rcwynVbJlC5dOP0onfxeViS0J/U6vEk7f2vHhSZxS+EFXyVoVhx3DW2XNmGsQ2tApBBB7Ek+naN4oWvPlMwAo8cZFZrZc+pneZYELLmhKuf6dKZC7q+iLfbGmi1ZPn9r6u3UKUZ/9aw8LiRNB/NIKhlTBqxGq421DWI/aZD2Mw+wiH7oDBaYP6zdQ== andsild@posteo.net";
+        }
+      ];
+    };
     locate.enable = true;
     locate.interval = "*:0/30";
     locate.localuser = username;
@@ -435,6 +451,7 @@ LABEL="com_leapmotion_leap_end"
       windowManager.wmii.enable = true;
       windowManager.xmonad.enable = true;
       windowManager.xmonad.enableContribAndExtras = true;
+      windowManager.xmonad.extraPackages = with pkgs.haskellPackages; haskellPackages: [ xmobar ];
       displayManager = {
         sessionCommands = "${pkgs.networkmanagerapplet}/bin/nm-applet &";
         slim = {
