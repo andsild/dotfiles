@@ -93,6 +93,12 @@ in
   hardware.pulseaudio.tcp.enable = true;
   hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.extraConfig = ''
+    Name=%h-nix
+    AutoConnectTimeout = 30
+    FastConnectable = true
+    NameResolving = false
+    '';
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
@@ -189,6 +195,7 @@ in
     haskellPackages.hoogle
     haskellPackages.stylish-haskell
     haskellPackages.threadscope
+    haskellPackages.xmobar
     # hasklig
     hdparm
     fira-code
@@ -375,6 +382,8 @@ in
   ];
 
   services = {
+    resolved.enable = true;
+    resolved.domains = ["cxense.com"];
     acpid.enable = true;
     clamav.daemon.enable = true;
     clamav.updater.enable = true;
@@ -467,7 +476,7 @@ LABEL="com_leapmotion_leap_end"
 
     # thanks bjornfor (https://github.com/bjornfor/nixos-config)
     lighttpd = {
-      enable = true;
+      enable = false;
       #mod_status = true; # don't expose to the public
       mod_userdir = true;
       enableModules = [ "mod_alias" "mod_proxy" "mod_access" "mod_fastcgi" "mod_redirect" ];
@@ -541,7 +550,7 @@ LABEL="com_leapmotion_leap_end"
     # The NixOS service currently only sets perms *once*, so I've manually
     # loosened it up for now, to allow lighttpd to read RRD files.
     collectd = {
-      enable = true;
+      enable = false;
       extraConfig = ''
         # Interval at which to query values. Can be overwritten on per plugin
         # with the 'Interval' option.
@@ -579,9 +588,9 @@ LABEL="com_leapmotion_leap_end"
     };
 
     postgresql = {
-      enable = true;
+      enable = false;
       authentication = lib.mkForce ''
-# Generated file; do not edit!
+# Generated file from configuration.nix; do not edit!
 local all all              trust
 host  all all 127.0.0.1/32 trust
 host  all all ::1/128      trust
@@ -592,7 +601,7 @@ host  all all ::1/128      trust
   environment.etc."profile.local".text = ''
   if [ -e "$HOME/.bash_profile" ]
   then
-   source "$HOME/.bash_profile"
+    bash "$HOME/.bash_profile"
   fi
    '';
 

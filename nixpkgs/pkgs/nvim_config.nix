@@ -29,6 +29,7 @@
             "vim-coffee-script"
             "fzf-vim"
             "neco-vim"
+            "neosnippet"
             "vim-quickrun"
             ];
         }

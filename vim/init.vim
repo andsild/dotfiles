@@ -125,7 +125,8 @@ augroup DefaultAuGroup
     autocmd!
 
     " autocmd FileType java let g:deoplete#complete_method="omnifunc"
-    autocmd FileType javascript,css,java nmap <silent> ;; <Plug>(cosco-commaOrSemiColon)
+    autocmd FileType javascript,css,java,nix nmap <silent> ;; <Plug>(cosco-commaOrSemiColon)
+    autocmd FileType javascript,css,java,nix imap <silent> ;; <c-o><Plug>(cosco-commaOrSemiColon)<C-\><C-n>
     autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()
     autocmd FileType gitcommit setlocal textwidth=72
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
@@ -805,6 +806,10 @@ let g:UltiSnipsExpandTrigger='<c-s>'
 let g:UltiSnipsJumpBackwardTrigger='zh'
 let g:UltiSnipsJumpForwardTrigger='zl'
 let s:my_split = {'is_selectable': 1}
+imap <expr><c-s>
+	 \ neosnippet#expandable_or_jumpable() ?
+	 \    "\<Plug>(neosnippet_expand_or_jump)" :
+         \ 	 \ pumvisible() ? "\<C-n>" : "\<TAB>"
 
 if s:IsMac()
    let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
