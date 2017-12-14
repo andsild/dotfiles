@@ -280,6 +280,7 @@ in
     spotify # don't know a better, more reasonable free software alternative
     sqlite
     sshfs-fuse
+    sshuttle
     stack
     stdmanpages
     stepmania

@@ -46,13 +46,11 @@ screenBoundaries = [(50,0,0,0)]
 
 -- default tiling algorithm partitions the screen into two panes
 basic :: Tall a
-basic = Tall nmaster delta ratio
+basic = Tall nmaster resizeWindowDelta masterWindowDefaultRatio
   where
     nmaster = 1
-    -- Percent of screen to increment by when resizing panes
-    delta   = 3/100
-    -- Default proportion of screen occupied by master pane
-    ratio   = 1/2
+    resizeWindowDelta = 3/100
+    masterWindowDefaultRatio = 1/2
  
 --myLayout = smartBorders $ onWorkspace "2.web" webLayout $ standardLayouts
 myLayout = smartBorders $ standardLayouts
@@ -141,66 +139,31 @@ defaults = defaultConfig {
 
 newkeys = [ 
       ((myModMask .|. shiftMask, xK_Return), spawn defaultTerminal)
-    , ((myModMask,               xK_p     ), spawn "dmenu_run")
     , ((myModMask .|. shiftMask, xK_c     ), kill)
     , ((myModMask,               xK_space ), sendMessage NextLayout)
- 
-    --  Reset the layouts on the current workspace to default
-    -- , ((myModMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
- 
-    -- Resize viewed windows to the correct size
     , ((myModMask,               xK_n     ), refresh)
- 
-    -- Move focus to the next window
     , ((myModMask,               xK_Tab   ), windows W.focusDown)
- 
-    -- Move focus to the next window
     , ((myModMask,               xK_j     ), windows W.focusDown)
- 
-    -- Move focus to the previous window
     , ((myModMask,               xK_k     ), windows W.focusUp  )
- 
-    -- Move focus to the master window
     , ((myModMask,               xK_m     ), windows W.focusMaster  )
- 
-    -- Swap the focused window and the master window
     , ((myModMask,               xK_Return), windows W.swapMaster)
- 
-    -- Swap the focused window with the next window
     , ((myModMask .|. shiftMask, xK_j     ), windows W.swapDown  )
- 
-    -- Swap the focused window with the previous window
     , ((myModMask .|. shiftMask, xK_k     ), windows W.swapUp    )
- 
-    -- Shrink the master area
     , ((myModMask,               xK_h     ), sendMessage Shrink)
- 
-    -- Expand the master area
     , ((myModMask,               xK_l     ), sendMessage Expand)
+    , ((myModMask,               xK_comma ), sendMessage (IncMasterN 1))
+    , ((myModMask,               xK_period), sendMessage (IncMasterN (-1)))
+    , ((myModMask .|. shiftMask, xK_q     ), io exitSuccess)
+    , ((myModMask,               xK_q     ), restart "xmonad" True)
+    , ((myModMask,	       xK_s	), spawn "spotify")
+    , ((myModMask,	       xK_u	), spawn "qutebrowser")
+    , ((myModMask,	       xK_c	), spawn "chromium")
+    , ((myModMask,               xK_p     ), spawn "dmenu_run")
+    , ((myModMask,               xK_i     ), spawn "slock")
  
     -- Push window back into tiling
     , ((myModMask,               xK_t     ), withFocused $ windows . W.sink)
- 
-    -- Increment the number of windows in the master area
-    , ((myModMask,               xK_comma ), sendMessage (IncMasterN 1))
- 
-    -- Deincrement the number of windows in the master area
-    , ((myModMask,               xK_period), sendMessage (IncMasterN (-1)))
- 
-    -- Quit xmonad
-    , ((myModMask .|. shiftMask, xK_q     ), io exitSuccess)
- 
-    -- Restart xmonad
-    , ((myModMask,               xK_q     ), restart "xmonad" True)
 
-    -- Launch spotify
-    , ((myModMask,	       xK_s	), spawn "spotify")
-
-    -- Launch uzbl
-    , ((myModMask,	       xK_u	), spawn "qutebrowser")
-
-    -- Launch chromium
-    , ((myModMask,	       xK_c	), spawn "chromium")
 
     ]
     ++

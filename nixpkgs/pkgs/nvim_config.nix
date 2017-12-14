@@ -20,6 +20,7 @@
             "deoplete-jedi"
             "deoplete-go"
             "editorconfig-vim"
+            "neosnippet-snippets"
             "vim-webdevicons"
             "neco-ghc"
             "tagbar"

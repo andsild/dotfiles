@@ -83,7 +83,14 @@ fi
 # Enable directory autocorrection
 shopt -s cdspell
 
-[ -f ~/.fzf.bash ] && . ~/.fzf.bash
+if [ -e "/etc/NIXOS" ]
+then
+  if command -v fzf-share >/dev/null; then
+    source "$(fzf-share)/key-bindings.bash"
+  fi
+else
+  [ -f ~/.fzf.bash ] && . ~/.fzf.bash
+fi
 export SCIPY_PIL_IMAGE_VIEWER=xdg-open
 export XDG_CONFIG_HOME="${HOME}/.config/"
 export XDG_DATA_DIR="${HOME}/.local/share/"

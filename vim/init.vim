@@ -142,7 +142,7 @@ augroup DefaultAuGroup
     autocmd FileType go highlight default link goErr WarningMsg | match goErr /\<err\>/
     autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=./;/
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType java nnoremap <buffer> <C-t> :JUnitFindTest<CR>
+    " autocmd FileType java nnoremap <buffer> <C-t> :JUnitFindTest<CR>
     autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
     autocmd FileType javascript,javascript.jsx nnoremap <buffer> [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
     autocmd FileType markdown nnoremap <buffer> [Space]i :Unite menu:markdown -silent -winheight=25 -start-insert<CR>
@@ -161,6 +161,7 @@ augroup DefaultAuGroup
     autocmd FileType haskell nnoremap <silent><buffer>K :GhcModInfoPreview<CR>
     autocmd BufLeave unite source /tmp/layout.vim
     autocmd BufLeave denite source /tmp/layout.vim
+    autocmd FileType term://* setlocal norelativenumber
 
     if has('python3')
         autocmd FileType python setlocal omnifunc=python3complete#Complete
@@ -394,6 +395,7 @@ nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespa
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 " nnoremap <silent> [Space]t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+nnoremap <silent> <c-t> :FZF ~<CR>
 nnoremap <silent> [Space]T :FZFTags<CR>
 nnoremap <silent> z/ :Zeavim<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
@@ -419,7 +421,7 @@ nnoremap [Quickfix]   <Nop> " q: Quickfix
 nnoremap [Space]/  :Ag<CR>
 nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]h :Unite history/unite <CR>
-nnoremap [Space]<s-o> :FZFGit<CR>
+nnoremap [Space]o :FZFGit<CR>
 nnoremap [Space]w :silent Neomake<CR>
 nnoremap \  `
 nnoremap dh :diffget //3<CR>
@@ -471,7 +473,7 @@ if s:isWindows()
     let g:unite_source_rec_async_command = ['git', 'ls-files']
     nnoremap [Space]o :Unite file_mru file_rec/neovim  file/new -start-insert<CR>
 else
-    nnoremap [Space]o :FZFMru<CR>
+    nnoremap [Space]O :FZFMru<CR>
 endif
 
 if dein#check_install(['accelerated-jk'])

@@ -12,6 +12,10 @@ c.TerminalInteractiveShell.editor = 'nvim'
 # direct exit without any confirmation.
 c.TerminalInteractiveShell.confirm_exit = False
 
+c.InteractiveShellApp.extensions = ['autoreload']
+c.InteractiveShellApp.exec_lines = ['%autoreload 2']
+c.InteractiveShellApp.exec_lines.append('print("%%autoreload 2 enabled")')
+
 #logfile_dir = os.path.expanduser('~/ipython-logs')
 #if not os.path.exists(logfile_dir):
 #    os.makedirs(logfile_dir)
