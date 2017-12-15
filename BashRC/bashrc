@@ -49,7 +49,6 @@ PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[%s\]%s@%s\[${WHITE}\]:%s\n:\n" \
 	"\w" \
 )
 
-export EDITOR="nvim"
 export GEM_HOME="${HOME}/.gem"
 export GEM_PATH="${HOME}/.gem"
 HISTIGNORE="ls:l:clear"

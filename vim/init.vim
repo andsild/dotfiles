@@ -124,7 +124,6 @@ let t:cwd = getcwd()
 augroup DefaultAuGroup
     autocmd!
 
-    " autocmd FileType java let g:deoplete#complete_method="omnifunc"
     autocmd FileType javascript,css,java,nix nmap <silent> ;; <Plug>(cosco-commaOrSemiColon)
     autocmd FileType javascript,css,java,nix imap <silent> ;; <c-o><Plug>(cosco-commaOrSemiColon)<C-\><C-n>
     autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()

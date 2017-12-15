@@ -3,6 +3,8 @@
 let
   phpSockName1 = "/run/phpfpm/pool1.sock";
   username = "andsild";
+  homedir = "/home/" + username + "/";
+  concat = l: r: l + r;
 in
 {
   imports = [
@@ -46,10 +48,9 @@ in
     item = "nofile";
     value = "524288";
   }
-  # The segment below can result in "permission denied" for logging into your system. 
-  # I recommend logging in as root into another shell before experimenting to
-  # ensure you can rollback changes
-  # (use `su - $(id -un)` to experiment  )
+  # Changing the hard limits in PAM can disable your login shell for root and regular users.
+  # Before experimenting with changes, I recommend having a logged in sessions as root so that you can rollback changes
+  # (To test live without rebooting, open new sessions with `su - $(id -un)`)
   {
     domain = "*";
     type = "hard";
@@ -75,14 +76,6 @@ in
 
   nixpkgs.config = {
     allowUnfree = true;
-    # chromium = {
-    #   enablePepperFlash = true;
-    #   enablePepperPDF = true;
-    # };
-    # firefox = {
-    #   enableGoogleTalkPlugin = true;
-    #   enableAdobeFlash = true;
-    # };
     virtualbox.enableExtenstionPack = false;
     zathura.useMupdf = true;
   };
@@ -115,7 +108,7 @@ in
   };
 
   environment.variables = rec {
-    VISUAL  = "nvim";
+    VISUAL  = "nvim-qt";
     EDITOR  = VISUAL;
     BROWSER = "qutebrowser";
     SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
@@ -125,6 +118,7 @@ in
   let
     nvim = pkgs.neovim.override {
       vimAlias = true;
+      withPyGUI = true;
     };
   in
   with pkgs; [
@@ -161,8 +155,6 @@ in
     dotnetPackages.Nuget
     dpkg
     dzen2
-    # eclipses.eclipse-platform
-    # eclipse-plugin-testng
     enlightenment.terminology
     evince
     libfaketime
@@ -187,16 +179,10 @@ in
     graphicsmagick
     graphviz
     haskellPackages.cabal-install
-    # haskellPackages.cabal2nix
-    # haskellPackages.ghc
-    # haskellPackages.ghc-mod
-    # haskellPackages.happy
-    # haskellPackages.hindent
     haskellPackages.hoogle
     haskellPackages.stylish-haskell
     haskellPackages.threadscope
     haskellPackages.xmobar
-    # hasklig
     hdparm
     fira-code
     hicolor_icon_theme
@@ -230,6 +216,7 @@ in
     nox
     ntfs3g
     nvim
+    neovim-qt
     mc
     mono46
     monodevelop
@@ -238,7 +225,6 @@ in
     p7zip
     parted
     pavucontrol
-    # pdftk
     pciutils
     perlPackages.ImageExifTool
     pinentry
@@ -450,7 +436,7 @@ LABEL="com_leapmotion_leap_end"
     locate.enable = true;
     locate.interval = "*:0/30";
     locate.localuser = username;
-    locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" "/boot/grub" "/var/lib/docker" "/lost+found" "/var/lib/containers" "/root" "/var/db/sudo" "/var/lib/postgresql" "/var/lib/bluetooth" "/etc/docker" "/etc/NetworkManager" "/nix/var" "/home/andsild/Downloads" "/home/andsild/.cache" "/home/andsild/.thunderbird" "/home/andsild/.gitfat" "/home/andsild/.stack"];
+    locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" "/boot/grub" "/var/lib/docker" "/lost+found" "/var/lib/containers" "/root" "/var/db/sudo" "/var/lib/postgresql" "/var/lib/bluetooth" "/etc/docker" "/etc/NetworkManager" "/nix/var" ] ++ map (concat homedir) ["Downloads" ".cache" ".thunderbird" ".gitfat" ".stack"];
 
     # customXServer = {
     xserver = {
@@ -650,7 +636,7 @@ host  all all ::1/128      trust
   users.extraUsers.andsild =
   {
     isNormalUser = true;
-    home = "/home/" + username;
+    home = homedir;
     description = "Anders Sildnes";
     extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" "wireshark" ];
   };

@@ -31,6 +31,8 @@ let
       gtkmm = pkgs.gtkmm2;
 	  };
 
+    neovim-qt = pkgs.neovim-qt;
+
 	  neovim = pkgs.neovim.override {
 	    vimAlias = true;
 	    withPython = true;
