@@ -1491,12 +1491,20 @@ let s:menus.vim = {
 let s:menus.vim.file_candidates = [
     \ ['    > Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
     \ ]
+let s:menus.java = {
+    \ 'java menu': 'Vim',
+    \ }
+let s:menus.java.command_candidates = [
+    \ ['    > Declarations', 'JavaSearch -x declarations'],
+    \ ['    > References', 'JavaSearch -x references'],
+    \ ['    > Call hiearchy', 'JavaCallHiearchy'],
+    \ ['    > Go to unit test', 'JUnitFindTest']
+    \ ]
 call denite#custom#var('menu', 'menus', s:menus)
 
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-
 
 
 nnoremap <silent> ;r

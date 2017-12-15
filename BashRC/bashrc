@@ -46,7 +46,7 @@ PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[%s\]%s@%s\[${WHITE}\]:%s\n:\n" \
 	 "\`if [ \"$(whoami)\" == \"root\" ]; then echo \"${RED}\"; else echo \"${WHITE}\"; fi\`" \
          "\u" \
          "${HOSTNAME}" \
-	"\w" \
+         "\w" \
 )
 
 export GEM_HOME="${HOME}/.gem"
