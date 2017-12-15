@@ -15,21 +15,20 @@ if s:isWindows()
     let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\' .  ';C:\Program Files (x86)\Python35-32;C:\Program Files (x86)\Python35-32\Scripts'
     let $PATH = s:winpythonpath . ';' . $VIM . ';' . $PATH
     let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
-elseif s:IsMac()
-  nnoremap <silent> ± ~
-  cnoremap ± ~
-  inoremap ± ~
-  inoremap § `
-  nnoremap ± ~
-  nnoremap § `
-  cnoremap ± ~
-  cnoremap § `
-  vnoremap ± ~
-  vnoremap § `
-
-  set shell=bash
 else
   set shell=bash
+  if s:IsMac()
+    nnoremap <silent> ± ~
+    cnoremap ± ~
+    inoremap ± ~
+    inoremap § `
+    nnoremap ± ~
+    nnoremap § `
+    cnoremap ± ~
+    cnoremap § `
+    vnoremap ± ~
+    vnoremap § `
+  endif
 endif
 
 let g:path = expand($XDG_CONFIG_HOME)
@@ -41,7 +40,7 @@ if len(g:path) == 0
     endif
 endif
 let g:toml_path = g:path . '/nvim/plugins.toml'
-" MYVIMRC is normally set by default, but I use vim with "-u" as a parementer
+" MYVIMRC is normally set by default, but I use vim with "-u" as a parameter
 " This also means that the file ".-rplugin" is not written. 
 " We fix this by setting MYVIMRC explicitly
 let $MYVIMRC=g:path . '/nvim/init.vim'
@@ -91,13 +90,8 @@ if has('vim_starting')
 
   let s:path = expand('$CACHE/dein')
   call dein#begin(s:path, [expand('<sfile>')])
-
-
   call dein#load_toml(g:toml_path, {'lazy': 0})
-
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-
-
   call dein#end()
   call dein#save_state()
 
@@ -126,31 +120,28 @@ augroup DefaultAuGroup
 
     autocmd FileType javascript,css,java,nix nmap <silent> ;; <Plug>(cosco-commaOrSemiColon)
     autocmd FileType javascript,css,java,nix imap <silent> ;; <c-o><Plug>(cosco-commaOrSemiColon)<C-\><C-n>
-    autocmd BufEnter,BufWinEnter,FileType,Syntax * call s:my_on_filetype()
     autocmd FileType gitcommit setlocal textwidth=72
     autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePost,FileWritePost *.local.vimrc if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
-    autocmd FileType python nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:jedi -silent  -start-insert<CR>
-    autocmd FileType haskell nnoremap <silent><buffer> [Space]i :Unite -winheight=25 menu:intero -silent  -start-insert<CR>
+    autocmd FileType python nnoremap <silent><buffer> [Space]i :Denite menu:python<CR>
+    autocmd FileType haskell nnoremap <silent><buffer> [Space]i :Denite menu:intero<CR>
     autocmd FileType apache setlocal path+=./;/
     autocmd FileType c,cpp set formatprg=astyle
-    "autocmd FileType c,cpp set keywordprg=:Man
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType gitcommit,qfreplace setlocal nofoldenable
     autocmd FileType go highlight default link goErr WarningMsg | match goErr /\<err\>/
     autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=./;/
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    " autocmd FileType java nnoremap <buffer> <C-t> :JUnitFindTest<CR>
+    autocmd FileType java nnoremap <silent><buffer> [Space]i :Denite menu:java<CR>
     autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
-    autocmd FileType javascript,javascript.jsx nnoremap <buffer> [Space]i :Unite menu:tern -silent -winheight=25 -start-insert<CR>
-    autocmd FileType markdown nnoremap <buffer> [Space]i :Unite menu:markdown -silent -winheight=25 -start-insert<CR>
+    autocmd FileType javascript,javascript.jsx nnoremap <buffer> [Space]i :Denite menu:tern<CR>
+    autocmd FileType markdown nnoremap <buffer> [Space]i :Denite menu:markdown<CR>
     autocmd FileType pdf Pdf '%'
     autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType python setlocal formatprg=autopep8\ --aggressive\ --ignore=E309\ -
     autocmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
-    autocmd FileType unite call s:unite_my_settings()
-    autocmd FileType denite call s:denite_my_settings()
+    autocmd FileType denite mksession! /tmp/layout.vim
     autocmd FileType vimfiler call s:vimfiler_my_settings()
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
@@ -158,7 +149,6 @@ augroup DefaultAuGroup
     autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc  | setlocal formatprg=stylish-haskell | nnoremap <buffer> gqa gggqG:silent %!hindent --style johan-tibell<CR><c-o><c-o>zz
     autocmd FileType haskell nnoremap <silent><buffer>K :GhcModInfoPreview<CR>
-    autocmd BufLeave unite source /tmp/layout.vim
     autocmd BufLeave denite source /tmp/layout.vim
     autocmd FileType term://* setlocal norelativenumber
 
@@ -181,8 +171,6 @@ augroup syntax-highlight-extends
         \ call s:set_syntax_of_user_defined_commands()
 augroup END
 
-
-" set list
 set autoindent
 set autoread " Auto reload if file is changed.
 set backspace=indent,eol,start
@@ -190,7 +178,7 @@ set backupdir-=.
 set breakat=\ \ ;:,!?
 set cmdheight=2
 set cmdwinheight=5
-set colorcolumn=79
+" set colorcolumn=100
 set commentstring=%s
 set complete=.
 set completeopt=menu
@@ -292,8 +280,6 @@ if has('nvim')
   tnoremap kk <C-\><C-n>
 endif
 
-nmap S <Plug>(smalls)
-cmap <C-o>          <Plug>(unite_cmdmatch_complete)
 cmap w!! w !sudo tee > /dev/null %
 cnoremap <C-a>          <Home>
 cnoremap <C-b>          <Left>
@@ -303,16 +289,16 @@ cnoremap <C-f>          <Right>
 cnoremap <C-n>          <Down>
 cnoremap <C-p>          <Up>
 cnoremap <C-y>          <C-r>*
-cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ? '\<ESC>:Unite -buffer-name=search line:forward:wrap -input='.getcmdline().'\<CR>' : '\<C-g>'
 imap <F1> <Esc>
+imap <expr><c-s> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 imap <silent><expr> <TAB> pumvisible() ? "<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
 imap jj <Esc>
 imap kk <Esc>
-inoremap <C-d>  <Del>
 inoremap <C-6> <Esc><C-6>zz
-nmap <C-6> <C-6>zz
+inoremap <C-d>  <Del>
 inoremap <C-u>  <C-g>u<C-u>
 inoremap <C-w>  <C-g>u<C-w>
+inoremap <c-b> <Esc>i
 inoremap <expr>; pumvisible() ? deoplete#mappings#close_popup() : ";"
 inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><C-g> deoplete#mappings#undo_completion()
@@ -326,41 +312,35 @@ map <F1> <Esc>
 nmap    s [Window]
 nmap    t [Tag]
 nmap  <Space>   [Space]
+nmap <C-6> <C-6>zz
 nmap <C-a> <SID>(increment)
 nmap <C-w>  <Plug>(choosewin)
 nmap <C-x> <SID>(decrement)
 nmap <F1> <nop>
-nmap gc <Plug>(caw:prefix)
-nmap gcc <Plug>(caw:hatpos:toggle)
-vmap gcc <Plug>(caw:hatpos:toggle)
-nmap <buffer> tcd         <Plug>(unite_quick_match_default_action)
-nmap <silent> <F7> :call ToggleSpell()<CR>
+nmap <F8> :TagbarToggle<CR>
 nmap <silent> <F6> :silent NextWordy<CR>
+nmap <silent> <F7> :call ToggleSpell()<CR>
 nmap <silent> B <Plug>CamelCaseMotion_b
 nmap <silent> W <Plug>CamelCaseMotion_w
 nmap <silent>sa <Plug>(operator-surround-append)a
 nmap <silent>sc <Plug>(operator-surround-replace)a
 nmap <silent>sd <Plug>(operator-surround-delete)a
 nmap <silent>sr <Plug>(operator-surround-replace)a
+nmap S <Plug>(smalls)
+nmap gc <Plug>(caw:prefix)
+nmap gcc <Plug>(caw:hatpos:toggle)
+nmap gs <Plug>(open-browser-wwwsearch)
 nmap j gj
 nmap k gk
-nmap gs <Plug>(open-browser-wwwsearch)
-nmap <F8> :TagbarToggle<CR>
-nnoremap    ;u [unite]
-nnoremap <leader>u :diffupdate<CR>
-nnoremap <leader>t :term<CR>
+nnoremap <silent> <Space>m :Denite buffer<CR>
 nnoremap    [Space]fe   :<C-u>VimFilerExplorer<CR>
 nnoremap    [Tag]   <Nop>
-nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
-nnoremap <leader>hi :call <SID>SynStack()<CR>
-nnoremap <leader>lc :call <SID>ToggleShowListChars()<CR>
 nnoremap    [Window]   <Nop>
-nnoremap    [unite]   <Nop>
 nnoremap  [Space]   <Nop>
 nnoremap * :silent set hlsearch<CR>*<C-o>
 nnoremap ,  <Nop>
 nnoremap ;  <Nop>
-nnoremap ;d :<C-u>call <SID>CustomBufferDelete(1)<CR>
+nnoremap ;d :bdelete
 nnoremap ;s :split<CR>
 nnoremap ;t :tabe<CR>
 nnoremap ;v :vsplit<CR>
@@ -377,49 +357,54 @@ nnoremap <SID>(command-line-enter) q:
 nnoremap <SID>(command-line-norange) q:<C-u>
 nnoremap <Tab> <Tab>zz
 nnoremap <Up> :res +5<CR>
+nnoremap <leader>hi :call <SID>SynStack()<CR>
+nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
+nnoremap <leader>lc :call <SID>ToggleShowListChars()<CR>
 nnoremap <leader>sp :<C-u>call ToggleOption('spell')<CR>
+nnoremap <leader>t :term<CR>
+nnoremap <leader>u :diffupdate<CR>
 nnoremap <silent>   [Space]v   :<C-u>VimFiler -invisible<CR>
+nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search -auto-highlight -mode=normal line<CR>
+nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-highlight line<CR>
 nnoremap <silent> ;o  :<C-u>only<CR>
+nnoremap <silent> ;r :Denite register neoyank<CR>
 nnoremap <silent> <C-b> <C-b>
 nnoremap <silent> <C-f> <C-f>
-nnoremap <silent> <C-k> :<C-u>Unite change jump<CR>
+nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 nnoremap <silent> <Leader>. :<C-u>call ToggleOption('number')<CR>
 nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm:echo 'Took away c-m'<CR>
 nnoremap <silent> <Leader>au :Autoformat<CR>
 nnoremap <silent> <Leader>cl :<C-u>call ToggleOption('cursorline')<CR>
 nnoremap <silent> <Leader>cs :call ToggleColorScheme()<CR>
-nnoremap <silent> [Space]1 :QuickRun<CR>
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
-" nnoremap <silent> [Space]t :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
 nnoremap <silent> <c-t> :FZF ~<CR>
-nnoremap <silent> [Space]T :FZFTags<CR>
-nnoremap <silent> z/ :Zeavim<CR>
-nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
-nnoremap <silent> [Space]di :Unite menu:diff -silent -start-insert -winheight=10 <CR>
 nnoremap <silent> <leader>en :<C-u>setlocal encoding? fenc? fencs?<CR>
-nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
+nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
+nnoremap <silent> [Space]1 :QuickRun<CR>
+nnoremap <silent> [Space]T :FZFTags<CR>
+nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
+nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
 nnoremap <silent> [Space]l :call ToggleList("Location List", 'l')<CR>
-nnoremap <silent> n  :UniteNext<CR>
-nnoremap <silent> [Space]p  :UnitePrevious<CR>
 nnoremap <silent> [Space]q :call ToggleList("Quickfix List", 'c')<CR>
-nnoremap <silent> [Space]r  :UniteResume<CR>
-nnoremap <silent> [Space]r :<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+nnoremap <silent> [Space]r :<C-u>Denite register<CR>
+nnoremap <silent> [Space]ss :<C-u>Denite gitstatus<CR>
+nnoremap <silent> n :<C-u>Denite -buffer-name=search -resume -mode=normal -refresh<CR>
+nnoremap <silent> z/ :Zeavim<CR>
 nnoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
-nnoremap <silent><expr> / ":\<C-u>Unite -buffer-name=search%".bufnr('%')." -start-insert line:forward:wrap\<CR>"
-nnoremap <silent><expr> [Space]n ":\<C-u>UniteResume search%".bufnr('%')."  -no-start-insert -force-redraw\<CR>"
-nnoremap <silent>[Space]g :Unite -silent -winheight=29 -start-insert menu:git<CR>
+nnoremap <silent><expr> tp  &filetype == 'help' ?  ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
+nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" : ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately tag:include\<CR>"
+nnoremap <silent>[Space]g :Denite menu:git<CR>
 nnoremap > >>
 nnoremap M  m
 nnoremap Q  q " Disable Ex-mode.
 nnoremap [Quickfix]   <Nop> " q: Quickfix
 nnoremap [Space]/  :Ag<CR>
+nnoremap [Space]O :FZFMru<CR>
 nnoremap [Space]ar :<C-u>setlocal autoread<CR>
-nnoremap [Space]h :Unite history/unite <CR>
 nnoremap [Space]o :FZFGit<CR>
 nnoremap [Space]w :silent Neomake<CR>
 nnoremap \  `
@@ -431,7 +416,7 @@ nnoremap zk zkzz
 nnoremap { {zz
 nnoremap } }zz
 noremap <F12> <NOP>
-noremap [Space]u :<C-u>Unite outline:foldings<CR>
+noremap [Space]u :<C-u>Denite outline<CR>
 omap <silent> B <Plug>CamelCaseMotion_b
 omap <silent> W <Plug>CamelCaseMotion_w
 omap ab <Plug>(textobj-multiblock-a)
@@ -439,11 +424,11 @@ omap ib <Plug>(textobj-multiblock-i)
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 silent! nnoremap < <<
 vmap <silent> gs <Plug>(openbrowser-search)
+vmap gcc <Plug>(caw:hatpos:toggle)
 vnoremap ; <Esc>
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
 vnoremap s d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
 vnoremap vaw viw
-xmap    ;u [unite]
 xmap  <Space>   [Space]
 xmap <Enter> <Plug>(EasyAlign)
 xmap <silent> B <Plug>CamelCaseMotion_b
@@ -454,7 +439,6 @@ xmap Y <Plug>(operator-concealedyank)
 xmap ab <Plug>(textobj-multiblock-a)
 xmap ib <Plug>(textobj-multiblock-i)
 xmap p <Plug>(operator-replace)
-xnoremap    [unite]   <Nop>
 xnoremap  [Space]   <Nop>
 xnoremap ,  <Nop>
 xnoremap ;  <Nop>
@@ -468,18 +452,6 @@ xnoremap m  <Nop>
 xnoremap r <C-v> " Select rectangle.
 xnoremap v $h
 
-if s:isWindows()
-    let g:unite_source_rec_async_command = ['git', 'ls-files']
-    nnoremap [Space]o :Unite file_mru file_rec/neovim  file/new -start-insert<CR>
-else
-    nnoremap [Space]O :FZFMru<CR>
-endif
-
-if dein#check_install(['accelerated-jk'])
-  nmap <silent>j <Plug>(accelerated_jk_gj)
-  nmap <silent>k <Plug>(accelerated_jk_gk)
-endif
-
 if has('clipboard')
   xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
 endif
@@ -492,10 +464,16 @@ if has('mouse')
   cnoremap <RightMouse> <C-r>+
 endif
 
+let &undodir=&directory
 let g:EclimJavaSearchSingleResult='edit'
 let g:Gitv_DoNotMapCtrlKey = 1
 let g:Gitv_OpenHorizontal = 'auto'
 let g:Gitv_WipeAllOnClose = 1
+let g:SimpleJsIndenter_BriefMode = 1
+let g:SimpleJsIndenter_CaseIndentLevel = -1
+let g:UltiSnipsExpandTrigger='<c-s>'
+let g:UltiSnipsJumpBackwardTrigger='zh'
+let g:UltiSnipsJumpForwardTrigger='zl'
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
 let g:choosewin_blink_on_land = 0
@@ -510,14 +488,14 @@ let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
-" let g:deoplete#omni#input_patterns.java = '[^. \t0-9]\.\w*'
-" let g:deoplete#omni_patterns = {}
-" let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
 let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
 let g:deoplete#sources#jedi#show_docstring = 1
+let g:finance_format = '{symbol}: {LastTradePriceOnly} ({Change})'
+let g:finance_separator = "\n"
+let g:finance_watchlist = ['NZYM-B.CO']
 let g:formatters_javascript = ['jscs']
 let g:gitgutter_max_signs = 5000
-let g:haddock_browser = 'google-chrome-stable'
+let g:haddock_browser = 'chromium-browser'
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:javascript_plugin_jsdoc = 1
@@ -525,292 +503,31 @@ let g:javascript_plugin_ngdoc = 1
 let g:jsx_ext_required = 0
 let g:livepreview_previewer = 'zathura'
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
+let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'vim']
 let g:myLang=0
 let g:myLangList=['nospell','en_us', 'nb', 'weak']
 let g:necoghc_enable_detailed_browse=1
-let g:neomake_haskell_enabled_makers = ['ghcmodlint']
 let g:neomake_haskell_enabled_makers = ['hlint']
-let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
 let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
 let g:neomake_list_height = 5
 let g:neomake_open_list = 2
 let g:neomake_python_enabled_makers=['pylint']
-let g:neomake_python_enabled_makers=['pylint']
 let g:neomake_tex_enabled_makers = ['chktex']
-let g:unite_enable_short_source_names = 1
-let g:unite_enable_split_vertically = 0
-let g:unite_enable_start_insert = 0
-let g:unite_source_rec_max_cache_files = -1
-let g:unite_winheight = 20
+let g:python_highlight_all = 1
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_enable_clipboard = 0
-let g:vimfiler_preview_action = 'auto_preview'
-let g:vimfiler_safe_mode_by_default = 0
-" %p : full path
-" %d : current directory
-" %f : filename
-" %F : filename removed extensions
-" %* : filenames
-" %# : filenames fullpath
-let g:vimfiler_sendto = {
-  \ 'unzip' : 'unzip %f',
-  \ 'zip' : 'zip -r %F.zip %*',
-  \ 'wav' : 'setsid mplayer %f &',
-  \ 'Inkscape' : 'inkspace',
-  \ 'GIMP' : 'gimp %*',
-  \ 'gedit' : 'gedit',
-  \ }
-let &undodir=&directory
-let g:unite#default_context = {
-    \ 'vertical' : 0,
-    \ 'short_source_names' : 1,
-    \ }
-let g:unite_source_menu_menus = {}
 let g:vimfiler_file_icon = ' '
 let g:vimfiler_ignore_pattern=['^\%(\.git\|\.DS_Store\)$']
 let g:vimfiler_marked_file_icon = '✓'
+let g:vimfiler_preview_action = 'auto_preview'
 let g:vimfiler_readonly_file_icon = '✗'
+let g:vimfiler_safe_mode_by_default = 0
+let g:vimfiler_sendto = {'unzip' : 'unzip %f','zip' : 'zip -r %F.zip %*','wav' : 'setsid mplayer %f &','Inkscape' : 'inkspace','GIMP' : 'gimp %*','gedit' : 'gedit'} " %p : full path %d : current directory %f : filename %F : filename removed extensions %* : filenames %# : filenames fullpath
 let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_tree_leaf_icon = ' '
 let g:vimfiler_tree_opened_icon = '▾'
-let g:unite_source_menu_menus.enc = {
-  \     'description' : 'Open with a specific character code again.',
-  \ }
-let g:unite_source_menu_menus.enc.command_candidates = [
-  \       ['utf8', 'Utf8'],
-  \       ['iso2022jp', 'Iso2022jp'],
-  \       ['cp932', 'Cp932'],
-  \       ['euc', 'Euc'],
-  \       ['utf16', 'Utf16'],
-  \       ['utf16-be', 'Utf16be'],
-  \       ['jis', 'Jis'],
-  \       ['sjis', 'Sjis'],
-  \       ['unicode', 'Unicode'],
-  \     ]
-let g:unite_source_menu_menus.fenc = {
-  \     'description' : 'Change file fenc option.',
-  \ }
-let g:unite_source_menu_menus.fenc.command_candidates = [
-  \       ['utf8', 'WUtf8'],
-  \       ['iso2022jp', 'WIso2022jp'],
-  \       ['cp932', 'WCp932'],
-  \       ['euc', 'WEuc'],
-  \       ['utf16', 'WUtf16'],
-  \       ['utf16-be', 'WUtf16be'],
-  \       ['jis', 'WJis'],
-  \       ['sjis', 'WSjis'],
-  \       ['unicode', 'WUnicode'],
-  \     ]
-let g:unite_source_menu_menus.ff = {
-  \     'description' : 'Change file format option.',
-  \ }
-let g:unite_source_menu_menus.ff.command_candidates = {
-  \       'unix'   : 'WUnix',
-  \       'dos'    : 'WDos',
-  \       'mac'    : 'WMac',
-  \     }
-let g:unite_source_menu_menus.unite = {
-  \     'description' : 'Start unite sources',
-  \ }
-let g:unite_source_menu_menus.unite.command_candidates = {
-  \       'history'    : 'Unite history/command',
-  \       'quickfix'   : 'Unite qflist -no-quit',
-  \       'resume'     : 'Unite -buffer-name=resume resume',
-  \       'directory'  : 'Unite -buffer-name=files '.
-  \             '-default-action=lcd directory_mru',
-  \       'mapping'    : 'Unite mapping',
-  \       'message'    : 'Unite output:message',
-  \       'scriptnames': 'Unite output:scriptnames',
-  \     }
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_alias_aliases = {}
-let g:unite_source_alias_aliases.test = {
-      \ 'source' : 'file_rec',
-      \ 'args'   : '~/',
-      \ }
-let g:unite_source_alias_aliases.line_migemo = 'line'
-let g:unite_source_alias_aliases.calc = 'kawaii-calc'
-let g:unite_source_alias_aliases.l = 'launcher'
-let g:unite_source_alias_aliases.kill = 'process'
-let g:unite_source_alias_aliases.message = {
-      \ 'source' : 'output',
-      \ 'args'   : 'message',
-      \ }
-let g:unite_source_alias_aliases.mes = {
-      \ 'source' : 'output',
-      \ 'args'   : 'message',
-      \ }
-let g:unite_source_alias_aliases.scriptnames = {
-      \ 'source' : 'output',
-      \ 'args'   : 'scriptnames',
-      \ }
-let g:unite_ignore_source_files = []
-let g:unite_source_menu_menus.git = {
-    \ 'description' : '            admin git repositories
-        \                                [Space]g',
-    \}
-let g:unite_source_menu_menus.git.command_candidates = [
-    \['-> viewer             (gitv)                              W ,gv',
-        \':Gitv --all'],
-    \['-> viewer - buffer    (gitv)                              W ,gV',
-        \':Gitv --all'],
-    \['-> tig             (unite tig)                              W ,gv',
-        \':Unite tig'],
-    \['-> status             (fugitive)                          W ,gs',
-        \'Gstatus'],
-    \['-> diff               (fugitive)                          W ,gd',
-        \'Gdiff'],
-    \['-> commit             (fugitive)                          W ,gc',
-        \'Gcommit'],
-    \['-> log                (fugitive)                          W ,gl',
-        \'exe "silent Glog | Unite -no-quit quickfix"'],
-    \['-> log - all          (fugitive)                          W ,gL',
-        \'exe "silent Glog -all | Unite -no-quit quickfix"'],
-    \['-> blame              (fugitive)                          W ,gb',
-        \'Gblame'],
-    \['-> add/stage          (fugitive)                          W ,gw',
-        \'Gwrite'],
-    \['-> push               (fugitive, buffer output)           W ,gp',
-        \'Git! push'],
-    \['-> pull               (fugitive, buffer output)           W ,gP',
-        \'Git! pull'],
-    \['-> command            (fugitive, buffer output)           W ,gi',
-        \'exe "Git! " input("comando git: ")'],
-    \['-> edit               (fugitive)                          W ,gE',
-        \'exe "command Gedit " input(":Gedit ")'],
-    \['-> grep               (fugitive)                          W ,gg',
-        \'exe "silent Ggrep -i ".input("Pattern: ") | Unite -no-quit quickfix'],
-    \['-> grep - text        (fugitive)                          W ,ggt',
-        \'exe "silent Glog -S".input("Pattern: ")." | Unite -no-quit quickfix"'],
-    \['-> write               (fugitive)                          W ,gg',
-        \'Gwrite'],
-    \['-> github dashboard       (github-dashboard)                  W ,gD',
-        \'exe "GHD! " input("Username: ")'],
-    \['-> github activity        (github-dashboard)                  W ,gA',
-        \'exe "GHA! " input("Username or repository: ")'],
-    \]
-let g:unite_source_menu_menus.diff = {
-        \ 'description' : '            Diff commands
-            \                                [Space]d',
-    \}
-let g:unite_source_menu_menus.diff.command_candidates = [
-    \['-> this',
-        \'diffthis'],
-    \['-> off',
-        \'diffoff'],
-    \['-> update',
-        \'diffupdate'],
-\]
-let g:unite_source_menu_menus.openfile = {
-        \ 'description' : '            open a file
-            \                                [Space]d',
-    \}
-let g:unite_source_menu_menus.openfile.command_candidates = [
-    \['-> Files',
-        \'Unite -start-insert file file/new buffer_tab'],
-    \['-> Git files',
-        \'Unite -start-insert file_rec/git'],
-    \['-> Buffers',
-        \'Unite -start-insert buffer'],
-    \['-> MRU',
-        \'Unite -start-insert file_mru'],
-\]
-let g:unite_source_menu_menus.markdown = {
-        \ 'description' : ' Open preview
-        \   [space]i',
-\}
-let g:unite_source_menu_menus.markdown.command_candidates = [
-    \['-> Preview',
-        \'PrevimOpen'],
-\]
-
-let g:unite_source_menu_menus.intero = {
-  \ 'description' : '            Haskell intellisense
-    \                                [Space]i',
-  \}
-let g:unite_source_menu_menus.intero.command_candidates = [
-  \['-> Eval',
-      \'InteroEval'],
-  \['-> Def',
-      \'InteroDef'],
-  \['-> Info',
-      \'InteroInfo'],
-  \['-> Type',
-      \'InteroType'],
-  \['-> Uses',
-      \'InteroUses'],
-  \['-> Rel04d',
-      \'InteroReload'],
-  \['-> Open REPL',
-      \'InteroOpen'],
-  \['-> Load',
-      \'InteroLoadCurrentModule'],
-  \['-> Start',
-      \'InteroStart'],
-\]
-let g:unite_source_menu_menus.jedi = {
-        \ 'description' : '            Python intellisense
-            \                                [Space]i',
-    \}
-let g:unite_source_menu_menus.jedi.command_candidates = [
-  \['-> Assingments',
-      \'call jedi#goto_assignments()'],
-  \['-> Call signture',
-      \'call jedi#configure_call_signatures()'],
-  \['-> Definition',
-      \'call jedi#goto_definitions()'],
-  \['-> Rename',
-      \'call jedi#rename()'],
-  \['-> Documentation',
-      \'call jedi#show_documentation()'],
-  \['-> Import',
-      \'call jedi#py_import()'],
-  \['-> Usages',
-      \'call jedi#usages()'],
-\]
-let g:unite_source_menu_menus.tern = {
-        \ 'description' : '            Javascript intellisense
-            \                                [Space]i',
-    \}
-let g:unite_source_menu_menus.tern.command_candidates = [
-    \['-> Browse docs',
-        \'TernDocBrowse'],
-   \['-> Type lookup',
-        \'TernType'],
-    \['-> Def',
-        \'TernDef'],
-    \['-> References',
-        \'TernRefs'],
-    \['-> Rename',
-        \'TernRename'],
-\]
-let g:SimpleJsIndenter_BriefMode = 1
-let g:SimpleJsIndenter_CaseIndentLevel = -1
-let g:finance_format = '{symbol}: {LastTradePriceOnly} ({Change})'
-let g:finance_separator = "\n"
-let g:finance_watchlist = ['NZYM-B.CO']
-let g:python_highlight_all = 1
 let g:vimsyntax_noerror = 1
-let g:markdown_fenced_languages = [
-  \  'coffee',
-  \  'css',
-  \  'erb=eruby',
-  \  'javascript',
-  \  'js=javascript',
-  \  'json=javascript',
-  \  'ruby',
-  \  'sass',
-  \  'xml',
-  \  'vim',
-  \]
-let g:UltiSnipsExpandTrigger='<c-s>'
-let g:UltiSnipsJumpBackwardTrigger='zh'
-let g:UltiSnipsJumpForwardTrigger='zl'
 let s:my_split = {'is_selectable': 1}
-imap <expr><c-s>
-	 \ neosnippet#expandable_or_jumpable() ?
-	 \    "\<Plug>(neosnippet_expand_or_jump)" :
-         \ 	 \ pumvisible() ? "\<C-n>" : "\<TAB>"
 
 if s:IsMac()
    let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
@@ -829,17 +546,6 @@ else
 "   let g:deoplete#sources#clang#libclang_path = '/usr/lib64/llvm/libclang.so'
    "let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 endif
-
-if executable('ag')
-  " Use ag in unite grep source.
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts =
-  \ '-i --ignore-dir "*bin*" -U --line-numbers --nocolor --nogroup --hidden --ignore ' .
-  \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'' --ignore ''tags'' ' .
-  \ '--ignore ''.trx'' --ignore ''.xml'' --ignore ''.tt'''
-  let g:unite_source_grep_recursive_opt = ''
-endif
-
 
 " Command group opening with a specific character code again.
 command! -bang -bar -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
@@ -918,27 +624,6 @@ function! s:set_syntax_of_user_defined_commands()
   execute 'syntax keyword vimCommand ' . l:command_names
 endfunction
 
-function! s:my_on_filetype()
-  " Disable automatically insert comment.
-  "setl formatoptions-=ro | setl formatoptions+=mMBl
-
-  " Disable auto wrap.
-  if &l:textwidth != 70 && &filetype !=# 'help'
-    setlocal textwidth=0
-  endif
-
-  " Use FoldCCtext().
-  if &filetype !=# 'help'
-    setlocal foldtext=FoldCCtext()
-  endif
-
-  if !&l:modifiable
-    setlocal nofoldenable
-    setlocal foldcolumn=0
-    silent! IndentLinesDisable
-  endif
-endfunction
-
 function! GetBufferList()
   redir => l:buflist
   silent! ls
@@ -974,79 +659,6 @@ function! ToggleColorScheme()
 
     call s:ApplyCustomColorScheme()
   endif
-endfunction
-
-function! s:smart_close()
-  if winnr('$') != 1
-    close
-  else
-    call s:alternate_buffer()
-  endif
-endfunction
-
-function! s:NextWindow()
-  if winnr('$') == 1
-    silent! normal! ``z.
-  else
-    wincmd w
-  endif
-endfunction
-
-function! s:PreviousWindowOrTab()
-  if winnr() > 1
-    wincmd W
-  else
-    tabprevious
-    execute winnr('$') . 'wincmd w'
-  endif
-endfunction
-
-function! s:CustomBufferDelete(is_force)
-  let l:current = bufnr('%')
-
-  call s:alternate_buffer()
-
-  if a:is_force
-    silent! execute 'bdelete! ' . l:current
-  else
-    silent! execute 'bdelete ' . l:current
-  endif
-endfunction
-
-function! s:alternate_buffer()
-  let l:listed_buffer_len = len(filter(range(1, bufnr('$')),
-        \ 's:buflisted(v:val) && getbufvar(v:val, ''&filetype'') !=# ''unite'''))
-  if l:listed_buffer_len <= 1
-    enew
-    return
-  endif
-
-  let l:cnt = 0
-  let l:pos = 1
-  let l:current = 0
-  while l:pos <= bufnr('$')
-    if s:buflisted(l:pos)
-      if l:pos == bufnr('%')
-        let l:current = l:cnt
-      endif
-
-      let l:cnt += 1
-    endif
-
-    let l:pos += 1
-  endwhile
-
-  if l:current > l:cnt / 2
-    bprevious
-  else
-    bnext
-  endif
-endfunction
-
-function! s:buflisted(bufnr)
-  return exists('t:unite_buffer_dictionary') ?
-        \ has_key(t:unite_buffer_dictionary, a:bufnr) && buflisted(a:bufnr) :
-        \ buflisted(a:bufnr)
 endfunction
 
 function! s:toggle_quickfix_window()
@@ -1114,17 +726,6 @@ if executable('pdftotext')
   endfunction
 endif
 
-function! GentooCleanConfig()
-  " vint: -ProhibitCommandRelyOnUser
-  silent! normal :%s/^#.*//g
-  silent! normal :%s/-\v(\d{1,2}(\.)?){1,4}(-r\d)?//g
-  silent! normal %s/>=//g
-  silent! normal :g/^$/d
-  " vint: +ProhibitCommandRelyOnUser
-  :sort u<CR>
-  :noh<CR>
-endfunction
-
 function! s:check_back_space() abort
   let l:col = col('.') - 1
   return !l:col || getline('.')[l:col - 1]  =~? '\s'
@@ -1134,62 +735,11 @@ function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
 endfunction
 
-function! s:denite_my_settings()
-  mksession! /tmp/layout.vim
-endfunction
-
-function! s:unite_my_settings()
-  mksession! /tmp/layout.vim
-  " Directory partial match.
-  call unite#custom#alias('file', 'h', 'left')
-  call unite#custom#default_action('directory', 'narrow')
-  " call unite#custom#default_action('file', 'my_tabopen')
-
-  call unite#custom#default_action('versions/git/status', 'commit')
-  imap <buffer>  jj        <Plug>(unite_insert_leave)
-  imap <buffer> ;          <Plug>(unite_quick_match_default_action)
-  imap <buffer> <C-w>      <Plug>(unite_delete_backward_path)
-  imap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
-  nmap <buffer> ;          <Plug>(unite_quick_match_default_action)
-  nmap <buffer> <C-j>      <Plug>(unite_toggle_auto_preview)
-  nmap <buffer> <C-z>      <Plug>(unite_toggle_transpose_window)
-  nmap <buffer> ZQ      ZQ:wincmd p<CR>
-  nmap <buffer> cd         <Plug>(unite_quick_match_default_action)
-  nnoremap <silent><buffer><expr> l unite#smart_map('l', unite#do_action('default'))
-
-
-  let l:unite = unite#get_current_unite()
-  if l:unite.profile_name ==# '^search'
-    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-  else
-    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-  endif
-  nnoremap <silent><buffer><expr> !     unite#do_action('start')
-  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-endfunction
-
-" My custom split action
-function! s:my_split.func(candidate)
-    let l:split_action = 'vsplit'
-    if winwidth(winnr('#')) <= 2 * (&textwidth ? &textwidth : 80)
-      let l:split_action = 'split'
-    endif
-    call unite#take_action(l:split_action, a:candidate)
-endfunction
-
 function! s:www_search()
     let l:search_word = input('Please input search word: ')
     if l:search_word !=? ''
     execute 'OpenBrowserSearch' escape(l:search_word, '"')
     endif
-endfunction
-
-function! FindCabalSandboxRoot()
-    return finddir('.cabal-sandbox', './;')
-endfunction
-
-function! FindCabalSandboxRootPackageConf()
-    return glob(FindCabalSandboxRoot().'/*-packages.conf.d')
 endfunction
 
 function! s:strwidthpart(str, width)
@@ -1229,39 +779,11 @@ function! s:vimfiler_my_settings()
   nmap <buffer> <F2> <Plug>(vimfiler_rename_file)
   nmap <buffer> yy <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
 
-  " Migemo search.
-  if !empty(unite#get_filters('matcher_migemo'))
-    nnoremap <silent><buffer><expr> /  line('$') > 10000 ?  'g/' :
-      \ ":\<C-u>Unite -buffer-name=search -start-insert line_migemo\<CR>"
-  endif
-
 endfunction
 
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
-
-if has('nvim')
-  call unite#custom_action('openable', 'context_split', s:my_split)
-  call unite#custom#profile('default', 'context', g:unite#default_context)
-  call unite#custom#source(
-    \ 'buffer,file_rec,file_rec/async,file_rec/git', 'matchers',
-    \ ['converter_relative_word', 'matcher_fuzzy',
-    \  'matcher_project_ignore_files'])
-  call unite#custom#source(
-    \ 'file_mru', 'matchers',
-    \ ['matcher_project_files', 'matcher_fuzzy',
-    \  'matcher_hide_hidden_files', 'matcher_hide_current_file'])
-  call unite#custom#source(
-    \ 'file_rec,file_rec/async,file_rec/git,file_mru', 'converters',
-    \ ['converter_file_directory'])
-  call unite#filters#sorter_default#use(['sorter_rank'])
-  call unite#custom#profile('action', 'context', {
-    \ 'start_insert' : 1
-    \ })
-  call unite#custom#source('line_migemo', 'matchers', 'matcher_migemo')
-endif
-
 
 function! s:line_handler(l)
   let l:keys = split(a:l, ':\t')
@@ -1333,16 +855,6 @@ endfunction
 function! s:bufopen(e)
   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
-
-
-nnoremap <silent> <Space>m :Denite buffer<CR>
-" nnoremap <silent> <Space>m :call fzf#run({
-" " \   'source':  reverse(<sid>buflist()),
-" \   'source':  echo g:fzf#vim#buffers,
-" \   'sink':    function('<sid>bufopen'),
-" \   'options': '+m',
-" \   'down':    len(<sid>buflist()) + 2
-" \ })<CR>
 
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
 \ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s "%s"',
@@ -1419,7 +931,7 @@ let &titlestring="
   \ fnamemodify(&filetype ==# 'vimfiler' ?
   \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
   \ &columns-len(expand('%:p:.:~')))}\) - VIM"
-let &statusline=" "
+let &statusline=' '
   \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"
   \ . " [%{gitbranch#name()}]\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
   \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
@@ -1429,7 +941,6 @@ call s:ApplyCustomColorScheme()
 nnoremap t/ :Denite -mode=insert outline<CR>
 
 
-"" denite
 call denite#custom#source('file_old', 'matchers',
       \ ['matcher_fuzzy', 'matcher_project_files'])
 call denite#custom#source('tag', 'matchers', ['matcher_substring'])
@@ -1437,12 +948,6 @@ if has('nvim')
   call denite#custom#source('file_rec,grep', 'matchers',
         \ ['matcher_cpsm'])
 endif
-
-call denite#custom#var('file_rec', 'command',
-      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-
-call denite#custom#source('file_old', 'converters',
-      \ ['converter_relative_word'])
 
 call denite#custom#map('insert', '<C-r>',
       \ '<denite:toggle_matchers:matcher_substring>', 'noremap')
@@ -1473,11 +978,6 @@ call denite#custom#map('insert', ';',
 call denite#custom#map('normal', ';',
     \ '<denite:quick_move>', 'noremap')
 
-call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-call denite#custom#var('file_rec/git', 'command',
-      \ ['git', 'ls-files', '-co', '--exclude-standard'])
-
-
 call denite#custom#option('default', {
       \ 'auto_accel': v:true,
       \ 'prompt': '>',
@@ -1489,59 +989,80 @@ let s:menus.vim = {
     \ 'description': 'Vim',
     \ }
 let s:menus.vim.file_candidates = [
-    \ ['    > Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
+    \ ['Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
     \ ]
 let s:menus.java = {
     \ 'java menu': 'Vim',
     \ }
 let s:menus.java.command_candidates = [
-    \ ['    > Declarations', 'JavaSearch -x declarations'],
-    \ ['    > References', 'JavaSearch -x references'],
-    \ ['    > Call hiearchy', 'JavaCallHiearchy'],
-    \ ['    > Go to unit test', 'JUnitFindTest']
+    \ ['Declarations',    'JavaSearch -x declarations'],
+    \ ['References',      'JavaSearch -x references'],
+    \ ['Call hiearchy',   'JavaCallHiearchy'],
+    \ ['Go to unit test', 'JUnitFindTest']
     \ ]
+let s:menus.python = { 'python menu': '"intellisense" in python from jedi' }
+let s:menus.python.command_candidates = [
+  \['Assingments',   'call jedi#goto_assignments()'],
+  \['Call signture', 'call jedi#configure_call_signatures()'],
+  \['Definition',    'call jedi#goto_definitions()'],
+  \['Rename',        'call jedi#rename()'],
+  \['Documentation', 'call jedi#show_documentation()'],
+  \['Import',        'call jedi#py_import()'],
+  \['Usages',        'call jedi#usages()'],
+\]
+
+let s:menus.intero = { 'description' : 'Haskell intellisense' }
+let s:menus.intero.command_candidates = [
+  \['Eval',      'InteroEval'],
+  \['Def',       'InteroDef'],
+  \['Info',      'InteroInfo'],
+  \['Type',      'InteroType'],
+  \['Uses',      'InteroUses'],
+  \['Rel04d',    'InteroReload'],
+  \['Open REPL', 'InteroOpen'],
+  \['Load',      'InteroLoadCurrentModule'],
+  \['Start',     'InteroStart'],
+\]
+let s:menus.tern = { 'description' : 'Javascript intellisense' }
+let s:menus.tern.command_candidates = [
+  \['Browse docs', 'TernDocBrowse'],
+  \['Type lookup', 'TernType'],
+  \['Def',         'TernDef'],
+  \['References',  'TernRefs'],
+  \['Rename',      'TernRename'],
+\]
+
+
+let s:menus.markdown = { 'description' : 'Open preview' }
+let s:menus.markdown.command_candidates = [
+  \['-> Preview', 'PrevimOpen'], 
+\]
+
+let s:menus.git = { 'description' : 'Git administration' }
+let s:menus.git.command_candidates = [
+    \['status',           'Gstatus'],
+    \['diff',             'Gdiff'],
+    \['commit',           'Gcommit'],
+    \['log',              'Denite gitlog'],
+    \['blame',            'Gblame'],
+    \['add/stage',        'Gwrite'],
+    \['push',             'Git! push'],
+    \['pull',             'Git! pull'],
+    \['command',          'exe "Git! " input("comando git: ")'],
+    \['edit',             'exe "command Gedit " input(":Gedit ")'],
+    \['grep',             'exe "silent Ggrep -i ".input("Pattern: ") | Denite quickfix'],
+    \['grep - text',      'exe "silent Glog -S".input("Pattern: ")." | Denite quickfix"'],
+    \['write',            'Gwrite'],
+    \['github dashboard', 'GHD! andsild'],
+    \['github activity',  'exe "GHA! " input("Username or repository: ")'],
+    \]
+
 call denite#custom#var('menu', 'menus', s:menus)
 
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-
-nnoremap <silent> ;r
-      \ :<C-u>Denite -buffer-name=register
-      \ register neoyank<CR>
-xnoremap <silent> ;r
-      \ :<C-u>Denite -default-action=replace -buffer-name=register
-      \ register neoyank<CR>
-
-" nnoremap <silent> [Window]<Space>
-"       \ :<C-u>Denite file_rec:~/.vim/rc<CR>
-nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-highlight
-      \ line<CR>
-nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search
-      \ -auto-highlight -mode=normal line<CR>
-" nnoremap <silent> [Window]s :<C-u>Denite file_point file_old
-"       \ -sorters=sorter_rank
-"       \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-
-nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" :
-      \ ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately
-      \  tag:include\<CR>"
-nnoremap <silent><expr> tp  &filetype == 'help' ?
-      \ ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
-
-" nnoremap <silent> [Window]n :<C-u>Denite dein<CR>
-" nnoremap <silent> [Window]g :<C-u>Denite ghq<CR>
-" nnoremap <silent> ;g :<C-u>Denite -buffer-name=search
-      " \ -no-empty -mode=normal grep<CR>
-nnoremap <silent> n :<C-u>Denite -buffer-name=search
-      \ -resume -mode=normal -refresh<CR>
-nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
-nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
-
-nnoremap <silent> [Space]ss :<C-u>Denite gitstatus<CR>
-
-inoremap <c-b> <Esc>i
 
 " this has to be on the bottom
 if s:isWindows()

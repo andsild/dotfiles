@@ -25,20 +25,12 @@ hook_source = 'let g:echodoc_enable_at_startup = 1'
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
-depends = 'neomru.vim'
-
-[[plugins]]
-repo = 'Shougo/unite-build'
-
-[[plugins]]
 repo = 'Shougo/neossh.vim'
 on_ft = ['vimfiler']
 sources = 'ssh'
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
-depends = 'unite.vim'
 on_map = {n = '<Plug>'}
 on_if = "isdirectory(bufname('%'))"
 hook_add = 'nnoremap <silent>   [Space]v   :<C-u>VimFilerExplorer -invisible<CR>'
@@ -49,51 +41,21 @@ on_cmd = 'Vinarise'
 hook_add = 'let g:vinarise_enable_auto_detect = 1'
 
 [[plugins]]
-repo = 'Shougo/junkfile.vim'
-unite_sources = 'junkfile'
-
-[[plugins]]
-repo = 'Shougo/unite-outline'
-
-[[plugins]]
 repo = 'hail2u/vim-css3-syntax'
 
-[[plugins]]
-repo = 'ctrlpvim/ctrlp.vim'
-
-# Parses HTML and stuff
-[[plugins]]
+[[plugins]] # Parses HTML and stuff
 repo = 'mattn/webapi-vim'
 
 [[plugins]] # format code
 repo = 'thinca/vim-prettyprint'
 
 [[plugins]]
-repo = 'thinca/vim-qfreplace'
-on_ft = ['unite', 'quickfix']
-
-# Quickly run a file with a preview window
-#
-# [[plugins]]
-# repo = 'thinca/vim-quickrun'
-# mappings = '<Plug>'
-
-[[plugins]]
 repo = 'thinca/vim-scouter'
-
-[[plugins]]
-repo = 'thinca/vim-unite-history'
 
 [[plugins]]
 repo = 'vim-ruby/vim-ruby'
 mappings = '<Plug>'
 on_ft = 'ruby'
-
-[[plugins]]
-repo = 'Shougo/unite-help'
-
-[[plugins]]
-repo = 'tsukkee/unite-tag'
 
 [[plugins]] #comment code for most languages (default nmap is "gcc")
 repo = 'tyru/caw.vim'
@@ -104,51 +66,26 @@ repo = 'tyru/restart.vim'
 gui = 1
 commands = 'Restart'
 
-# Nice auto-stuff for haskell
-# [[plugins]]
-# repo = 'eagletmt/neco-ghc'
-# on_ft = 'haskell'
-
-# see "man look" - used for auto-complete of dictionary words
-[[plugins]]
+[[plugins]] # see "man look" - used for auto-complete of dictionary words
 repo = 'andsild/neco-look'
 insert = 1
 
 [[plugins]]
-repo = 'ujihisa/unite-colorscheme'
-
-[[plugins]]
-repo = 'osyo-manga/unite-quickfix'
-
-[[plugins]]
-repo = 'osyo-manga/unite-filetype'
-
-[[plugins]]
 repo = 'kana/vim-tabpagecd'
-unite_sources = 'tab'
-
-# scrolling faster
-[[plugins]]
-repo = 'rhysd/accelerated-jk'
-mappings = '<Plug>(accelerated_jk)'
 
 [[plugins]]
 repo = 'vim-jp/autofmt'
 mappings = [['x', 'gq']]
 
 [[plugins]]
-repo = 'supermomonga/unite-kawaii-calc'
-
-[[plugins]]
 repo = 'godlygeek/csapprox'
 terminal = 1
 
-# repeat commands also from plugins, not just builtin commands
-[[plugins]]
+
+[[plugins]] # repeat commands also from plugins, not just builtin commands
 repo = 'tpope/vim-repeat'
 mappings = '.'
 
-#
 [[plugins]]
 repo = 'jiangmiao/simple-javascript-indenter'
 on_ft = ['javascript', 'javascript.jsx']
@@ -250,18 +187,9 @@ repo = 'kannokanno/previm'
 on_ft = ['markdown', 'rst', 'mkd']
 depends = 'open-browser.vim'
 
-[[plugins]] # git plugin
-repo = 'Kocha/vim-unite-tig'
-
-[[plugins]]
-repo = 'osyo-manga/unite-vimpatches'
-
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
 mappings = '<Plug>(EasyAlign)'
-
-[[plugins]]
-repo = 'sorah/unite-ghq'
 
 [[plugins]] # vim tests in API
 repo = 'thinca/vim-themis'
@@ -335,10 +263,6 @@ repo = 'https://github.com/rhysd/committia.vim.git'
 repo = 'https://github.com/andsild/fzf.git'
 
 [[plugins]]
-repo = 'https://github.com/itchyny/unite-preview.git'
-on_ft = 'vimfiler'
-
-[[plugins]]
 repo = 'Shougo/neco-syntax'
 insert = 1
 
@@ -405,9 +329,8 @@ repo = 'https://github.com/vim-scripts/Blueshift.git'
 [[plugins]] # control neovim terms from any buffer
 repo = 'https://github.com/kassio/neoterm.git'
 
-[[plugins]] # show yank history in unite
+[[plugins]] # show yank history
 repo = 'https://github.com/Shougo/neoyank.vim.git'
-depends = 'unite.vim'
 on_if = 'has("clipboard")'
 
 [[plugins]]
@@ -463,3 +386,6 @@ repo = 'https://github.com/jiangmiao/auto-pairs'
 
 [[plugins]]
 repo = 'https://github.com/lfilho/cosco.vim'
+
+[[plugins]]
+repo = 'https://github.com/neoclide/vim-easygit'

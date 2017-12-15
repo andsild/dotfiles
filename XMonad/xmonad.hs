@@ -156,21 +156,18 @@ newkeys = [
     , ((myModMask,               xK_q     ), restart "xmonad" True)
     , ((myModMask,	       xK_s	), spawn "spotify")
     , ((myModMask,	       xK_u	), spawn "qutebrowser")
-    , ((myModMask,	       xK_c	), spawn "chromium")
+    , ((myModMask,	       xK_c	), spawn "chromium-browser")
     , ((myModMask,               xK_p     ), spawn "dmenu_run")
     , ((myModMask,               xK_i     ), spawn "slock")
  
     -- Push window back into tiling
     , ((myModMask,               xK_t     ), withFocused $ windows . W.sink)
 
-
     ]
     ++
  
-    --
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N
-    --
     [ ((m .|. myModMask, k), windows $ f i)
          | (i, k) <- zip (workspaceNames) [xK_1 .. xK_9]
     , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
@@ -179,7 +176,6 @@ newkeys = [
  
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-    --
     [((m .|. myModMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_e, xK_r, xK_w] [0..]
     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
