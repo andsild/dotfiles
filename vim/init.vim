@@ -340,7 +340,7 @@ nnoremap  [Space]   <Nop>
 nnoremap * :silent set hlsearch<CR>*<C-o>
 nnoremap ,  <Nop>
 nnoremap ;  <Nop>
-nnoremap ;d :bdelete
+nnoremap ;d :bdelete<CR>
 nnoremap ;s :split<CR>
 nnoremap ;t :tabe<CR>
 nnoremap ;v :vsplit<CR>

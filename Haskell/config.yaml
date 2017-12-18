@@ -13,15 +13,3 @@ templates:
     author-email: andsild@posteo.net
     copyright: "Void"
     github-username: andsild
-
-system-ghc: true
-nix:
-  enable: true
-  packages: [
-    gcc, ncurses,
-    haskellPackages.intero,
-    # haskellPackages.xmonad,
-    # haskellPackages.xmonad-extras,
-    # haskellPackages.xmonad-contrib,
-    # haskellPackages.ghc-mod
-  ]
