@@ -241,6 +241,7 @@ in
     pythonPackages.scipy
     pythonPackages.virtualenv
     pythonPackages.scipy
+    pythonPackages.demjson
     python3Packages.scipy
     pythonPackages.virtualenv
     pythonPackages.youtube-dl

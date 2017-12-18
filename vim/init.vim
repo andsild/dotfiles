@@ -1068,3 +1068,15 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 if s:isWindows()
   set noshellslash
 endif
+
+function! neomake#makers#ft#json#EnabledMakers() abort
+    return ['jq']
+endfunction
+
+let g:neomake_json_jq_executable = 'jq'
+let g:neomake_json_jq_maker = {
+  \ 'args' : [],
+  \ 'exe': 'jqlint.sh',
+  \ 'errorformat': '%f:parse\ %trror\:%m\ at\ line\ %l\,\ column\ %c'
+  \}
+let g:neomake_json_enabled_makers = ['jq']
