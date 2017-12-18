@@ -150,6 +150,8 @@ in
     consul
     cowsay
     ctags
+    darcs
+    timidity
     dmenu
     dos2unix
     dotnetPackages.Nuget
