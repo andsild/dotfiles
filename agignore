@@ -3,7 +3,6 @@
 *resources/
 .stack-work/
 WORKSPACE
-apps
 bazel*
 build-*
 build-redo

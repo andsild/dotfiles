@@ -25,17 +25,6 @@ hook_source = 'let g:echodoc_enable_at_startup = 1'
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
-repo = 'Shougo/neossh.vim'
-on_ft = ['vimfiler']
-sources = 'ssh'
-
-[[plugins]]
-repo = 'Shougo/vimfiler.vim'
-on_map = {n = '<Plug>'}
-on_if = "isdirectory(bufname('%'))"
-hook_add = 'nnoremap <silent>   [Space]v   :<C-u>VimFilerExplorer -invisible<CR>'
-
-[[plugins]]
 repo = 'Shougo/vinarise.vim'
 on_cmd = 'Vinarise'
 hook_add = 'let g:vinarise_enable_auto_detect = 1'

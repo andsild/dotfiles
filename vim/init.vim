@@ -11,10 +11,10 @@ function! s:IsMac()
 endfunction
 
 if s:isWindows()
-    set shellslash
-    let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\' .  ';C:\Program Files (x86)\Python35-32;C:\Program Files (x86)\Python35-32\Scripts'
-    let $PATH = s:winpythonpath . ';' . $VIM . ';' . $PATH
-    let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
+  set shellslash
+  let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\' .  ';C:\Program Files (x86)\Python35-32;C:\Program Files (x86)\Python35-32\Scripts'
+  let $PATH = s:winpythonpath . ';' . $VIM . ';' . $PATH
+  let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
 else
   set shell=bash
   if s:IsMac()
@@ -142,7 +142,6 @@ augroup DefaultAuGroup
     autocmd FileType python setlocal formatprg=autopep8\ --aggressive\ --ignore=E309\ -
     autocmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
     autocmd FileType denite mksession! /tmp/layout.vim
-    autocmd FileType vimfiler call s:vimfiler_my_settings()
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
     autocmd InsertLeave * if &paste | set nopaste mouse=a | echo 'nopaste' | endif | if &l:diff | diffupdate | endif
@@ -172,6 +171,7 @@ augroup syntax-highlight-extends
 augroup END
 
 set autoindent
+set autowriteall
 set autoread " Auto reload if file is changed.
 set backspace=indent,eol,start
 set backupdir-=.
@@ -333,7 +333,6 @@ nmap gs <Plug>(open-browser-wwwsearch)
 nmap j gj
 nmap k gk
 nnoremap <silent> <Space>m :Denite buffer<CR>
-nnoremap    [Space]fe   :<C-u>VimFilerExplorer<CR>
 nnoremap    [Tag]   <Nop>
 nnoremap    [Window]   <Nop>
 nnoremap  [Space]   <Nop>
@@ -363,7 +362,8 @@ nnoremap <leader>lc :call <SID>ToggleShowListChars()<CR>
 nnoremap <leader>sp :<C-u>call ToggleOption('spell')<CR>
 nnoremap <leader>t :term<CR>
 nnoremap <leader>u :diffupdate<CR>
-nnoremap <silent>   [Space]v   :<C-u>VimFiler -invisible<CR>
+nnoremap <leader>dt :diffthis<CR>
+nnoremap <leader>do :diffoff<CR>
 nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search -auto-highlight -mode=normal line<CR>
 nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-highlight line<CR>
 nnoremap <silent> ;o  :<C-u>only<CR>
@@ -394,7 +394,6 @@ nnoremap <silent> [Space]ss :<C-u>Denite gitstatus<CR>
 nnoremap <silent> n :<C-u>Denite -buffer-name=search -resume -mode=normal -refresh<CR>
 nnoremap <silent> z/ :Zeavim<CR>
 nnoremap <silent> } :<C-u>call ForwardParagraph()<CR>
-nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
 nnoremap <silent><expr> tp  &filetype == 'help' ?  ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
 nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" : ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately tag:include\<CR>"
 nnoremap <silent>[Space]g :Denite menu:git<CR>
@@ -514,18 +513,6 @@ let g:neomake_open_list = 2
 let g:neomake_python_enabled_makers=['pylint']
 let g:neomake_tex_enabled_makers = ['chktex']
 let g:python_highlight_all = 1
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_enable_clipboard = 0
-let g:vimfiler_file_icon = ' '
-let g:vimfiler_ignore_pattern=['^\%(\.git\|\.DS_Store\)$']
-let g:vimfiler_marked_file_icon = '✓'
-let g:vimfiler_preview_action = 'auto_preview'
-let g:vimfiler_readonly_file_icon = '✗'
-let g:vimfiler_safe_mode_by_default = 0
-let g:vimfiler_sendto = {'unzip' : 'unzip %f','zip' : 'zip -r %F.zip %*','wav' : 'setsid mplayer %f &','Inkscape' : 'inkspace','GIMP' : 'gimp %*','gedit' : 'gedit'} " %p : full path %d : current directory %f : filename %F : filename removed extensions %* : filenames %# : filenames fullpath
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
 let g:vimsyntax_noerror = 1
 let s:my_split = {'is_selectable': 1}
 
@@ -770,17 +757,6 @@ function! s:all_files()
   return l:indexedFileList
 endfunction
 
-function! s:vimfiler_my_settings()
-  call vimfiler#set_execute_file('vim', ['vim', 'notepad'])
-  call vimfiler#set_execute_file('txt', 'vim')
-
-  nmap <buffer> f <Plug>(vimfiler_new_file)
-  nmap <buffer> n <Plug>(vimfiler_make_directory)
-  nmap <buffer> <F2> <Plug>(vimfiler_rename_file)
-  nmap <buffer> yy <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
-
-endfunction
-
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
@@ -927,9 +903,7 @@ endfunction
 
 let &titlestring="
   \ %{expand('%:p:.:~')}%(%m%r%w%)
-  \ %<\(%{".s:SID_PREFIX()."strwidthpart(
-  \ fnamemodify(&filetype ==# 'vimfiler' ?
-  \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
+  \ %<\(%{".s:SID_PREFIX()."strwidthpart(fnamemodify(getcwd(), ':~'),
   \ &columns-len(expand('%:p:.:~')))}\) - VIM"
 let &statusline=' '
   \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"

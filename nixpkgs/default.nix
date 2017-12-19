@@ -22,6 +22,7 @@ let
 
     bazel = pkgs.callPackage ./pkgs/bazel {
       jdk = pkgs.oraclejdk;
+      enableNixHacks = false;
     };
 
 	  workrave = pkgs.callPackage ./pkgs/workrave {

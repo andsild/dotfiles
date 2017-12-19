@@ -1,8 +1,12 @@
-{ stdenv, lib, fetchurl, jdk, zip, unzip, bash, writeScriptBin, coreutils, makeWrapper, which, python, go }:
+{ stdenv, lib, fetchurl, jdk, zip, unzip, bash, writeScriptBin, coreutils, makeWrapper, which, python
+# Always assume all markers valid (don't redownload dependencies).
+# Also, don't clean up environment variables.
+, enableNixHacks ? false
+}:
 
 stdenv.mkDerivation rec {
 
- version = "0.8.0";
+ version = "0.9.0";
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/bazelbuild/bazel/";
@@ -16,9 +20,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip";
-    sha256 = "aa840321d056abd3c6be10c4a1e98a64f9f73fff9aa89c468dae8c003974a078";
+    sha256 = "0aiifrp6g1d3ilhg8111wdhsrjy41x8gcmq67rjyxypw9znqzcpg";
   };
+
   sourceRoot = ".";
+
+  patches = lib.optional enableNixHacks ./nix-hacks.patch;
 
   # Bazel expects several utils to be available in Bash even without PATH. Hence this hack.
 
@@ -49,8 +56,6 @@ stdenv.mkDerivation rec {
     customBash
   ];
 
-  propagatedBuildInputs = [ go ];
-
   # If TMPDIR is in the unpack dir we run afoul of blaze's infinite symlink
   # detector (see com.google.devtools.build.lib.skyframe.FileFunction).
   # Change this to $(mktemp -d) as soon as we figure out why.
@@ -75,7 +80,6 @@ stdenv.mkDerivation rec {
   '';
 
   # Bazel expects gcc and java to be in the path.
-
   installPhase = ''
     mkdir -p $out/bin
     mv output/bazel $out/bin
@@ -85,8 +89,12 @@ stdenv.mkDerivation rec {
     cp scripts/zsh_completion/_bazel $out/share/zsh/site-functions/
   '';
 
+  # Save paths to hardcoded dependencies so Nix can detect them.
+  postFixup = ''
+    mkdir -p $out/nix-support
+    echo "${customBash} ${coreutils}" > $out/nix-support/depends
+  '';
+
   dontStrip = true;
   dontPatchELF = true;
 }
-
-#java -XX:+TieredCompilation '-XX:TieredStopAtLevel=1' -Xbootclasspath/p:external/bazel_tools/third_party/java/jdk/langtools/javac-9-dev-r4023-3.jar -jar external/bazel_tools/tools/jdk/JavaBuilder_deploy.jar @bazel-out/k8-py3-fastbuild/bin/external/com_google_protobuf/libprotobuf_java.jar-2.params

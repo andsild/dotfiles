@@ -2,21 +2,18 @@
 
 alias amend="git commit --amend --no-edit"
 alias ammend="git commit --amend"
-alias annoying="find -type f -print0 | grep --color=never -Ez '[^/]{5}$' | xargs -0 "
 alias apt="apt -y"
-alias bc='bc -l -q'
-alias bd='cd /home/andesil/Homework/TDT4305/'
+alias bc='bc -lq'
 alias cal3="cal -3"
 alias check="aspell check -d en_US"
 alias checkNO="aspell check -d no"
 alias df="df -H"
 alias diffsmooth="diff --side-by-side --suppress-common-lines --ignore-trailing-space --ignore-space-change --ignore-all-space"
 alias du="du -h"
-alias e=": edit "
-alias eix="dnf search"
-alias emerge="sudo apt install -y "
-alias ga="git add . "
-alias gac="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" "
+alias e=": edit"
+alias emerge="sudo apt install -y"
+alias ga="git add ."
+alias gac="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\""
 alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
 alias gc="git commit -m \"\$(fortune | tr '\n' ' ')\""
 alias gclean='(git gc --prune=now  ; git remote prune origin) && git pull'
@@ -42,8 +39,7 @@ alias mjk='make'
 alias mk='make'
 alias mkdir='mkdir'
 alias mkj='make'
-alias mv='mv -v -i'
-alias nerd='cd /home/andesil/Homework/Misc/NerdWars/'
+alias mv='mv -vi'
 alias no="setxkbmap no"
 alias nstack='nice stack'
 alias paste="xclip -o && echo"
@@ -51,16 +47,15 @@ alias pg="ps aux | grep "
 alias py="ipython"
 alias rmdir='rmdir'
 alias screen='screen -T xterm'
+[ -e "/etc/NIXOS" ] && alias stack='stack --nix'
 alias sp=": split  "
 alias stream="vlc   --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
-alias upd="sudo emerge -uDN @world"
 alias us="setxkbmap us"
-alias vs=": vsplit  "
-alias www='cd /var/www/'
+alias vs=": vsplit"
 
 function git()
 {
-  case $* in
+  case "$*" in
     log* ) shift 1; command git log --max-count=10 "$@" ;;
     * ) command git "$@" ;;
   esac
@@ -81,13 +76,6 @@ function samba()
     fi
     GID=$(id -g "${USER}")
     sudo   mount -t cifs "//${OTHER_COMP}/${1:obteam2}" "${HOME}/samba/${1}/" -o user=asildnes,domain=SYSCOPERU,gid="${GID}",uid="${UID}"
-    # sudo   mount -t cifs //${1}/${2:obteam2} samba/${2}/ -o user=asildnes,domain=SYSCOPERU,noperm,rw
-}
-
-function murder()
-{
-    # shellcheck disable=SC2046
-    kill -9 $(ps aux | awk "!/grep.*${1}/ && /${1}/ {print \$2}")
 }
 
 alias mountVm="sudo sshfs -p 2222 -o allow_other,IdentityFile=~/.ssh/id_rsa,Ciphers=arcfour tdt4258@127.0.0.1:4258Group10 /mnt/vm/"
