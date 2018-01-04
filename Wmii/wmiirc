@@ -54,7 +54,7 @@ songStatus() {
   if pidof .spotify-wrapped 1> /dev/null
   then
       spotify="$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' \
-        | sed -n '/xesam:albumArtist/{n;n;H} ; /xesam:title/{n;H} ; ${x;s/^[^"]*"//g;s/"[^"]*"/: /g;s/"//g;p}')"
+        | sed -n "/xesam:albumArtist/{n;n;H} ; /xesam:title/{n;H} ; \${x;s/^[^\"]*\"//g;s/\"[^\"]*\"/: /g;s/\"//g;p}")"
   fi
   echo -n label "${spotify}"
 }

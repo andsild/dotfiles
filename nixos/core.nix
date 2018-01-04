@@ -150,7 +150,7 @@ in
     consul
     cowsay
     ctags
-    darcs
+    # darcs
     timidity
     dmenu
     dos2unix
@@ -162,6 +162,7 @@ in
     libfaketime
     file
     findbugs
+    flyway
     fortune
     fzf
     gcc
@@ -183,7 +184,7 @@ in
     haskellPackages.cabal-install
     haskellPackages.hoogle
     haskellPackages.stylish-haskell
-    haskellPackages.threadscope
+    # haskellPackages.threadscope
     haskellPackages.xmobar
     hdparm
     fira-code
@@ -226,6 +227,7 @@ in
     openssl
     p7zip
     parted
+    patchelf
     pavucontrol
     pciutils
     perlPackages.ImageExifTool
@@ -257,6 +259,7 @@ in
     rrsync
     ruby
     screen
+    service-wrapper
     shellcheck
     shotwell
     shutter
@@ -326,13 +329,13 @@ in
           collection-fontutils
           collection-formatsextra
           collection-games
-          collection-genericextra
-          collection-genericrecommended
-          collection-htmlxml
+          # collection-genericextra
+          # collection-genericrecommended
+          # collection-htmlxml
           collection-humanities
-          collection-langafrican
-          collection-langarabic
-          collection-langchinese
+          # collection-langafrican
+          # collection-langarabic
+          # collection-langchinese
           collection-langcjk
           collection-langcyrillic
           collection-langczechslovak
@@ -341,7 +344,7 @@ in
           collection-langfrench
           collection-langgerman
           collection-langgreek
-          collection-langindic
+          # collection-langindic
           collection-langitalian
           collection-langjapanese
           collection-langkorean
@@ -353,15 +356,15 @@ in
           collection-latexextra
           collection-latexrecommended
           collection-luatex
-          collection-mathextra
+          # collection-mathextra
           collection-metapost
           collection-music
-          collection-omega
+          # collection-omega
           collection-pictures
-          collection-plainextra
+          # collection-plainextra
           collection-pstricks
           collection-publishers
-          collection-science
+          # collection-science
           collection-texworks
           collection-wintools
           collection-xetex
@@ -578,7 +581,7 @@ LABEL="com_leapmotion_leap_end"
     };
 
     postgresql = {
-      enable = false;
+      enable = true;
       authentication = lib.mkForce ''
 # Generated file from configuration.nix; do not edit!
 local all all              trust

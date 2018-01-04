@@ -406,6 +406,7 @@ nnoremap [Space]O :FZFMru<CR>
 nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]o :FZFGit<CR>
 nnoremap [Space]w :silent Neomake<CR>
+nnoremap <c-p> :FZFTags<CR>
 nnoremap \  `
 nnoremap dh :diffget //3<CR>
 nnoremap dl :diffget //2<CR>

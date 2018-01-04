@@ -21,6 +21,7 @@ import           XMonad.Util.EZConfig(additionalKeys)
 import           Data.Ratio
 import           System.Exit
 import           System.IO
+import           System.Cmd (system)
 
 import 		 Control.Monad.Writer	    -- for writer
 import 		 XMonad.Layout.MultiToggle  -- for transformer
@@ -184,6 +185,7 @@ newkeys = [
 main :: IO ()
 main = do
     mapM_ spawn ["feh --bg-scale /home/andsild/.images/swahili.png"]
+    -- system "test -e ~/dotfiles/Bash/pdfautoopen && (pkill --full pdfautoopen ; setsid ~/dotfiles/Bash/pdfautoopen &)"
     
     xmproc <- spawnPipe "`which xmobar` ~/.xmonad/xmobarrc"
     xmonad defaults
