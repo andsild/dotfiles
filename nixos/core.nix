@@ -598,9 +598,11 @@ host  all all ::1/128      trust
   fi
    '';
 
-  environment.extraInit = ''
-    xdg-mime default zathura.desktop application/pdf
-    xdg-mime default qutebrowser.desktop text/html
+ environment.extraInit = ''
+xdg-mime default zathura.desktop application/pdf
+xdg-mime default qutebrowser.desktop text/html
+xdg-mime default qutebrowser.desktop x-scheme-handler/http
+xdg-mime default qutebrowser.desktop x-scheme-handler/https
     '';
 
   environment.etc."inputrc".text = ''

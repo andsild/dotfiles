@@ -292,6 +292,9 @@ cnoremap <C-y>          <C-r>*
 imap <F1> <Esc>
 imap <expr><c-s> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 imap <silent><expr> <TAB> pumvisible() ? "<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+imap <C-k>  <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 imap jj <Esc>
 imap kk <Esc>
 inoremap <C-6> <Esc><C-6>zz
@@ -330,6 +333,7 @@ nmap S <Plug>(smalls)
 nmap gc <Plug>(caw:prefix)
 nmap gcc <Plug>(caw:hatpos:toggle)
 nmap gs <Plug>(open-browser-wwwsearch)
+nmap go <Plug>(openbrowser-smart-search)
 nmap j gj
 nmap k gk
 nnoremap <silent> <Space>m :Denite buffer<CR>
@@ -402,7 +406,7 @@ nnoremap M  m
 nnoremap Q  q " Disable Ex-mode.
 nnoremap [Quickfix]   <Nop> " q: Quickfix
 nnoremap [Space]/  :Ag<CR>
-nnoremap [Space]O :FZFMru<CR>
+nnoremap [Space]O :FZFFavorites<CR>
 nnoremap [Space]ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]o :FZFGit<CR>
 nnoremap [Space]w :silent Neomake<CR>
@@ -424,6 +428,7 @@ omap ib <Plug>(textobj-multiblock-i)
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 silent! nnoremap < <<
 vmap <silent> gs <Plug>(openbrowser-search)
+vmap <silent> go <Plug>(openbrowser-open)
 vmap gcc <Plug>(caw:hatpos:toggle)
 vnoremap ; <Esc>
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
@@ -471,9 +476,6 @@ let g:Gitv_OpenHorizontal = 'auto'
 let g:Gitv_WipeAllOnClose = 1
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
-let g:UltiSnipsExpandTrigger='<c-s>'
-let g:UltiSnipsJumpBackwardTrigger='zh'
-let g:UltiSnipsJumpForwardTrigger='zl'
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
 let g:choosewin_blink_on_land = 0
@@ -550,6 +552,11 @@ command! FZFGit call fzf#run({
   \ 'down':    '40%' })
 command! FZFMru call fzf#run({
   \ 'source':  reverse(s:all_files()),
+  \ 'sink':    'edit',
+  \ 'options': '-m -x +s -e',
+  \ 'down':    '40%' })
+command! FZFFavorites call fzf#run({
+  \ 'source':  'locate ~/Homework/ ~/SemiPrivate/ ~/dotfiles/  | grep -Ev "\.git|backup|workspace|\.stack-work|hi$|png$|jpg$|/dist/|/build|/bin/"',
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
@@ -755,6 +762,8 @@ function! s:all_files()
     \        "v:val !~# 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'")
   let l:indexedFileList = extend(l:oldfilesFiltered,
     \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+
+
   return l:indexedFileList
 endfunction
 
@@ -926,12 +935,8 @@ endif
 
 call denite#custom#map('insert', '<C-r>',
       \ '<denite:toggle_matchers:matcher_substring>', 'noremap')
-call denite#custom#map('insert', '<C-s>',
-      \ '<denite:toggle_sorters:sorter_reverse>', 'noremap')
-call denite#custom#map('insert', '<C-j>',
-      \ '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-k>',
-      \ '<denite:move_to_previous_line>', 'noremap')
+" call denite#custom#map('insert', '<C-s>',
+"       \ '<denite:toggle_sorters:sorter_reverse>', 'noremap')
 call denite#custom#map('insert', 'jj',
       \ '<denite:enter_mode:normal>', 'noremap')
 call denite#custom#map('insert', 'kk',

@@ -24,7 +24,6 @@
             "vim-webdevicons"
             "neco-ghc"
             "tagbar"
-            "UltiSnips"
             "vim-haskellConcealPlus"
             "vim-markdown"
             "vim-coffee-script"
