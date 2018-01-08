@@ -8,8 +8,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char font[] = "inconsolata:pixelsize=23";
-static int borderpx = 2;
+static char font[] = "inconsolata:pixelsize=19";
+static int borderpx = 1;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -66,7 +66,7 @@ static unsigned int cursorthickness = 2;
 static int bellvolume = 0;
 
 /* default TERM value */
-static char termname[] = "st-256color";
+static char termname[] = "xterm";
 
 /*
  * spaces per tab

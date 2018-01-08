@@ -291,7 +291,7 @@ cnoremap <C-p>          <Up>
 cnoremap <C-y>          <C-r>*
 imap <F1> <Esc>
 imap <expr><c-s> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-imap <silent><expr> <TAB> pumvisible() ? "<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 imap <C-k>  <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
@@ -556,7 +556,7 @@ command! FZFMru call fzf#run({
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
 command! FZFFavorites call fzf#run({
-  \ 'source':  'locate ~/Homework/ ~/SemiPrivate/ ~/dotfiles/  | grep -Ev "\.git|backup|workspace|\.stack-work|hi$|png$|jpg$|/dist/|/build|/bin/"',
+  \ 'source':  'locate ${HOME}Homework/ ${HOME}SemiPrivate/ ${HOME}dotfiles/  | grep -Ev "\.git|backup|workspace|\.stack-work|hi$|png$|jpg$|/dist/|/build|/bin/"',
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
@@ -721,10 +721,10 @@ if executable('pdftotext')
   endfunction
 endif
 
-function! s:check_back_space() abort
-  let l:col = col('.') - 1
-  return !l:col || getline('.')[l:col - 1]  =~? '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let l:col = col('.') - 1
+"   return !l:col || getline('.')[l:col - 1]  =~? '\s'
+" endfunction
 
 function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
