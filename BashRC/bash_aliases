@@ -25,6 +25,7 @@ alias hindent="hindent --style johan-tibell"
 alias jkm='make'
 alias kjm='make'
 alias km='make'
+alias mutt='neomutt'
 alias ipy='ipython'
 alias l='ls'
 alias la='ls -A'

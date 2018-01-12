@@ -40,6 +40,7 @@ bind pager a                noop # create-alias                    create an ali
 bind pager c                noop # change-folder                   open a different folder
 bind pager i                noop # exit                            exit this menu
 
+bind  index,pager g        noop
 bind  index,pager gn       next-unread
 bind  index,pager <down>   sidebar-next
 bind  index,pager <up>     sidebar-prev

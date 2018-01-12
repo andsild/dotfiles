@@ -6,6 +6,6 @@ epigram       = epigrams.sample
 
 puts <<-END
 Anders Sildnes 
-MSc student at NTNU
+Software Engineer @ Cxense
 END
 #{epigram} (can put this in the puts)

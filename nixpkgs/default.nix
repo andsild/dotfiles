@@ -1,29 +1,35 @@
 { system ? builtins.currentSystem }:
 
 let 
-	pkgs = import <nixpkgs> { inherit system; };
+	pkgs = import <myFork> { inherit system; };
 
 	callPackage = pkgs.lib.callPackageWith (pkgs // self);
 
 	self = {
 
-	  st = pkgs.callPackage ./pkgs/st {
-	    conf = import ./pkgs/st_config.nix {} ;
-	  };
-
-	  environment.variables = rec {
-	      VISUAL  = "nvim";
-	      EDITOR  = VISUAL;
-	      BROWSER = "chromium-browser";
-	    };
-
-    checkstyle = pkgs.callPackage ./pkgs/checkstyle {
-    };
-
     bazel = pkgs.callPackage ./pkgs/bazel {
       jdk = pkgs.oraclejdk;
       enableNixHacks = false;
     };
+
+    checkstyle = pkgs.callPackage ./pkgs/checkstyle {
+    };
+
+	  neovim = pkgs.neovim.override {
+	    vimAlias = true;
+	    withPython = true;
+	    withPython3 = true;
+      withRuby = true;
+
+      withPyGUI = true;
+	    configure = import ./pkgs/nvim_config.nix { inherit pkgs; };
+	  };
+
+    neovim-qt = pkgs.neovim-qt;
+
+	  st = pkgs.callPackage ./pkgs/st {
+	    conf = import ./pkgs/st_config.nix {} ;
+	  };
 
 	  workrave = pkgs.callPackage ./pkgs/workrave {
       inherit (pkgs.gnome2) GConf gconfmm;
@@ -32,16 +38,5 @@ let
       gtkmm = pkgs.gtkmm2;
 	  };
 
-    neovim-qt = pkgs.neovim-qt;
-
-	  neovim = pkgs.neovim.override {
-	    vimAlias = true;
-	    withPython = true;
-	    withPython3 = true;
-        withRuby = true;
-
-        withPyGUI = true;
-	    configure = import ./pkgs/nvim_config.nix { inherit pkgs; };
-	  };
 	};
 	in self

@@ -1,17 +1,17 @@
-set my_profile = "andsild"
+set my_profile = "posteo"
 
 source ~/.mutt/common
 
 set realname = "Anders Sildnes"
 set from = "andsild@posteo.net"
-set spoolfile = "+andsild/INBOX"
+set spoolfile = "+posteo/INBOX"
 
-mailboxes +andsild/INBOX \
-          +andsild/archive \
-          +andsild/sent \
-          +andsild/trash \
+mailboxes +posteo/INBOX \
+          +posteo/archive \
+          +posteo/sent \
+          +posteo/trash \
           +temporary/search
 
-set mbox         = "+andsild/archive"
-set postponed    = "+andsild/drafts"
+set mbox         = "+archive"
+set postponed    = "+drafts"
 set reverse_name = yes

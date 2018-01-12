@@ -291,7 +291,7 @@ cnoremap <C-p>          <Up>
 cnoremap <C-y>          <C-r>*
 imap <F1> <Esc>
 imap <expr><c-s> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
+imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 imap <C-k>  <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
@@ -509,6 +509,7 @@ let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', '
 let g:myLang=0
 let g:myLangList=['nospell','en_us', 'nb', 'weak']
 let g:necoghc_enable_detailed_browse=1
+let g:deoplete#look#words='/opt/englishdictionary'
 let g:neomake_haskell_enabled_makers = ['hlint']
 let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
 let g:neomake_list_height = 5
@@ -720,11 +721,6 @@ if executable('pdftotext')
     setlocal nomodified
   endfunction
 endif
-
-" function! s:check_back_space() abort
-"   let l:col = col('.') - 1
-"   return !l:col || getline('.')[l:col - 1]  =~? '\s'
-" endfunction
 
 function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2

@@ -1,6 +1,7 @@
-[user]
-	name  = Anders Sildnes
-	email = anders.sildnes@cxense.com
+[include]
+  path = ~/dotfiles/git/gitconfig-default
+[includeIf "gitdir:~/work/"]
+  path = ~/dotfiles/git/gitconfig-work
 [push]
 	default = current
 [pull]
@@ -29,7 +30,7 @@
 	trustExitCode = true
 	keepBackup = false
 [commit]
-    gpgsign = false
+    gpgsign = true
 [gpg]
 	program = gpg2
 [branch]

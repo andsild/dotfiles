@@ -24,91 +24,33 @@ hook_source = 'let g:echodoc_enable_at_startup = 1'
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 
-[[plugins]]
-repo = 'Shougo/vinarise.vim'
-on_cmd = 'Vinarise'
-hook_add = 'let g:vinarise_enable_auto_detect = 1'
+# [[plugins]]
+# repo = 'thinca/vim-scouter'
+#
+# [[plugins]]
+# repo = 'vim-ruby/vim-ruby'
+# mappings = '<Plug>'
+# on_ft = 'ruby'
 
-[[plugins]]
-repo = 'hail2u/vim-css3-syntax'
+# [[plugins]] #comment code for most languages (default nmap is "gcc")
+# repo = 'tyru/caw.vim'
+# mappings = '<Plug>'
 
-[[plugins]] # Parses HTML and stuff
-repo = 'mattn/webapi-vim'
+# [[plugins]] # see "man look" - used for auto-complete of dictionary words
+# repo = 'andsild/neco-look'
+# insert = 1
 
-[[plugins]] # format code
-repo = 'thinca/vim-prettyprint'
-
-[[plugins]]
-repo = 'thinca/vim-scouter'
-
-[[plugins]]
-repo = 'vim-ruby/vim-ruby'
-mappings = '<Plug>'
-on_ft = 'ruby'
-
-[[plugins]] #comment code for most languages (default nmap is "gcc")
-repo = 'tyru/caw.vim'
-mappings = '<Plug>'
-
-[[plugins]]
-repo = 'tyru/restart.vim'
-gui = 1
-commands = 'Restart'
-
-[[plugins]] # see "man look" - used for auto-complete of dictionary words
-repo = 'andsild/neco-look'
-insert = 1
-
-[[plugins]]
-repo = 'kana/vim-tabpagecd'
-
-[[plugins]]
-repo = 'vim-jp/autofmt'
-mappings = [['x', 'gq']]
-
-[[plugins]]
-repo = 'godlygeek/csapprox'
-terminal = 1
-
-
-[[plugins]] # repeat commands also from plugins, not just builtin commands
-repo = 'tpope/vim-repeat'
-mappings = '.'
-
-[[plugins]]
-repo = 'jiangmiao/simple-javascript-indenter'
-on_ft = ['javascript', 'javascript.jsx']
-
-[[plugins]]
-repo = 'jelera/vim-javascript-syntax'
-on_ft = ['javascript', 'javascript.jsx']
-
-[[plugins]]
-repo = 'hynek/vim-python-pep8-indent'
-on_ft = 'python'
+# [[plugins]]
+# repo = 'kana/vim-tabpagecd'
 
 # remaps "w" and "b" motions, intended to be more clever
-[[plugins]]
-repo = 'bkad/CamelCaseMotion'
-mappings = '<Plug>'
+# [[plugins]]
+# repo = 'bkad/CamelCaseMotion'
+# mappings = '<Plug>'
 
-# syntax files for cpp c-std11
-[[plugins]]
-repo = 'vim-jp/cpp-vim'
-on_ft = 'cpp'
-
-[[plugins]]
-repo = 'thinca/vim-ft-diff_fold'
-on_ft = 'diff'
-
-[[plugins]]
-repo = 'nsf/gocode'
-rtp = 'vim'
-on_ft = 'go'
-
-[[plugins]]
-repo = 'thinca/vim-ft-help_fold'
-on_ft = 'help'
+# [[plugins]]
+# repo = 'thinca/vim-ft-diff_fold'
+# on_ft = 'diff'
 
 [[plugins]]
 repo = 'elzr/vim-json'
@@ -117,15 +59,6 @@ on_ft = 'json'
 [[plugins]] # use xdg-open to open a url
 repo = 'tyru/open-browser.vim'
 functions = 'openbrowser#open'
-
-[[plugins]]
-repo = 'kana/vim-filetype-haskell'
-on_ft = 'haskell'
-
-# Syntax files for D programming
-[[plugins]]
-repo = 'JesseKPhillips/d.vim'
-on_ft = 'd'
 
 # nice plugin for selecting windows
 [[plugins]]
@@ -176,16 +109,8 @@ repo = 'kannokanno/previm'
 on_ft = ['markdown', 'rst', 'mkd']
 depends = 'open-browser.vim'
 
-[[plugins]]
-repo = 'junegunn/vim-easy-align'
-mappings = '<Plug>(EasyAlign)'
-
 [[plugins]] # vim tests in API
 repo = 'thinca/vim-themis'
-
-[[plugins]]
-repo = 'osyo-manga/vim-monster'
-on_ft = 'ruby'
 
 [[plugins]]
 repo = 'cespare/vim-toml'
@@ -198,11 +123,11 @@ on_ft = 'toml'
 repo = 't9md/vim-smalls'
 mappings = ['<Plug>(smalls)', '<Plug>(smalls-)']
 
-[[plugins]]
-repo = 'rstacruz/sparkup'
-
-[[plugins]]
-repo = 'tpope/vim-dispatch'
+# [[plugins]]
+# repo = 'rstacruz/sparkup'
+#
+# [[plugins]]
+# repo = 'tpope/vim-dispatch'
 
 [[plugins]] # wmii-ish window/tiling manager
 repo = 'andsild/suckless.vim.git'
@@ -211,39 +136,35 @@ repo = 'andsild/suckless.vim.git'
 repo = 'https://github.com/ehamberg/vim-cute-python.git'
 on_ft = 'python'
 
-[[plugins]]
-repo = 'https://github.com/neovimhaskell/haskell-vim.git'
-on_ft = 'haskell'
+# [[plugins]]
+# repo = 'https://github.com/neovimhaskell/haskell-vim.git'
+# on_ft = 'haskell'
 
-[[plugins]] # use vim's conceal features in languages:
-repo = 'https://github.com/calebsmith/vim-lambdify.git'
-on_ft = ['ruby', 'javascript', 'scheme', 'erlang']
+# [[plugins]] # use vim's conceal features in languages:
+# repo = 'https://github.com/calebsmith/vim-lambdify.git'
+# on_ft = ['ruby', 'javascript', 'scheme', 'erlang']
 
 [[plugins]] # nice keybindings
 repo = 'https://github.com/andsild/vim-unimpaired.git'
 
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-on_ft = 'python'
-
-[[plugins]]
-repo = 'https://github.com/junegunn/vim-github-dashboard.git'
+# [[plugins]]
+# repo = 'davidhalter/jedi-vim'
+# on_ft = 'python'
+#
+# [[plugins]]
+# repo = 'https://github.com/junegunn/vim-github-dashboard.git'
 
 [[plugins]]
 repo = 'https://github.com/suan/vim-instant-markdown.git'
 on_ft = 'markdown'
 
-[[plugins]]
-repo = 'xuhdev/vim-latex-live-preview.git'
-on_ft = 'tex'
-
+# [[plugins]]
+# repo = 'xuhdev/vim-latex-live-preview.git'
+# on_ft = 'tex'
+#
 [[plugins]]
 repo = 'Shougo/neoinclude.vim'
 insert = 1
-
-[[plugins]]
-repo = 'https://github.com/adamclerk/vim-razor.git'
-on_ft = 'razor'
 
 [[plugins]]
 repo = 'https://github.com/rhysd/committia.vim.git'
@@ -261,14 +182,11 @@ repo = 'https://github.com/mhinz/vim-grepper.git'
 [[plugins]]
 repo = 'https://github.com/janko-m/vim-test.git'
 
-[[plugins]]
-repo = 'https://github.com/KabbAmine/zeavim.vim.git'
+# [[plugins]]
+# repo = 'https://github.com/KabbAmine/zeavim.vim.git'
 
-[[plugins]]
-repo = 'https://github.com/7kfpun/finance.vim.git'
-
-[[plugins]]
-repo = 'https://github.com/vim-scripts/BufOnly.vim.git'
+# [[plugins]]
+# repo = 'https://github.com/vim-scripts/BufOnly.vim.git'
 
 [[plugins]]
 repo = 'andsild/peskcolor.vim.git'
@@ -277,54 +195,29 @@ repo = 'andsild/peskcolor.vim.git'
 repo = 'andsild/missing-spellfiles-neovim.git'
 
 [[plugins]]
-repo = 'https://github.com/mxw/vim-jsx.git'
-on_ft = ['javascript', 'javascript.jsx']
-
-[[plugins]]
 repo = 'marijnh/tern_for_vim'
 on_ft = ['javascript', 'javascript.jsx']
 build = 'npm install'
 
-[[plugins]]
-repo = 'https://github.com/maksimr/vim-jsbeautify.git'
+# [[plugins]]
+# repo = 'https://github.com/maksimr/vim-jsbeautify.git'
+#
+# [[plugins]]
+# repo = 'https://github.com/pangloss/vim-javascript.git'
+# on_ft = ['javascript', 'javascript.jsx']
 
-[[plugins]]
-repo = 'https://github.com/bentayloruk/vim-react-es6-snippets.git'
-on_ft = ['javascript', 'javascript.jsx']
+# [[plugins]]
+# repo = 'https://github.com/ryanoasis/vim-devicons.git'
 
-[[plugins]]
-repo = 'https://github.com/pangloss/vim-javascript.git'
-on_ft = ['javascript', 'javascript.jsx']
-
-
-[[plugins]]
-repo = 'https://github.com/ryanoasis/vim-devicons.git'
-
-[[plugins]]
-repo = 'https://github.com/vim-scripts/SyntaxRange.git'
-
-[[plugins]] # colorscheme
-repo = 'https://github.com/endel/vim-github-colorscheme.git'
-
-[[plugins]] # colorscheme
-repo = 'https://github.com/freeo/vim-kalisi.git'
-
-[[plugins]] # colorscheme
-repo = 'https://github.com/vim-scripts/mayansmoke.git'
-
-[[plugins]] # colorscheme
-repo = 'https://github.com/vim-scripts/Blueshift.git'
-
-[[plugins]] # control neovim terms from any buffer
-repo = 'https://github.com/kassio/neoterm.git'
+# [[plugins]]
+# repo = 'https://github.com/vim-scripts/SyntaxRange.git'
+#
+# [[plugins]] # colorscheme
+# repo = 'https://github.com/vim-scripts/mayansmoke.git'
 
 [[plugins]] # show yank history
 repo = 'https://github.com/Shougo/neoyank.vim.git'
 on_if = 'has("clipboard")'
-
-[[plugins]]
-repo = 'https://github.com/LnL7/vim-nix.git'
-on_ft = 'nix'
 
 [[plugins]]
 repo = 'https://github.com/parsonsmatt/intero-neovim.git'
@@ -339,42 +232,42 @@ repo = 'chemzqm/denite-git'
 [[plugins]]
 repo = 'https://github.com/chemzqm/denite-extra'
 
-[[plugins]]
-repo = 'https://github.com/thinca/vim-localrc'
+# [[plugins]]
+# repo = 'https://github.com/thinca/vim-localrc'
 
-[[plugins]]
-repo = 'https://github.com/guns/xterm-color-table.vim'
+# [[plugins]]
+# repo = 'https://github.com/guns/xterm-color-table.vim'
 
-[[plugins]]
-repo = 'google/vim-maktaba'
-
+# [[plugins]]
+# repo = 'google/vim-maktaba'
+#
 [[plugins]]
 repo = 'bazelbuild/vim-bazel'
 depends = 'vim-maktaba'
 
-[[plugins]]
-repo = 'https://github.com/itchyny/vim-cursorword'
+# [[plugins]]
+# repo = 'https://github.com/itchyny/vim-cursorword'
 
-[[plugins]]
-repo = 'https://github.com/chrisbra/csv.vim'
+# [[plugins]]
+# repo = 'https://github.com/chrisbra/csv.vim'
 
-[[plugins]]
-repo = 'https://github.com/andreshazard/vim-logreview'
+# [[plugins]]
+# repo = 'https://github.com/andreshazard/vim-logreview'
 
 [[plugins]]
 repo = 'https://github.com/reedes/vim-wordy'
 
-[[plugins]]
-repo = 'https://github.com/vim-scripts/Improved-AnsiEsc'
+# [[plugins]]
+# repo = 'https://github.com/vim-scripts/Improved-AnsiEsc'
 
 [[plugins]]
 repo = 'https://github.com/itchyny/vim-gitbranch'
 
-[[plugins]]
-repo = 'https://github.com/jiangmiao/auto-pairs'
+# [[plugins]]
+# repo = 'https://github.com/jiangmiao/auto-pairs'
+#
+# [[plugins]]
+# repo = 'https://github.com/lfilho/cosco.vim'
 
-[[plugins]]
-repo = 'https://github.com/lfilho/cosco.vim'
-
-[[plugins]]
-repo = 'https://github.com/neoclide/vim-easygit'
+# [[plugins]]
+# repo = 'https://github.com/neoclide/vim-easygit'

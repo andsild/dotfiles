@@ -107,6 +107,11 @@ in
     ];
   };
 
+  environment.shellInit = ''
+    gpg-connect-agent /bye
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+  '';
+
   environment.variables = rec {
     VISUAL  = "nvim-qt";
     EDITOR  = VISUAL;
@@ -129,6 +134,8 @@ in
           jvmArgs = [ "-Xmx2048m" "-Xms2048m" ];
           plugins = with eclipses.plugins; [ checkstyle color-theme findbugs jdt vrapper testng  ];
     })
+    (jetbrains.idea-ultimate)
+    # darcs
     aalib
     acpitool
     androidsdk
@@ -149,9 +156,8 @@ in
     cmake
     consul
     cowsay
+    cryptsetup
     ctags
-    # darcs
-    timidity
     dmenu
     dos2unix
     dotnetPackages.Nuget
@@ -159,9 +165,10 @@ in
     dzen2
     enlightenment.terminology
     evince
-    libfaketime
     file
     findbugs
+    fira-code
+    fish
     flyway
     fortune
     fzf
@@ -184,18 +191,17 @@ in
     haskellPackages.cabal-install
     haskellPackages.hoogle
     haskellPackages.stylish-haskell
-    # haskellPackages.threadscope
     haskellPackages.xmobar
     hdparm
-    fira-code
     hicolor_icon_theme
     htop
     ii
-    jq
     imagemagick
     inotify-tools
     iotop
     irssi
+    jq
+    libfaketime
     liblapack
     libtool
     links2
@@ -205,12 +211,16 @@ in
     man-pages
     manpages
     maven
+    mc
+    mono46
+    monodevelop
     mplayer
     mpv
     msmtp
     ncdu
     ncurses
     neomutt
+    neovim-qt
     networkmanagerapplet
     nix-repl
     nmap
@@ -219,10 +229,6 @@ in
     nox
     ntfs3g
     nvim
-    neovim-qt
-    mc
-    mono46
-    monodevelop
     openjdk
     openssl
     p7zip
@@ -233,38 +239,38 @@ in
     perlPackages.ImageExifTool
     pinentry
     pkgconfig
-    protobuf
     posix_man_pages
     postgresql
+    protobuf
     pssh
     python
     python3Packages.ipython
-    python3Packages.python
     python3Packages.neovim
+    python3Packages.python
+    python3Packages.scipy                                                      
+    pythonPackages.demjson                                                     
     pythonPackages.ipython
-    pythonPackages.scipy
-    pythonPackages.virtualenv
-    pythonPackages.scipy
-    pythonPackages.demjson
-    python3Packages.scipy
-    pythonPackages.virtualenv
-    pythonPackages.youtube-dl
+    pythonPackages.scipy                                                       
+    pythonPackages.scipy                                                       
+    pythonPackages.virtualenv                                                  
+    pythonPackages.virtualenv                                                  
+    pythonPackages.youtube-dl                                                  
     qalculate-gtk
     qemu
     qutebrowser
     rdesktop
     redo
     rlwrap
-    rsync
     rrsync
+    rsync
     ruby
-    screen
-    service-wrapper
-    shellcheck
-    shotwell
-    shutter
-    silver-searcher
-    simplescreenrecorder
+    screen                                                                     
+    service-wrapper                                                            
+    shellcheck                                                                 
+    shotwell                                                                   
+    shutter                                                                    
+    silver-searcher                                                            
+    simplescreenrecorder                                                       
     sl
     sloccount
     slock
@@ -283,6 +289,7 @@ in
     tcptrack
     telnet
     thunderbird
+    timidity
     toilet
     travis
     tree
@@ -302,6 +309,7 @@ in
     xfontsel
     xkblayout-state
     xlsfonts
+    xmodmap
     xorg.xbacklight
     xorg.xev
     xorg.xgamma
@@ -312,6 +320,7 @@ in
     xpdf
     xscreensaver
     xxd
+    yubikey-personalization
     zathura
     zeal
     zip
@@ -378,11 +387,12 @@ in
     resolved.enable = true;
     resolved.domains = ["cxense.com"];
     acpid.enable = true;
+    pcscd.enable = true;
     clamav.daemon.enable = true;
     clamav.updater.enable = true;
     clamav.updater.frequency = 1;
 
-    offlineimap.enable = false; # so much hassling with the setup, not sure if CLI email is worth it yet
+    offlineimap.enable = true; # so much hassling with the setup, not sure if CLI email is worth it yet
     offlineimap.install = true;
     offlineimap.path = [ pkgs.gnupg1orig pkgs.python pkgs.gnupg pkgs.python pkgs.notmuch pkgs.bash pkgs.sqlite pkgs.pinentry  ];
     offlineimap.onCalendar = "*:0/4"; # every three minutes
@@ -411,6 +421,7 @@ in
       '';
     };
 
+    udev.packages = with pkgs; [ yubikey-personalization ];
     udev.extraRules = ''
 # Leap Motion
 ACTION!="add|change", GOTO="com_leapmotion_leap_end"

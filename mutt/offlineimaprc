@@ -6,7 +6,8 @@
 [general]
 
 # Accounts available, separated by comma. Change to whatever you want.
-accounts = andsild
+accounts = Posteo, Cxense
+# accounts = Work, Personal
 
 # Use the command-line interface. We don't need something fancy
 ui = TTY.TTYUI
@@ -16,64 +17,59 @@ pythonfile = ~/.mutt/support/offlineimap.py
 
 # Speeds things up. It's OK to loose a mail every now and then, it will get synced next time
 fsync = False
-
+                                                                
 # A single account. You can define multiple ones (having different names), but
-# you need to list them in [general]
-[Account andsild]
+# you need to list them in [general]                            
+[Account Posteo]                                                       
+localrepository = posteo-Local                                 
+remoterepository = posteo-Remote                               
+postsynchook = notmuch new                                      
 
-# Names of the repositories, defined below.
-localrepository = andsild-Local
-remoterepository = andsild-Remote
+[Account Cxense]                                                       
+localrepository = cxense-Local                                 
+remoterepository = cxense-Remote                               
+postsynchook = notmuch new                                      
 
-# Hooks to be executed before and after sync
-postsynchook = notmuch new
-
-# The local repository
-[Repository andsild-Local]
-
-# It's just a Maildir
-type = Maildir
-
-# Location of your maildir
-localfolders = ~/.mail/andsild
+[Repository posteo-Local]                                      
+type = Maildir                                                  
+localfolders = /extra/.mail/posteo/
 
 # Gmail folders have long annoying names (like "[Gmail]/All Mail"), so they
 # should be renamed locally. This function takes an optional hash with
 # mappings. You can leave it empty if you don't need more than the default
 # folders.
-nametrans = gmail_local_to_remote_nametrans({})
+# nametrans = gmail_local_to_remote_nametrans({})
 
-# The remote repository (Gmail)
-[Repository andsild-Remote]
-
-# Paralelize work a bit
+[Repository posteo-Remote]
 maxconnections = 2
-
-# Offlineimap supports Gmail, which simplifies a few thing
-type = Gmail
-
-# When an email is deleted from a label or directory, it doesn't really get
-# deleted from Gmail. Useful if you don't want to accidentally delete a lot of
-# stuff.
-realdelete = yes
-
-# The email address
-remoteuser = andsild@gmail.com
-
-# Fetch the password from the keychain
-remotepasseval = keychain_pass()
-
-# Similar renaming to the one in the local repository. It should take the same
-# argument (makes it simple to copy/paste around).
-nametrans = gmail_remote_to_local_nametrans()
-
-# Don't create tags for local folders, unless you have specified it
-# explicitly.
+type = IMAP                                                     
+remotehost = posteo.net
+remoteuser = andsild@posteo.net
+remoteport = 143
+ssl = no
+# ugh. don't get whats going on
+starttls = yes 
+remotepasseval = keychain_pass_posteo()
 createfolders = False
-
-# Specifies which folders to get from Gmail. If you don't pass any arguments,
-# you'll get the default folders.
-folderfilter = gmail_folder_filter({})
-
-# Remove this, and offlineimap complains about lack of proper SSL.
 sslcacertfile = /etc/ssl/certs/ca-bundle.crt
+realdelete = yes                                                
+
+
+[Repository cxense-Local]                                      
+type = Maildir                                                  
+localfolders = /extra/.mail/cxense
+
+[Repository cxense-Remote]
+maxconnections = 2
+type = Gmail
+remotehost = imap.gmail.com
+remoteuser = anders.sildnes@cxense.com
+remoteport = 993
+ssl = yes
+remotepasseval = keychain_pass_cxense()
+nametrans = gmail_remote_to_local_nametrans()
+createfolders = False
+folderfilter = gmail_folder_filter({})
+sslcacertfile = /etc/ssl/certs/ca-bundle.crt
+realdelete = yes                                    
+folderfilter = lambda folder: folder not in ['[Gmail]/Cron', '[Gmail]/dc-ops', '[Gmail]/security', '[Gmail]/Important', '[Gmail]/Cxad', '[Gmail]/All Mail']
