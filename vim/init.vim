@@ -557,7 +557,7 @@ command! FZFMru call fzf#run({
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
 command! FZFFavorites call fzf#run({
-  \ 'source':  'locate ${HOME}Homework/ ${HOME}SemiPrivate/ ${HOME}dotfiles/  | grep -Ev "\.git|backup|workspace|\.stack-work|hi$|png$|jpg$|/dist/|/build|/bin/"',
+  \ 'source':  '_HOME=${HOME%%/} locate ${_HOME}Homework/ ${_HOME}SemiPrivate/ ${_HOME}dotfiles/  | grep -Ev "\.git|backup|workspace|\.stack-work|hi$|png$|jpg$|/dist/|/build|/bin/"',
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })

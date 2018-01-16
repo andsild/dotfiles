@@ -24,34 +24,6 @@ hook_source = 'let g:echodoc_enable_at_startup = 1'
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 
-# [[plugins]]
-# repo = 'thinca/vim-scouter'
-#
-# [[plugins]]
-# repo = 'vim-ruby/vim-ruby'
-# mappings = '<Plug>'
-# on_ft = 'ruby'
-
-# [[plugins]] #comment code for most languages (default nmap is "gcc")
-# repo = 'tyru/caw.vim'
-# mappings = '<Plug>'
-
-# [[plugins]] # see "man look" - used for auto-complete of dictionary words
-# repo = 'andsild/neco-look'
-# insert = 1
-
-# [[plugins]]
-# repo = 'kana/vim-tabpagecd'
-
-# remaps "w" and "b" motions, intended to be more clever
-# [[plugins]]
-# repo = 'bkad/CamelCaseMotion'
-# mappings = '<Plug>'
-
-# [[plugins]]
-# repo = 'thinca/vim-ft-diff_fold'
-# on_ft = 'diff'
-
 [[plugins]]
 repo = 'elzr/vim-json'
 on_ft = 'json'
@@ -123,12 +95,6 @@ on_ft = 'toml'
 repo = 't9md/vim-smalls'
 mappings = ['<Plug>(smalls)', '<Plug>(smalls-)']
 
-# [[plugins]]
-# repo = 'rstacruz/sparkup'
-#
-# [[plugins]]
-# repo = 'tpope/vim-dispatch'
-
 [[plugins]] # wmii-ish window/tiling manager
 repo = 'andsild/suckless.vim.git'
 
@@ -136,32 +102,13 @@ repo = 'andsild/suckless.vim.git'
 repo = 'https://github.com/ehamberg/vim-cute-python.git'
 on_ft = 'python'
 
-# [[plugins]]
-# repo = 'https://github.com/neovimhaskell/haskell-vim.git'
-# on_ft = 'haskell'
-
-# [[plugins]] # use vim's conceal features in languages:
-# repo = 'https://github.com/calebsmith/vim-lambdify.git'
-# on_ft = ['ruby', 'javascript', 'scheme', 'erlang']
-
 [[plugins]] # nice keybindings
 repo = 'https://github.com/andsild/vim-unimpaired.git'
-
-# [[plugins]]
-# repo = 'davidhalter/jedi-vim'
-# on_ft = 'python'
-#
-# [[plugins]]
-# repo = 'https://github.com/junegunn/vim-github-dashboard.git'
 
 [[plugins]]
 repo = 'https://github.com/suan/vim-instant-markdown.git'
 on_ft = 'markdown'
 
-# [[plugins]]
-# repo = 'xuhdev/vim-latex-live-preview.git'
-# on_ft = 'tex'
-#
 [[plugins]]
 repo = 'Shougo/neoinclude.vim'
 insert = 1
@@ -182,12 +129,6 @@ repo = 'https://github.com/mhinz/vim-grepper.git'
 [[plugins]]
 repo = 'https://github.com/janko-m/vim-test.git'
 
-# [[plugins]]
-# repo = 'https://github.com/KabbAmine/zeavim.vim.git'
-
-# [[plugins]]
-# repo = 'https://github.com/vim-scripts/BufOnly.vim.git'
-
 [[plugins]]
 repo = 'andsild/peskcolor.vim.git'
 
@@ -199,21 +140,8 @@ repo = 'marijnh/tern_for_vim'
 on_ft = ['javascript', 'javascript.jsx']
 build = 'npm install'
 
-# [[plugins]]
-# repo = 'https://github.com/maksimr/vim-jsbeautify.git'
-#
-# [[plugins]]
-# repo = 'https://github.com/pangloss/vim-javascript.git'
-# on_ft = ['javascript', 'javascript.jsx']
-
-# [[plugins]]
-# repo = 'https://github.com/ryanoasis/vim-devicons.git'
-
-# [[plugins]]
-# repo = 'https://github.com/vim-scripts/SyntaxRange.git'
-#
-# [[plugins]] # colorscheme
-# repo = 'https://github.com/vim-scripts/mayansmoke.git'
+[[plugins]] # colorscheme
+repo = 'https://github.com/vim-scripts/mayansmoke.git'
 
 [[plugins]] # show yank history
 repo = 'https://github.com/Shougo/neoyank.vim.git'
@@ -232,42 +160,15 @@ repo = 'chemzqm/denite-git'
 [[plugins]]
 repo = 'https://github.com/chemzqm/denite-extra'
 
-# [[plugins]]
-# repo = 'https://github.com/thinca/vim-localrc'
-
-# [[plugins]]
-# repo = 'https://github.com/guns/xterm-color-table.vim'
-
-# [[plugins]]
-# repo = 'google/vim-maktaba'
-#
 [[plugins]]
 repo = 'bazelbuild/vim-bazel'
 depends = 'vim-maktaba'
 
-# [[plugins]]
-# repo = 'https://github.com/itchyny/vim-cursorword'
-
-# [[plugins]]
-# repo = 'https://github.com/chrisbra/csv.vim'
-
-# [[plugins]]
-# repo = 'https://github.com/andreshazard/vim-logreview'
-
 [[plugins]]
 repo = 'https://github.com/reedes/vim-wordy'
 
-# [[plugins]]
-# repo = 'https://github.com/vim-scripts/Improved-AnsiEsc'
+[[plugins]]
+repo = 'https://github.com/vim-scripts/Improved-AnsiEsc'
 
 [[plugins]]
 repo = 'https://github.com/itchyny/vim-gitbranch'
-
-# [[plugins]]
-# repo = 'https://github.com/jiangmiao/auto-pairs'
-#
-# [[plugins]]
-# repo = 'https://github.com/lfilho/cosco.vim'
-
-# [[plugins]]
-# repo = 'https://github.com/neoclide/vim-easygit'

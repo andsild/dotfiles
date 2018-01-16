@@ -11,14 +11,10 @@
         {
             names = [
             # This plugin parses nix configuration files in vim
-            "AnsiEsc"
             "Auto_Pairs"
-            "BufOnly"
             "Cosco"
             "SyntaxRange"
             "WebAPI"
-            "autofmt"
-            "camelcasemotion"
             "caw"
             "csv"
             "deoplete-go"
@@ -31,7 +27,6 @@
             "ghcmod"
             "haskell-vim"
             "maktaba"
-            "mayansmoke"
             "neco-ghc"
             "neco-look"
             "neco-vim"
@@ -51,7 +46,7 @@
             "vim-dispatch"
             "vim-easy-align"
             "vim-ft-diff_fold"
-            "vim-github-dashboard"
+            "vim-dashboard"
             "vim-haskellConcealPlus"
             "vim-javascript"
             "vim-jsbeautify"

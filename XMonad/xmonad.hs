@@ -38,11 +38,6 @@ myModMask = mod4Mask
  
 workspaceNames :: [String]
 workspaceNames = [ "1.term", "2.web", "3.code", "4.misc", "5.pdf", "6.misc", "7.torrent", "8.misc" , "9.spotify" ]
- 
--- Default offset of drawable screen boundaries from each physical.
--- (top, bottom, left, right)
-screenBoundaries :: [(Integer, Integer, Integer, Integer)]
-screenBoundaries = [(50,0,0,0)]
 
 -- default tiling algorithm partitions the screen into two panes
 basic :: Tall a
@@ -53,7 +48,8 @@ basic = Tall nmaster resizeWindowDelta masterWindowDefaultRatio
     masterWindowDefaultRatio = 1/2
  
 --myLayout = smartBorders $ onWorkspace "2.web" webLayout $ standardLayouts
-myLayout = smartBorders $ standardLayouts
+-- myLayout = smartBorders $ standardLayouts
+myLayout = avoidStruts $ standardLayouts
   where
     standardLayouts = tall ||| wide ||| full ||| circle
     tall   = named "tall"   $ avoidStruts basic
