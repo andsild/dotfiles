@@ -309,7 +309,7 @@ in
     xfontsel
     xkblayout-state
     xlsfonts
-    xmodmap
+    xorg.xmodmap
     xorg.xbacklight
     xorg.xev
     xorg.xgamma
