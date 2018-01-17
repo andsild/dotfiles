@@ -4,12 +4,12 @@ source ~/.mutt/common
 
 set realname = "Anders Sildnes"
 set from = "anders.sildnes@cxense.com"
-set spoolfile = "+INBOX"
+set spoolfile = "+cxense/INBOX"
 
-mailboxes +anders.sildnes/INBOX \
-          +anders.sildnes/archive \
-          +anders.sildnes/sent \
-          +anders.sildnes/trash \
+mailboxes +cxense/INBOX \
+          +cxense/archive \
+          +cxense/sent \
+          +cxense/trash \
           +temporary/search
 
 set mbox         = "+archive"

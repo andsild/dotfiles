@@ -72,10 +72,6 @@ repo = 'osyo-manga/vim-textobj-multiblock'
 depends = 'vim-textobj-user'
 mappings = [['ox', '<Plug>']]
 
-[[plugins]] # for creating notes in rst format
-repo = 'Rykka/riv.vim'
-on_ft = 'rst'
-
 [[plugins]] # markdown preview
 repo = 'kannokanno/previm'
 on_ft = ['markdown', 'rst', 'mkd']

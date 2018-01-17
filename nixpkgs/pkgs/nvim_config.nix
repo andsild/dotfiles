@@ -11,7 +11,7 @@
         {
             names = [
             # This plugin parses nix configuration files in vim
-            "Auto_Pairs"
+            "auto-pairs"
             "Cosco"
             "SyntaxRange"
             "WebAPI"
@@ -62,6 +62,7 @@
             "vim-webdevicons"
             "xterm-color-table"
             "zeavim"
+            "denite"
             ];
         }
     ];

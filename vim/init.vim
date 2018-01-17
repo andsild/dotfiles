@@ -170,6 +170,7 @@ augroup syntax-highlight-extends
         \ call s:set_syntax_of_user_defined_commands()
 augroup END
 
+filetype on
 set autoindent
 set autowriteall
 set autoread " Auto reload if file is changed.

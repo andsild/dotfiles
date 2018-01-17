@@ -4,29 +4,25 @@ import subprocess
 import sys
 import os
 
+FNULL = open(os.devnull, 'w')
+
 # Fetching passwords
 def keychain_pass_posteo():
-    FNULL = open(os.devnull, 'w')
-    retcode = subprocess.call(['gpg2', '--card-status'],
-                          stdout=FNULL,
-                          stderr=subprocess.STDOUT)
-    FNULL.close()
-    if retcode == 0:
-        return subprocess \
-                .check_output("gpg2 -dq /home/andsild/.123456789key.gpg", shell=True).rstrip('\n')
-    raise RuntimeError
+    try:
+        subprocess.check_call(["gpg2", "--card-status", "1>&0"], stdout=FNULL, stderr=FNULL, shell=False)
+    except subprocess.CalledProcessError:
+        return "foobar"
+    return subprocess \
+            .check_output("gpg2 -dq /home/andsild/.123456789key.gpg", shell=True).decode("utf-8").rstrip('\n')
 
 
 def keychain_pass_cxense():
-    FNULL = open(os.devnull, 'w')
-    retcode = subprocess.call(['gpg2', '--card-status'],
-                          stdout=FNULL,
-                          stderr=subprocess.STDOUT)
-    FNULL.close()
-    if retcode == 0:
-        return subprocess \
-            .check_output("/run/current-system/sw/bin/gpg2 -dq /home/andsild/.12345678key.gpg", shell=True).rstrip('\n')
-    raise RuntimeError
+    try:
+        subprocess.check_call(["gpg2", "--card-status", "1&>0"], stdout=FNULL, stderr=FNULL)
+    except subprocess.CalledProcessError:
+        return "foobar"
+    return subprocess \
+        .check_output("gpg2 -dq /home/andsild/.12345678key.gpg", shell=True).decode("utf-8").rstrip('\n')
 
 mapping = {
     'drafts':  '[Gmail]/Drafts',
@@ -39,7 +35,7 @@ mapping = {
 local_to_remote_mappings = mapping
 remote_to_local_mappings = dict((v, k) for (k, v) in mapping.items())
 
-default_folders = ['INBOX'] + mapping.values()
+default_folders = ['INBOX'] + list(mapping.values())
 
 def gmail_local_to_remote_nametrans(additional=None):
     additional = additional or {}
