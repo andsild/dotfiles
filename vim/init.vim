@@ -39,16 +39,10 @@ if len(g:path) == 0
       let g:path = expand('~/.config/')
     endif
 endif
-let g:toml_path = g:path . '/nvim/plugins.toml'
 " MYVIMRC is normally set by default, but I use vim with "-u" as a parameter
 " This also means that the file ".-rplugin" is not written. 
 " We fix this by setting MYVIMRC explicitly
 let $MYVIMRC=g:path . '/nvim/init.vim'
-if ! filereadable(g:toml_path)
-    echom 'Could not find plugins.toml file at ' . g:toml_path
-    echom 'Aborting init.vim loading'
-    finish
-endif
 let g:default_colorscheme = 'mayansmoke'  " installed from plugin
 set background=light
 let g:mapleader = ','
@@ -58,54 +52,12 @@ if &compatible
   set nocompatible
 endif
 
-if !isdirectory(expand($CACHE))
-  call mkdir(expand($CACHE), 'p')
-endif
-
 if has('vim_starting')
   set encoding=utf-8
   scriptencoding utf8
 
   filetype plugin indent on
-
-  let $CACHE = expand('~/.cache')
-  let s:dein_dir = finddir('dein.vim', '.;')
-  let g:dein_firsttime = 0
-  if s:dein_dir !=? '' || &runtimepath !~# '/dein.vim'
-  if s:dein_dir ==? '' && &runtimepath !~# '/dein.vim'
-    let s:dein_dir = expand('$CACHE/dein')
-      \. '/repos/github.com/Shougo/dein.vim'
-    if !isdirectory(s:dein_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
-    let g:dein_firsttime = 1
-    endif
-  endif
-  execute ' set runtimepath^=' . substitute(
-    \ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
-  endif
-
-  let g:dein#install_progress_type = 'title'
-  let g:dein#install_message_type = 'none'
-  let g:dein#enable_notification = 1
-
-  let s:path = expand('$CACHE/dein')
-  call dein#begin(s:path, [expand('<sfile>')])
-  call dein#load_toml(g:toml_path, {'lazy': 0})
-  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-  call dein#end()
-  call dein#save_state()
-
-  if g:dein_firsttime
-    " call dein#install()
-    echom 'Please restart nvim and do: call dein#install()'
-    finish
-  endif
-
   exe 'silent! colorscheme ' . g:default_colorscheme
-endif
-
-if !has('vim_starting') && dein#check_install()
-  call dein#install()
 endif
 
 " Disable netrw.vim
@@ -474,6 +426,7 @@ let &undodir=&directory
 let g:EclimJavaSearchSingleResult='edit'
 let g:Gitv_DoNotMapCtrlKey = 1
 let g:Gitv_OpenHorizontal = 'auto'
+let g:echodoc_enable_at_startup = 1
 let g:Gitv_WipeAllOnClose = 1
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
@@ -503,6 +456,7 @@ let g:gitgutter_max_signs = 5000
 let g:haddock_browser = 'chromium-browser'
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:intero_stack_yaml="stack.yaml"
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:jsx_ext_required = 0
