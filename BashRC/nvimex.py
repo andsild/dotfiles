@@ -1,4 +1,4 @@
-#!/home/andsild/python2env/bin/python2.7
+#!/usr/bin/env python
 #encoding:utf-8
 """
 The MIT License (MIT)

@@ -125,20 +125,22 @@ in
       vimAlias = true;
       withPyGUI = true;
     };
+    pythonpack = li: ps: with ps; [ numpy scipy neovim ipython virtualenv youtube-dl ansicolor jedi ipdb protobuf unittest2 pyflakes yamllint ] ++ li;
+    python2pack = pythonpack [];
+    python3pack =  pythonpack [];
   in
   with pkgs; [
   # TODO: fix eclim
-  # ECLIPSE_DIR=/nix/store/8pcdjggfcahgsdid3l31ckqhw3rw5smw-eclipse-platform-4.7.1a/eclipse ; ECLIPSE_VERSION=$(awk -F = '/version/ { print $2 }' $ECLIPSE_DIR/.eclipseproduct) ; test -n ${ECLIPSE_VERSION} && ant -Declipse.home=$ECLIPSE_DIR -Declipse.local=$HOME/.eclipse/org.eclipse.platform_$ECLIPSE_VERSION  -Dvim.files=$HOME/.config/nvim
+  # export ECLIM_ECLIPSE_HOME=/nix/store/isimibadhrlxg2vk54l3kjvyym4yccxj-eclipse-platform-4.7.2/eclipse/ ; ECLIPSE_VERSION=$(awk -F = '/version/ { print $2 }' $ECLIM_ECLIPSE_HOME/.eclipseproduct) ; ant -Declipse.local=$HOME/.eclipse/org.eclipse.platform_$ECLIPSE_VERSION  -Dvim.files=$HOME/.config/nvim
     (eclipses.eclipseWithPlugins {
           eclipse = eclipses.eclipse-platform-47;
           jvmArgs = [ "-Xmx2048m" "-Xms2048m" ];
-          plugins = with eclipses.plugins; [ checkstyle color-theme findbugs jdt vrapper testng  ];
+          plugins = with eclipses.plugins; [ checkstyle color-theme findbugs jdt vrapper testng ];
     })
-    (jetbrains.idea-ultimate)
-    # darcs
     aalib
     acpitool
     androidsdk
+    ant
     aspell
     aspellDicts.en
     aspellDicts.nb
@@ -149,6 +151,7 @@ in
     bazel
     bc
     bind
+    binutils-unwrapped
     boost
     checkstyle
     chromium
@@ -243,18 +246,8 @@ in
     postgresql
     protobuf
     pssh
-    python
-    python3Packages.ipython
-    python3Packages.neovim
-    python3Packages.python
-    python3Packages.scipy                                                      
-    pythonPackages.demjson                                                     
-    pythonPackages.ipython
-    pythonPackages.scipy                                                       
-    pythonPackages.scipy                                                       
-    pythonPackages.virtualenv                                                  
-    pythonPackages.virtualenv                                                  
-    pythonPackages.youtube-dl                                                  
+    (python3.withPackages( python3pack))
+    (python2.withPackages( python2pack))
     qalculate-gtk
     qemu
     qutebrowser
