@@ -539,6 +539,11 @@ command! Wa wa
 command! Wqa wqa
 command! W w
 
+function! s:check_back_space() abort
+  let l:col = col('.') - 1
+  return !l:col || getline('.')[l:col - 1]  =~? '\s'
+endfunction
+
 function! s:mkdir_as_necessary(dir, force)
   if !isdirectory(a:dir) && &l:buftype ==? '' &&
         \ (a:force || input(printf('"%s" does not exist. Create? [y/N]',
@@ -931,6 +936,7 @@ let s:menus.java.command_candidates = [
     \ ['Declarations',    'JavaSearch -x declarations'],
     \ ['References',      'JavaSearch -x references'],
     \ ['Call hiearchy',   'JavaCallHiearchy'],
+    \ ['Tag search', 'FZFTags'],
     \ ['Go to unit test', 'JUnitFindTest']
     \ ]
 let s:menus.python = { 'python menu': '"intellisense" in python from jedi' }

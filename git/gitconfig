@@ -30,7 +30,7 @@
 	trustExitCode = true
 	keepBackup = false
 [commit]
-  gpgsign = false
+  gpgsign = true
 [gpg]
 	program = gpg2
 [branch]

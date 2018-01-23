@@ -56,7 +56,6 @@ in
             "deoplete-jedi"
             "deoplete-nvim"
             "easygit"
-            "editorconfig-vim"
             "fugitive"
             "fzf-vim"
             # "ghcmod"

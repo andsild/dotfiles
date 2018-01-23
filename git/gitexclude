@@ -21,3 +21,4 @@ testng.yaml
 *build-redo*
 *.classpath
 service.json
+.lvimrc
