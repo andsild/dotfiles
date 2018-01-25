@@ -353,6 +353,8 @@ vmap gcc <Plug>(caw:hatpos:toggle)
 vnoremap ; <Esc>
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
 vnoremap vaw viw
+vnoremap dp :'<,'>diffput<CR>:diffupdate<CR>
+vnoremap do :'<,'>diffget<CR>:diffupdate<CR>
 xmap  <Space>   [Space]
 xmap <Enter> <Plug>(EasyAlign)
 xmap A  <Plug>(niceblock-A)
