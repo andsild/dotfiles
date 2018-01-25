@@ -1,21 +1,21 @@
 # MS Word documents
-application/msword; ~/.mutt/bin/view-attachment %s "-" '/Applications/TextEdit.app'
+application/msword; xdg-open "%s";
 
 # Images
-image/jpg;   ~/.mutt/bin/view-attachment %s jpg
-image/jpeg;  ~/.mutt/bin/view-attachment %s jpg
-image/pjpeg; ~/.mutt/bin/view-attachment %s jpg
-image/png;   ~/.mutt/bin/view-attachment %s png
-image/gif;   ~/.mutt/bin/view-attachment %s gif
+image/jpg;   sxiv %s
+image/jpeg;  sxiv %s
+image/pjpeg; sxiv %s
+image/png;   sxiv %s
+image/gif;   sxiv %s
 
 # PDFs
-application/pdf; ~/.mutt/bin/view-attachment %s pdf
+application/pdf; xdg-open "%s";
 
 # HTML
-text/html; ~/.mutt/bin/view-attachment %s html
+text/html; xdg-open %s
 
 # Unidentified files
-application/octet-stream; ~/.mutt/bin/view-attachment %s "-"
+application/octet-stream; xdg-open %s;
 
 # Plain text
-text/plain; vim %s
+text/plain; vim %s;

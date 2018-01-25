@@ -84,6 +84,8 @@ bind  pager k              previous-line
 bind  pager r              group-reply
 bind  pager a              view-attachments
 macro pager v              "<pipe-message>urlview<enter>"                          "call urlview to open links"
+# TODO: fix
+macro index,pager X "<pipe-message>rm -rv ~/.cache/mutt/* ; ripmime -i - -d ~/.cache/mutt/ ; x=$(find ~/.cache/mutt/ -type f -exec  xdg-mime query filetype {} \\; -exec ls {} \\; | grep -A1 text/html | tail -n1 ) ; test -n \$x && xdg-open \$x"
 
 bind  editor <Tab>         complete-query
 bind  editor ^T            complete

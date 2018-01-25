@@ -4,7 +4,7 @@ set folder           = /extra/.mail                  # Mailbox location
 set header_cache     = ~/.mutt/cache/headers    # Where to store headers
 set message_cachedir = ~/.mutt/cache/bodies     # Where to store bodies
 set certificate_file = ~/.mutt/certificates     # Where to store certs
-set mailcap_path     = ~/.mutt/mailcap          # Entries for filetypes
+set mailcap_path=~/.mutt/mailcap          # Entries for filetypes
 #set tmpdir           = ~/.mutt/temp             # Where to keep temp files
 set signature        = "~/.mutt/bin/signature|" # My signature file
 
@@ -18,8 +18,8 @@ set confirmappend = no                          # Don't ask when appending messa
 set quit = yes                                  # Don't ask for confirmation when quiting
 set mark_old = no                               # I don't use old messages - read and new are good enough for me
 set beep_new = yes                              # Beep on new mail
-set pipe_decode = yes                           # Strip headers and eval mimes when piping
-set thorough_search                             # Strip headers and eval mimes before searching
+set pipe_decode = no
+set thorough_search
 set sleep_time = 0                              # Don't sleep when showing messages
 
 set status_chars  = " *%A"
@@ -52,7 +52,7 @@ set envelope_from                               # Which from?
 set sig_dashes                                  # Dashes before sig
 set edit_headers                                # Show headers when composing
 set fast_reply                                  # Skip to compose when replying
-set fcc_attach                                  # Save attachments with the body
+#set fcc_attach                                  # Save attachments with the body
 unset mime_forward                              # Forward attachments as part of body
 set forward_format = "Fwd: %s"                  # Format of subject when forwarding
 set forward_decode                              # Decode when forwarding
@@ -61,8 +61,6 @@ set reply_to                                    # Reply to Reply to: field
 set reverse_name                                # Reply as whomever it was to
 set include                                     # Include message in replies
 set forward_quote                               # Include message in forwards
-
-set query_command = "goobook -c ~/.goobookrc.$my_profile query"
 
 set sendmail = "~/.mutt/bin/sendmail $my_profile"
 set sendmail_wait = 0

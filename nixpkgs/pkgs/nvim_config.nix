@@ -1,13 +1,13 @@
 { pkgs }:
 # The virtualenv for python3 must have neovim, i.e `pip install neovim`
 let 
-  customPlugins.vim-choosewin = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-choosewin";
+  customPlugins.vim-choosewin-andsild = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-choosewin-andsild";
     src = pkgs.fetchFromGitHub {
       owner = "andsild";
       repo = "vim-choosewin";
       rev = "d75acde46636d6ad641f0898d641a092f1d7f3d0";
-      sha256 = "0hzghkf2f1gp7x6j96hfqa80738pk0j2wkjjanb37c5fl25mi852";
+      sha256 = "05xrlb27rivc1j2b3ybiyn0ka0yhpyyww8vdchb6gdzx20ir3v3s";
     };
     dependencies = [];
 
@@ -21,7 +21,16 @@ let
       sha256 = "0hzghkf2f1gp7x6j96hfqa80738pk0j2wkjjanb37c5fl25mi852";
     };
     dependencies = [];
-
+  };
+  customPlugins.wmii-vim = pkgs.vimUtils.buildVimPlugin {
+    name = "wmii-vim";
+    src = pkgs.fetchFromGitHub {
+      owner = "andsild";
+      repo = "suckless.vim";
+      rev = "010928da00f40392f8ea91b5af7db94b8422427e";
+      sha256 = "0hgc1aaa4rp8yqxy473g7a5510b3c82s6ywn0bxjgmdpxax7775z";
+    };
+    dependencies = [];
   };
   customPlugins.fzf = pkgs.vimUtils.buildVimPlugin {
     name = "fzf";
@@ -36,106 +45,105 @@ let
   };
 in
 {
-    customRC = ''
-        let g:python_host_prog='python2'
-        let g:python3_host_prog='python3'
-        exe 'source ' . expand('~/dotfiles/vim/init.vim')
-        '';
-    vam.knownPlugins = pkgs.vimPlugins // customPlugins;
-    vam.pluginDictionaries = [
-        {
-            names = [
-            # This plugin parses nix configuration files in vim
-            "auto-pairs"
-            "Cosco"
-            "SyntaxRange"
-            "WebAPI"
-            "caw"
-            "csv"
-            "deoplete-go"
-            "deoplete-jedi"
-            "deoplete-nvim"
-            "easygit"
-            "fugitive"
-            "fzf-vim"
-            # "ghcmod"
-            "haskell-vim"
-            "maktaba"
-            # "neco-ghc"
-            "neco-look"
-            "neco-vim"
-            "neomake"
-            "neosnippet"
-            "neosnippet-snippets"
-            "prettyprint"
-            "riv"
-            "sparkup"
-            "tabpagecd"
-            "tagbar"
-            "vim-auto-save"
-            "vim-autoformat"
-            "vim-coffee-script"
-            "vim-css-color"
-            "vim-cursorword"
-            "vim-dispatch"
-            "vim-easy-align"
-            "vim-ft-diff_fold"
-            "vim-dashboard"
-            "vim-haskellConcealPlus"
-            "vim-javascript"
-            "vim-jsbeautify"
-            "vim-latex-live-preview"
-            "vim-localvimrc"
-            "vim-logreview"
-            "vim-markdown"
-            "vim-nix"
-            "vim-quickrun"
-            "vim-repeat"
-            "vim-scouter"
-            "vim-webdevicons"
-            "vim-webdevicons"
-            "xterm-color-table"
-            "zeavim"
-            "denite"
-            "tabpagebuffer"
-            "neomru"
-            "echodoc"
-            "context-filetype"
-            "vim-niceblock"
-            "vim-json"
-            "open-browser"
-            "vim-operator-user"
-            "vim-operator-replace"
-            "vim-operator-surround"
-            "concealedyank"
-            "vim-textobj-user"
-            "vim-textobj-multiblock"
-            "previm"
-            "vim-themis"
-            "vim-toml"
-            "vim-smalls"
-            "suckless-vim"
-            "cute-python"
-            "neoinclude"
-            "committia"
-            "neco-syntax"
-            "vim-grepper"
-            "vim-test"
-            "peskcolor"
-            "mayansmoke"
-            "neoyank"
-            "intero-neovim"
-            "denite-git"
-            "denite-extra"
-            "vim-bazel"
-            "vim-wordy"
-            "Improved-AnsiEsc"
-            "vim-gitbranch"
-            "missing-spellfiles"
-            "fzf"
-            "vim-choosewin"
-            "clang_complete"
-            ];
-        }
+  customRC = ''
+    let g:python_host_prog='python2'
+    let g:python3_host_prog='python3'
+    exe 'source ' . expand('~/dotfiles/vim/init.vim')
+    '';
+  vam.knownPlugins = pkgs.vimPlugins // customPlugins;
+  vam.pluginDictionaries = [ {
+    names = [
+    # This plugin parses nix configuration files in vim
+    "Cosco"
+    "Improved-AnsiEsc"
+    "SyntaxRange"
+    "WebAPI"
+    "caw"
+    "clang_complete"
+    "committia"
+    "concealedyank"
+    "context-filetype"
+    "csv"
+    "cute-python"
+    "denite"
+    "denite-extra"
+    "denite-git"
+    "deoplete-go"
+    "deoplete-jedi"
+    "deoplete-nvim"
+    "easygit"
+    "echodoc"
+    "fugitive"
+    "fzf"
+    "fzf-vim"
+    "haskell-vim"
+    "intero-neovim"
+    "maktaba"
+    "mayansmoke"
+    "missing-spellfiles"
+    "neco-look"
+    "neco-syntax"
+    "neco-vim"
+    "neoinclude"
+    "neomake"
+    "neomru"
+    "neosnippet"
+    "neosnippet-snippets"
+    "neoyank"
+    "open-browser"
+    "peskcolor"
+    "prettyprint"
+    "previm"
+    "riv"
+    "sparkup"
+    "suckless-vim"
+    "tabpagebuffer"
+    "tabpagecd"
+    "tagbar"
+    "vim-auto-save"
+    "vim-autoformat"
+    "vim-bazel"
+    "vim-choosewin-andsild"
+    "vim-coffee-script"
+    "vim-css-color"
+    "vim-cursorword"
+    "vim-dashboard"
+    "vim-dispatch"
+    "vim-easy-align"
+    "vim-ft-diff_fold"
+    "vim-gitbranch"
+    "vim-grepper"
+    "vim-haskellConcealPlus"
+    "vim-javascript"
+    "vim-jsbeautify"
+    "vim-json"
+    "vim-latex-live-preview"
+    "vim-localvimrc"
+    "vim-logreview"
+    "vim-markdown"
+    "vim-niceblock"
+    "vim-nix"
+    "vim-operator-replace"
+    "vim-operator-surround"
+    "vim-operator-user"
+    "vim-quickrun"
+    "vim-repeat"
+    "vim-scouter"
+    "vim-smalls"
+    "vim-test"
+    "vim-textobj-multiblock"
+    "vim-textobj-user"
+    "vim-themis"
+    "vim-toml"
+    "vim-webdevicons"
+    "vim-webdevicons"
+    "vim-wordy"
+    "xterm-color-table"
+    "zeavim"
+    "wmii-vim"
+    # "ghcmod"
+    # "neco-ghc"
     ];
+    }
+  ];
 }

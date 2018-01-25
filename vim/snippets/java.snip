@@ -1,0 +1,164 @@
+snippet cl
+	class ${1:`vim_snippets#Filename("$1", "untitled")`} ${0}
+snippet pcl
+	public class ${1:`vim_snippets#Filename("$1", "untitled")`} ${0}
+snippet in
+	interface ${1:`vim_snippets#Filename("$1", "untitled")`} ${2:extends Parent}
+snippet tc
+	public class ${1:`vim_snippets#Filename("$1")`} extends ${0:TestCase}
+## Comments
+snippet /*
+	/*
+	 * ${0}
+	 */
+## Constants
+snippet co
+	static public final ${1:String} ${2:var} = ${3};
+snippet cos
+	static public final String ${1:var} = "${2}";
+## Control Statements
+snippet case
+	case ${1}:
+		${0}
+snippet def
+	default:
+		${0}
+snippet elif
+	else if (${1}) ${0}
+snippet if
+	if (${1}) ${0}
+snippet sw
+	switch (${1}) {
+		${0}
+	}
+## Create a Method
+snippet m
+	${1:void} ${2:method}(${3}) ${4:throws }
+## Create a Variable
+## Declaration for ArrayList
+snippet al
+	List<${1:Object}> ${2:list} = new ArrayList<$1>();${0}
+## Declaration for HashMap
+snippet hm
+	Map<${1:Object}, ${2:Object}> ${3:map} = new HashMap<$1, $2>();${0}
+## Declaration for HashSet
+snippet hs
+	Set<${1:Object}> ${2:set} = new HashSet<$1>();${0}
+## Declaration for Stack
+snippet st
+	Stack<${1:Object}> ${2:stack} = new Stack<$1>();${0}
+##
+snippet err
+	System.err.print("${0:Message}");
+snippet errf
+	System.err.printf("${1:Message}", ${0:exception});
+snippet errln
+	System.err.println("${0:Message}");
+## Exception Handling
+snippet as
+	assert ${1:test} : "${2:Failure message}";
+snippet ae
+	assertEquals("${1:Failure message}", ${2:expected}, ${3:actual});
+snippet aae
+	assertArrayEquals("${1:Failure message}", ${2:expecteds}, ${3:actuals});
+snippet af
+	assertFalse("${1:Failure message}", ${2:condition});
+snippet at
+	assertTrue("${1:Failure message}", ${2:condition});
+snippet an
+	assertNull("${1:Failure message}", ${2:object});
+snippet ann
+	assertNotNull("${1:Failure message}", ${2:object});
+snippet ass
+	assertSame("${1:Failure message}", ${2:expected}, ${3:actual});
+snippet asns
+	assertNotSame("${1:Failure message}", ${2:expected}, ${3:actual});
+snippet fa
+	fail("${1:Failure message}");
+snippet ca
+	catch(${1:Exception} ${2:e}) ${0}
+snippet ths
+	throws ${0}
+snippet try
+	try {
+		${0:${VISUAL}}
+	} catch(${1:Exception} ${2:e}) {
+	}
+snippet tryf
+	try {
+		${0:${VISUAL}}
+	} catch(${1:Exception} ${2:e}) {
+	} finally {
+	}
+## Find Methods
+## Javadocs
+snippet /**
+	/**
+	 * ${0}
+	 */
+snippet @au
+	@author `system("grep \`id -un\` /etc/passwd | cut -d \":\" -f5 | cut -d \",\" -f1")`
+snippet @fi
+	@file ${0:`vim_snippets#Filename("$1")`}.java
+snippet @pa
+	@param ${0:param}
+snippet @re
+	@return ${0:param}
+## LOG.Methods
+snippet debug
+	LOG.debug(${1:param});
+snippet error
+	LOG.error(${1:param});
+snippet info
+	LOG.info(${1:param});
+snippet warn
+	LOG.warn(${1:param});
+## Loops
+snippet enfor
+	for (${1} : ${2}) ${0}
+snippet for
+	for (${1}; ${2}; ${3}) ${0}
+## Main method
+snippet psvm
+	public static void main (String[] args) {
+		${0}
+	}
+snippet main
+	public static void main (String[] args) {
+		${0}
+	}
+##
+## Print Methods
+snippet sysout
+options word
+    System.out.println(${1});${0}
+snippet sout
+	System.out.println(${0});
+snippet serr
+	System.err.println(${0});
+snippet print
+	System.out.print("${0:Message}");
+snippet printf
+	System.out.printf("${1:Message}", ${0:args});
+snippet println
+	System.out.println(${0});
+snippet printlna
+	System.out.println(Arrays.toString(${0}));
+## Setter and Getter Methods
+snippet set
+	${1:public} void set${3:}(${2:String} ${0:}){
+		this.$4 = $4;
+	}
+snippet get
+	${1:public} ${2:String} get${3:}(){
+		return this.${0:};
+	}
+##
+## Terminate Methods or Loops
+snippet re
+	return ${0}
+snippet br
+	break;
+## Miscellaneous
+snippet action
+	public static void ${1:index}(${2:args}) { ${0} }

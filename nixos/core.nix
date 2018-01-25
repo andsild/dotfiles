@@ -253,6 +253,7 @@ in
     qutebrowser
     rdesktop
     redo
+    ripmime
     rlwrap
     rrsync
     rsync
@@ -288,6 +289,7 @@ in
     tree
     unetbootin
     unzip
+    urlview
     usbutils
     valgrind
     vim-vint
@@ -605,6 +607,10 @@ host  all all ::1/128      trust
  environment.extraInit = ''
 xdg-mime default zathura.desktop application/pdf
 xdg-mime default qutebrowser.desktop text/html
+xdg-mime default shotwell.desktop image/jpeg
+xdg-mime default shotwell.desktop image/jpg
+xdg-mime default shotwell.desktop image/png
+xdg-mime default shotwell.desktop image/gif
 xdg-mime default qutebrowser.desktop x-scheme-handler/http
 xdg-mime default qutebrowser.desktop x-scheme-handler/https
     '';

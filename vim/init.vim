@@ -1,23 +1,11 @@
 set termencoding=utf-8
-" vimrc Anders Sildnes - great respect to Shougo, who I based this vimrc from
-
-function! s:isWindows()
-  return has('win64') || has('win32')
-endfunction
 
 function! s:IsMac()
   let l:sysout=system('uname')
   return has('unix') && match(l:sysout, '\cDarwin') == 0
 endfunction
 
-if s:isWindows()
-  set shellslash
-  let s:winpythonpath='C:\Users\andesil\AppData\Local\Programs\Python\Python35-32;C:\Users\andesil\AppData\Local\Programs\Python\Python35-32\Scripts\' .  ';C:\Program Files (x86)\Python35-32;C:\Program Files (x86)\Python35-32\Scripts'
-  let $PATH = s:winpythonpath . ';' . $VIM . ';' . $PATH
-  let g:haddock_docdir='C:\Program Files\Haskell Platform\8.0.1\doc\html'
-else
-  set shell=bash
-  if s:IsMac()
+if s:IsMac()
     nnoremap <silent> ± ~
     cnoremap ± ~
     inoremap ± ~
@@ -28,21 +16,8 @@ else
     cnoremap § `
     vnoremap ± ~
     vnoremap § `
-  endif
 endif
 
-let g:path = expand($XDG_CONFIG_HOME)
-if len(g:path) == 0
-    if s:isWindows()
-      let g:path = $USERPROFILE . expand('/AppData/Local')
-    else
-      let g:path = expand('~/.config/')
-    endif
-endif
-" MYVIMRC is normally set by default, but I use vim with "-u" as a parameter
-" This also means that the file ".-rplugin" is not written. 
-" We fix this by setting MYVIMRC explicitly
-let $MYVIMRC=g:path . '/nvim/init.vim'
 let g:default_colorscheme = 'mayansmoke'  " installed from plugin
 set background=light
 let g:mapleader = ','
@@ -78,7 +53,6 @@ augroup DefaultAuGroup
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
     autocmd FileType python nnoremap <silent><buffer> [Space]i :Denite menu:python<CR>
     autocmd FileType haskell nnoremap <silent><buffer> [Space]i :Denite menu:intero<CR>
-    autocmd FileType apache setlocal path+=./;/
     autocmd FileType c,cpp set formatprg=astyle
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType gitcommit,qfreplace setlocal nofoldenable
@@ -98,10 +72,10 @@ augroup DefaultAuGroup
     autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
     autocmd InsertLeave * if &paste | set nopaste mouse=a | echo 'nopaste' | endif | if &l:diff | diffupdate | endif
     autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc  | setlocal formatprg=stylish-haskell | nnoremap <buffer> gqa gggqG:silent %!hindent --style johan-tibell<CR><c-o><c-o>zz
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc  | setlocal formatprg=stylish-haskell
     autocmd FileType haskell nnoremap <silent><buffer>K :GhcModInfoPreview<CR>
     autocmd BufLeave denite source /tmp/layout.vim
-    autocmd FileType term://* setlocal norelativenumber
+    autocmd TermOpen term://* setlocal norelativenumber
 
     if has('python3')
         autocmd FileType python setlocal omnifunc=python3complete#Complete
@@ -124,14 +98,13 @@ augroup END
 
 filetype on
 set autoindent
-set autowriteall
 set autoread " Auto reload if file is changed.
+set autowriteall
 set backspace=indent,eol,start
 set backupdir-=.
 set breakat=\ \ ;:,!?
 set cmdheight=2
 set cmdwinheight=5
-" set colorcolumn=100
 set commentstring=%s
 set complete=.
 set completeopt=menu
@@ -178,6 +151,7 @@ set relativenumber
 set report=0
 set secure
 set sessionoptions="blank,curdir,folds,help,winsize"
+set shell=bash
 set shiftround
 set shiftwidth=2 " Round indent by shiftwidth.
 set shortmess=aTI
@@ -261,13 +235,11 @@ inoremap <expr><C-g> deoplete#mappings#undo_completion()
 inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><C-l>       deoplete#mappings#refresh()
 inoremap <silent><expr> <s-Tab> pumvisible() ? '<C-p>' : deoplete#mappings#manual_complete()
-inoremap kk[Space] kk[Space]
-inoremap kke kke
+inoremap kk[Space] kk[Space] " since inoremap kk <Esc>
+inoremap kke kke " since inoremap kk <Esc>
 map 0 ^
 map <F1> <Esc>
-nmap    s [Window]
-nmap    t [Tag]
-nmap  <Space>   [Space]
+nmap <Space>   [Space]
 nmap <C-6> <C-6>zz
 nmap <C-a> <SID>(increment)
 nmap <C-w>  <Plug>(choosewin)
@@ -276,8 +248,6 @@ nmap <F1> <nop>
 nmap <F8> :TagbarToggle<CR>
 nmap <silent> <F6> :silent NextWordy<CR>
 nmap <silent> <F7> :call ToggleSpell()<CR>
-nmap <silent> B <Plug>CamelCaseMotion_b
-nmap <silent> W <Plug>CamelCaseMotion_w
 nmap <silent>sa <Plug>(operator-surround-append)a
 nmap <silent>sc <Plug>(operator-surround-replace)a
 nmap <silent>sd <Plug>(operator-surround-delete)a
@@ -290,8 +260,6 @@ nmap go <Plug>(openbrowser-smart-search)
 nmap j gj
 nmap k gk
 nnoremap <silent> <Space>m :Denite buffer<CR>
-nnoremap    [Tag]   <Nop>
-nnoremap    [Window]   <Nop>
 nnoremap  [Space]   <Nop>
 nnoremap * :silent set hlsearch<CR>*<C-o>
 nnoremap ,  <Nop>
@@ -360,13 +328,14 @@ nnoremap Q  q " Disable Ex-mode.
 nnoremap [Quickfix]   <Nop> " q: Quickfix
 nnoremap [Space]/  :Ag<CR>
 nnoremap [Space]O :FZFFavorites<CR>
-nnoremap [Space]ar :<C-u>setlocal autoread<CR>
+nnoremap <Leader>ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]o :FZFGit<CR>
 nnoremap [Space]w :silent Neomake<CR>
 nnoremap <c-p> :FZFTags<CR>
 nnoremap \  `
 nnoremap dh :diffget //3<CR>
 nnoremap dl :diffget //2<CR>
+nnoremap t/ :Denite -mode=insert outline<CR>
 nnoremap vaw viw
 nnoremap zj zjzz
 nnoremap zk zkzz
@@ -374,8 +343,6 @@ nnoremap { {zz
 nnoremap } }zz
 noremap <F12> <NOP>
 noremap [Space]u :<C-u>Denite outline<CR>
-omap <silent> B <Plug>CamelCaseMotion_b
-omap <silent> W <Plug>CamelCaseMotion_w
 omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
@@ -385,12 +352,9 @@ vmap <silent> go <Plug>(openbrowser-open)
 vmap gcc <Plug>(caw:hatpos:toggle)
 vnoremap ; <Esc>
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
-vnoremap s d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
 vnoremap vaw viw
 xmap  <Space>   [Space]
 xmap <Enter> <Plug>(EasyAlign)
-xmap <silent> B <Plug>CamelCaseMotion_b
-xmap <silent> W <Plug>CamelCaseMotion_w
 xmap A  <Plug>(niceblock-A)
 xmap I  <Plug>(niceblock-I)
 xmap Y <Plug>(operator-concealedyank)
@@ -438,25 +402,21 @@ let g:localvimrc_whitelist='.*'
 let g:localvimrc_sandbox='0'
 let g:choosewin_overlay_enable = 1
 let g:deoplete#auto_completion_start_length = 1
+let g:neosnippet#snippets_directory=expand($XDG_CONFIG_HOME) . '/nvim/snippets' 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_camel_case = 1
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.python = ''
 let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
 let g:deoplete#sources#jedi#show_docstring = 1
-let g:finance_format = '{symbol}: {LastTradePriceOnly} ({Change})'
-let g:finance_separator = "\n"
-let g:finance_watchlist = ['NZYM-B.CO']
 let g:formatters_javascript = ['jscs']
-let g:gitgutter_max_signs = 5000
-let g:haddock_browser = 'chromium-browser'
+let g:haddock_browser = 'qutebrowser'
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:intero_stack_yaml="stack.yaml"
+let g:intero_stack_yaml='stack.yaml'
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:jsx_ext_required = 0
@@ -465,7 +425,6 @@ let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'vim']
 let g:myLang=0
 let g:myLangList=['nospell','en_us', 'nb', 'weak']
-let g:necoghc_enable_detailed_browse=1
 let g:deoplete#look#words='/opt/englishdictionary'
 let g:neomake_haskell_enabled_makers = ['hlint']
 let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
@@ -491,17 +450,12 @@ else
     \ . 'IFS=":" ; for dir in ${paths} ; do '
     \ . 'test -e ${dir}/../include/clang && echo -n $(readlink -f ${dir}/../include/clang) && break; '
     \ . 'done ; unset IFS')
-"   let g:deoplete#sources#clang#libclang_path = '/usr/lib64/llvm/libclang.so'
-   "let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 endif
 
-" Command group opening with a specific character code again.
 command! -bang -bar -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
 command! -bang -bar -complete=file -nargs=? Utf16 edit<bang> ++enc=ucs-2le <args>
 command! -bang -bar -complete=file -nargs=? Utf16be edit<bang> ++enc=ucs-2 <args>
 command! -bang -bar -complete=file -nargs=? Unicode Utf16<bang> <args>
-command! WUtf8 setlocal fenc=utf-8
-command! WUnicode WUtf16
 
 command! FZFGit call fzf#run({
   \ 'source':  'git ls-files --no-empty-directory --exclude-standard',
@@ -518,15 +472,6 @@ command! FZFFavorites call fzf#run({
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
-command! -bang -complete=file -nargs=? WUnix write<bang> ++fileformat=unix <args> | edit <args>
-" Display diff with the file.
-command! -nargs=1 -complete=file Diff vertical diffsplit <args>
-" Display diff from last save.
-command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-" Disable diff mode.
-command! -nargs=0 Undiff setlocal nodiff noscrollbind wrap
-command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
-  \ strftime('%Y-%m-%d.md'))
 command! -range -nargs=1 AddNumbers
   \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
 command! FZFLines mksession! /tmp/layout.vim | call fzf#run({
@@ -756,8 +701,7 @@ function! s:ag_handler(lines)
   " I want to keep the window layout (the fzf popup moves everything around)
   " Therefore I make a vim session and restore it
   " However, if a terminal is open,
-  "I get a bug related to: https://github.com/neovim/neovim/issues/4895
-  " Therefore the nasty for loop and checks
+  " I get a bug related to: https://github.com/neovim/neovim/issues/4895
   let l:openWindows=[]
   windo call add(l:openWindows, winnr())
   let l:terminalIsOpen=0
@@ -839,8 +783,7 @@ endfunction
 
 command! FZFTags call s:tags()
 
-" Show which highlight group is active under cursor
-" (doesn't work with SpecialKey)
+" Show which highlight group is active under cursor (doesn't work with SpecialKey)
 " (see also :so $VIMRUNTIME/syntax/hitest.vim)
 function! <SID>SynStack()
   if !exists('*synstack')
@@ -879,9 +822,6 @@ let &statusline=' '
   \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
 call s:ApplyCustomColorScheme()
-
-nnoremap t/ :Denite -mode=insert outline<CR>
-
 
 call denite#custom#source('file_old', 'matchers',
       \ ['matcher_fuzzy', 'matcher_project_files'])
@@ -971,7 +911,6 @@ let s:menus.tern.command_candidates = [
   \['Rename',      'TernRename'],
 \]
 
-
 let s:menus.markdown = { 'description' : 'Open preview' }
 let s:menus.markdown.command_candidates = [
   \['-> Preview', 'PrevimOpen'], 
@@ -997,25 +936,19 @@ let s:menus.git.command_candidates = [
     \]
 
 call denite#custom#var('menu', 'menus', s:menus)
-
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-
-
-" this has to be on the bottom
-if s:isWindows()
-  set noshellslash
-endif
 
 function! neomake#makers#ft#json#EnabledMakers() abort
     return ['jq']
 endfunction
 
 let g:neomake_json_jq_executable = 'jq'
+" jqlint.sh in my dotfiles repo (/dotfiles/Bash/jqlint.sh)
 let g:neomake_json_jq_maker = {
   \ 'args' : [],
-  \ 'exe': 'jqlint.sh',
+  \ 'exe': 'jqlint.sh', 
   \ 'errorformat': '%f:parse\ %trror\:%m\ at\ line\ %l\,\ column\ %c'
   \}
 let g:neomake_json_enabled_makers = ['jq']
