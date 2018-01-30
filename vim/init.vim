@@ -235,8 +235,8 @@ inoremap <expr><C-g> deoplete#mappings#undo_completion()
 inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><C-l>       deoplete#mappings#refresh()
 inoremap <silent><expr> <s-Tab> pumvisible() ? '<C-p>' : deoplete#mappings#manual_complete()
-inoremap kk[Space] kk[Space] " since inoremap kk <Esc>
-inoremap kke kke " since inoremap kk <Esc>
+inoremap kk[Space] kk[Space]
+inoremap kke kke
 map 0 ^
 map <F1> <Esc>
 nmap <Space>   [Space]

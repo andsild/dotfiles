@@ -125,7 +125,7 @@ in
       vimAlias = true;
       withPyGUI = true;
     };
-    pythonpack = li: ps: with ps; [ numpy scipy neovim ipython virtualenv youtube-dl ansicolor jedi ipdb protobuf unittest2 pyflakes yamllint ] ++ li;
+    pythonpack = li: ps: with ps; [ numpy scipy neovim ipython virtualenv youtube-dl ansicolor jedi ipdb protobuf unittest2 pyflakes yamllint pytest ] ++ li;
     python2pack = pythonpack [];
     python3pack =  pythonpack [];
   in
@@ -269,7 +269,6 @@ in
     sloccount
     slock
     slop
-    spotify # don't know a better, more reasonable free software alternative
     sqlite
     sshfs-fuse
     sshuttle
