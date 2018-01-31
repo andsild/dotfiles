@@ -2,10 +2,6 @@
 
 # NVIM
 A vimrc for linux and mac.
-I use neovim in Windows as well, but with some limitations because of
-features that aren't implemented and lacking plugin support.
-
-Vim 7.4 works sort of OK, I recommend modifying the colorscheme after starting vim (if version == 7.4) by e.g. `colorscheme koehler | hi clear ColorColumn`.
 
 ## Install [_Linux_]
 Copy "init.vim" and "plugins.toml" into your `$XDG_CONFIG_HOME/nvim` (default `~/.config/nvim`).  
@@ -40,4 +36,3 @@ When launching nvim the first time with this config, run `:call dein#install()` 
 &nbsp;&nbsp;&nbsp;&nbsp;(from normal mode, type) `?` (for example `?\v<[Ww]ord>`)  
 * **Read up on viewports and buffers in vim  
     (https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/)**
-

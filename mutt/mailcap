@@ -1,5 +1,5 @@
 # MS Word documents
-application/msword; xdg-open "%s";
+application/msword; xdg-open %s;
 
 # Images
 image/jpg;   sxiv %s
@@ -9,7 +9,7 @@ image/png;   sxiv %s
 image/gif;   sxiv %s
 
 # PDFs
-application/pdf; xdg-open "%s";
+application/pdf; xdg-open %s;
 
 # HTML
 text/html; xdg-open %s

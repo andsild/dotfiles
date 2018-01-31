@@ -18,8 +18,8 @@ if s:IsMac()
     vnoremap § `
 endif
 
-let g:default_colorscheme = 'mayansmoke'  " installed from plugin
-set background=light
+let g:default_colorscheme = 'koehler'
+set background=dark
 let g:mapleader = ','
 
 if &compatible
@@ -458,7 +458,7 @@ command! -bang -bar -complete=file -nargs=? Utf16be edit<bang> ++enc=ucs-2 <args
 command! -bang -bar -complete=file -nargs=? Unicode Utf16<bang> <args>
 
 command! FZFGit call fzf#run({
-  \ 'source':  'git ls-files --no-empty-directory --exclude-standard',
+  \ 'source':  'git ls-files --no-empty-directory --exclude-standard | grep -v dexa',
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
@@ -745,8 +745,8 @@ function! s:bufopen(e)
 endfunction
 
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s "%s"',
-\                   'tools', 'apidoc', 'apps',
+\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s "%s"',
+\                   'tools', 'apidoc', 'apps', 'dexa',
 \                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.

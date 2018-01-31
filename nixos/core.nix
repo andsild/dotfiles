@@ -154,7 +154,6 @@ in
     binutils-unwrapped
     boost
     checkstyle
-    chromium
     clang
     cmake
     consul
@@ -447,7 +446,7 @@ LABEL="com_leapmotion_leap_end"
     locate.enable = true;
     locate.interval = "*:0/30";
     locate.localuser = username;
-    locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" "/boot/grub" "/var/lib/docker" "/lost+found" "/var/lib/containers" "/root" "/var/db/sudo" "/var/lib/postgresql" "/var/lib/bluetooth" "/etc/docker" "/etc/NetworkManager" "/nix/var" ] ++ map (concat homedir) ["Downloads" ".cache" ".thunderbird" ".gitfat" ".stack"];
+    locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" "/boot" "/var/lib/docker" "/lost+found" "/var/lib/containers" "/root" "/var/db/sudo" "/var/lib/postgresql" "/var/lib/bluetooth" "/etc/docker" "/etc/NetworkManager" "/nix/var" ] ++ map (concat homedir) ["Downloads" ".cache" ".thunderbird" ".gitfat" ".stack"];
 
     # customXServer = {
     xserver = {
