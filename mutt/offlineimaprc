@@ -33,6 +33,7 @@ postsynchook = notmuch new
 [Repository posteo-Local]                                      
 type = Maildir                                                  
 localfolders = /extra/.mail/posteo/
+nametrans = posteo_local_to_remote_nametrans()
 
 # Gmail folders have long annoying names (like "[Gmail]/All Mail"), so they
 # should be renamed locally. This function takes an optional hash with
@@ -53,6 +54,7 @@ remotepasseval = keychain_pass_posteo()
 createfolders = False
 sslcacertfile = /etc/ssl/certs/ca-bundle.crt
 realdelete = yes                                                
+nametrans = lambda folder: str.lower(folder)
 
 
 [Repository cxense-Local]                                      

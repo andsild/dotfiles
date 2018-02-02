@@ -458,7 +458,7 @@ command! -bang -bar -complete=file -nargs=? Utf16be edit<bang> ++enc=ucs-2 <args
 command! -bang -bar -complete=file -nargs=? Unicode Utf16<bang> <args>
 
 command! FZFGit call fzf#run({
-  \ 'source':  'git ls-files --no-empty-directory --exclude-standard | grep -v dexa',
+  \ 'source':  'git ls-files --no-empty-directory --exclude-standard | grep -vE "dexa/|apps/|lib/|\.compiled$|\.zip$|\.gz$|\.jpg$|\.png$|build-redo/|\.jar$"',
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })

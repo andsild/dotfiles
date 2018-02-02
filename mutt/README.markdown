@@ -12,6 +12,7 @@ notmuch new
 ```
 
 ### Notes
+### Password protection
 My setup is with gpg and two-factor authentication for gmail.
 To setup gpg, simply type in:
 ```bash
@@ -23,3 +24,6 @@ wipe <file_with_app_password>
 ```
 [(wipe securely removes files)](http://wipe.sourceforge.net/)  
 I recommend using an app password for gmail (it doesn't take long to setup) so you don't ever put your real password on disk or in your editor history.
+
+### Finding SSL/TLS certificates
+`gnutls-cli --print-cert HOSTNAME[:PORT] < /dev/null`

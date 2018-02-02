@@ -127,7 +127,7 @@ in
     };
     pythonpack = li: ps: with ps; [ numpy scipy neovim ipython virtualenv youtube-dl ansicolor jedi ipdb protobuf unittest2 pyflakes yamllint pytest ] ++ li;
     python2pack = pythonpack [];
-    python3pack =  pythonpack [];
+    python3pack =  pythonpack [ ];
   in
   with pkgs; [
   # TODO: fix eclim
@@ -137,6 +137,8 @@ in
           jvmArgs = [ "-Xmx2048m" "-Xms2048m" ];
           plugins = with eclipses.plugins; [ checkstyle color-theme findbugs jdt vrapper testng ];
     })
+    pythonPackages.pylint 
+    pythonPackages.autopep8  
     aalib
     acpitool
     androidsdk
@@ -245,8 +247,8 @@ in
     postgresql
     protobuf
     pssh
-    (python3.withPackages( python3pack))
-    (python2.withPackages( python2pack))
+    (python3.withPackages( python3pack ))
+    (python2.withPackages( python2pack ))
     qalculate-gtk
     qemu
     qutebrowser

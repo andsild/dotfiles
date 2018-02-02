@@ -20,7 +20,7 @@ let
 	    withPython = true;
 	    withPython3 = true;
       withRuby = true;
-
+      extraPython3Packages = with pkgs.python3Packages;  [ pylint neovim numpy scipy jedi ipdb unittest2 pytest ];
       withPyGUI = true;
 	    configure = import ./pkgs/nvim_config.nix { inherit pkgs; };
 	  };

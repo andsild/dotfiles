@@ -1,4 +1,3 @@
-source ~/.mutt/mappings
 source ~/.mutt/settings
 # source ~/.mutt/sidebar
-# source ~/.mutt/colors
+source ~/.mutt/colors

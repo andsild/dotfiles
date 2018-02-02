@@ -32,24 +32,9 @@ let
     };
     dependencies = [];
   };
-  customPlugins.fzf = pkgs.vimUtils.buildVimPlugin {
-    name = "fzf";
-    src = pkgs.fetchFromGitHub {
-      owner = "andsild";
-      repo = "fzf";
-      rev = "cf311dcaaadf4333f7423bdf8cd166acb65bf259";
-      sha256 = "161fcl2v3sqiv4d44vnxjx6yp7sfgil87mbg703af643b5shczdk";
-    };
-    dependencies = [];
-
-  };
 in
 {
-  customRC = ''
-    let g:python_host_prog='python2'
-    let g:python3_host_prog='python3'
-    exe 'source ' . expand('~/dotfiles/vim/init.vim')
-    '';
+  customRC = builtins.readFile "/home/andsild/dotfiles/vim/init.vim";  
   vam.knownPlugins = pkgs.vimPlugins // customPlugins;
   vam.pluginDictionaries = [ {
     names = [
@@ -74,7 +59,7 @@ in
     "easygit"
     "echodoc"
     "fugitive"
-    "fzf"
+    "fzfWrapper"
     "fzf-vim"
     "haskell-vim"
     "maktaba"
@@ -92,7 +77,6 @@ in
     "open-browser"
     "peskcolor"
     "prettyprint"
-    "previm"
     "riv"
     "sparkup"
     "tabpagebuffer"
