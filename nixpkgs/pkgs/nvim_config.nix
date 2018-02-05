@@ -89,6 +89,7 @@ in
     "prettyprint"
     "riv"
     "sparkup"
+    "wmii-vim"
     "tabpagebuffer"
     "tabpagecd"
     "tagbar"
