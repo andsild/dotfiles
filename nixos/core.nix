@@ -13,7 +13,7 @@ in
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking = {
     networkmanager.enable = true;
@@ -23,9 +23,6 @@ in
     127.0.0.1 9gag.com
     127.0.0.1 www.imgur.com
     127.0.0.1 imgur.com
-
-   192.168.1.168 phone
-   129.241.103.34 baby
 
     10.40.119.152 caligula
     '';
@@ -282,7 +279,6 @@ in
     sysstat
     tcptrack
     telnet
-    thunderbird
     timidity
     toilet
     travis

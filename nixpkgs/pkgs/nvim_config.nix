@@ -32,6 +32,16 @@ let
     };
     dependencies = [];
   };
+  customPlugins.tpopefork = pkgs.vimUtils.buildVimPlugin {
+    name = "tpopefork";
+    src = pkgs.fetchFromGitHub {
+      owner = "andsild";
+      repo = "vim-unimpaired";
+      rev = "70d9c4c5671abc496a7c649396bac50bfe878da9";
+      sha256 = "08bhzpw97dk1klvwrfh1p331w27i10sp9wc3mys1n4byy06gnfn0";
+    };
+    dependencies = [];
+  };
 in
 {
   customRC = builtins.readFile "/home/andsild/dotfiles/vim/init.vim";  
@@ -122,6 +132,7 @@ in
     "xterm-color-table"
     "zeavim"
     "wmii-vim"
+    "tpopefork"
     # "ghcmod"
     # "neco-ghc"
     ];
