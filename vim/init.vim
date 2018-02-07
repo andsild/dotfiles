@@ -270,7 +270,7 @@ nnoremap ;t :tabe<CR>
 nnoremap ;v :vsplit<CR>
 nnoremap <C-o> <C-o>zz
 nnoremap <Down> :res -5<CR>
-nnoremap <Esc><Esc> :noh<CR>
+nnoremap <Esc><Esc> :nohlsearch<CR>
 nnoremap <F1> <Esc>
 nnoremap <F9> :silent make! <bar> redraw!<CR>
 nnoremap <Leader>w :<C-u>call ToggleOption('wrap')<CR>
@@ -876,6 +876,7 @@ let s:menus.java.command_candidates = [
     \ ['Declarations',    'JavaSearch -x declarations'],
     \ ['References',      'JavaSearch -x references'],
     \ ['Call hiearchy',   'JavaCallHiearchy'],
+    \ ['Variable Uses',   'JavaSearchContext'],
     \ ['Tag search', 'FZFTags'],
     \ ['Go to unit test', 'JUnitFindTest']
     \ ]
@@ -952,3 +953,10 @@ let g:neomake_json_jq_maker = {
   \ 'errorformat': '%f:parse\ %trror\:%m\ at\ line\ %l\,\ column\ %c'
   \}
 let g:neomake_json_enabled_makers = ['jq']
+
+" ctrl-v
+vnoremap <C-C> "+y
+map <C-v> p
+cmap <C-v> <C-R>+
+imap <C-v> <C-r>"
+noremap <c-Q> <C-V>
