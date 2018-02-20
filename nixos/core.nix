@@ -122,7 +122,7 @@ in
       vimAlias = true;
       withPyGUI = true;
     };
-    pythonpack = li: ps: with ps; [ numpy scipy neovim ipython virtualenv youtube-dl ansicolor jedi ipdb protobuf unittest2 pyflakes yamllint pytest ] ++ li;
+    pythonpack = li: ps: with ps; [ numpy scipy neovim ipython virtualenv ansicolor jedi ipdb protobuf unittest2 pyflakes yamllint pytest ] ++ li;
     python2pack = pythonpack [];
     python3pack =  pythonpack [ ];
   in
@@ -295,6 +295,7 @@ in
     wipe
     wireshark
     workrave
+    youtubeDL
     xclip
     xdotool
     xfontsel
@@ -444,7 +445,7 @@ LABEL="com_leapmotion_leap_end"
     locate.enable = true;
     locate.interval = "*:0/30";
     locate.localuser = username;
-    locate.prunePaths = ["/tmp" "/var/tmp" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" "/boot" "/var/lib/docker" "/lost+found" "/var/lib/containers" "/root" "/var/db/sudo" "/var/lib/postgresql" "/var/lib/bluetooth" "/etc/docker" "/etc/NetworkManager" "/nix/var" ] ++ map (concat homedir) ["Downloads" ".cache" ".thunderbird" ".gitfat" ".stack" "work/cx" ".gem" ".local/share" ];
+    locate.prunePaths = ["/tmp" "/var/tmp" "/proc" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" "/boot" "/var/lib/docker" "/lost+found" "/var/lib/containers" "/root" "/var/db/sudo" "/var/lib/postgresql" "/var/lib/bluetooth" "/etc/docker" "/etc/NetworkManager" "/nix/var" ] ++ map (concat homedir) ["Downloads" ".cache" ".thunderbird" ".gitfat" ".stack" "work/cx" ".gem" ".local/share" ];
 
     # customXServer = {
     xserver = {
@@ -601,10 +602,6 @@ update_process_title = false
   };
 
   environment.etc."profile.local".text = ''
-  if [ -e "$HOME/.bash_profile" ]
-  then
-    bash "$HOME/.bash_profile"
-  fi
    '';
 
  environment.extraInit = ''
