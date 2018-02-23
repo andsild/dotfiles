@@ -23,6 +23,8 @@
   plog = log --all --graph --pretty=format:'%C(auto)%h%C(auto)%d %s %C(dim white)(%aN, %ar)'
   setup = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
   changedfiles = "!f(){ git diff --name-only \"$1\"...HEAD ; };f"
+  co = checkout
+  com = checkout master
 [mergetool]
 	keepBackup = false
 [mergetool "diffconflicts"]
