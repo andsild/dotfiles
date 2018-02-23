@@ -105,8 +105,8 @@ in
   };
 
   environment.shellInit = ''
-    gpg-connect-agent /bye
-    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    # gpg-connect-agent /bye
+    # export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   '';
 
   environment.variables = rec {
@@ -376,6 +376,13 @@ in
   ];
 
   services = {
+    prometheus = {
+      enable = true;
+      listenAddress = "0.0.0.0:9090";
+      ruleFiles = [ "/home/andsild/work/prometheus-config/rules.d/" ] ;
+    };
+
+
     resolved.enable = true;
     resolved.domains = ["cxense.com"];
     acpid.enable = true;
@@ -600,9 +607,6 @@ update_process_title = false
       '';
     };
   };
-
-  environment.etc."profile.local".text = ''
-   '';
 
  environment.extraInit = ''
 xdg-mime default zathura.desktop application/pdf

@@ -48,8 +48,8 @@ augroup DefaultAuGroup
     autocmd FileType javascript,css,java,nix nmap <silent> ;; <Plug>(cosco-commaOrSemiColon)
     autocmd FileType javascript,css,java,nix imap <silent> ;; <c-o><Plug>(cosco-commaOrSemiColon)<C-\><C-n>
     autocmd FileType gitcommit setlocal textwidth=72
-    autocmd BufWritePost,FileWritePost *.vim if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
-    autocmd BufWritePost,FileWritePost *.local.vimrc if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
+    autocmd BufWritePost,FileWritePost *.vim    if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
+    autocmd BufWritePost,FileWritePost *.lvimrc if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
     autocmd FileType python nnoremap <silent><buffer> [Space]i :Denite menu:python<CR>
     autocmd FileType haskell nnoremap <silent><buffer> [Space]i :Denite menu:intero<CR>
