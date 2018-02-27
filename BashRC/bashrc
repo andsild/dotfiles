@@ -5,8 +5,7 @@
 [ -z "$PS1" ] && return
 
 bind -f "${HOME}/dotfiles/BashRC/inputrc"
-. "${HOME}/dotfiles/BashRC/bash_aliases"
-for file in ${HOME}/dotfiles/Bash/Sourced/* ; do . "${file}"; done
+for file in $HOME/dotfiles/Bash/Sourced/* "${HOME}/dotfiles/BashRC/bash_aliases" ; do . "${file}"; done
 
 export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:";
 # Make `less` "color-blind" and case insensitive
@@ -18,13 +17,18 @@ GREEN="$(printf '%b' '\e[01;32m')"
 YELLOW="$(printf '%b' '\e[00;33m')"
 WHITE="$(printf '%b' '\e[00;00m')"
 RED="$(printf '%b' '\e[01;31m')"
-BLUE="$(printf '%b' '\e[00;34m')"
+RED_SOFT="$(printf '%b' '\e[00;31m')"
+BLUE="$(printf '%b' '\e[01;34m')"
+TEAL="$(printf '%b' '\e[00;36m')"
 PURPLE="$(printf '%b' '\e[00;35m')"
 SMILEY="${GREEN}:)"
 FROWNY="${RED}:("
 case $(hostname) in
     drusus*)
         HOSTNAME="${YELLOW}"
+        ;;
+    dr*|ash*|tja*)
+        HOSTNAME="${RED}"
         ;;
     Caligula)
         HOSTNAME="${BLUE}"
@@ -49,8 +53,7 @@ PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[%s\]%s@%s\[${WHITE}\]:%s\n:\n" \
          "\w" \
 )
 
-export GEM_HOME="${HOME}/.gem"
-export GEM_PATH="${HOME}/.gem"
+export GEM_HOME="${HOME}/.gem" GEM_PATH="${HOME}/.gem"
 HISTIGNORE="ls:l:clear"
 export GOPATH="${HOME}/.go"
 PATH="${PATH}:${HOME}/dotfiles/Bash:${GEM_PATH}/bin:$GOROOT/bin:$GOPATH/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:${HOME}/bin/"
@@ -68,19 +71,10 @@ export NIX_PATH=myOverride="${HOME}/dotfiles/nixpkgs:myFork=${HOME}/nixpkgs:${NI
 # My jedi-vim needs this(ugh!)
 export IPYTHONDIR="${HOME}/.ipython"
 
-# It's a lot more annoying to not have an old command in history than having a large file
 export HISTSIZE=10000000
 export HISTFILE_SIZE=100000000
 
-# need the if statement for e.g. mac
-if [ "${BASH_VERSINFO[0]}" -ge 4 ]
-then
-  shopt -s autocd 
-  shopt -s histappend
-fi
-
-# Enable directory autocorrection
-shopt -s cdspell
+shopt -s cdspell # Enable directory autocorrection
 
 if [ -e "/etc/NIXOS" ]
 then
@@ -90,42 +84,21 @@ then
 else
   [ -f ~/.fzf.bash ] && . ~/.fzf.bash
 fi
-export SCIPY_PIL_IMAGE_VIEWER=xdg-open
-export XDG_CONFIG_HOME="${HOME}/.config/"
-export XDG_DATA_DIR="${HOME}/.local/share/"
-export XDG_DATA_HOME="${HOME}/.local/share/"
-export FZF_DEFAULT_OPTS='--extended -i --exact'
-export FZF_COMPLETION_OPTS='--extended --exact'
+export SCIPY_PIL_IMAGE_VIEWER="xdg-open"
+export XDG_CONFIG_HOME="${HOME}/.config/" XDG_DATA_DIR="${HOME}/.local/share/" XDG_DATA_HOME="${HOME}/.local/share/"
+export FZF_DEFAULT_OPTS='--extended -i --exact' FZF_COMPLETION_OPTS='--extended --exact'
 
-if command -v brew
-then
-  # brew install bash-completion bash-git-prompt
-  . "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
-  . "$(brew --prefix)/etc/bash_completion"
-  if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
-      . "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
-  fi
-else
-  [ -e "${HOME}/.bash-git-prompt/gitprompt.sh" ] && . "${HOME}/.bash-git-prompt/gitprompt.sh"
-  # Get proper auto-completion
-  if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-      . /etc/bash_completion
-  fi
+[ -e "${HOME}/.bash-git-prompt/gitprompt.sh" ] && . "${HOME}/.bash-git-prompt/gitprompt.sh"
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+  . /etc/bash_completion
 fi
-GIT_PROMPT_START="$(date +%H:%M)"
-GIT_PROMPT_END="$(whoami)@${HOSTNAME}\n:"
-# export GIT_PROMPT_START
-export GIT_PROMPT_END
-# Set config variables first
-export GIT_PROMPT_ONLY_IN_REPO=1
+GIT_PROMPT_START="$(printf "%s %s" "\`whoami\`" "\`date +%H:%M\`")"
+GIT_PROMPT_END="$(printf " %s%s%s\n:" "${TEAL}" "\`pwd | sed 's#$HOME/##'\`" "${WHITE}")"
+export GIT_PROMPT_START GIT_PROMPT_END GIT_PROMPT_ONLY_IN_REPO=1
 
 [ -n "$NVIM_LISTEN_ADDRESS" ] && alias :='~/dotfiles/BashRC/nvimex.py'
-
-# added by travis gem
 [ -f "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
-export PATH=~/.local/bin:$PATH
 
-# pip bash completion start
 _pip_completion()
 {
   COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
@@ -133,7 +106,6 @@ _pip_completion()
                  PIP_AUTO_COMPLETE=1 $1 ) )
 }
 complete -o default -F _pip_completion pip
-# pip bash completion end
 
 [ -f "/etc/bash_completion.d/git-prompt" ] && . /etc/bash_completion.d/git-prompt
 [ -f "/etc/bash_completion.d/bazel" ] && . /etc/bash_completion.d/bazel

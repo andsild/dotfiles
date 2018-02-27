@@ -42,7 +42,7 @@ cd() #@ Change directory, saving location on the directory stack
         "${HOME}/.nvimex.py" "cd ${PWD}"
 
     clear > /dev/fd/0
-    ls > /dev/fd/0
+    ls --color=auto > /dev/fd/0
 
     return "${returnVal}"
 } > /dev/null # Supress output
