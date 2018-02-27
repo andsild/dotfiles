@@ -180,8 +180,7 @@ newkeys = [
 
 main :: IO ()
 main = do
-    mapM_ spawn ["feh --bg-scale /home/andsild/.images/swahili.png"]
-    -- system "test -e ~/dotfiles/Bash/pdfautoopen && (pkill --full pdfautoopen ; setsid ~/dotfiles/Bash/pdfautoopen &)"
+    mapM_ spawn ["feh --bg-scale $(find /home/andsild/.images/ -type f | shuf | head -n1)"]
     
     xmproc <- spawnPipe "`which xmobar` ~/.xmonad/xmobarrc"
     xmonad defaults

@@ -53,7 +53,7 @@ export GEM_HOME="${HOME}/.gem"
 export GEM_PATH="${HOME}/.gem"
 HISTIGNORE="ls:l:clear"
 export GOPATH="${HOME}/.go"
-PATH="${PATH}:${HOME}/dotfiles/Bash:${GEM_PATH}/bin:$GOROOT/bin:$GOPATH/bin:${HOME}/.cabal/bin:${HOME}/.local/bin"
+PATH="${PATH}:${HOME}/dotfiles/Bash:${GEM_PATH}/bin:$GOROOT/bin:$GOPATH/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:${HOME}/bin/"
 PROMPT_COMMAND='history -a'
 export HISTCONTROL="ignoreboth:erasedups"
 
@@ -112,7 +112,7 @@ else
       . /etc/bash_completion
   fi
 fi
-# GIT_PROMPT_START="$(date +%H:%M)"
+GIT_PROMPT_START="$(date +%H:%M)"
 GIT_PROMPT_END="$(whoami)@${HOSTNAME}\n:"
 # export GIT_PROMPT_START
 export GIT_PROMPT_END
@@ -137,3 +137,4 @@ complete -o default -F _pip_completion pip
 
 [ -f "/etc/bash_completion.d/git-prompt" ] && . /etc/bash_completion.d/git-prompt
 [ -f "/etc/bash_completion.d/bazel" ] && . /etc/bash_completion.d/bazel
+[ -f "/home/andsild/.bazel/bin/bazel-complete.bash" ] && . /home/andsild/.bazel/bin/bazel-complete.bash 
