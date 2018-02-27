@@ -40,6 +40,7 @@ alias mjk='make'
 alias mk='make'
 alias mkdir='mkdir'
 alias mkj='make'
+alias mountusb='sudo mount -o umask=000'
 alias mv='mv -vi'
 alias no="setxkbmap no"
 alias nstack='nice stack'
