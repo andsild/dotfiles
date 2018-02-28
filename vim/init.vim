@@ -337,10 +337,6 @@ nnoremap dh :diffget //3<CR>
 nnoremap dl :diffget //2<CR>
 nnoremap t/ :Denite -mode=insert outline<CR>
 nnoremap vaw viw
-nnoremap zj zjzz
-nnoremap zk zkzz
-nnoremap { {zz
-nnoremap } }zz
 noremap <F12> <NOP>
 noremap [Space]u :<C-u>Denite outline<CR>
 omap ab <Plug>(textobj-multiblock-a)
