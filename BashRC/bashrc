@@ -110,3 +110,4 @@ complete -o default -F _pip_completion pip
 [ -f "/etc/bash_completion.d/git-prompt" ] && . /etc/bash_completion.d/git-prompt
 [ -f "/etc/bash_completion.d/bazel" ] && . /etc/bash_completion.d/bazel
 [ -f "/home/andsild/.bazel/bin/bazel-complete.bash" ] && . /home/andsild/.bazel/bin/bazel-complete.bash 
+[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'

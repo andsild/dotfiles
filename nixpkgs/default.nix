@@ -15,18 +15,6 @@ let
     checkstyle = pkgs.callPackage ./pkgs/checkstyle {
     };
 
-	  neovim = pkgs.neovim.override {
-	    vimAlias = true;
-	    withPython = true;
-	    withPython3 = true;
-      withRuby = true;
-      extraPython3Packages = with pkgs.python3Packages;  [ pylint neovim numpy scipy jedi ipdb unittest2 pytest ];
-      withPyGUI = true;
-	    configure = import ./pkgs/nvim_config.nix { inherit pkgs; };
-	  };
-
-    neovim-qt = pkgs.neovim-qt;
-
 	  st = pkgs.callPackage ./pkgs/st {
 	    conf = import ./pkgs/st_config.nix {} ;
 	  };

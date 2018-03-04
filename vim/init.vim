@@ -287,6 +287,7 @@ nnoremap <leader>lc :call <SID>ToggleShowListChars()<CR>
 nnoremap <leader>sp :<C-u>call ToggleOption('spell')<CR>
 nnoremap <leader>t :term<CR>
 nnoremap <leader>u :diffupdate<CR>
+nnoremap <leader>du :diffupdate<CR>
 nnoremap <leader>dt :diffthis<CR>
 nnoremap <leader>do :diffoff<CR>
 nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search -auto-highlight -mode=normal line<CR>
@@ -343,6 +344,7 @@ omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 silent! nnoremap < <<
+" tmap <c-r> <c-u>`cat ~/.bash_history \| fzf`<CR>
 vmap <silent> gs <Plug>(openbrowser-search)
 vmap <silent> go <Plug>(openbrowser-open)
 vmap gcc <Plug>(caw:hatpos:toggle)

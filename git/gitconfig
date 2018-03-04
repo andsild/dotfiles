@@ -46,3 +46,5 @@
 #   frag = magenta bold
 #   old = red bold
 #   new = blue bold
+[rebase]
+	instructionFormat = (%an <%ae>) %s

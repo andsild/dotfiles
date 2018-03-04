@@ -1,16 +1,39 @@
-*Warning*: Currently not stable for copy-pasting. I've begun refactoring to put as many plugins as I can in [a different plugin manager](https://github.com/MarcWeber/vim-addon-manager). That means that some of my plugins have to be installed using nix-env (from [here](https://github.com/andsild/dotfiles/blob/master/nixpkgs/pkgs/nvim_config.nix)). Contact me if you have any requests, and I might prioritize this work over other items in my TODO.
-
 # NVIM
-A vimrc for linux and mac.
+A vimrc for Linux. 
 
 ## Install [_Linux_]
-Copy "init.vim" and "plugins.toml" into your `$XDG_CONFIG_HOME/nvim` (default `~/.config/nvim`).  
-Do `pip install --upgrade neovim`, using python3.  The rest should install by itself. 
+nixpkgs might take a __gigabyte__ of storage. Its really cool though! Make sure to run `nix-collect-garbage -d` every now and then to clear disk space.
+```bash
+# Install nixpkgs (should work on most Linux platforms)
+curl https://nixos.org/nix/install | sh
+# Add unstable channel, so that you are more up to date for neovim
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+nix-channel --update
+# Get my vim-config:
+git clone https://github.com/andsild/dotfiles ~/andsild-dotfiles
+# Setup
+mkdir -p ~/.config/nixpkgs/overlays ~/.config/nvim
+ln -s ~/andsild-dotfiles/vim/nvim.nix ~/.config/nixpkgs/overlays/nvim.nix
+ln -s ~/andsild-dotfiles/vim/init.vim ${XDG_CONFIG_HOME:-~/.config/}/nvim/
+ln -s ~/andsild-dotfiles/vim/snippets/ ${XDG_CONFIG_HOME:-~/.config/}/nvim/
+# Install
+nix-env -i neovim
+```
+### To update:
+```bash
+nix-env -u
+```
+### To remove
+```bash
+nix-env -e neovim
+sed '/nix.sh/d' -i ~/.bash_profile
+rm -rfi ~/.nix* ~/.config/nixpkgs # careful with the wildcard!
+sudo rm -rfi /nix/
+```
 
-When launching nvim the first time with this config, run `:call dein#install()` inside neovim. This will download all plugins. Then restart. Run `:UpdateRemotePlugins`.
 ## Plugins
 
-[dein](https://github.com/Shougo/dein.vim) for plugin management  
+[nixpkgs/vam](https://nixos.wiki/wiki/Vim_plugins) for plugin management  
 [deoplete](https://github.com/Shougo/deoplete.nvim) for omnicompletion  
 [neomake](https://github.com/neomake/neomake) for linting and compiler errors  
 [fzf](https://github.com/junegunn/fzf.vim) for opening files and doing text-searches  
@@ -28,11 +51,6 @@ When launching nvim the first time with this config, run `:call dein#install()` 
 &nbsp;&nbsp;&nbsp;&nbsp; `;v` open a vsplit, `;t` opens a tab
 
 # Protips
-* **Copy command output to register**  
-&nbsp;&nbsp;&nbsp;&nbsp;`:redir @a | command | redir end` (for example `verbose map`)  
-* **Get output from command**  
-&nbsp;&nbsp;&nbsp;&nbsp;`:r !COMMAND` (for example `r !dmesg`)  
-* **Preview/test regular expression**  
-&nbsp;&nbsp;&nbsp;&nbsp;(from normal mode, type) `?` (for example `?\v<[Ww]ord>`)  
 * **Read up on viewports and buffers in vim  
     (https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/)**
+* **Disable the arrow keys. This will accelerate your vim-foo**
