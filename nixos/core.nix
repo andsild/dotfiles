@@ -110,8 +110,7 @@ in
   '';
 
   environment.variables = rec {
-    VISUAL  = "nvim-qt";
-    EDITOR  = VISUAL;
+    EDITOR  = "nvim";
     BROWSER = "qutebrowser";
     SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
   };
@@ -120,7 +119,7 @@ in
   let
     nvim = pkgs.neovim.override {
       vimAlias = true;
-      withPyGUI = true;
+      withPyGUI = false;
     };
     pythonpack = li: ps: with ps; [ numpy scipy neovim ipython virtualenv ansicolor jedi ipdb protobuf unittest2 pyflakes yamllint pytest ] ++ li;
     python2pack = pythonpack [];
@@ -221,7 +220,6 @@ in
     ncdu
     ncurses
     neomutt
-    neovim-qt
     networkmanagerapplet
     nix-repl
     nmap
@@ -229,7 +227,7 @@ in
     notmuch
     nox
     ntfs3g
-    nvim
+    #nvim
     openjdk
     openssl
     p7zip
@@ -251,7 +249,7 @@ in
     qutebrowser
     rdesktop
     redo
-    ripmime
+    #ripmime
     rlwrap
     rrsync
     rsync
@@ -266,7 +264,7 @@ in
     sl
     sloccount
     slock
-    slop
+    # slop
     sqlite
     sshfs-fuse
     sshuttle
