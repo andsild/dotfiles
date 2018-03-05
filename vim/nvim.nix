@@ -44,7 +44,7 @@ let
   };
   vimconfig = {
     # customRC = builtins.readFile "/home/andsild/dotfiles/vim/init.vim";  
-    customRC = ''source $XDG_CONFIG_HOME/init.vim '';
+    customRC = ''source $XDG_CONFIG_HOME/nvim/init.vim '';
     vam.knownPlugins = super.vimPlugins // customPlugins;
     vam.pluginDictionaries = [ {
       names = [
