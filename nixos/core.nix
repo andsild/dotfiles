@@ -8,12 +8,13 @@ let
 in
 {
   imports = [
-    ./hardware-configuration.nix ./private.nix ./elk.nix ./customXserver.nix  ];
+    ./hardware-configuration.nix ./private.nix ./elk.nix ];
     
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  #nix.package =  pkgs.nixUnstable;
 
   networking = {
     networkmanager.enable = true;
@@ -221,7 +222,6 @@ in
     ncurses
     neomutt
     networkmanagerapplet
-    nix-repl
     nmap
     nodejs
     notmuch
@@ -342,7 +342,6 @@ in
           collection-langeuropean
           collection-langfrench
           collection-langgerman
-          collection-langgreek
           # collection-langindic
           collection-langitalian
           collection-langjapanese
@@ -375,7 +374,7 @@ in
 
   services = {
     prometheus = {
-      enable = true;
+      enable = false;
       listenAddress = "0.0.0.0:9090";
       ruleFiles = [ "/home/andsild/work/prometheus-config/rules.d/" ] ;
     };
@@ -452,7 +451,6 @@ LABEL="com_leapmotion_leap_end"
     locate.localuser = username;
     locate.prunePaths = ["/tmp" "/var/tmp" "/proc" "/var/cache" "/var/lock" "/var/run" "/var/spool" "/mnt" "/opt" "/boot" "/var/lib/docker" "/lost+found" "/var/lib/containers" "/root" "/var/db/sudo" "/var/lib/postgresql" "/var/lib/bluetooth" "/etc/docker" "/etc/NetworkManager" "/nix/var" ] ++ map (concat homedir) ["Downloads" ".cache" ".thunderbird" ".gitfat" ".stack" "work/cx" ".gem" ".local/share" ];
 
-    # customXServer = {
     xserver = {
       enable = true;
       # setxkbmap  -option eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no
