@@ -2,7 +2,7 @@
 A vimrc for Linux. 
 
 ## Install [_Linux_]
-nixpkgs might take a __gigabyte__ of storage. Its really cool though! Make sure to run `nix-collect-garbage -d` every now and then to clear disk space.
+nixpkgs might take a few **gigabyte** of storage. Its really cool though! Make sure to run `nix-collect-garbage -d` every now and then to clear disk space.
 ```bash
 # Install nixpkgs (should work on most Linux platforms)
 curl https://nixos.org/nix/install | sh
