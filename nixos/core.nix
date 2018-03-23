@@ -166,6 +166,7 @@ in
     dzen2
     enlightenment.terminology
     evince
+    feh
     file
     findbugs
     fira-code
