@@ -14,5 +14,11 @@ let
 
     checkstyle = pkgs.callPackage ./pkgs/checkstyle {
     };
+    
+    myEclipse = with pkgs.eclipses; eclipseWithPlugins {
+      eclipse = eclipse-platform-47;
+      jvmArgs = [ "-Xmx2048m" "-Xms2048m" ];
+      plugins = with plugins; [ checkstyle color-theme findbugs jdt vrapper testng ];
+    };
 	};
 	in self
