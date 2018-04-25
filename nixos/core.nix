@@ -127,8 +127,6 @@ in
     python3pack =  pythonpack [ ];
   in
   with pkgs; [
-  # TODO: fix eclim
-  # export ECLIM_ECLIPSE_HOME=/nix/store/isimibadhrlxg2vk54l3kjvyym4yccxj-eclipse-platform-4.7.2/eclipse/ ; ECLIPSE_VERSION=$(awk -F = '/version/ { print $2 }' $ECLIM_ECLIPSE_HOME/.eclipseproduct) ; ant -Declipse.local=$HOME/.eclipse/org.eclipse.platform_$ECLIPSE_VERSION  -Dvim.files=$HOME/.config/nvim
     (eclipses.eclipseWithPlugins {
           eclipse = eclipses.eclipse-platform-47;
           jvmArgs = [ "-Xmx2048m" "-Xms2048m" ];

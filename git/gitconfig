@@ -14,6 +14,7 @@
 	excludesfile = ~/dotfiles/git/gitexclude
   pager = "if [ -n \"${NVIM_LISTEN_ADDRESS}\" ] ; then ${PAGER} - ;  else nvim -R -c AnsiEsc - ; fi " 
   whitespace = trailing-space
+  attributes = ~/dotfiles/git/gitattributes
 [alias]
   root = rev-parse --show-toplevel
   pr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"

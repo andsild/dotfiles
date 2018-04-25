@@ -205,6 +205,9 @@ if has('nvim')
   tnoremap <Esc><Esc> <C-\><C-n>
   tnoremap jj <C-\><C-n>
   tnoremap kk <C-\><C-n>
+
+  highlight TermCursorNC ctermbg=15
+  tnoremap <expr> <A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 endif
 
 cmap w!! w !sudo tee > /dev/null %
@@ -219,9 +222,6 @@ cnoremap <C-y>          <C-r>*
 imap <F1> <Esc>
 imap <expr><c-s> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-imap <C-k>  <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
 imap jj <Esc>
 imap kk <Esc>
 inoremap <C-6> <Esc><C-6>zz
@@ -296,7 +296,6 @@ nnoremap <silent> ;o  :<C-u>only<CR>
 nnoremap <silent> ;r :Denite register neoyank<CR>
 nnoremap <silent> <C-b> <C-b>
 nnoremap <silent> <C-f> <C-f>
-nnoremap <silent> <C-k> :<C-u>Denite -mode=normal change jump<CR>
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 nnoremap <silent> <Leader>. :<C-u>call ToggleOption('number')<CR>
 nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm:echo 'Took away c-m'<CR>
