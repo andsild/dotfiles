@@ -5,7 +5,6 @@ import System.Posix.IO
 import System.Posix.Types
 import Data.IORef
 import System.IO.Unsafe
-import Control.Monad (void)
 
 {-# NOINLINE pid_ref #-}
 pid_ref :: IORef (ProcessHandle, Fd)
@@ -36,6 +35,7 @@ reloadInLess mod_ = do
   -- closeFd stdout_copy
   -- return ""
 
+finish :: IO ()
 finish = do
   closeFd stdOutput
   (pid, stdout_copy) <- readIORef pid_ref

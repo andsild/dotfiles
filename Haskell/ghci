@@ -16,13 +16,11 @@
 import Control.Applicative
 import Control.Monad
 import Data.ByteString (ByteString)
-import Data.HashMap.Strict (HashMap)
 import Data.Map (Map)
 import Data.Set (Set)
 import Data.Text (Text)
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Char8 as B8
-import qualified Data.HashMap.Strict as H
 import qualified Data.Map.Strict as M
 import qualified Data.Set as S
 import qualified Data.Text as T
@@ -41,8 +39,5 @@ let vli = V.fromList li
 let uli = U.fromList li
 mli <- V.thaw vli
 umli <- U.thaw uli
-
-:load ~/dotfiles/Haskell/ghciLess.hs
-:def rl reloadInLess
 
 :set +c
