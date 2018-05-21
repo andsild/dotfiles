@@ -480,6 +480,8 @@ command! FZFLines mksession! /tmp/layout.vim | call fzf#run({
 \   'down':    '60%'
 \})
 command! Wa wa
+command! WQa wqa
+command! Qa qa
 command! Wqa wqa
 command! W w
 

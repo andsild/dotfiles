@@ -202,7 +202,7 @@ in
     irssi
     jq
     libfaketime
-    liblapack
+    # liblapack
     libtool
     links2
     llvmPackages.lldb
@@ -213,7 +213,6 @@ in
     maven
     mc
     mono46
-    monodevelop
     mplayer
     mpv
     msmtp
