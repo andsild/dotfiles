@@ -467,7 +467,7 @@ command! FZFMru call fzf#run({
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
 command! FZFFavorites call fzf#run({
-  \ 'source':  '_HOME=${HOME%%/} locate ${_HOME}Homework/ ${_HOME}SemiPrivate/ ${_HOME}dotfiles/  | grep -Ev \.git|backup|workspace|\.stack-work|hi$|png$|jpg$|/dist/|/build|/bin/',
+  \ 'source':  'fd -a --type file --color never . ${HOME}Homework/ ${HOME}SemiPrivate/ ${HOME}dotfiles/',
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
@@ -484,6 +484,7 @@ command! WQa wqa
 command! Qa qa
 command! Wqa wqa
 command! W w
+command! GS execute 'Gstatus | res +10'
 
 function! s:check_back_space() abort
   let l:col = col('.') - 1

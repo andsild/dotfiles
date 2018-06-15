@@ -124,7 +124,7 @@ in
     };
     pythonpack = li: ps: with ps; [ numpy scipy neovim ipython virtualenv ansicolor jedi ipdb protobuf unittest2 pyflakes yamllint pytest ] ++ li;
     python2pack = pythonpack [];
-    python3pack =  pythonpack [ ];
+    python3pack =  pythonpack [];
   in
   with pkgs; [
     (eclipses.eclipseWithPlugins {
@@ -212,6 +212,7 @@ in
     manpages
     maven
     mc
+    mitmproxy
     mono46
     mplayer
     mpv
@@ -660,5 +661,5 @@ xdg-mime default qutebrowser.desktop x-scheme-handler/https
   sound.mediaKeys = {
     enable = true;
   };
-  system.stateVersion = "18.03";
+  system.nixos.stateVersion = "18.09";
 }

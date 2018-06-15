@@ -10,12 +10,9 @@ tags
 *[Pp]lay[Gg]round*
 testng.xml
 collections/
-.local.vimrc
 init.sh
 javaFiles.txt
 debug.sh
-*.nix
-builder.sh
 testng.yaml
 *.iml
 *build-redo*
