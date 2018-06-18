@@ -3,7 +3,7 @@
 
 # If not running interactively, don't read preferences.
 [ -z "$PS1" ] && return
-[ -n $IN_NIX_SHELL ] || return
+[ -z "$IN_NIX_SHELL" ] || return
 
 bind -f "${HOME}/dotfiles/BashRC/inputrc"
 for file in $HOME/dotfiles/Bash/Sourced/* "${HOME}/dotfiles/BashRC/bash_aliases" ; do . "${file}"; done

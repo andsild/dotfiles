@@ -46,6 +46,7 @@ alias no="setxkbmap no"
 alias nstack='nice stack'
 alias paste="xclip -o && echo"
 alias pg="ps aux | grep "
+alias pirate="youtube-dl --no-playlist --extract-audio --audio-format mp3"
 alias wtf="ping -c1 google.com"
 alias py="ipython"
 alias rmdir='rmdir'

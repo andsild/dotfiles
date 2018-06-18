@@ -19,3 +19,4 @@ testng.yaml
 *.classpath
 service.json
 .lvimrc
+currentFD.txt
