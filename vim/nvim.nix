@@ -42,6 +42,17 @@ let
     };
     dependencies = [];
   };
+  customPlugins.vim-textobj-user = super.vimUtils.buildVimPlugin {
+    name = "vim-textobj-user";
+    src = super.fetchFromGitHub {
+      owner = "kana";
+      repo = "vim-textobj-user";
+      rev = "e231b65797b5765b3ee862d71077e9bd56f3ca3e";
+      sha256 = "0zsgr2cn8s42d7jllnxw2cvqkl27lc921d1mkph7ny7jgnghaay9";
+    };
+    dependencies = [];
+  };
+
   vimconfig = {
     # customRC = builtins.readFile "/home/andsild/dotfiles/vim/init.vim";  
     customRC = ''source $XDG_CONFIG_HOME/nvim/init.vim '';

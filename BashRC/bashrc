@@ -28,7 +28,7 @@ case $(hostname) in
     drusus*)
         HOSTNAME="${YELLOW}"
         ;;
-    dr*|ash*|tja*)
+    de*|ash*|tja*)
         HOSTNAME="${RED}"
         ;;
     Caligula)
