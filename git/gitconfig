@@ -23,7 +23,7 @@
   spr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
   plog = log --all --graph --pretty=format:'%C(auto)%h%C(auto)%d %s %C(dim white)(%aN, %ar)'
   setup = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
-  changedfiles = "!f(){ git diff --name-only \"$1\"...HEAD ; };f"
+  changedfiles = "!f(){ git diff --name-only \"$1\"...\"${2:-HEAD}\" ; };f"
   co = checkout
   com = checkout master
 [mergetool]

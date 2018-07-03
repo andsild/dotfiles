@@ -145,6 +145,7 @@ in
     astyle
     automake
     bash
+    baobab # disk usage utility
     bazel
     bc
     bind

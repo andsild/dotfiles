@@ -149,8 +149,7 @@ newkeys = [
     , ((myModMask,               xK_l     ), sendMessage Expand)
     , ((myModMask,               xK_comma ), sendMessage (IncMasterN 1))
     , ((myModMask,               xK_period), sendMessage (IncMasterN (-1)))
-    , ((myModMask .|. shiftMask, xK_q     ), io exitSuccess)
-    , ((myModMask,               xK_q     ), restart "xmonad" True)
+    , ((myModMask .|. shiftMask, xK_q     ), restart "xmonad" True)
     , ((myModMask,	       xK_s	), spawn "spotify")
     , ((myModMask,	       xK_u	), spawn "qutebrowser")
     , ((myModMask,	       xK_c	), spawn "chromium-browser")
@@ -174,7 +173,7 @@ newkeys = [
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     [((m .|. myModMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_e, xK_r, xK_w] [0..]
+      | (key, sc) <- zip [xK_q, xK_e, xK_w, xK_r] [0..]
     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
     ]
 

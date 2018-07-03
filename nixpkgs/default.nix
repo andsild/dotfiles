@@ -7,11 +7,6 @@ let
 
 	self = {
 
-    bazel = pkgs.callPackage ./pkgs/bazel {
-      # jdk = pkgs.oraclejdk;
-      # enableNixHacks = false;
-    };
-
     checkstyle = pkgs.callPackage ./pkgs/checkstyle {
     };
     
