@@ -451,7 +451,9 @@ static char ascii_printable[] =
 '';
 in
   {
-	  st = super.callPackage ./pkgs/st {
+	  st = super.st.override {
 	    conf = configuration ;
+      patches = null;
+      extraLibs = [];
 	  };
   }

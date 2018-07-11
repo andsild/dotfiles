@@ -6,7 +6,6 @@ let
 	callPackage = pkgs.lib.callPackageWith (pkgs // self);
 
 	self = {
-
     checkstyle = pkgs.callPackage ./pkgs/checkstyle {
     };
     
