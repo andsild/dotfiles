@@ -42,6 +42,16 @@ let g:loaded_2html_plugin = 1
 let g:loaded_vimballPlugin = 1
 let t:cwd = getcwd()
 
+augroup my_git_rebase
+  autocmd!
+  autocmd FileType gitrebase nnoremap <buffer> <Leader>cy :Cycle<cr>
+  autocmd FileType gitrebase nnoremap <buffer> <Leader>ed :Edit<cr>
+  autocmd FileType gitrebase nnoremap <buffer> <Leader>fi :Fixup<cr>
+  autocmd FileType gitrebase nnoremap <buffer> <Leader>pi :Pick<cr>
+  autocmd FileType gitrebase nnoremap <buffer> <Leader>sq :Squash<cr>
+  autocmd FileType gitrebase nnoremap <buffer> <Leader>re :Reword<cr>
+augroup END
+
 augroup DefaultAuGroup
     autocmd!
 
@@ -306,7 +316,6 @@ nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespa
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 nnoremap <silent> <c-t> :tabe<CR>
-nnoremap <silent> <leader>en :<C-u>setlocal encoding? fenc? fencs?<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 nnoremap <silent> [Space]1 :QuickRun<CR>
 nnoremap <silent> [Space]T :FZFTags<CR>
@@ -857,6 +866,25 @@ call denite#custom#map('insert', ';',
       \ '<denite:quick_move>', 'noremap')
 call denite#custom#map('normal', ';',
     \ '<denite:quick_move>', 'noremap')
+call denite#custom#map(
+      \ 'normal',
+      \ 'p',
+      \ '<denite:do_action:preview>',
+      \ 'noremap'
+      \)
+call denite#custom#map(
+      \ 'normal',
+      \ 'p',
+      \ '<denite:do_action:preview>',
+      \ 'noremap'
+      \)
+" TODO: find keybindings
+" call denite#custom#map(
+"       \ 'normal',
+"       \ 'p',
+"       \ '<denite:do_action:scroll_down>',
+"       \ 'noremap'
+"       \)
 
 call denite#custom#option('default', {
       \ 'auto_accel': v:true,

@@ -128,7 +128,7 @@ in
   in
   with pkgs; [
     (eclipses.eclipseWithPlugins {
-          eclipse = eclipses.eclipse-platform-47;
+          eclipse = eclipses.eclipse-platform-48;
           jvmArgs = [ "-Xmx2048m" "-Xms2048m" ];
           plugins = with eclipses.plugins; [ checkstyle color-theme findbugs jdt vrapper testng ];
     })
@@ -146,9 +146,14 @@ in
     automake
     bash
     baobab # disk usage utility
+    arandr
     bazel
     bc
     bind
+    firefox
+    fd
+    nailgun
+    
     binutils-unwrapped
     boost
     checkstyle
@@ -184,6 +189,7 @@ in
     gnumake
     gnupg
     gnupg1orig
+    gnuplot
     go
     gparted
     gradle
@@ -213,7 +219,7 @@ in
     manpages
     maven
     mc
-    mitmproxy
+    # mitmproxy
     mono46
     mplayer
     mpv
@@ -249,7 +255,7 @@ in
     qutebrowser
     rdesktop
     redo
-    #ripmime
+    ripmime
     rlwrap
     rrsync
     rsync
@@ -301,6 +307,10 @@ in
     xlsfonts
     xorg.xmodmap
     xorg.xbacklight
+    pwgen
+    pdftk
+    blueman
+
     xorg.xev
     xorg.xgamma
     xorg.xkill
@@ -310,7 +320,9 @@ in
     xpdf
     xscreensaver
     xxd
+    xurls
     yubikey-personalization
+    yubikey-neo-manager
     zathura
     zeal
     zip
@@ -437,8 +449,8 @@ LABEL="com_leapmotion_leap_end"
     openssh = {
       enable = true;
       permitRootLogin = "no";
-      passwordAuthentication = false;
-      challengeResponseAuthentication = false;
+      passwordAuthentication = true;
+      challengeResponseAuthentication = true;
       knownHosts = [
         { 
           hostNames = ["self"];

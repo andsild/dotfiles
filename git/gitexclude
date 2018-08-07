@@ -6,10 +6,8 @@ tags
 *.class
 *.project
 *.classpath
-*snapshot/
 *[Pp]lay[Gg]round*
 testng.xml
-collections/
 init.sh
 javaFiles.txt
 debug.sh
@@ -20,3 +18,4 @@ testng.yaml
 service.json
 .lvimrc
 currentFD.txt
+.ignore

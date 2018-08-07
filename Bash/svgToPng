@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+printf "\$1 is image file, \$2 and \$3 set width and height of output image\\n"
+inkscape -z -e /tmp/test.png -w "${2:-800}" -h "${3:-600}" "${1:-/tmp/out.svg}"
+printf "Wrote to /tmp/test.png\\n"
+
