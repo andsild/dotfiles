@@ -9,7 +9,7 @@ let
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "inconsolata:pixelsize=20";
+static char *font = "inconsolata:pixelsize=18";
 static int borderpx = 1;
 
 /*

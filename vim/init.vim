@@ -157,7 +157,6 @@ set nowildmenu
 set nowritebackup
 set previewheight=5
 set pumheight=0
-set relativenumber
 set report=0
 set secure
 set sessionoptions="blank,curdir,folds,help,winsize"
@@ -407,7 +406,7 @@ let g:auto_save_in_insert_mode = 0
 let g:choosewin_blink_on_land = 0
 let g:choosewin_overlay_clear_multibyte = 1
 let g:localvimrc_whitelist='.*'
-let g:localvimrc_sandbox='0'
+let g:localvimrc_sandbox=0
 let g:choosewin_overlay_enable = 1
 let g:deoplete#auto_completion_start_length = 1
 let g:neosnippet#snippets_directory=expand($XDG_CONFIG_HOME) . '/nvim/snippets' 

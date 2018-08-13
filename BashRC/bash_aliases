@@ -23,6 +23,7 @@ alias grep="grep --color=always"
 alias gs="git status"
 alias hindent="hindent --style johan-tibell"
 alias jkm='make'
+alias kb='kill baaa'
 alias kjm='make'
 alias km='make'
 alias mutt='neomutt'
