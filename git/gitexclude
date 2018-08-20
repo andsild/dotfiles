@@ -4,7 +4,6 @@ tags
 *.dll
 *.swp
 *.class
-*.project
 *.classpath
 *[Pp]lay[Gg]round*
 testng.xml

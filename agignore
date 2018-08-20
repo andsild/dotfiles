@@ -22,3 +22,6 @@ tags
 third_party/
 tms
 tools/
+ssh_known_hosts
+file-export-sftp-rsa-key
+authorized_keys

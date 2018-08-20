@@ -14,7 +14,6 @@ c.TerminalInteractiveShell.confirm_exit = False
 
 c.InteractiveShellApp.extensions = ['autoreload']
 c.InteractiveShellApp.exec_lines = ['%autoreload 2']
-c.InteractiveShellApp.exec_lines.append('print("%%autoreload 2 enabled")')
 
 #logfile_dir = os.path.expanduser('~/ipython-logs')
 #if not os.path.exists(logfile_dir):
@@ -29,5 +28,3 @@ c.InteractiveShellApp.exec_lines.append('print("%%autoreload 2 enabled")')
 
 # Automatically call the pdb debugger after every exception.
 # c.TerminalInteractiveShell.pdb = False
-
-import numpy as np
