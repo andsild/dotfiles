@@ -122,7 +122,7 @@ in
       vimAlias = true;
       withPyGUI = false;
     };
-    pythonpack = li: ps: with ps; [ numpy scipy neovim ipython virtualenv ansicolor jedi ipdb protobuf unittest2 pyflakes yamllint pytest ] ++ li;
+    pythonpack = li: ps: with ps; [ numpy scipy neovim ipython virtualenv ansicolor jedi ipdb unittest2 pyflakes yamllint pytest grpcio grpcio-tools protobuf googleapis_common_protos ] ++ li;
     python2pack = pythonpack [];
     python3pack =  pythonpack [];
   in
@@ -130,36 +130,32 @@ in
     (eclipses.eclipseWithPlugins {
           eclipse = eclipses.eclipse-platform-48;
           jvmArgs = [ "-Xmx2048m" "-Xms2048m" ];
-          plugins = with eclipses.plugins; [ checkstyle color-theme findbugs jdt vrapper testng ];
+          plugins = with eclipses.plugins; [ checkstyle color-theme findbugs jdt spotbugs testng vrapper ];
     })
-    pythonPackages.pylint 
-    pythonPackages.autopep8  
+    (python2.withPackages( python2pack ))
+    (python3.withPackages( python3pack ))
     aalib
     acpitool
     androidsdk
     ant
+    arandr
     aspell
     aspellDicts.en
     aspellDicts.nb
     aspellDicts.nn
     astyle
     automake
-    bash
     baobab # disk usage utility
-    arandr
+    bash
     bazel
     bc
     bind
-    firefox
-    fd
-    nailgun
-    
     binutils-unwrapped
+    blueman
     boost
     checkstyle
     clang
     cmake
-    consul
     cowsay
     cryptsetup
     ctags
@@ -170,10 +166,12 @@ in
     dzen2
     enlightenment.terminology
     evince
+    fd
     feh
     file
     findbugs
     fira-code
+    firefox
     fish
     flyway
     fortune
@@ -209,7 +207,6 @@ in
     irssi
     jq
     libfaketime
-    # liblapack
     libtool
     links2
     llvmPackages.lldb
@@ -219,11 +216,11 @@ in
     manpages
     maven
     mc
-    # mitmproxy
     mono46
     mplayer
     mpv
     msmtp
+    nailgun
     ncdu
     ncurses
     neomutt
@@ -233,7 +230,6 @@ in
     notmuch
     nox
     ntfs3g
-    #nvim
     openjdk
     openssl
     p7zip
@@ -241,6 +237,7 @@ in
     patchelf
     pavucontrol
     pciutils
+    pdftk
     perlPackages.ImageExifTool
     pinentry
     pkgconfig
@@ -248,8 +245,9 @@ in
     postgresql
     protobuf
     pssh
-    (python3.withPackages( python3pack ))
-    (python2.withPackages( python2pack ))
+    pwgen
+    pythonPackages.autopep8  
+    pythonPackages.pylint 
     qalculate-gtk
     qemu
     qutebrowser
@@ -270,7 +268,6 @@ in
     sl
     sloccount
     slock
-    # slop
     sqlite
     sshfs-fuse
     sshuttle
@@ -299,30 +296,26 @@ in
     wipe
     wireshark
     workrave
-    youtubeDL
     xclip
     xdotool
     xfontsel
     xkblayout-state
     xlsfonts
-    xorg.xmodmap
     xorg.xbacklight
-    pwgen
-    pdftk
-    blueman
-
     xorg.xev
     xorg.xgamma
     xorg.xkill
     xorg.xmessage
+    xorg.xmodmap
     xorg.xorgserver
     xournal
     xpdf
     xscreensaver
-    xxd
     xurls
-    yubikey-personalization
+    xxd
+    youtubeDL
     yubikey-neo-manager
+    yubikey-personalization
     zathura
     zeal
     zip
@@ -390,6 +383,12 @@ in
       listenAddress = "0.0.0.0:9090";
       ruleFiles = [ "/home/andsild/work/prometheus-config/rules.d/" ] ;
     };
+
+    consul = {
+      enable = true;
+      webUi = true;
+    };
+
 
 
     resolved.enable = true;

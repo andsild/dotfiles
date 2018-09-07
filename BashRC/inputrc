@@ -1,6 +1,7 @@
 $include /etc/inputrc
 
 set visible-stats on
+set bell-style none
 
 # set editing-mode vi
 $if mode=vi
