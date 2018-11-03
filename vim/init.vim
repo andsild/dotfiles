@@ -244,8 +244,6 @@ inoremap <expr><C-g> deoplete#mappings#undo_completion()
 inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><C-l>       deoplete#mappings#refresh()
 inoremap <silent><expr> <s-Tab> pumvisible() ? '<C-p>' : deoplete#mappings#manual_complete()
-inoremap kk[Space] kk[Space]
-inoremap kke kke
 map 0 ^
 map <F1> <Esc>
 nmap <Space>   [Space]
@@ -311,7 +309,7 @@ nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm:echo 'Took away 
 nnoremap <silent> <Leader>au :Autoformat<CR>
 nnoremap <silent> <Leader>cl :<C-u>call ToggleOption('cursorline')<CR>
 nnoremap <silent> <Leader>cs :call ToggleColorScheme()<CR>
-nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:echo 'Took away whitespace'<CR>
+nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:set nohlsearch<CR>:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 nnoremap <silent> <c-t> :tabe<CR>
@@ -409,7 +407,7 @@ let g:localvimrc_whitelist='.*'
 let g:localvimrc_sandbox=0
 let g:choosewin_overlay_enable = 1
 let g:deoplete#auto_completion_start_length = 1
-let g:neosnippet#snippets_directory=expand($XDG_CONFIG_HOME) . '/nvim/snippets' 
+let g:neosnippet#snippets_directory=expand($XDG_CONFIG_HOME) . '/nvim/snippets'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_camel_case = 1
 let g:deoplete#keyword_patterns = {}
@@ -509,8 +507,8 @@ endfunction
 
 function! ToggleSpell()
   let g:myLang=g:myLang+1
-  if g:myLang==len(g:myLangList) 
-    let g:myLang=0 
+  if g:myLang==len(g:myLangList)
+    let g:myLang=0
   endif
   if g:myLang==0
     setlocal nospell
@@ -754,10 +752,12 @@ function! s:bufopen(e)
   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
+" TODO: make it possible to supply both path and searchstring
+" (right now its only path)
 command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s "%s"',
+\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s "^(?=.)" "%s"',
 \                   'tools', 'apidoc', 'apps', 'dexa',
-\                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
+\                   escape(empty(<q-args>) ? '.' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
 \            '--multi --bind ctrl-a:select-all,ctrl-d:deselect-all '.
@@ -943,7 +943,7 @@ let s:menus.tern.command_candidates = [
 
 let s:menus.markdown = { 'description' : 'Open preview' }
 let s:menus.markdown.command_candidates = [
-  \['-> Preview', 'PrevimOpen'], 
+  \['-> Preview', 'PrevimOpen'],
 \]
 
 let s:menus.git = { 'description' : 'Git administration' }
@@ -978,7 +978,7 @@ let g:neomake_json_jq_executable = 'jq'
 " jqlint.sh in my dotfiles repo (/dotfiles/Bash/jqlint.sh)
 let g:neomake_json_jq_maker = {
   \ 'args' : [],
-  \ 'exe': 'jqlint.sh', 
+  \ 'exe': 'jqlint.sh',
   \ 'errorformat': '%f:parse\ %trror\:%m\ at\ line\ %l\,\ column\ %c'
   \}
 let g:neomake_json_enabled_makers = ['jq']

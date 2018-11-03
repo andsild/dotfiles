@@ -75,7 +75,7 @@ in
   nixpkgs.config = {
     allowUnfree = true;
     virtualbox.enableExtenstionPack = false;
-    zathura.useMupdf = true;
+    # zathura.useMupdf = true;
   };
 
   hardware.pulseaudio.enable = true;
@@ -126,10 +126,11 @@ in
     python2pack = pythonpack [];
     python3pack =  pythonpack [];
   in
-  with pkgs; [
+  with pkgs; 
+    [
     (eclipses.eclipseWithPlugins {
-          eclipse = eclipses.eclipse-platform-48;
-          jvmArgs = [ "-Xmx2048m" "-Xms2048m" ];
+          eclipse = eclipses.eclipse-platform-49;
+          jvmArgs = [ "-Xmx2048m" "-Xms1024m" ];
           plugins = with eclipses.plugins; [ checkstyle color-theme findbugs jdt spotbugs testng vrapper ];
     })
     (python2.withPackages( python2pack ))
@@ -200,6 +201,7 @@ in
     hdparm
     hicolor_icon_theme
     htop
+    iftop
     ii
     imagemagick
     inotify-tools
@@ -247,7 +249,7 @@ in
     pssh
     pwgen
     pythonPackages.autopep8  
-    pythonPackages.pylint 
+    python3Packages.pylint 
     qalculate-gtk
     qemu
     qutebrowser
@@ -316,7 +318,7 @@ in
     youtubeDL
     yubikey-neo-manager
     yubikey-personalization
-    zathura
+    # zathura
     zeal
     zip
     zlib
@@ -673,5 +675,5 @@ xdg-mime default qutebrowser.desktop x-scheme-handler/https
   sound.mediaKeys = {
     enable = true;
   };
-  system.nixos.stateVersion = "18.09";
+  system.stateVersion = "18.09";
 }

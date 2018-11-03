@@ -3,15 +3,15 @@
 [includeIf "gitdir:~/work/"]
   path = ~/dotfiles/git/gitconfig-work
 [push]
-	default = current
+    default = current
 [pull]
   rebase = true
 [merge]
-	tool = diffconflicts
+    tool = diffconflicts
   stat = true
 [core]
-	editor = vim
-	excludesfile = ~/dotfiles/git/gitexclude
+  editor = vim
+  excludesfile = ~/dotfiles/git/gitexclude
   pager = "if [ -n \"${NVIM_LISTEN_ADDRESS}\" ] ; then ${PAGER} - ;  else nvim -R -c AnsiEsc - ; fi " 
   whitespace = trailing-space
   attributes = ~/dotfiles/git/gitattributes
@@ -28,18 +28,19 @@
   com = checkout master
   find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
   show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+  rebase-current="!number_of_commmits=\"$(git log --format=\"%an %D\" -n100 | awk '{ if ($0 ~ /Anders Sildnes/) { if ($0 ~ /origin\\/master/) { exit; } count++} else { exit } } END { print count } ' )\" ; git rebase -i HEAD~$number_of_commmits"
 [mergetool]
-	keepBackup = false
+  keepBackup = false
 [mergetool "diffconflicts"]
-	cmd = diffconflicts nvim $BASE $LOCAL $REMOTE $MERGED
-	trustExitCode = true
-	keepBackup = false
+  cmd = diffconflicts nvim $BASE $LOCAL $REMOTE $MERGED
+  trustExitCode = true
+  keepBackup = false
 [commit]
   gpgsign = false
 [gpg]
-	program = gpg2
+  program = gpg2
 [branch]
-	autosetupmerge = true
+  autosetupmerge = true
 [help]
   autocorrect = 5
 [color]
@@ -50,4 +51,4 @@
 #   old = red bold
 #   new = blue bold
 [rebase]
-	instructionFormat = (%an <%ae>) %s
+  instructionFormat = (%an <%ae>) %s

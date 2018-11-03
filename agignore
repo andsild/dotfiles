@@ -24,3 +24,5 @@ tags
 third_party/
 tms
 tools/
+_minted-./
+.cert

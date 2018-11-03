@@ -93,9 +93,9 @@ let
       "neomru"
       "neosnippet"
       "neosnippet-snippets"
-      "neoyank"
+      "neoyank-vim"
       "open-browser"
-      "peskcolor"
+      "peskcolor-vim"
       "prettyprint"
       "riv"
       "sparkup"
@@ -136,7 +136,6 @@ let
       "vim-themis"
       "vim-toml"
       "vim-wordy"
-      "xterm-color-table"
       "zeavim"
       "wmii-vim"
       "tpopefork"
@@ -153,7 +152,7 @@ in
     withPython = true;
     withPython3 = true;
     withRuby = true;
-    extraPython3Packages = with super.python3Packages;  [ pylint neovim numpy scipy jedi ipdb unittest2 pytest ];
+    extraPython3Packages = ps: with ps; [ pylint neovim numpy scipy jedi ipdb unittest2 pytest ];
     withPyGUI = true;
     configure = vimconfig;  #import ./pkgs/nvim_config.nix { inherit super; };
   };

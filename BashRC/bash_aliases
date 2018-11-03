@@ -9,7 +9,7 @@ alias check="aspell check -d en_US"
 alias checkNO="aspell check -d no"
 # alias curl=$'curl -sw "`curl -w`: HTTP %{http_code}"'
 alias curl=$'curl -sw "\n(curl -sw): %{http_code}\n"'
-alias df="df -H"
+alias df="df -h"
 alias diffsmooth="diff --side-by-side --suppress-common-lines --ignore-trailing-space --ignore-space-change --ignore-all-space"
 alias du="du -h"
 alias e=": edit"
@@ -25,6 +25,7 @@ alias grep="grep --color=always"
 alias gs="git status"
 alias hindent="hindent --style johan-tibell"
 alias jkm='make'
+alias jq='jq -rM'
 alias kb='kill baaa'
 alias kjm='make'
 alias km='make'

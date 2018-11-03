@@ -1,16 +1,21 @@
 #!/usr/bin/env bash
 
-function lookup()
-{
-    if [ -z "${1}" ]
-    then
-        printf "%s\n" "usage: lookup word"
-        exit
-    fi
+function lookup() {
+  if [ ! -d "/opt/sdcv" ]
+  then
+    printf "Install sdcv and download dictionaries from https://wiki.archlinux.org/index.php/Sdcv#Adding_dictionaries<Paste> @ http://download.huzheng.org/misc2/\n"
+    exit
+  fi
 
-    eval local word='"${1}"'
+  if [ -z "${1}" ]
+  then
+    printf "%s\n" "usage: lookup word"
+    exit
+  fi
 
-    dict ${word} -framv -over -simsv -holon
+  eval local word='"${1}"'
+
+  sdcv -2 /opt/sdcv/ ${word} 
 } 
 
 lookup "${1}"
