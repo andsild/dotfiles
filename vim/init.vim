@@ -843,8 +843,6 @@ endif
 
 call denite#custom#map('insert', '<C-r>',
       \ '<denite:toggle_matchers:matcher_substring>', 'noremap')
-" call denite#custom#map('insert', '<C-s>',
-"       \ '<denite:toggle_sorters:sorter_reverse>', 'noremap')
 call denite#custom#map('insert', 'jj',
       \ '<denite:enter_mode:normal>', 'noremap')
 call denite#custom#map('insert', 'kk',
@@ -877,13 +875,6 @@ call denite#custom#map(
       \ '<denite:do_action:preview>',
       \ 'noremap'
       \)
-" TODO: find keybindings
-" call denite#custom#map(
-"       \ 'normal',
-"       \ 'p',
-"       \ '<denite:do_action:scroll_down>',
-"       \ 'noremap'
-"       \)
 
 call denite#custom#option('default', {
       \ 'auto_accel': v:true,
