@@ -52,6 +52,36 @@ let
     };
     dependencies = [];
   };
+  customPlugins.plantuml-syntax = super.vimUtils.buildVimPlugin {
+    name = "plantuml-syntax";
+    src = super.fetchFromGitHub {
+      owner = "aklt";
+      repo = "plantuml-syntax";
+      rev = "41eeca5a548c7d3bcc7b86758a1f10b7d96aa0b9";
+      sha256 = "1v11dj4vwk5hyx0zc8qkl0a5wh91zfmwhcq2ndl8zwp78h9yf5wr";
+    };
+    dependencies = [];
+  };
+  customPlugins.plantuml-previewer-vim = super.vimUtils.buildVimPlugin {
+    name = "plantuml-previewer.vim";
+    src = super.fetchFromGitHub {
+      owner = "weirongxu";
+      repo = "plantuml-previewer.vim";
+      rev = "5dac592bf04a13ebf02942a242ba18ac6c429c63";
+      sha256 = "1v11dj4vwk5hyx0zc8qkl0a5wh91zfmwhcq2ndl8zwp78h9yf5wr";
+    };
+    dependencies = ["plantuml-syntax"];
+  };
+  customPlugins.previm = super.vimUtils.buildVimPlugin {
+    name = "previm";
+    src = super.fetchFromGitHub {
+      owner = "andsild";
+      repo = "previm";
+      rev = "9bbb7fb83edd4ade8fa6dc719ba1127da70e16f7";
+      sha256 = "0mwiaq8xrnnz5j3pihj5iafbv8j5w9zl93cnh4p1zdimg9v74v4m";
+    };
+    dependencies = [];
+  };
 
   vimconfig = {
     # customRC = builtins.readFile "/home/andsild/dotfiles/vim/init.vim";  
@@ -139,6 +169,9 @@ let
       "zeavim"
       "wmii-vim"
       "tpopefork"
+      "plantuml-syntax"
+      "plantuml-previewer-vim"
+      "previm"
       # "ghcmod"
       # "neco-ghc"
       ];
@@ -154,6 +187,6 @@ in
     withRuby = true;
     extraPython3Packages = ps: with ps; [ pylint neovim numpy scipy jedi ipdb unittest2 pytest ];
     withPyGUI = true;
-    configure = vimconfig;  #import ./pkgs/nvim_config.nix { inherit super; };
+    configure = vimconfig;
   };
 }
