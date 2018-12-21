@@ -12,3 +12,4 @@ service.json
 .lvimrc
 currentFD.txt
 .ignore
+plantuml-dependency.log
