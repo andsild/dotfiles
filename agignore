@@ -26,3 +26,5 @@ tms
 tools/
 _minted-./
 .cert
+*.js.map
+*cdn-cxense/*
