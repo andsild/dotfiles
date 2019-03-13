@@ -1,7 +1,7 @@
 [include]
-  path = ~/dotfiles/git/gitconfig-default
+  path = ~/.gitconfig-work
 [includeIf "gitdir:~/work/"]
-  path = ~/dotfiles/git/gitconfig-work
+  path = ~/dotfiles/git/gitconfig-default
 [push]
     default = current
 [pull]
@@ -52,3 +52,5 @@
 #   new = blue bold
 [rebase]
   instructionFormat = (%an <%ae>) %s
+[credential]
+	helper = cache --timeout=30000

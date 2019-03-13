@@ -41,6 +41,7 @@ case $(hostname) in
         HOSTNAME="${WHITE}"
         ;;
 esac
+export SCREENDIR=${HOME}/.screen
 HOSTNAME="${HOSTNAME}$(hostname)${WHITE}"
 SMILEYFROWNY="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 NIX_SHELL_PACKAGES="echo ${nativeBuildInputs:-} | tr ' ' '\n' | sed 's/[^-]*-\(.*\)-[0-9].*/\1/'"
@@ -60,6 +61,7 @@ export GOPATH="${HOME}/.go"
 PATH="${PATH}:${HOME}/dotfiles/Bash:${GEM_PATH}/bin:$GOROOT/bin:$GOPATH/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:${HOME}/bin/:${HOME}/work/config/bin"
 PROMPT_COMMAND='history -a'
 export HISTCONTROL="ignoreboth:erasedups"
+export EDITOR="nvim"
 
 # Disable Software Flow Control (xon) (give me back Ctrl+s and Ctrl+q)
 stty -ixon
@@ -114,3 +116,4 @@ complete -o default -F _pip_completion pip
 [ -f "/etc/bash_completion.d/bazel" ] && . /etc/bash_completion.d/bazel
 [ -f "/home/andsild/.bazel/bin/bazel-complete.bash" ] && . /home/andsild/.bazel/bin/bazel-complete.bash 
 [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
+

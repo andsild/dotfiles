@@ -471,23 +471,23 @@ command! FZFMru call fzf#run({
   \ 'source':  reverse(s:all_files()),
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
-  \ 'down':    '40%' })
-command! FZFFavorites call fzf#run({
-  \ 'source':  'fd -a --type file --color never . ${HOME}Homework/ ${HOME}SemiPrivate/ ${HOME}dotfiles/',
-  \ 'sink':    'edit',
-  \ 'options': '-m -x +s -e',
-  \ 'down':    '40%' })
-command! -range -nargs=1 AddNumbers
+  \ 'down':    '40%' })                       
+command! FZFFavorites call fzf#run({          
+  \ 'source':  'fd -a --type file --color never . ${HOME}/dotfiles/',
+  \ 'sink':    'edit',                        
+  \ 'options': '-m -x +s -e',                 
+  \ 'down':    '40%' })                       
+command! -range -nargs=1 AddNumbers           
   \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
 command! FZFLines mksession! /tmp/layout.vim | call fzf#run({
 \   'source':  <sid>buffer_lines(),
-\   'sink':    function('<sid>line_handler'),
-\   'options': '--extended --nth=3..',
-\   'down':    '60%'
-\})
-command! Wa wa
-command! WQa wqa
-command! Qa qa
+\   'sink':    function('<sid>line_handler'), 
+\   'options': '--extended --nth=3..',        
+\   'down':    '60%'                          
+\})                                           
+command! Wa wa                                
+command! WQa wqa                              
+command! Qa qa                                
 command! Wqa wqa
 command! W w
 command! GS execute 'Gstatus | res +10'
@@ -961,18 +961,18 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-function! neomake#makers#ft#json#EnabledMakers() abort
-    return ['jq']
-endfunction
-
-let g:neomake_json_jq_executable = 'jq'
-" jqlint.sh in my dotfiles repo (/dotfiles/Bash/jqlint.sh)
-let g:neomake_json_jq_maker = {
-  \ 'args' : [],
-  \ 'exe': 'jqlint.sh',
-  \ 'errorformat': '%f:parse\ %trror\:%m\ at\ line\ %l\,\ column\ %c'
-  \}
-let g:neomake_json_enabled_makers = ['jq']
+"function! neomake#makers#ft#json#EnabledMakers() abort
+"    return ['jq']
+"endfunction
+"
+"let g:neomake_json_jq_executable = 'jq'
+"" jqlint.sh in my dotfiles repo (/dotfiles/Bash/jqlint.sh)
+"let g:neomake_json_jq_maker = {
+"  \ 'args' : [],
+"  \ 'exe': 'jqlint.sh',
+"  \ 'errorformat': '%f:parse\ %trror\:%m\ at\ line\ %l\,\ column\ %c'
+"  \}
+"let g:neomake_json_enabled_makers = ['jq']
 
 " ctrl-v
 vnoremap <C-C> "+y

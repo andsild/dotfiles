@@ -58,7 +58,7 @@ let
       owner = "aklt";
       repo = "plantuml-syntax";
       rev = "41eeca5a548c7d3bcc7b86758a1f10b7d96aa0b9";
-      sha256 = "1v11dj4vwk5hyx0zc8qkl0a5wh91zfmwhcq2ndl8zwp78h9yf5wr";
+      sha256 = "1jcbfk6k6jwgzf5zdqzlv94k0l5qdx8gs16ach4i7xgsb9pj4125";
     };
     dependencies = [];
   };
@@ -68,7 +68,7 @@ let
       owner = "weirongxu";
       repo = "plantuml-previewer.vim";
       rev = "5dac592bf04a13ebf02942a242ba18ac6c429c63";
-      sha256 = "1v11dj4vwk5hyx0zc8qkl0a5wh91zfmwhcq2ndl8zwp78h9yf5wr";
+      sha256 = "1jcbfk6k6jwgzf5zdqzlv94k0l5qdx8gs16ach4i7xgsb9pj4125";
     };
     dependencies = ["plantuml-syntax"];
   };
@@ -135,7 +135,6 @@ let
       "tagbar"
       "vim-auto-save"
       "vim-autoformat"
-      "vim-bazel"
       "vim-choosewin-andsild"
       "vim-coffee-script"
       "vim-css-color"
@@ -185,8 +184,7 @@ in
     withPython = true;
     withPython3 = true;
     withRuby = true;
-    extraPython3Packages = ps: with ps; [ pylint neovim numpy scipy jedi ipdb unittest2 pytest ];
-    withPyGUI = true;
+    extraPython3Packages = ps: with ps; [ pylint numpy scipy jedi ipdb unittest2 pytest ];
     configure = vimconfig;
   };
 }

@@ -61,7 +61,10 @@ alias screen='screen -T xterm'
 alias sp=": split  "
 alias stream="vlc   --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
 alias us="setxkbmap us"
+alias vim="nvim"
 alias vs=": vsplit"
+alias wo="cd /mnt/c/msys64/home/anderss/"
+alias da="cd /mnt/c/Users/anderss/data"
 
 function git()
 {
