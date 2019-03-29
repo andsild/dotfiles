@@ -10,13 +10,13 @@ curl https://nixos.org/nix/install | sh
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 nix-channel --update
 # Get my vim-config:
+DOTFILES_REPO="~/andsild-dotfiles"
 git clone https://github.com/andsild/dotfiles ~/andsild-dotfiles
 # Setup
-DOTFILES_REPO="~/andsild-dotfiles"
 mkdir -p ~/.config/nixpkgs/overlays ~/.config/nvim
-ln -s $DOTFILES_REPO/vim/nvim.nix ~/.config/nixpkgs/overlays/nvim.nix
-ln -s $DOTFILES_REPO/vim/init.vim ${XDG_CONFIG_HOME:-~/.config/}/nvim/
-ln -s $DOTFILES_REPO/vim/snippets/ ${XDG_CONFIG_HOME:-~/.config/}/nvim/
+eval ln -s "$DOTFILES_REPO/vim/nvim.nix" ~/.config/nixpkgs/overlays/nvim.nix
+eval ln -s "$DOTFILES_REPO/vim/init.vim" ${XDG_CONFIG_HOME:-~/.config/}/nvim/
+eval ln -s "$DOTFILES_REPO/vim/snippets/" ${XDG_CONFIG_HOME:-~/.config/}/nvim/
 # Install
 nix-env -i neovim
 ```
