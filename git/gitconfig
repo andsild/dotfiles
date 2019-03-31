@@ -1,7 +1,7 @@
 [include]
-  path = ~/.gitconfig-work
-[includeIf "gitdir:~/work/"]
   path = ~/dotfiles/git/gitconfig-default
+[includeIf "gitdir:/mnt/c/msys64/"]
+  path = ~/.gitconfig-work
 [push]
     default = current
 [pull]
@@ -36,7 +36,7 @@
   trustExitCode = true
   keepBackup = false
 [commit]
-  gpgsign = false
+  gpgsign = true
 [gpg]
   program = gpg2
 [branch]
