@@ -138,7 +138,6 @@ let
       "vim-choosewin-andsild"
       "vim-coffee-script"
       "vim-css-color"
-      "vim-cursorword"
       "vim-dispatch"
       "vim-easy-align"
       "vim-ft-diff_fold"
@@ -171,8 +170,6 @@ let
       "plantuml-syntax"
       "plantuml-previewer-vim"
       "previm"
-      # "ghcmod"
-      # "neco-ghc"
       ];
       }
     ];

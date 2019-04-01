@@ -209,6 +209,7 @@ endif
 
 if has('nvim')
   set completeopt+=noinsert,noselect,menu
+  set inccommand=split
   tnoremap <ESC><ESC> <C-\><C-n>
   tnoremap <C-6> <C-\><C-n><C-6>zz
   tnoremap <Esc><Esc> <C-\><C-n>
@@ -407,6 +408,8 @@ let g:localvimrc_whitelist='.*'
 let g:localvimrc_sandbox=0
 let g:choosewin_overlay_enable = 1
 let g:deoplete#auto_completion_start_length = 1
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
 let g:neosnippet#snippets_directory=expand($XDG_CONFIG_HOME) . '/nvim/snippets'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_camel_case = 1
@@ -462,8 +465,9 @@ command! -bang -bar -complete=file -nargs=? Utf16 edit<bang> ++enc=ucs-2le <args
 command! -bang -bar -complete=file -nargs=? Utf16be edit<bang> ++enc=ucs-2 <args>
 command! -bang -bar -complete=file -nargs=? Unicode Utf16<bang> <args>
 
-command! FZFGit call fzf#run({
-  \ 'source':  'git ls-files --no-empty-directory --exclude-standard | grep -vE "dexa/|apps/|lib/|\.compiled$|\.zip$|\.gz$|\.jpg$|\.png$|build-redo/|\.jar$"',
+command! -bang -complete=file -nargs=* FZFGit call fzf#run({
+  \ 'source':  printf('(cd %s ; git ls-files --no-empty-directory --exclude-standard . | egrep -v "\.zip$|\.gz$|\.jpg$|\.png$|\.jar$" | sed -e s,^,%s/,)',
+  \ escape(empty(<q-args>) ? '.' : <q-args>, '"\'), escape(empty(<q-args>) ? '.' : <q-args>, '"\')),
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
@@ -752,11 +756,8 @@ function! s:bufopen(e)
   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-" TODO: make it possible to supply both path and searchstring
-" (right now its only path)
-command! -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor --ignore-dir %s --ignore-dir %s --ignore-dir %s --ignore-dir %s "^(?=.)" "%s"',
-\                   'tools', 'apidoc', 'apps', 'dexa',
+command! -complete=file -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
+\ 'source':  printf('ag --nogroup --column --nocolor "^(?=.)" "%s"',
 \                   escape(empty(<q-args>) ? '.' : <q-args>, '"\')),
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
@@ -893,12 +894,16 @@ let s:menus.java = {
     \ 'java menu': 'Vim',
     \ }
 let s:menus.java.command_candidates = [
-    \ ['Declarations',    'JavaSearch -x declarations'],
-    \ ['References',      'JavaSearch -x references'],
     \ ['Call hiearchy',   'JavaCallHiearchy'],
-    \ ['Variable Uses',   'JavaSearchContext'],
+    \ ['Class hiearchy', 'JavaHierarchy'],
+    \ ['Declarations',    'JavaSearch -x declarations'],
+    \ ['Go to unit test', 'JUnitFindTest'],
+    \ ['Organize imports', 'JavaImportOrganize'],
+    \ ['Outline',   'JavaOutline'],
+    \ ['References',      'JavaSearch -x references'],
+    \ ['Run all tests', 'JUnit *'],
     \ ['Tag search', 'FZFTags'],
-    \ ['Go to unit test', 'JUnitFindTest']
+    \ ['Variable Uses',   'JavaSearchContext'],
     \ ]
 let s:menus.python = { 'python menu': '"intellisense" in python from jedi' }
 let s:menus.python.command_candidates = [

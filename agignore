@@ -1,7 +1,5 @@
 *.iml
 *.tsv
-*.xml
-*resources/
 .stack-work/
 WORKSPACE
 authorized_keys
@@ -28,3 +26,6 @@ _minted-./
 .cert
 *.js.map
 *cdn-cxense/*
+*.puml
+target/*
+*.class
