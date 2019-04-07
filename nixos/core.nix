@@ -161,6 +161,8 @@ in
     cryptsetup
     ctags
     dmenu
+    nodejs
+    yarn
     dos2unix
     dotnetPackages.Nuget
     dpkg

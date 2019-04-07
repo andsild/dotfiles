@@ -163,7 +163,7 @@ set sessionoptions="blank,curdir,folds,help,winsize"
 set shell=bash
 set shiftround
 set shiftwidth=2 " Round indent by shiftwidth.
-set shortmess=aTI
+set shortmess=aTIc
 set showbreak=>\
 set showfulltag
 set showmatch " Highlight parenthesis.
@@ -231,7 +231,7 @@ cnoremap <C-p>          <Up>
 cnoremap <C-y>          <C-r>*
 imap <F1> <Esc>
 imap <expr><c-s> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
+" imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
 imap jj <Esc>
 imap kk <Esc>
 inoremap <C-6> <Esc><C-6>zz
@@ -239,12 +239,12 @@ inoremap <C-d>  <Del>
 inoremap <C-u>  <C-g>u<C-u>
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <c-b> <Esc>i
-inoremap <expr>; pumvisible() ? deoplete#mappings#close_popup() : ";"
-inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><C-g> deoplete#mappings#undo_completion()
-inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><C-l>       deoplete#mappings#refresh()
-inoremap <silent><expr> <s-Tab> pumvisible() ? '<C-p>' : deoplete#mappings#manual_complete()
+" inoremap <expr>; pumvisible() ? deoplete#mappings#close_popup() : ";"
+" inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-g> deoplete#mappings#undo_completion()
+" inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-l>       deoplete#mappings#refresh()
+" inoremap <silent><expr> <s-Tab> pumvisible() ? '<C-p>' : deoplete#mappings#manual_complete()
 map 0 ^
 map <F1> <Esc>
 nmap <Space>   [Space]
@@ -263,8 +263,6 @@ nmap <silent>sr <Plug>(operator-surround-replace)a
 nmap S <Plug>(smalls)
 nmap gc <Plug>(caw:prefix)
 nmap gcc <Plug>(caw:hatpos:toggle)
-nmap gs <Plug>(open-browser-wwwsearch)
-nmap go <Plug>(openbrowser-smart-search)
 nmap j gj
 nmap k gk
 nnoremap <silent> <Space>m :Denite buffer<CR>
@@ -283,7 +281,6 @@ nnoremap <F1> <Esc>
 nnoremap <F9> :silent make! <bar> redraw!<CR>
 nnoremap <Leader>w :<C-u>call ToggleOption('wrap')<CR>
 nnoremap <Left> :10winc<<CR>
-nnoremap <Plug>(open-browser-wwwsearch) :<C-u>call <SID>www_search()<CR>
 nnoremap <Right> :10winc><CR>
 nnoremap <SID>(command-line-enter) q:
 nnoremap <SID>(command-line-norange) q:<C-u>
@@ -315,7 +312,6 @@ nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 nnoremap <silent> <c-t> :tabe<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
-nnoremap <silent> [Space]1 :QuickRun<CR>
 nnoremap <silent> [Space]T :FZFTags<CR>
 nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
 nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
@@ -351,8 +347,6 @@ omap ib <Plug>(textobj-multiblock-i)
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 silent! nnoremap < <<
 " tmap <c-r> <c-u>`cat ~/.bash_history \| fzf`<CR>
-vmap <silent> gs <Plug>(openbrowser-search)
-vmap <silent> go <Plug>(openbrowser-open)
 vmap gcc <Plug>(caw:hatpos:toggle)
 vnoremap ; <Esc>
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
@@ -363,7 +357,6 @@ xmap  <Space>   [Space]
 xmap <Enter> <Plug>(EasyAlign)
 xmap A  <Plug>(niceblock-A)
 xmap I  <Plug>(niceblock-I)
-xmap Y <Plug>(operator-concealedyank)
 xmap ab <Plug>(textobj-multiblock-a)
 xmap ib <Plug>(textobj-multiblock-i)
 xmap p <Plug>(operator-replace)
@@ -396,7 +389,7 @@ let &undodir=&directory
 let g:EclimJavaSearchSingleResult='edit'
 let g:Gitv_DoNotMapCtrlKey = 1
 let g:Gitv_OpenHorizontal = 'auto'
-let g:echodoc_enable_at_startup = 1
+let g:echodoc_enable_at_startup = 0
 let g:Gitv_WipeAllOnClose = 1
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
@@ -407,19 +400,19 @@ let g:choosewin_overlay_clear_multibyte = 1
 let g:localvimrc_whitelist='.*'
 let g:localvimrc_sandbox=0
 let g:choosewin_overlay_enable = 1
-let g:deoplete#auto_completion_start_length = 1
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
-let g:neosnippet#snippets_directory=expand($XDG_CONFIG_HOME) . '/nvim/snippets'
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.python = ''
-let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
-let g:deoplete#sources#jedi#show_docstring = 1
+" let g:deoplete#auto_completion_start_length = 1
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_camel_case = 1
+" let g:deoplete#keyword_patterns = {}
+" let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
+" let g:deoplete#look#words='/opt/englishdictionary'
+" let g:deoplete#omni#functions = {}
+" let g:deoplete#omni#input_patterns = {}
+" let g:deoplete#omni#input_patterns = {}
+" let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
+" let g:deoplete#omni#input_patterns.python = ''
+" let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
+" let g:deoplete#sources#jedi#show_docstring = 1
 let g:formatters_javascript = ['jscs']
 let g:haddock_browser = 'qutebrowser'
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
@@ -433,31 +426,31 @@ let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'vim']
 let g:myLang=0
 let g:myLangList=['nospell','en_us', 'nb', 'weak']
-let g:deoplete#look#words='/opt/englishdictionary'
 let g:neomake_haskell_enabled_makers = ['hlint']
 let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
 let g:neomake_list_height = 5
 let g:neomake_open_list = 2
 let g:neomake_python_enabled_makers=['pylint']
 let g:neomake_tex_enabled_makers = ['chktex']
+let g:neosnippet#snippets_directory=expand($XDG_CONFIG_HOME) . '/nvim/snippets'
 let g:python_highlight_all = 1
 let g:vimsyntax_noerror = 1
 let s:my_split = {'is_selectable': 1}
 
 if s:IsMac()
-   let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-   let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/include'
+   " let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+   " let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/include'
 else
-  let g:deoplete#sources#clang#libclang_path=system(
-    \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
-    \ . 'IFS=":" ; for dir in ${paths} ; do '
-    \ . 'test -e ${dir}/libclang.so.1 && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
-    \ . 'done ; unset IFS')
- let g:deoplete#sources#clang#clang_header = system(
-    \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
-    \ . 'IFS=":" ; for dir in ${paths} ; do '
-    \ . 'test -e ${dir}/../include/clang && echo -n $(readlink -f ${dir}/../include/clang) && break; '
-    \ . 'done ; unset IFS')
+ "  let g:deoplete#sources#clang#libclang_path=system(
+ "   \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
+ "   \ . 'IFS=":" ; for dir in ${paths} ; do '
+ "   \ . 'test -e ${dir}/libclang.so.1 && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
+ "   \ . 'done ; unset IFS')
+ " let g:deoplete#sources#clang#clang_header = system(
+ "   \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
+ "   \ . 'IFS=":" ; for dir in ${paths} ; do '
+ "   \ . 'test -e ${dir}/../include/clang && echo -n $(readlink -f ${dir}/../include/clang) && break; '
+ "   \ . 'done ; unset IFS')
 endif
 
 command! -bang -bar -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
@@ -643,13 +636,6 @@ endif
 
 function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
-endfunction
-
-function! s:www_search()
-    let l:search_word = input('Please input search word: ')
-    if l:search_word !=? ''
-    execute 'OpenBrowserSearch' escape(l:search_word, '"')
-    endif
 endfunction
 
 function! s:strwidthpart(str, width)
@@ -985,3 +971,53 @@ map <C-v> p
 cmap <C-v> <C-R>+
 imap <C-v> <C-r>"
 noremap <c-Q> <C-V>
+
+set runtimepath+=/opt/coc.nvim
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+nmap <silent> <F3> <Plug>(coc-definition)
+nmap <silent> <F4> <Plug>(coc-type-definition)
+nmap <silent> <c-G> <Plug>(coc-implementation)
+nmap <silent> <c-H> <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold *.java silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <a-r> <Plug>(coc-rename)
+
+" Fix autofix problem of current line
+nmap <F2>  <Plug>(coc-fix-current)
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)

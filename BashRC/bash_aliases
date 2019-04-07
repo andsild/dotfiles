@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-alias amend="git commit --amend --no-edit"
-alias ammend="git commit --amend"
 alias apt="apt -y"
 alias bc='bc -lq'
 alias cal3="cal -3"
@@ -11,6 +9,7 @@ alias checkNO="aspell check -d no"
 alias curl=$'curl -sw "\n(curl -sw): %{http_code}\n"'
 alias df="df -h"
 alias diffsmooth="diff --side-by-side --suppress-common-lines --ignore-trailing-space --ignore-space-change --ignore-all-space"
+alias dnf="dnf -y"
 alias du="du -h"
 alias e=": edit"
 alias emerge="sudo apt install -y"
@@ -25,8 +24,6 @@ alias grep="grep --color=always"
 alias gs="git status"
 alias hindent="hindent --style johan-tibell"
 alias jkm='make'
-alias jq='jq -rM'
-alias kb='kill baaa'
 alias kjm='make'
 alias km='make'
 alias mutt='neomutt'
@@ -55,7 +52,6 @@ alias plantuml="plantuml -graphvizdot $(which dot)"
 alias wtf="ping -c1 google.com"
 alias py="ipython"
 alias rmdir='rmdir'
-alias sourceBazel=". \"$(dirname $(readlink $(command -v bazel)))\"/../share/bash-completion/completions/bazel-complete.bash"
 alias screen='screen -T xterm'
 [ -e "/etc/NIXOS" ] && alias stack='stack --nix'
 alias sp=": split  "
@@ -65,14 +61,6 @@ alias vim="nvim"
 alias vs=": vsplit"
 alias wo="cd /mnt/c/msys64/home/anderss/"
 alias da="cd /mnt/c/Users/anderss/data"
-
-function git()
-{
-  case "$*" in
-    log* ) shift 1; command git log --max-count=10 "$@" ;;
-    * ) command git "$@" ;;
-  esac
-}
 
 function smallimg()
 {
