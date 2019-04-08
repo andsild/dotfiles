@@ -62,7 +62,7 @@ augroup DefaultAuGroup
     autocmd BufWritePost,FileWritePost *.lvimrc if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
     autocmd FileType python nnoremap <silent><buffer> [Space]i :Denite menu:python<CR>
-    autocmd FileType haskell nnoremap <silent><buffer> [Space]i :Denite menu:intero<CR>
+    autocmd FileType haskell nnoremap <silent><buffer> [Space]i : menu:intero<CR>
     autocmd FileType c,cpp set formatprg=astyle
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType gitcommit,qfreplace setlocal nofoldenable
@@ -949,7 +949,7 @@ let s:menus.git.command_candidates = [
 
 call denite#custom#var('menu', 'menus', s:menus)
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-      \ [ '.git/', '.ropeproject/', '__pycache__/',
+     \ [ '.git/', '.ropeproject/', '__pycache__/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
 "function! neomake#makers#ft#json#EnabledMakers() abort

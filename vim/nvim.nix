@@ -68,7 +68,7 @@ let
       owner = "weirongxu";
       repo = "plantuml-previewer.vim";
       rev = "5dac592bf04a13ebf02942a242ba18ac6c429c63";
-      sha256 = "1v11dj4vwk5hyx0zc8qkl0a5wh91zfmwhcq2ndl8zwp78h9yf5wr";
+      sha256 = "1jcbfk6k6jwgzf5zdqzlv94k0l5qdx8gs16ach4i7xgsb9pj4125";
     };
     dependencies = ["plantuml-syntax"];
   };
@@ -99,9 +99,6 @@ let
       "committia"
       #"context-filetype"
       "cute-python"
-      "denite"
-      "denite-extra"
-      "denite-git"
       "easygit"
       "echodoc"
       "fugitive"
@@ -150,8 +147,10 @@ let
       "vim-operator-surround"
       "vim-operator-user"
       "vim-repeat"
-      "vim-scouter"
       "vim-smalls"
+      "denite"
+      "denite-extra"
+      "denite-git"
       "vim-test"
       "vim-themis"
       "vim-toml"
