@@ -13,3 +13,6 @@ service.json
 currentFD.txt
 .ignore
 plantuml-dependency.log
+.settings
+.classpath
+.project

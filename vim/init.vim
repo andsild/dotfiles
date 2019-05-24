@@ -70,6 +70,7 @@ augroup DefaultAuGroup
     autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=./;/
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType java nnoremap <silent><buffer> [Space]i :Denite menu:java<CR>
+    autocmd CursorHold *.java silent call CocActionAsync('highlight')
     autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
     autocmd FileType javascript,javascript.jsx nnoremap <buffer> [Space]i :Denite menu:tern<CR>
     autocmd FileType markdown nnoremap <buffer> [Space]i :Denite menu:markdown<CR>
@@ -265,7 +266,7 @@ nmap gc <Plug>(caw:prefix)
 nmap gcc <Plug>(caw:hatpos:toggle)
 nmap j gj
 nmap k gk
-nnoremap <silent> <Space>m :Denite buffer<CR>
+nnoremap <silent> <Space>m :Buffers<CR> 
 nnoremap  [Space]   <Nop>
 nnoremap * :silent set hlsearch<CR>*<C-o>
 nnoremap ,  <Nop>
@@ -312,7 +313,7 @@ nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 nnoremap <silent> <c-t> :tabe<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
-nnoremap <silent> [Space]T :FZFTags<CR>
+nnoremap <silent> [Space]t :FZFTags<CR>
 nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
 nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
 nnoremap <silent> [Space]l :call ToggleList("Location List", 'l')<CR>
@@ -386,7 +387,6 @@ if has('mouse')
 endif
 
 let &undodir=&directory
-let g:EclimJavaSearchSingleResult='edit'
 let g:Gitv_DoNotMapCtrlKey = 1
 let g:Gitv_OpenHorizontal = 'auto'
 let g:echodoc_enable_at_startup = 0
@@ -1000,15 +1000,13 @@ nmap <silent> <c-H> <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if &filetype == 'vim'
+  if &filetype ==? 'vim'
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
   endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold *.java silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <a-r> <Plug>(coc-rename)

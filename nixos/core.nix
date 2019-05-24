@@ -275,7 +275,7 @@ in
     sqlite
     sshfs-fuse
     sshuttle
-    stack
+    ack
     stdmanpages
     stepmania
     stress
