@@ -297,7 +297,7 @@ nnoremap <leader>du :diffupdate<CR>
 nnoremap <leader>dt :diffthis<CR>
 nnoremap <leader>do :diffoff<CR>
 nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search -auto-highlight -mode=normal line<CR>
-nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-highlight line<CR>
+nnoremap <silent> / :BLines<CR>
 nnoremap <silent> ;o  :<C-u>only<CR>
 nnoremap <silent> ;r :Denite register neoyank<CR>
 nnoremap <silent> <C-b> <C-b>
