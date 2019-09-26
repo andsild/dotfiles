@@ -30,3 +30,4 @@ _minted-./
 target/*
 *.class
 logs/
+_site/
