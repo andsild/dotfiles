@@ -1,7 +1,9 @@
 [include]
   path = ~/dotfiles/git/gitconfig-default
-[includeIf "gitdir:/mnt/c/msys64/"]
+[includeIf "gitdir:/mnt/c/msys64/home/anderss/"]
   path = ~/.gitconfig-work
+[includeIf "gitdir:/mnt/c/msys64/home/anderss/qwde/"]
+  path = ~/dotfiles/git/gitconfig-default
 [push]
     default = current
 [pull]

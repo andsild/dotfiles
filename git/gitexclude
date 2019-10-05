@@ -16,3 +16,4 @@ plantuml-dependency.log
 .settings
 .classpath
 .project
+.vim/

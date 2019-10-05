@@ -1,4 +1,5 @@
-set termencoding=utf-8
+  set termencoding=utf-8
+
 
 function! s:IsMac()
   let l:sysout=system('uname')
