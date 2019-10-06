@@ -61,31 +61,24 @@ augroup DefaultAuGroup
     autocmd BufWritePost,FileWritePost *.vim    if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePost,FileWritePost *.lvimrc if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
-    autocmd FileType python nnoremap <silent><buffer> [Space]i :Denite menu:python<CR>
-    autocmd FileType haskell nnoremap <silent><buffer> [Space]i : menu:intero<CR>
     autocmd FileType c,cpp set formatprg=astyle
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType gitcommit,qfreplace setlocal nofoldenable
     autocmd FileType go highlight default link goErr WarningMsg | match goErr /\<err\>/
     autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=./;/
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType java nnoremap <silent><buffer> [Space]i :Denite menu:java<CR>
     autocmd CursorHold *.java silent call CocActionAsync('highlight')
     autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
-    autocmd FileType javascript,javascript.jsx nnoremap <buffer> [Space]i :Denite menu:tern<CR>
-    autocmd FileType markdown nnoremap <buffer> [Space]i :Denite menu:markdown<CR>
     autocmd FileType pdf Pdf '%'
     autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType python setlocal formatprg=autopep8\ --aggressive\ --ignore=E309\ -
     autocmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
-    autocmd FileType denite mksession! /tmp/layout.vim
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
     autocmd InsertLeave * if &paste | set nopaste mouse=a | echo 'nopaste' | endif | if &l:diff | diffupdate | endif
     autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc  | setlocal formatprg=stylish-haskell
     autocmd FileType haskell nnoremap <silent><buffer>K :GhcModInfoPreview<CR>
-    autocmd BufLeave denite source /tmp/layout.vim
     autocmd TermOpen term://* setlocal norelativenumber
 
     if has('python3')
@@ -296,10 +289,8 @@ nnoremap <leader>u :diffupdate<CR>
 nnoremap <leader>du :diffupdate<CR>
 nnoremap <leader>dt :diffthis<CR>
 nnoremap <leader>do :diffoff<CR>
-nnoremap <silent> * :<C-u>DeniteCursorWord -buffer-name=search -auto-highlight -mode=normal line<CR>
 nnoremap <silent> / :BLines<CR>
 nnoremap <silent> ;o  :<C-u>only<CR>
-nnoremap <silent> ;r :Denite register neoyank<CR>
 nnoremap <silent> <C-b> <C-b>
 nnoremap <silent> <C-f> <C-f>
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
@@ -314,18 +305,10 @@ nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 nnoremap <silent> <c-t> :tabe<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
 nnoremap <silent> [Space]t :FZFTags<CR>
-nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
-nnoremap <silent> [Space]ft :<C-u>Denite filetype<CR>
 nnoremap <silent> [Space]l :call ToggleList("Location List", 'l')<CR>
 nnoremap <silent> [Space]q :call ToggleList("Quickfix List", 'c')<CR>
-nnoremap <silent> [Space]r :<C-u>Denite register<CR>
-nnoremap <silent> [Space]ss :<C-u>Denite gitstatus<CR>
-nnoremap <silent> n :<C-u>Denite -buffer-name=search -resume -mode=normal -refresh<CR>
 nnoremap <silent> z/ :Zeavim<CR>
 nnoremap <silent> } :<C-u>call ForwardParagraph()<CR>
-nnoremap <silent><expr> tp  &filetype == 'help' ?  ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
-nnoremap <silent><expr> tt  &filetype == 'help' ?  "g\<C-]>" : ":\<C-u>DeniteCursorWord -buffer-name=tag -immediately tag:include\<CR>"
-nnoremap <silent>[Space]g :Denite menu:git<CR>
 nnoremap > >>
 nnoremap M  m
 nnoremap Q  q " Disable Ex-mode.
@@ -339,10 +322,8 @@ nnoremap <c-p> :FZFTags<CR>
 nnoremap \  `
 nnoremap dh :diffget //3<CR>
 nnoremap dl :diffget //2<CR>
-nnoremap t/ :Denite -mode=insert outline<CR>
 nnoremap vaw viw
 noremap <F12> <NOP>
-noremap [Space]u :<C-u>Denite outline<CR>
 omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
 onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
@@ -820,151 +801,6 @@ let &statusline=' '
 
 call s:ApplyCustomColorScheme()
 
-call denite#custom#source('file_old', 'matchers',
-      \ ['matcher_fuzzy', 'matcher_project_files'])
-call denite#custom#source('tag', 'matchers', ['matcher_substring'])
-if has('nvim')
-  call denite#custom#source('file_rec,grep', 'matchers',
-        \ ['matcher_cpsm'])
-endif
-
-call denite#custom#map('insert', '<C-r>',
-      \ '<denite:toggle_matchers:matcher_substring>', 'noremap')
-call denite#custom#map('insert', 'jj',
-      \ '<denite:enter_mode:normal>', 'noremap')
-call denite#custom#map('insert', 'kk',
-      \ '<denite:enter_mode:normal>', 'noremap')
-call denite#custom#map('insert', '<c-a>',
-      \ '<denite:move_caret_to_head>', 'noremap')
-call denite#custom#map('insert', '<c-e>',
-      \ '<denite:move_caret_to_tail>', 'noremap')
-call denite#custom#map('insert', "'",
-      \ '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('normal', 'r',
-      \ '<denite:do_action:quickfix>', 'noremap')
-call denite#custom#map('normal', 'ZQ',
-      \ '<denite:quit>', 'noremap')
-call denite#custom#map('normal', 'ZZ',
-      \ '<denite:quit>', 'noremap')
-call denite#custom#map('insert', ';',
-      \ '<denite:quick_move>', 'noremap')
-call denite#custom#map('normal', ';',
-    \ '<denite:quick_move>', 'noremap')
-call denite#custom#map(
-      \ 'normal',
-      \ 'p',
-      \ '<denite:do_action:preview>',
-      \ 'noremap'
-      \)
-call denite#custom#map(
-      \ 'normal',
-      \ 'p',
-      \ '<denite:do_action:preview>',
-      \ 'noremap'
-      \)
-
-call denite#custom#option('default', {
-      \ 'auto_accel': v:true,
-      \ 'prompt': '>',
-      \ 'short_source_names': v:true
-      \ })
-
-let s:menus = {}
-let s:menus.vim = {
-    \ 'description': 'Vim',
-    \ }
-let s:menus.vim.file_candidates = [
-    \ ['Edit configuation file (init.vim)', '~/.config/nvim/init.vim']
-    \ ]
-let s:menus.java = {
-    \ 'java menu': 'Vim',
-    \ }
-let s:menus.java.command_candidates = [
-    \ ['Call hiearchy',   'JavaCallHiearchy'],
-    \ ['Class hiearchy', 'JavaHierarchy'],
-    \ ['Declarations',    'JavaSearch -x declarations'],
-    \ ['Go to unit test', 'JUnitFindTest'],
-    \ ['Organize imports', 'JavaImportOrganize'],
-    \ ['Outline',   'JavaOutline'],
-    \ ['References',      'JavaSearch -x references'],
-    \ ['Run all tests', 'JUnit *'],
-    \ ['Tag search', 'FZFTags'],
-    \ ['Variable Uses',   'JavaSearchContext'],
-    \ ]
-let s:menus.python = { 'python menu': '"intellisense" in python from jedi' }
-let s:menus.python.command_candidates = [
-  \['Assingments',   'call jedi#goto_assignments()'],
-  \['Call signture', 'call jedi#configure_call_signatures()'],
-  \['Definition',    'call jedi#goto_definitions()'],
-  \['Rename',        'call jedi#rename()'],
-  \['Documentation', 'call jedi#show_documentation()'],
-  \['Import',        'call jedi#py_import()'],
-  \['Usages',        'call jedi#usages()'],
-\]
-
-let s:menus.intero = { 'description' : 'Haskell intellisense' }
-let s:menus.intero.command_candidates = [
-  \['Eval',      'InteroEval'],
-  \['Def',       'InteroDef'],
-  \['Info',      'InteroInfo'],
-  \['Type',      'InteroType'],
-  \['Uses',      'InteroUses'],
-  \['Rel04d',    'InteroReload'],
-  \['Open REPL', 'InteroOpen'],
-  \['Load',      'InteroLoadCurrentModule'],
-  \['Start',     'InteroStart'],
-\]
-let s:menus.tern = { 'description' : 'Javascript intellisense' }
-let s:menus.tern.command_candidates = [
-  \['Browse docs', 'TernDocBrowse'],
-  \['Type lookup', 'TernType'],
-  \['Def',         'TernDef'],
-  \['References',  'TernRefs'],
-  \['Rename',      'TernRename'],
-\]
-
-let s:menus.markdown = { 'description' : 'Open preview' }
-let s:menus.markdown.command_candidates = [
-  \['-> Preview', 'PrevimOpen'],
-\]
-
-let s:menus.git = { 'description' : 'Git administration' }
-let s:menus.git.command_candidates = [
-    \['status',           'Gstatus'],
-    \['diff',             'Gdiff'],
-    \['commit',           'Gcommit'],
-    \['log',              'Denite gitlog'],
-    \['blame',            'Gblame'],
-    \['add/stage',        'Gwrite'],
-    \['push',             'Git! push'],
-    \['pull',             'Git! pull'],
-    \['command',          'exe "Git! " input("comando git: ")'],
-    \['edit',             'exe "command Gedit " input(":Gedit ")'],
-    \['grep',             'exe "silent Ggrep -i ".input("Pattern: ") | Denite quickfix'],
-    \['grep - text',      'exe "silent Glog -S".input("Pattern: ")." | Denite quickfix"'],
-    \['write',            'Gwrite'],
-    \['github dashboard', 'GHD! andsild'],
-    \['github activity',  'exe "GHA! " input("Username or repository: ")'],
-    \]
-
-call denite#custom#var('menu', 'menus', s:menus)
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-     \ [ '.git/', '.ropeproject/', '__pycache__/',
-      \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-
-"function! neomake#makers#ft#json#EnabledMakers() abort
-"    return ['jq']
-"endfunction
-"
-"let g:neomake_json_jq_executable = 'jq'
-"" jqlint.sh in my dotfiles repo (/dotfiles/Bash/jqlint.sh)
-"let g:neomake_json_jq_maker = {
-"  \ 'args' : [],
-"  \ 'exe': 'jqlint.sh',
-"  \ 'errorformat': '%f:parse\ %trror\:%m\ at\ line\ %l\,\ column\ %c'
-"  \}
-"let g:neomake_json_enabled_makers = ['jq']
-
 " ctrl-v
 vnoremap <C-C> "+y
 map <C-v> p
@@ -1006,7 +842,6 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
 
 " Remap for rename current word
 nmap <a-r> <Plug>(coc-rename)

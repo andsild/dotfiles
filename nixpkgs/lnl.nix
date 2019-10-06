@@ -1,21 +1,22 @@
 self: super:
-
+# install: put this file in ~/.config/nixpkgs/
+#         then run nix-env -f '<nixpkgs>' -r -iA userPackages
+# to sync new packages, run `nix-rebuild`
 {
   userPackages = super.userPackages or {} // {
-    # My packages
-    inherit (self) hello;
-    # add more packages here...
-
-    # Default packages
     inherit (self)
       cacert
-      screen
-      nox
-      neovim
-      tree
       fd
+      fortune
+      neovim
+      nox
+      screen
+      silver-searcher
+      stack
+      tig
+      tree
+      vim-vint
 
-      # tmp
       httpie
       nix; # don't enable nix on multi-user
     

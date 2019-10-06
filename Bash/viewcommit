@@ -8,4 +8,8 @@ set -xe
 commit="${1:-HEAD}"
 commitFiles=$(git diff-tree --no-commit-id --name-only -r "$commit")
 git --no-pager show --stat "${commit}" > /tmp/viewcommit
-vim -p ${commitFiles} /tmp/viewcommit -c "tabdo silent if exists(\":Gdiff\") | :Gedit $1:% | :Gdiff ~1 | endif" 
+vim -p ${commitFiles} /tmp/viewcommit \
+  -c "tabdo silent if exists(\":Gedit\") | :Gedit ${1}:% | endif
+  | if exists(\":Gdiffsplit\") | :Gdiffsplit ${1}^1:% | endif" 
+
+  
