@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
-# Load all files from a commit into a tab in vim
-# .. and compare it with its previous commit 
-# essentially, do `git show` in vim
+# Load all files from a commit into a tab in vim and compare it with its previous commit 
+# example invocation: `viewcommit HEAD^1` or `viewcommit <sha>`
 
 set -xe
 
-commit="${1:-HEAD}"
+commit="${1:-HEAD^1}"
 commitFiles=$(git diff-tree --no-commit-id --name-only -r "$commit")
 git --no-pager show --stat "${commit}" > /tmp/viewcommit
-vim -p ${commitFiles} /tmp/viewcommit \
+vim -p "${commitFiles}" /tmp/viewcommit \
   -c "tabdo silent if exists(\":Gedit\") | :Gedit ${1}:% | endif
   | if exists(\":Gdiffsplit\") | :Gdiffsplit ${1}^1:% | endif" 
 
