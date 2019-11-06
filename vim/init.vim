@@ -226,7 +226,6 @@ cnoremap <C-p>          <Up>
 cnoremap <C-y>          <C-r>*
 imap <F1> <Esc>
 imap <expr><c-s> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-" imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "<TAB>" : deoplete#mappings#manual_complete()
 imap jj <Esc>
 imap kk <Esc>
 inoremap <C-6> <Esc><C-6>zz
@@ -234,12 +233,6 @@ inoremap <C-d>  <Del>
 inoremap <C-u>  <C-g>u<C-u>
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <c-b> <Esc>i
-" inoremap <expr>; pumvisible() ? deoplete#mappings#close_popup() : ";"
-" inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-" inoremap <expr><C-g> deoplete#mappings#undo_completion()
-" inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-" inoremap <expr><C-l>       deoplete#mappings#refresh()
-" inoremap <silent><expr> <s-Tab> pumvisible() ? '<C-p>' : deoplete#mappings#manual_complete()
 map 0 ^
 map <F1> <Esc>
 nmap <Space>   [Space]
@@ -382,19 +375,6 @@ let g:choosewin_overlay_clear_multibyte = 1
 let g:localvimrc_whitelist='.*'
 let g:localvimrc_sandbox=0
 let g:choosewin_overlay_enable = 1
-" let g:deoplete#auto_completion_start_length = 1
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#enable_camel_case = 1
-" let g:deoplete#keyword_patterns = {}
-" let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
-" let g:deoplete#look#words='/opt/englishdictionary'
-" let g:deoplete#omni#functions = {}
-" let g:deoplete#omni#input_patterns = {}
-" let g:deoplete#omni#input_patterns = {}
-" let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
-" let g:deoplete#omni#input_patterns.python = ''
-" let g:deoplete#sources#clang#flags = ['-x', 'c++', '-std=c++11']
-" let g:deoplete#sources#jedi#show_docstring = 1
 let g:formatters_javascript = ['jscs']
 let g:haddock_browser = 'qutebrowser'
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
@@ -418,22 +398,6 @@ let g:neosnippet#snippets_directory=expand($XDG_CONFIG_HOME) . '/nvim/snippets'
 let g:python_highlight_all = 1
 let g:vimsyntax_noerror = 1
 let s:my_split = {'is_selectable': 1}
-
-if s:IsMac()
-   " let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-   " let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/include'
-else
- "  let g:deoplete#sources#clang#libclang_path=system(
- "   \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
- "   \ . 'IFS=":" ; for dir in ${paths} ; do '
- "   \ . 'test -e ${dir}/libclang.so.1 && echo -n $(readlink -f ${dir}/libclang.so) && break ;'
- "   \ . 'done ; unset IFS')
- " let g:deoplete#sources#clang#clang_header = system(
- "   \ 'paths=$(clang --print-search-dirs | tail -n1 | cut -d= -f2) ;'
- "   \ . 'IFS=":" ; for dir in ${paths} ; do '
- "   \ . 'test -e ${dir}/../include/clang && echo -n $(readlink -f ${dir}/../include/clang) && break; '
- "   \ . 'done ; unset IFS')
-endif
 
 command! -bang -bar -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
 command! -bang -bar -complete=file -nargs=? Utf16 edit<bang> ++enc=ucs-2le <args>

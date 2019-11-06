@@ -6,8 +6,10 @@ self: super:
   userPackages = super.userPackages or {} // {
     inherit (self)
       cacert
+      entr
       fd
       fortune
+      ncdu
       neovim
       nox
       screen
