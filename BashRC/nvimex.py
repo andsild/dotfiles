@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #encoding:utf-8
 """
 The MIT License (MIT)
@@ -9,7 +9,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 """
 
 def showhelp():
-    print '''============
+    print('''============
 Installation
 ============
 1.  Make sure you have Neovim's python-client installed.
@@ -72,7 +72,7 @@ $ ~/nvimex.py badd *.py
 
 Open manpage of bash in new tab (with 'powerman/vim-plugin-viewdoc' plugin):
 $ ~/nvimex.py ViewDocMan bash 
-'''
+''')
 
 def abspath_esc(s):
     from os.path import abspath
@@ -125,7 +125,7 @@ def main(nvim_listen_addr, cmd, *args):
         elif cmd != '':
             nvim.command(' '.join((cmd,) + args))
     except NvimError as e:
-        print e
+        print(e)
 
 if __name__ == '__main__':
     from sys import argv
@@ -135,7 +135,7 @@ if __name__ == '__main__':
         showhelp()
         exit()
     if 'NVIM_LISTEN_ADDRESS' not in environ:
-        print '$NVIM_LISTEN_ADDRESS not set!'
+        print('$NVIM_LISTEN_ADDRESS not set!')
         exit()
     if len(argv) < 2:
         exit()
