@@ -5,6 +5,7 @@ WORKSPACE
 authorized_keys
 bazel*
 build-*
+build/
 build-redo
 build-tools
 bundle.js

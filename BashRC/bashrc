@@ -58,7 +58,7 @@ PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[%s\]%s@%s\[${WHITE}\]:%s\n \n" \
 export GEM_HOME="${HOME}/.gem" GEM_PATH="${HOME}/.gem"
 HISTIGNORE="ls:l:clear"
 export GOPATH="${HOME}/.go"
-PATH="${PATH}:${HOME}/dotfiles/Bash:${GEM_PATH}/bin:$GOROOT/bin:$GOPATH/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:${HOME}/bin/:${HOME}/work/config/bin"
+PATH="${HOME}/.cabal/bin:${PATH}:${HOME}/dotfiles/Bash:${GEM_PATH}/bin:$GOROOT/bin:$GOPATH/bin:${HOME}/.local/bin:${HOME}/bin/:${HOME}/work/config/bin:${HOME}/bin/"
 PROMPT_COMMAND='history -a'
 export HISTCONTROL="ignoreboth:erasedups"
 export EDITOR="nvim"
@@ -88,7 +88,7 @@ else
   [ -f ~/.fzf.bash ] && . ~/.fzf.bash
 fi
 export SCIPY_PIL_IMAGE_VIEWER="xdg-open"
-export XDG_CONFIG_HOME="${HOME}/.config/" XDG_DATA_DIR="${HOME}/.local/share/" XDG_DATA_HOME="${HOME}/.local/share/"
+export XDG_CONFIG_HOME="${HOME}/.config/" XDG_DATA_DIR="${HOME}/.local/share/" XDG_DATA_HOME="${HOME}/.local/share/" XDG_CACHE_HOME="${HOME}/.cache"
 export FZF_DEFAULT_OPTS='--extended -i --exact' FZF_COMPLETION_OPTS='--extended --exact'
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -118,4 +118,6 @@ complete -o default -F _pip_completion pip
 [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
 
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/anderss/.sdkman"
+[[ -s "/home/anderss/.sdkman/bin/sdkman-init.sh" ]] && source "/home/anderss/.sdkman/bin/sdkman-init.sh"
