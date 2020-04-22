@@ -5,3 +5,4 @@ vim/haskellmode.config
 nixos/hardware-configuration.nix
 nixos/private.nix
 *.pyc
+**history.sqlite
