@@ -31,4 +31,9 @@ _minted-./
 target/*
 *.class
 logs/
+log/
 _site/
+*.log
+*.lock
+*node_modules/*
+qwde/
