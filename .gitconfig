@@ -1,0 +1,58 @@
+[include]
+  path = ~/dotfiles/git/gitconfig-default
+[includeIf "gitdir:/mnt/c/msys64/home/anderss/"]
+  path = ~/.gitconfig-work
+[includeIf "gitdir:/mnt/c/msys64/home/anderss/qwde/"]
+  path = ~/dotfiles/git/gitconfig-default
+[push]
+    default = current
+[pull]
+  rebase = true
+[merge]
+    tool = diffconflicts
+  stat = true
+[core]
+  editor = vim
+  excludesfile = ~/dotfiles/git/gitexclude
+  #pager = "if [ -n \"${NVIM_LISTEN_ADDRESS}\" ] ; then ${PAGER} - ;  else nvim -R -c AnsiEsc - ; fi " 
+  whitespace = trailing-space
+  attributes = ~/dotfiles/git/gitattributes
+[alias]
+  root = rev-parse --show-toplevel
+  pr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+  pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+  # for bitbucket/stash remotes
+  spr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
+  plog = log --all --graph --pretty=format:'%C(auto)%h%C(auto)%d %s %C(dim white)(%aN, %ar)'
+  setup = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+  changedfiles = "!f(){ git diff --name-only \"$1\"...\"${2:-HEAD}\" ; };f"
+  co = checkout
+  com = checkout master
+  find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+  show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+  rebase-current="!number_of_commmits=\"$(git log --format=\"%an %D\" -n100 | awk '{ if ($0 ~ /Anders Sildnes/) { if ($0 ~ /origin\\/master/) { exit; } count++} else { exit } } END { print count } ' )\" ; git rebase -i HEAD~$number_of_commmits"
+[mergetool]
+  keepBackup = false
+[mergetool "diffconflicts"]
+  cmd = diffconflicts nvim $BASE $LOCAL $REMOTE $MERGED
+  trustExitCode = true
+  keepBackup = false
+[commit]
+  gpgsign = false
+[gpg]
+  program = gpg2
+[branch]
+  autosetupmerge = true
+[help]
+  autocorrect = 5
+[color]
+  ui = auto
+# [color "diff"]
+#   meta = yellow black bold
+#   frag = magenta bold
+#   old = red bold
+#   new = blue bold
+[rebase]
+  instructionFormat = (%an <%ae>) %s
+[credential]
+	helper = cache --timeout=30000
