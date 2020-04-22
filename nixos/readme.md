@@ -21,8 +21,3 @@ lrwxrwxrwx 1 root      22 Aug 30 21:59 private.nix -> /etc/nixos/private.nix
 ```
 
 The `hardware-configuration.nix` and `private.nix` are not in the repo, but have copies in this dotfiles repository. I do this to make local imports work.
-
-
-## Notes:
-List of haskell compilers:
-`nix-shell -p ghc --command "nix-instantiate --eval -E 'with import <nixpkgs> {}; lib.attrNames haskell.compiler'"`

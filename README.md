@@ -14,6 +14,9 @@ Configuration files; pick as you please
 | `zathura`   | It has vim-bindings and color-invert. |
 | `xrandr`    | For connecting and configuring monitors. E.g:<br />`xrandr --auto LVDS1 --left-of VGA1`<br /> |
 
+### Haskell
+cabal install $(cat ghcipackages.txt)
+
 ## License
 I chose the most open one.
 I think a lot of people forget that MIT requires you to redistribute original licenses.
