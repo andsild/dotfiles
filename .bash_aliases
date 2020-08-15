@@ -32,7 +32,7 @@ alias l='ls'
 alias la='ls -A'
 alias lear="clear"
 alias ll='ls -alh'
-alias ls='ls -G --color=auto '
+alias ls='ls --color=auto -h'
 alias lt='ls -t -r'
 alias m="make"
 alias mj='make'
