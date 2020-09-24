@@ -121,3 +121,4 @@ complete -o default -F _pip_completion pip
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/anderss/.sdkman"
 [[ -s "/home/anderss/.sdkman/bin/sdkman-init.sh" ]] && source "/home/anderss/.sdkman/bin/sdkman-init.sh"
+export ANSIBLE_NOCOWS=1
