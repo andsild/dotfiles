@@ -83,6 +83,17 @@ let
     dependencies = [];
   };
 
+  customPlugins.vim-godot = super.vimUtils.buildVimPlugin {
+    name = "previm";
+    src = super.fetchFromGitHub {
+      owner = "habamax";
+      repo = "vim-godot";
+      rev = "e38845b4042d2351c47cd63f8705fd51c97acb4f";
+      sha256 = "1k3val0ibriwcv5jdyq95sgxgkz54r15gpylbhns5934zvaakpj1";
+    };
+    dependencies = [];
+  };
+
   vimconfig = {
     # customRC = builtins.readFile "/home/andsild/dotfiles/vim/init.vim";  
     customRC = ''source $XDG_CONFIG_HOME/nvim/init.vim '';
@@ -95,6 +106,7 @@ let
       "SyntaxRange"
       "WebAPI"
       "caw"
+      "vim-godot"
       "clang_complete"
       "committia"
       #"context-filetype"
