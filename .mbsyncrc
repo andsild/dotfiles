@@ -1,0 +1,19 @@
+IMAPStore posteo-remote
+Host posteo.de
+Port 993
+User andsild@posteo.net
+PassCmd "/usr/bin/gpg2 --quiet --for-your-eyes-only --no-tty --decrypt /home/andsild/.msmtp-posteo.gpg"
+SSLType IMAPS
+
+MaildirStore posteo-local
+Path ~/.local/mail/posteo/
+Inbox ~/.local/mail/posteo/INBOX
+Subfolders Verbatim
+
+Channel posteo
+Master :posteo-remote:
+Slave :posteo-local:
+Create Both
+Expunge Both
+Patterns *
+SyncState *

@@ -1,0 +1,25 @@
+## Neomutt configuration file located at ~/.config/neomutt/neomuttrc
+set from='andsild@posteo.net'
+set realname='Anders Sildnes
+set sendmail = "/usr/bin/msmtp -a posteo"
+set sendmail_wait = 0
+unset record
+
+set header_cache='~/.cache/neomutt/headers'
+set message_cachedir='~/.cache/neomutt/bodies'
+set certificate_file='~/.cache/neomutt/certificates'
+
+# My mailboxes
+set folder ='~/.local/mail/posteo'
+set spoolfile='+INBOX'
+set postponed='+Drafts'
+set record='+Sent'
+set trash='+Trash'
+mailboxes =INBOX =Sent =Trash =Drafts
+
+# Personal preferences
+#set date_format="%y/%m/%d %I:%M%p"
+set editor='nvim'
+
+macro index G "!mbsync -a -c ~/.config/isync//.mbsyncrc^M" "Update through mbsync"
+macro index \Cs  "<change-folder> =Sent<enter>"  "go to Sent Items"
