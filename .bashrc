@@ -32,10 +32,10 @@ case $(hostname) in
     de*|ash*|tja*)
         HOSTNAME="${RED}"
         ;;
-    Caligula)
+    antipater)
         HOSTNAME="${BLUE}"
         ;;
-    peskNix)
+    cassander)
         HOSTNAME="${PURPLE}"
         ;;
     *)
