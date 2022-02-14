@@ -181,7 +181,6 @@ in
 {
   neovim = super.neovim.override {
     vimAlias = true;
-    withPython = true;
     withPython3 = true;
     withRuby = true;
     extraPython3Packages = ps: with ps; [ pylint numpy scipy jedi ipdb unittest2 pytest ];

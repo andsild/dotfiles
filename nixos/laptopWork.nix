@@ -2,8 +2,19 @@
 
 {
   imports = [ 
-    ./core.nix ];
+    ./newCore.nix ];
 
  networking.hostName = "miniPeskNix";
- networking.wireless.interfaces = [ "wlp3s0" ];
+ # networking.wireless.userControlled.enable = true;
+ # networking.wireless.userControlled.group = "wheel";
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings = {
+    General = {
+      Name="%h-nix";
+      AutoConnectTimeout = "30";
+      FastConnectable = "true";
+      NameResolving = "false";
+    };
+  };
 }

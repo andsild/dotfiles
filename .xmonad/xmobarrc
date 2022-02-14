@@ -1,14 +1,3 @@
---
--- ~/.xmobarrc: Haskell configuration for xmobar
---
--- vim: filetype=haskell
---
--- note: Moffet Field KNUQ; Sacramento KSMF; Davis KEDU
---
--- written: 2009 by Egan McComb
---
---
-
 Config  { font      = "-*-profont-*-*-*-*-10-*-*-*-*-*-iso8859-*"
     , bgColor   = "#000000"
     , fgColor   = "#e5e5e5"

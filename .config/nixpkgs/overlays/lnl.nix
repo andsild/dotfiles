@@ -7,6 +7,7 @@ self: super:
     inherit (self)
       cacert
       entr
+      feh
       fd
       fortune
       ncdu
@@ -14,18 +15,19 @@ self: super:
       nox
       screen
       silver-searcher
+      st
       stack
       tig
       tree
       vim-vint
 
-      httpie
-      nix; # don't enable nix on multi-user
-    
-    nix-rebuild = super.writeScriptBin "nix-rebuild" ''
-      #!${super.stdenv.shell}
-      set -e
-      if ! command -v nix-env &>/dev/null; then
+      httpie                                                   
+      nix; # don't enable nix on multi-user                    
+                                                               
+    nix-rebuild = super.writeScriptBin "nix-rebuild" ''        
+      #!${super.stdenv.shell}                                  
+      set -e                                                   
+      if ! command -v nix-env &>/dev/null; then                
         echo "warning: nix-env was not found in PATH, add nix to userPackages" >&2
         PATH=${self.nix}/bin:$PATH
       fi
