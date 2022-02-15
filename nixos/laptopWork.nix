@@ -2,19 +2,24 @@
 
 {
   imports = [ 
-    ./newCore.nix ];
+    ./core.nix ];
 
- networking.hostName = "miniPeskNix";
- # networking.wireless.userControlled.enable = true;
- # networking.wireless.userControlled.group = "wheel";
+    boot.extraModulePackages = [ config.boot.kernelPackages.rtw89 ];
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.settings = {
-    General = {
-      Name="%h-nix";
-      AutoConnectTimeout = "30";
-      FastConnectable = "true";
-      NameResolving = "false";
+    networking.hostName = "miniPeskNix";
+
+    hardware = {
+      bluetooth = {
+        enable = true; 
+        disabledPlugins = [ "sap" ];
+        settings = {
+          General = {
+            Name="%h-nix";
+            # AutoConnectTimeout = "30";
+            # FastConnectable = "true";
+            # NameResolving = "false";
+        };
+      };
     };
   };
 }
