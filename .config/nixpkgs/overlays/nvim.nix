@@ -72,19 +72,9 @@ let
     };
     dependencies = ["plantuml-syntax"];
   };
-  customPlugins.previm = super.vimUtils.buildVimPlugin {
-    name = "previm";
-    src = super.fetchFromGitHub {
-      owner = "andsild";
-      repo = "previm";
-      rev = "9bbb7fb83edd4ade8fa6dc719ba1127da70e16f7";
-      sha256 = "0mwiaq8xrnnz5j3pihj5iafbv8j5w9zl93cnh4p1zdimg9v74v4m";
-    };
-    dependencies = [];
-  };
 
   customPlugins.vim-godot = super.vimUtils.buildVimPlugin {
-    name = "previm";
+    name = "godot";
     src = super.fetchFromGitHub {
       owner = "habamax";
       repo = "vim-godot";
@@ -172,7 +162,6 @@ let
       "tpopefork"
       "plantuml-syntax"
       "plantuml-previewer-vim"
-      "previm"
       ];
       }
     ];

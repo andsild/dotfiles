@@ -101,6 +101,8 @@ in
 
       udev.packages = with pkgs; [ yubikey-personalization ];
 
+      blueman.enable = true;
+
     xserver = {
       enable = true;
       # setxkbmap  -option eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no
@@ -142,9 +144,16 @@ xdg-mime default qutebrowser.desktop x-scheme-handler/https
       SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
     };
 
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "steam"
+    "steam-original"
+    "steam-runtime"
+  ];
+
   programs = {
     bash.enableCompletion = true;
     ssh.startAgent = true;
+    steam.enable = true;
   };
 
   environment.systemPackages =
@@ -171,7 +180,6 @@ xdg-mime default qutebrowser.desktop x-scheme-handler/https
     bc
     bind
     binutils-unwrapped
-    blueman
     boost
     checkstyle
     clang
@@ -248,6 +256,7 @@ xdg-mime default qutebrowser.desktop x-scheme-handler/https
     ncurses
     neomutt
     networkmanagerapplet
+    niv
     nmap
     nodejs
     notmuch
@@ -338,66 +347,20 @@ xdg-mime default qutebrowser.desktop x-scheme-handler/https
     youtubeDL
     yubikey-manager-qt
     yubikey-personalization
-    # zathura
     zeal
     zip
     zlib
     zstd
 
+
     (texlive.combine {
         inherit (texlive)
-          collection-basic
-          collection-bibtexextra
-          collection-binextra
-          collection-context
-          collection-fontsextra
-          collection-fontsrecommended
-          collection-fontutils
-          collection-formatsextra
-          collection-games
-          # collection-genericextra
-          # collection-genericrecommended
-          # collection-htmlxml
-          collection-humanities
-          # collection-langafrican
-          # collection-langarabic
-          # collection-langchinese
-          collection-langcjk
-          collection-langcyrillic
-          collection-langczechslovak
-          collection-langenglish
-          collection-langeuropean
-          collection-langfrench
-          collection-langgerman
-          # collection-langindic
-          collection-langitalian
-          collection-langjapanese
-          collection-langkorean
-          collection-langother
-          collection-langpolish
-          collection-langportuguese
-          collection-langspanish
-          collection-latex
-          collection-latexextra
-          collection-latexrecommended
-          collection-luatex
-          # collection-mathextra
-          collection-metapost
-          collection-music
-          # collection-omega
-          collection-pictures
-          # collection-plainextra
-          collection-pstricks
-          collection-publishers
-          # collection-science
-          collection-texworks
-          collection-wintools
-          collection-xetex
-
-          metafont;
-    })
+          scheme-full
+          # can specify extra packages here
+    ;})
 
   ];
+
 
   environment.etc."inputrc".text = ''
   set visible-stats on
