@@ -416,7 +416,7 @@ command! FZFMru call fzf#run({
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })                       
 command! FZFFavorites call fzf#run({          
-  \ 'source':  'fd -a --type file --color never . ${HOME}/dotfiles/',
+  \ 'source':  'fd -H -a --type file --color never . ${HOME}/dotfiles/ ${HOME}/all-things-phd',
   \ 'sink':    'edit',                        
   \ 'options': '-m -x +s -e',                 
   \ 'down':    '40%' })                       
@@ -606,7 +606,7 @@ endfunction
 
 function! s:all_files()
   let l:oldfilesFiltered = filter(copy(v:oldfiles),
-    \        "v:val !~# 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'")
+    \        "v:val !~# 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/|.REMOTE.*'")
   let l:indexedFileList = extend(l:oldfilesFiltered,
     \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 

@@ -59,7 +59,7 @@ PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[%s\]%s@%s\[${WHITE}\]:%s\n \n" \
 export GEM_HOME="${HOME}/.gem" GEM_PATH="${HOME}/.gem"
 HISTIGNORE="ls:l:clear"
 export GOPATH="${HOME}/.go"
-PATH="${HOME}/.cabal/bin:${HOME}/dotfiles/Bash:${GEM_PATH}/bin:$GOROOT/bin:$GOPATH/bin:${HOME}/.local/bin:${HOME}/bin/:${HOME}/work/config/bin:${HOME}/bin/:${PATH}"
+PATH="${HOME}/.cabal/bin:${HOME}/dotfiles/Bash:${GOROOT:-/go}/bin:${GOPATH:-/go}/bin:${HOME}/.local/bin:${HOME}/bin/:${HOME}/work/config/bin:${HOME}/bin/:${PATH}"
 PROMPT_COMMAND='history -a'
 export HISTCONTROL="ignoreboth:erasedups"
 export EDITOR="nvim"
@@ -70,7 +70,7 @@ stty -ixon
 # XMonad needs this to run java nicely
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-export NIX_PATH=myOverride="${HOME}/dotfiles/nixpkgs:myFork=${HOME}/nixpkgs:${NIX_PATH}"
+export NIX_PATH="myFork=${HOME}/nixpkgs:${NIX_PATH}:$HOME/.nix-defexpr/channels"
 
 # My jedi-vim needs this(ugh!)
 export IPYTHONDIR="${HOME}/.ipython"
