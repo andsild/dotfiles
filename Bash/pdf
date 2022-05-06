@@ -31,7 +31,9 @@ function pdf()
         exit
     fi
 
-    setsid xdg-open "${file}" &
+    # Not sure why xdg-mime default zathura.desktop application/pdf doesn't work anymore, so we hardcode this..
+    setsid zathura "${file}" &
+    #setsid xdg-open "${file}" &
 } 2>/dev/null
 
 

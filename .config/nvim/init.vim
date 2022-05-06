@@ -298,7 +298,8 @@ nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 nnoremap <silent> <c-t> :tabe<CR>
 nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
-nnoremap <silent> [Space]t :FZFTags<CR>
+" nnoremap <silent> [Space]t :FZFTags<CR>
+nnoremap <silent> [Space]t :FZF<CR>
 nnoremap <silent> [Space]l :call ToggleList("Location List", 'l')<CR>
 nnoremap <silent> [Space]q :call ToggleList("Quickfix List", 'c')<CR>
 nnoremap <silent> z/ :Zeavim<CR>

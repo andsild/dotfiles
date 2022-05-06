@@ -129,18 +129,15 @@ in
 
  environment.extraInit = ''
 xdg-mime default zathura.desktop application/pdf
-xdg-mime default qutebrowser.desktop text/html
 xdg-mime default shotwell.desktop image/jpeg
 xdg-mime default shotwell.desktop image/jpg
 xdg-mime default shotwell.desktop image/png
 xdg-mime default shotwell.desktop image/gif
-xdg-mime default qutebrowser.desktop x-scheme-handler/http
-xdg-mime default qutebrowser.desktop x-scheme-handler/https
     '';
 
   environment.variables = rec {
       EDITOR  = "nvim";
-      BROWSER = "qutebrowser";
+      BROWSER = "firefox";
       SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
     };
 
