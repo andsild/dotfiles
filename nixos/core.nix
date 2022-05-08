@@ -5,6 +5,9 @@ let
   username = "andsild";
   homedir = "/home/" + username + "/";
   concat = l: r: l + r;
+  nixosGodot = fetchGit {
+    url = "https://github.com/sgillespie/nixos-godot-bin.git";
+  };
 in
 {
   imports =
@@ -12,6 +15,7 @@ in
       ./hardware-configuration.nix
       ./private.nix
     ];
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -35,6 +39,13 @@ in
     };
   };
 
+  nix = {
+    package = pkgs.nixFlakes; 
+    extraOptions = ''
+     experimental-features = nix-command flakes
+    '';
+   };
+
   security.sudo.enable = true;
   security.polkit.enable = true;
   security.pam.loginLimits = [{
@@ -50,7 +61,7 @@ in
     domain = "*";
     type = "hard";
     item = "nofile";
-    value = "16192";
+    value = "524288";
   }
   ];
   
@@ -170,6 +181,9 @@ xdg-mime default shotwell.desktop image/gif
     aspellDicts.nb
     aspellDicts.nn
     astyle
+  godotBin
+  godotMonoBin
+  godotHeadlessBin
     automake
     baobab # disk usage utility
     bash
@@ -248,6 +262,7 @@ xdg-mime default shotwell.desktop image/gif
     mplayer
     mpv
     msmtp
+    mumble
     nailgun
     ncdu
     ncurses
