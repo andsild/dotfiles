@@ -34,11 +34,12 @@ load-plugins=
 # multiple time (only on the command line, not in the configuration file where
 # it should appear only once).
 # disable=W0301,F0401,C0111, W0105
-disable=C, F, I, R, W
+disable=C, F, I, R, W, E0611, E1101
 # C0111: missing method docstring
 # F0401: unresolved imports
 # W0105: string statement
 # W0301: excess semicolon
+# EO611
 
 
 [REPORTS]
