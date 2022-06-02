@@ -159,6 +159,7 @@ xdg-mime default shotwell.desktop image/gif
   ];
 
   programs = {
+    adb.enable = true;
     bash.enableCompletion = true;
     ssh.startAgent = true;
     steam.enable = true;
@@ -403,7 +404,7 @@ xdg-mime default shotwell.desktop image/gif
     isNormalUser = true;
     home = homedir;
     description = "Anders Sildnes";
-    extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" "wireshark" ];
+    extraGroups = [ "netdev" "wheel" "networkmanager" "vboxusers" "audio" "docker" "wireshark" "adbusers" ];
   };
 
   sound.mediaKeys = {
