@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if command fdfind >/dev/null
+then
+  alias fd=fdfind
+fi
+
 alias apt="apt -y"
 alias bc='bc -lq'
 alias cal3="cal -3"
