@@ -48,6 +48,9 @@ alias mkdir='mkdir'
 alias mkj='make'
 alias mountusb='sudo mount -o umask=000'
 alias mv='mv -vi'
+alias nvmi="nvim"
+alias nvi="nvim"
+alias nmiv="nvim"
 alias no="setxkbmap no"
 alias nstack='nice stack'
 alias paste="xclip -o && echo"
@@ -57,6 +60,7 @@ alias plantuml="plantuml -graphvizdot $(which dot)"
 alias wtf="ping -c1 google.com"
 alias py="ipython"
 alias rmdir='rmdir'
+alias scren='screen -T xterm'
 alias screen='screen -T xterm'
 [ -e "/etc/NIXOS" ] && alias stack='stack --nix'
 alias sp=": split  "
