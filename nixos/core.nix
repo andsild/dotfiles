@@ -39,13 +39,6 @@ in
     };
   };
 
-  nix = {
-    package = pkgs.nixFlakes; 
-    extraOptions = ''
-     experimental-features = nix-command flakes
-    '';
-   };
-
   security.sudo.enable = true;
   security.polkit.enable = true;
   security.pam.loginLimits = [{
@@ -182,14 +175,12 @@ xdg-mime default shotwell.desktop image/gif
     aspellDicts.nb
     aspellDicts.nn
     astyle
-  godotBin
-  godotMonoBin
-  godotHeadlessBin
     automake
     baobab # disk usage utility
     bash
     bazel
     bc
+      fluidsynth
     bind
     binutils-unwrapped
     boost
@@ -396,7 +387,7 @@ xdg-mime default shotwell.desktop image/gif
   set completion-ignore-case on
   '';
 
-  virtualisation.virtualbox.host.enable = false;
+  virtualisation.virtualbox.host.enable = true;
   virtualisation.docker.enable = true;
 
   users.extraUsers.andsild =

@@ -56,3 +56,5 @@
   instructionFormat = (%an <%ae>) %s
 [credential]
 	helper = cache --timeout=30000
+[init]
+	defaultBranch = main
