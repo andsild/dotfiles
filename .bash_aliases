@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if command fdfind >/dev/null
+if command fdfind 2>/dev/null
 then
   alias fd=fdfind
 fi

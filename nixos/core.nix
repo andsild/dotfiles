@@ -155,7 +155,7 @@ xdg-mime default shotwell.desktop image/gif
     adb.enable = true;
     bash.enableCompletion = true;
     ssh.startAgent = true;
-    steam.enable = true;
+    steam.enable = false;
   };
 
   environment.systemPackages =
