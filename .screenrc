@@ -6,7 +6,8 @@ shelltitle '$ |'
 hardstatus string 'screen / %h'
 hardstatus on
 hardstatus alwayslastline
-hardstatus string '%{= kg}[ %H ]  %{= kw}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})'
+# hardstatus string '%{= kg}[ %{G}%H %{g}]%= %{= kw}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}%{=b C}[ %d %M %c ]%{W}'
+hardstatus string '%{= kg}[ %H ]  %{= kw}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw'
 
 # Use alt+arrows keys to navigate between windows in regions
 bindkey ^[[1;3C focus down
