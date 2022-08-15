@@ -47,7 +47,7 @@ HOSTNAME="${HOSTNAME}$(hostname)${WHITE}"
 SMILEYFROWNY="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 NIX_SHELL_PACKAGES="echo ${nativeBuildInputs:-} | tr ' ' '\n' | sed 's/[^-]*-\(.*\)-[0-9].*/\1/'"
 NIX_SHELL="if [ -n \"$IN_NIX_SHELL\" ]; then printf \"[nix-shell: %s]\" \"\\\`${NIX_SHELL_PACKAGES}\\\`\"; fi"
-PS1=$(printf "%s %s \[${YELLOW}\]\D{%%H:%%M} \[%s\]%s@%s\[${WHITE}\]:%s\n \n" \
+PS1=$(printf "%s %s\[%s\]%s@%s\[${WHITE}\]:%s\n \n" \
          "\`${SMILEYFROWNY}\`" \
          "\`${NIX_SHELL}\`" \
 	 "\`if [ \"$(whoami)\" == \"root\" ]; then echo \"${RED}\"; else echo \"${WHITE}\"; fi\`" \
