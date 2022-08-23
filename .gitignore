@@ -1,3 +1,4 @@
+.tmp/
 *.log
 vim/.init.vim-rplugin~
 vim/haskellmode.config
