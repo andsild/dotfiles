@@ -774,12 +774,12 @@ cmap <C-v> <C-R>+
 imap <C-v> <C-r>"
 noremap <c-Q> <C-V>
 
-set runtimepath+=/opt/coc.nvim
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+set runtimepath+=/opt/coc.nvim         
+                                       
+inoremap <silent><expr> <TAB>          
+      \ pumvisible() ? "\<C-n>" :      
       \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+      \ coc#refresh()                  
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Use <c-space> for trigger completion.
