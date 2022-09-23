@@ -21,6 +21,7 @@ alias emerge="sudo apt install -y"
 alias ga="git add ."
 alias gac="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\""
 alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
+alias gcp="git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
 alias gc="git commit -m \"\$(fortune | tr '\n' ' ')\""
 alias gclean='(git gc --prune=now  ; git remote prune origin) && git pull'
 alias gdb="gdb --quiet"

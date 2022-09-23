@@ -17,6 +17,7 @@ import Control.Applicative
 import Control.Monad
 import Data.ByteString (ByteString)
 import Data.Map (Map)
+import Data.List
 import Data.Set (Set)
 import Data.Text (Text)
 import qualified Data.ByteString as B

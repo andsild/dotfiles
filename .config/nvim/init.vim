@@ -262,6 +262,8 @@ nnoremap ;d :bdelete<CR>
 nnoremap ;s :split<CR>
 nnoremap ;t :tabe<CR>
 nnoremap ;v :vsplit<CR>
+nnoremap 99 :Make!<CR>
+nnoremap m! :Make!<CR>
 nnoremap <C-o> <C-o>zz
 nnoremap <Down> :res -5<CR>
 nnoremap <Esc><Esc> :nohlsearch<CR>
