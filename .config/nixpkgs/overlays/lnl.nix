@@ -1,6 +1,6 @@
 self: super:
 # install: put this file in ~/.config/nixpkgs/
-#         then run nix-env -f '<nixpkgs>' -r -iA userPackages
+#         then run nix-env -f '<nixos>' -r -iA userPackages
 # to sync new packages, run `nix-rebuild`
 {
   userPackages = super.userPackages or {} // {
