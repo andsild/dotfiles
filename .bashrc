@@ -126,9 +126,9 @@ if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
     if [ -f "/home/andsild/.anaconda/etc/profile.d/conda.sh" ]; then
-        . "/home/andsild/.anaconda/etc/profile.d/conda.sh"
+      . "/home/andsild/.anaconda/etc/profile.d/conda.sh"
     else
-        export PATH="/home/andsild/.anaconda/bin:$PATH"
+      export PATH="/home/andsild/.anaconda/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -138,3 +138,22 @@ fi
 
 export ANSIBLE_NOCOWS=1
 source "${HOME}/.bash_profile"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if [[ "$(hostname)" == "minix" ]]
+then
+  __conda_setup="$('/home/andsild/.anaconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/home/andsild/.anaconda/etc/profile.d/conda.sh" ]; then
+          . "/home/andsild/.anaconda/etc/profile.d/conda.sh"
+      else
+          export PATH="/home/andsild/.anaconda/bin:$PATH"
+      fi
+  fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
