@@ -151,6 +151,7 @@ newkeys = [
     , ((myModMask,               xK_period), sendMessage (IncMasterN (-1)))
     , ((myModMask .|. shiftMask, xK_q     ), restart "xmonad" True)
     , ((myModMask,	             xK_f	), spawn "firefox")
+    , ((myModMask,	             xK_d	), spawn "d")
     , ((myModMask,	       xK_s	), spawn "spotify")
     , ((myModMask,	       xK_u	), spawn "qutebrowser")
     , ((myModMask,	       xK_c	), spawn "chromium-browser")
