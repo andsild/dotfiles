@@ -57,15 +57,13 @@ alias nstack='nice stack'
 alias paste="xclip -o && echo"
 alias pg="ps aux | grep "
 alias pirate="youtube-dl --no-playlist --extract-audio --audio-format mp3"
-alias plantuml="plantuml -graphvizdot $(which dot)"
 alias wtf="ping -c1 google.com"
-alias py="ipython"
+alias py="/usr/bin/env -S python -m IPython"
 alias rmdir='rmdir'
 alias scren='screen -T xterm'
 alias screen='screen -T xterm'
-[ -e "/etc/NIXOS" ] && alias stack='stack --nix'
 alias sp=": split  "
-alias stream="vlc   --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
+alias stream="vlc --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
 alias us="setxkbmap us"
 alias vim="nvim"
 alias vs=": vsplit"
@@ -75,18 +73,6 @@ alias da="cd /mnt/c/Users/anderss/data"
 function smallimg()
 {
     convert -size 32x32 "xc:${2:-orange}" "${1:-empty.jpg}"
-}
-
-
-export OTHER_COMP="169.254.244.132"
-function samba()
-{
-    if [ ! -d "samba/${1}" ]
-    then
-        mkdir -vp samba/"${1}"
-    fi
-    GID=$(id -g "${USER}")
-    sudo   mount -t cifs "//${OTHER_COMP}/${1:obteam2}" "${HOME}/samba/${1}/" -o user=asildnes,domain=SYSCOPERU,gid="${GID}",uid="${UID}"
 }
 
 alias mountVm="sudo sshfs -p 2222 -o allow_other,IdentityFile=~/.ssh/id_rsa,Ciphers=arcfour tdt4258@127.0.0.1:4258Group10 /mnt/vm/"
