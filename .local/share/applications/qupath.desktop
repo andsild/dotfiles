@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=QuPath
+Comment=WSI viewer
+Icon=/opt/QuPath-0.3.2/lib/QuPath.png
+Exec=/opt/QuPath-0.3.2/bin/QuPath.sh
+Terminal=false
+Categories=work

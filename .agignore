@@ -26,7 +26,6 @@ dummy-data/
 file-export-sftp-rsa-key
 generate-eclipse-project
 javaFiles.txt
-lib/
 log/
 logs/
 snippets
