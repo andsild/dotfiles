@@ -3,6 +3,17 @@
   "coc.preferences.extensionUpdateCheck": "never",
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": true,
-  "python.linting.flake8Path": "/usr/bin/flake8",
-  "python.linting.pylintEnabled": true
+  "diagnostic.showUnused": false,
+  "pyright.disableDiagnostics": true,
+  "pyright.inlayHints.functionReturnTypes": false,
+  "pyright.inlayHints.variableTypes": false,
+  "python.analysis.diagnosticSeverityOverrides": {
+       "reportUnusedImport": "warning",
+       "reportUnusedClass": "warning",
+       "reportUnusedFunction": "warning",
+       "reportUnusedVariable": "warning",
+       "reportGeneralTypeIssues": "none",
+       "reportOptionalMemberAccess": "none"
+  },
+  "diagnostic.level": "information"
 }

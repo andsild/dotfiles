@@ -55,8 +55,6 @@ PS1=$(printf "%s %s\[%s\]%s@%s\[${WHITE}\]:%s\n \n" \
          "${HOSTNAME}" \
          "\w" \
 )
-
-export GEM_HOME="${HOME}/.gem" GEM_PATH="${HOME}/.gem"
 HISTIGNORE="ls:l:clear"
 export GOPATH="${HOME}/.go"
 PATH="${HOME}/.cabal/bin:${HOME}/dotfiles/Bash:${GOROOT:-/go}/bin:${GOPATH:-/go}/bin:${HOME}/.local/bin:${HOME}/bin/:${HOME}/work/config/bin:${HOME}/bin/:${PATH}"
@@ -69,8 +67,6 @@ stty -ixon
 
 # XMonad needs this to run java nicely
 export _JAVA_AWT_WM_NONREPARENTING=1
-
-export NIX_PATH="myFork=${HOME}/nixpkgs:${NIX_PATH}:$HOME/.nix-defexpr/channels"
 
 # My jedi-vim needs this(ugh!)
 export IPYTHONDIR="${HOME}/.ipython"

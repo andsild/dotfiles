@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Intellij
+Comment=java world
+Icon=/opt/idea-IC-222.4459.24/bin/idea.png
+Exec=/opt/idea-IC-222.4459.24/bin/idea.sh
+Terminal=false
+Categories=work

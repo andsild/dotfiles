@@ -27,6 +27,7 @@ nix-env -u
 ### To remove
 ```bash
 nix-env -e neovim
+# To get rid of nix as well
 sed '/nix.sh/d' -i ~/.bash_profile
 rm -rfi ~/.nix* ~/.config/nixpkgs # careful with the wildcard!
 sudo rm -rfi /nix/
