@@ -142,7 +142,6 @@ let
       "vim-latex-live-preview"
       "vim-localvimrc"
       "vim-logreview"
-      "vim-markdown"
       "vim-niceblock"
       "vim-nix"
       "vim-operator-replace"

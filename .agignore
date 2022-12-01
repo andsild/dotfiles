@@ -1,3 +1,5 @@
+*.import
+.import/
 *.class
 *.iml
 *.js.map
