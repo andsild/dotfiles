@@ -1,32 +1,8 @@
-  set termencoding=utf-8
-
-
-function! s:IsMac()
-  let l:sysout=system('uname')
-  return has('unix') && match(l:sysout, '\cDarwin') == 0
-endfunction
-
-if s:IsMac()
-    nnoremap <silent> ± ~
-    cnoremap ± ~
-    inoremap ± ~
-    inoremap § `
-    nnoremap ± ~
-    nnoremap § `
-    cnoremap ± ~
-    cnoremap § `
-    vnoremap ± ~
-    vnoremap § `
-endif
+set termencoding=utf-8
 
 let g:default_colorscheme = 'koehler'
 set background=dark
 let g:mapleader = ','
-
-if &compatible
-  " vint: -ProhibitSetNoCompatible
-  set nocompatible
-endif
 
 if has('vim_starting')
   set encoding=utf-8
@@ -35,23 +11,6 @@ if has('vim_starting')
   filetype plugin indent on
   exe 'silent! colorscheme ' . g:default_colorscheme
 endif
-
-" Disable netrw.vim
-let g:loaded_netrwPlugin = 1
-let g:loaded_matchparen = 1
-let g:loaded_2html_plugin = 1
-let g:loaded_vimballPlugin = 1
-let t:cwd = getcwd()
-
-augroup my_git_rebase
-  autocmd!
-  autocmd FileType gitrebase nnoremap <buffer> <Leader>cy :Cycle<cr>
-  autocmd FileType gitrebase nnoremap <buffer> <Leader>ed :Edit<cr>
-  autocmd FileType gitrebase nnoremap <buffer> <Leader>fi :Fixup<cr>
-  autocmd FileType gitrebase nnoremap <buffer> <Leader>pi :Pick<cr>
-  autocmd FileType gitrebase nnoremap <buffer> <Leader>sq :Squash<cr>
-  autocmd FileType gitrebase nnoremap <buffer> <Leader>re :Reword<cr>
-augroup END
 
 augroup DefaultAuGroup
     autocmd!
@@ -62,31 +21,10 @@ augroup DefaultAuGroup
     autocmd BufWritePost,FileWritePost *.vim    if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePost,FileWritePost *.lvimrc if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
-    autocmd FileType c,cpp set formatprg=astyle
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType gitcommit,qfreplace setlocal nofoldenable
-    autocmd FileType go highlight default link goErr WarningMsg | match goErr /\<err\>/
-    autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=./;/
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd CursorHold *.java silent call CocActionAsync('highlight')
-    autocmd FileType javascript,javascript.jsx nmap <buffer> <s-k> :TernDoc<CR>
     autocmd FileType pdf Pdf '%'
-    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    autocmd FileType python setlocal formatprg=autopep8\ --aggressive\ --ignore=E309\ -
-    autocmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd InsertLeave * if &l:diff | diffupdate | endif " Update diff.
-    autocmd InsertLeave * if &paste | set nopaste mouse=a | echo 'nopaste' | endif | if &l:diff | diffupdate | endif
-    autocmd WinEnter * checktime " Check timestamp more for 'autoread'.
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc  | setlocal formatprg=stylish-haskell
-    autocmd FileType haskell nnoremap <silent><buffer>K :GhcModInfoPreview<CR>
     autocmd TermOpen term://* setlocal norelativenumber
 
-    if has('python3')
-        autocmd FileType python setlocal omnifunc=python3complete#Complete
-    else
-        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    endif
     autocmd BufWritePost *
     \ if &l:filetype ==# '' || exists('b:ftdetect')
     \ |   unlet! b:ftdetect
@@ -95,11 +33,41 @@ augroup DefaultAuGroup
 
 augroup END
 
-augroup syntax-highlight-extends
-  autocmd!
-  autocmd Syntax vim
-        \ call s:set_syntax_of_user_defined_commands()
-augroup END
+call plug#begin()
+Plug '907th/vim-auto-save'
+Plug 'andsild/missing-spellfiles-neovim'
+Plug 'andsild/peskcolor.vim'
+Plug 'andsild/suckless.vim'
+Plug 'andsild/vim-choosewin'
+Plug 'andsild/vim-unimpaired'
+Plug 'embear/vim-localvimrc'
+Plug 'habamax/vim-godot'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'kana/vim-niceblock/'
+Plug 'kana/vim-textobj-user'
+Plug 'rhysd/committia.vim'
+Plug 't9md/vim-smalls'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tyru/caw.vim'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+let g:deoplete#enable_at_startup = 1
+
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
+call plug#end()
 
 filetype on
 set autoindent
@@ -110,10 +78,9 @@ set backupdir-=.
 set breakat=\ \ ;:,!?
 set cmdheight=2
 set cmdwinheight=5
-set commentstring=%s
 " set complete=.
 " set completeopt=menu
-set conceallevel=2 concealcursor=iv
+"set conceallevel=2 concealcursor=iv
 set cpoptions-=m " Highlight when CursorMoved.
 set directory-=. " Set swap directory.
 set display=lastline
@@ -128,7 +95,7 @@ set grepprg=grep\ -inH " Use grep.
 set helpheight=12
 set hidden " Display another buffer when current buffer isn't saved.
 set history=1000
-set hlsearch " Don't highlight search result.
+set hlsearch
 set ignorecase " Ignore the case of normal letters.
 set incsearch " Enable incremental search.
 set infercase " Ignore case on insert completion.
@@ -155,7 +122,6 @@ set pumheight=0
 set report=0
 set secure
 set sessionoptions="blank,curdir,folds,help,winsize"
-set shell=bash
 set shiftround
 set shiftwidth=2 " Round indent by shiftwidth.
 set shortmess=aTIc
@@ -188,12 +154,6 @@ set winminwidth=0
 set winwidth=1
 set wrapscan " Searches wrap around the end of the file.
 
-if has('multi_byte_ime')
-  set iminsert=0 imsearch=0
-endif
-if $GOROOT !=? ''
-  set runtimepath+=$GOROOT/misc/vim
-endif
 if !&verbose
   set spelllang=en_us
 endif
@@ -233,14 +193,10 @@ inoremap <C-d>  <Del>
 inoremap <C-u>  <C-g>u<C-u>
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <c-b> <Esc>i
-map 0 ^
-map <F1> <Esc>
 nmap <Space>   [Space]
-nmap <C-6> <C-6>zz
 nmap <C-a> <SID>(increment)
 nmap <C-w>  <Plug>(choosewin)
 nmap <C-x> <SID>(decrement)
-nmap <F1> <nop>
 nmap <F8> :TagbarToggle<CR>
 nmap <silent> <F6> :silent NextWordy<CR>
 nmap <silent> <F7> :call ToggleSpell()<CR>
@@ -253,7 +209,7 @@ nmap gc <Plug>(caw:prefix)
 nmap gcc <Plug>(caw:hatpos:toggle)
 nmap j gj
 nmap k gk
-nnoremap <silent> <Space>m :Buffers<CR> 
+nnoremap <silent> <Space>m :Buffers<CR>
 nnoremap  [Space]   <Nop>
 nnoremap * :silent set hlsearch<CR>*<C-o>
 nnoremap ,  <Nop>
@@ -276,38 +232,24 @@ nnoremap <SID>(command-line-enter) q:
 nnoremap <SID>(command-line-norange) q:<C-u>
 nnoremap <Tab> <Tab>zz
 nnoremap <Up> :res +5<CR>
-nnoremap <leader>hi :call <SID>SynStack()<CR>
 nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
-nnoremap <leader>lc :call <SID>ToggleShowListChars()<CR>
-nnoremap <leader>sp :<C-u>call ToggleOption('spell')<CR>
 nnoremap <leader>t :term<CR>
 nnoremap <leader>u :diffupdate<CR>
 nnoremap <leader>du :diffupdate<CR>
 nnoremap <leader>dt :diffthis<CR>
 nnoremap <leader>do :diffoff<CR>
 nnoremap <silent> / :BLines<CR>
-nnoremap <silent> ;o  :<C-u>only<CR>
-nnoremap <silent> <C-b> <C-b>
-nnoremap <silent> <C-f> <C-f>
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 nnoremap <silent> <Leader>. :<C-u>call ToggleOption('number')<CR>
-nnoremap <silent> <Leader><C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm:echo 'Took away c-m'<CR>
-nnoremap <silent> <Leader>au :Autoformat<CR>
-nnoremap <silent> <Leader>cl :<C-u>call ToggleOption('cursorline')<CR>
-nnoremap <silent> <Leader>cs :call ToggleColorScheme()<CR>
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:set nohlsearch<CR>:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
 nnoremap <silent> <c-t> :tabe<CR>
-nnoremap <silent> [Quickfix]<Space> :<C-u>call <SID>toggle_quickfix_window()<CR>
-" nnoremap <silent> [Space]t :FZFTags<CR>
 nnoremap <silent> [Space]t :FZF<CR>
 nnoremap <silent> [Space]l :call ToggleList("Location List", 'l')<CR>
 nnoremap <silent> [Space]q :call ToggleList("Quickfix List", 'c')<CR>
 nnoremap <silent> z/ :Zeavim<CR>
-nnoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 nnoremap > >>
-nnoremap M  m
 nnoremap Q  q " Disable Ex-mode.
 nnoremap [Quickfix]   <Nop> " q: Quickfix
 nnoremap [Space]/  :Ag<CR>
@@ -315,21 +257,16 @@ nnoremap [Space]O :FZFFavorites<CR>
 nnoremap <Leader>ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]o :FZFGit<CR>
 nnoremap [Space]w :silent Neomake<CR>
-nnoremap <c-p> :FZFTags<CR>
 nnoremap \  `
 nnoremap dh :diffget //3<CR>
 nnoremap dl :diffget //2<CR>
-nnoremap vaw viw
-noremap <F12> <NOP>
 omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
-onoremap <silent> } :<C-u>call ForwardParagraph()<CR>
 silent! nnoremap < <<
-" tmap <c-r> <c-u>`cat ~/.bash_history \| fzf`<CR>
+ tmap <c-r> <c-u>`cat ~/.bash_history \| fzf`<CR>
 vmap gcc <Plug>(caw:hatpos:toggle)
 vnoremap ; <Esc>
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
-vnoremap vaw viw
 vnoremap dp :'<,'>diffput<CR>:diffupdate<CR>
 vnoremap do :'<,'>diffget<CR>:diffupdate<CR>
 xmap  <Space>   [Space]
@@ -346,11 +283,9 @@ xnoremap < <gv
 xnoremap <S-TAB>  <
 xnoremap <SID>(command-line-enter) q:
 xnoremap <TAB>  >
-xnoremap <silent> } <Esc>:<C-u>call ForwardParagraph()<CR>mzgv`z
 xnoremap > >gv
 xnoremap m  <Nop>
 xnoremap r <C-v> " Select rectangle.
-xnoremap v $h
 
 if has('clipboard')
   xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
@@ -369,8 +304,6 @@ let g:Gitv_DoNotMapCtrlKey = 1
 let g:Gitv_OpenHorizontal = 'auto'
 let g:echodoc_enable_at_startup = 0
 let g:Gitv_WipeAllOnClose = 1
-let g:SimpleJsIndenter_BriefMode = 1
-let g:SimpleJsIndenter_CaseIndentLevel = -1
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
 let g:choosewin_blink_on_land = 0
@@ -379,33 +312,19 @@ let g:localvimrc_whitelist='.*'
 let g:localvimrc_sandbox=0
 let g:choosewin_overlay_enable = 1
 let g:formatters_javascript = ['jscs']
-let g:haddock_browser = 'qutebrowser'
+let g:haddock_browser = 'firefox'
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:intero_stack_yaml='stack.yaml'
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_ngdoc = 1
 let g:jsx_ext_required = 0
 let g:livepreview_previewer = 'zathura'
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
-let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'vim']
 let g:myLang=0
 let g:myLangList=['nospell','en_us', 'nb', 'weak']
-let g:neomake_haskell_enabled_makers = ['hlint']
-let g:neomake_javascript_enabled_makers=['eslint', 'jscs']
-let g:neomake_list_height = 5
-let g:neomake_open_list = 2
-let g:neomake_python_enabled_makers=['pylint']
-let g:neomake_tex_enabled_makers = ['chktex']
 let g:neosnippet#snippets_directory=expand($XDG_CONFIG_HOME) . '/nvim/snippets'
 let g:python_highlight_all = 1
 let g:vimsyntax_noerror = 1
 let s:my_split = {'is_selectable': 1}
-
-command! -bang -bar -complete=file -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
-command! -bang -bar -complete=file -nargs=? Utf16 edit<bang> ++enc=ucs-2le <args>
-command! -bang -bar -complete=file -nargs=? Utf16be edit<bang> ++enc=ucs-2 <args>
-command! -bang -bar -complete=file -nargs=? Unicode Utf16<bang> <args>
 
 command! -bang -complete=file -nargs=* FZFGit call fzf#run({
   \ 'source':  printf('(cd %s ; git ls-files --no-empty-directory --exclude-standard . | egrep -v "\.zip$|\.gz$|\.jpg$|\.png$|\.jar$" | sed -e s,^,%s/,)',
@@ -417,31 +336,26 @@ command! FZFMru call fzf#run({
   \ 'source':  reverse(s:all_files()),
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
-  \ 'down':    '40%' })                       
-command! FZFFavorites call fzf#run({          
+  \ 'down':    '40%' })
+command! FZFFavorites call fzf#run({
   \ 'source':  'fd -H -a --type file --color never . ${HOME}/dotfiles/ ${HOME}/all-things-phd',
-  \ 'sink':    'edit',                        
-  \ 'options': '-m -x +s -e',                 
-  \ 'down':    '40%' })                       
-command! -range -nargs=1 AddNumbers           
+  \ 'sink':    'edit',
+  \ 'options': '-m -x +s -e',
+  \ 'down':    '40%' })
+command! -range -nargs=1 AddNumbers
   \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
 command! FZFLines mksession! /tmp/layout.vim | call fzf#run({
 \   'source':  <sid>buffer_lines(),
-\   'sink':    function('<sid>line_handler'), 
-\   'options': '--extended --nth=3..',        
-\   'down':    '60%'                          
-\})                                           
-command! Wa wa                                
-command! WQa wqa                              
-command! Qa qa                                
+\   'sink':    function('<sid>line_handler'),
+\   'options': '--extended --nth=3..',
+\   'down':    '60%'
+\})
+command! Wa wa
+command! WQa wqa
+command! Qa qa
 command! Wqa wqa
 command! W w
 command! GS execute 'Gstatus | res +10'
-
-function! s:check_back_space() abort
-  let l:col = col('.') - 1
-  return !l:col || getline('.')[l:col - 1]  =~? '\s'
-endfunction
 
 function! s:mkdir_as_necessary(dir, force)
   if !isdirectory(a:dir) && &l:buftype ==? '' &&
@@ -466,19 +380,6 @@ endfunction
 
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
-
-function! s:set_syntax_of_user_defined_commands()
-  redir => l:commandout
-  silent! command
-  redir END
-
-  let l:command_names = join(map(split(l:commandout, '\n')[1:],
-        \ "matchstr(v:val, '[!\"b]*\\s\\+\\zs\\u\\w*\\ze')"))
-
-  if l:command_names ==? '' | return | endif
-
-  execute 'syntax keyword vimCommand ' . l:command_names
 endfunction
 
 function! GetBufferList()
@@ -528,18 +429,6 @@ function! s:toggle_quickfix_window()
   endif
 endfunction
 
-function! ForwardParagraph()
-  let l:cnt = v:count ? v:count : 1
-  let l:i = 0
-  while l:i < l:cnt
-    if !search('^\s*\n.*\S','W')
-      normal! G$
-      return
-    endif
-    let l:i = l:i + 1
-  endwhile
-endfunction
-
 function! s:add_numbers(num)
   let l:prev_line = getline('.')[: col('.')-1]
   let l:next_line = getline('.')[col('.') :]
@@ -582,10 +471,6 @@ if executable('pdftotext')
     setlocal nomodified
   endfunction
 endif
-
-function! s:smart_search_expr(expr1, expr2)
-  return line('$') > 5000 ?  a:expr1 : a:expr2
-endfunction
 
 function! s:strwidthpart(str, width)
   if a:width <= 0
@@ -710,45 +595,6 @@ function! s:tags_sink(line)
   let &magic = l:magic
 endfunction
 
-function! s:tags()
-  if empty(tagfiles())
-    echohl WarningMsg
-    echom 'Preparing tags'
-    echohl None
-    call system('ctags -R --force-language=java')
-  endif
-
-  call fzf#run({
-  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, '':S'')')).
-  \            '| grep -v -a ^!',
-  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index ' .
-  \            '--multi --bind ctrl-a:select-all,ctrl-d:deselect-all ',
-  \ 'down':    '30%',
-  \ 'sink':    function('s:tags_sink')})
-endfunction
-
-command! FZFTags call s:tags()
-
-" Show which highlight group is active under cursor (doesn't work with SpecialKey)
-" (see also :so $VIMRUNTIME/syntax/hitest.vim)
-function! <SID>SynStack()
-  if !exists('*synstack')
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
-endfunc
-
-function! <SID>ToggleShowListChars()
-  redir => l:listchars
-  silent set listchars
-  redir end
-  if l:listchars =~# '.*trail.*'
-    set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:%
-  else
-    setlocal listchars+=trail:»,space:␣,eol:┌
-  endif
-endfunc
-
 function! s:ApplyCustomColorScheme()
   if g:default_colorscheme ==# 'mayansmoke'
     highlight Comment ctermfg=27
@@ -764,7 +610,7 @@ let &titlestring="
   \ &columns-len(expand('%:p:.:~')))}\) - VIM"
 let &statusline=' '
   \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"
-  \ . " [%{gitbranch#name()}]\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
+  \ . "%=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
   \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
 
 call s:ApplyCustomColorScheme()
@@ -776,7 +622,7 @@ cmap <C-v> <C-R>+
 imap <C-v> <C-r>"
 noremap <c-Q> <C-V>
 
-set runtimepath+=/opt/coc.nvim         
+set runtimepath+=/opt/coc.nvim
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -809,9 +655,7 @@ endfunction
 
 augroup mygroup
   autocmd!
-  " Setup formatexpr specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
