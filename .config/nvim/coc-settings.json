@@ -3,6 +3,7 @@
   "coc.preferences.extensionUpdateCheck": "never",
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": ["--config", "~/.flake8"],
   "diagnostic.showUnused": false,
   "pyright.disableDiagnostics": true,
   "pyright.inlayHints.functionReturnTypes": false,
