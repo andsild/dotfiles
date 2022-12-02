@@ -47,6 +47,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-niceblock/'
 Plug 'kana/vim-textobj-user'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/committia.vim'
 Plug 't9md/vim-smalls'
 Plug 'tpope/vim-fugitive'
@@ -338,7 +339,7 @@ command! FZFMru call fzf#run({
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
 command! FZFFavorites call fzf#run({
-  \ 'source':  'fd -H -a --type file --color never . ${HOME}/dotfiles/ ${HOME}/all-things-phd',
+  \ 'source':  'fdfind -H -a --type file --color never . ${HOME}/dotfiles/ ${HOME}/all-things-phd',
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
@@ -621,8 +622,6 @@ map <C-v> p
 cmap <C-v> <C-R>+
 imap <C-v> <C-r>"
 noremap <c-Q> <C-V>
-
-set runtimepath+=/opt/coc.nvim
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: There's always complete item selected by default, you may want to enable
