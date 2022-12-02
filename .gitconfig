@@ -14,7 +14,6 @@
 [core]
   editor = vim
   excludesfile = ~/dotfiles/git/gitexclude
-  #pager = "if [ -n \"${NVIM_LISTEN_ADDRESS}\" ] ; then ${PAGER} - ;  else nvim -R -c AnsiEsc - ; fi " 
   whitespace = trailing-space
   attributes = ~/dotfiles/git/gitattributes
 [alias]
