@@ -36,7 +36,6 @@ augroup END
 call plug#begin()
 Plug '907th/vim-auto-save'
 Plug 'andsild/missing-spellfiles-neovim'
-Plug 'andsild/peskcolor.vim'
 Plug 'andsild/suckless.vim'
 Plug 'andsild/vim-choosewin'
 Plug 'andsild/vim-unimpaired'
@@ -176,6 +175,7 @@ if has('nvim')
   tnoremap <expr> <A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 endif
 
+tmap <c-r> <c-u>`cat ~/.bash_history \| fzf`<CR>
 cmap w!! w !sudo tee > /dev/null %
 cnoremap <C-a>          <Home>
 cnoremap <C-b>          <Left>
@@ -194,11 +194,11 @@ inoremap <C-d>  <Del>
 inoremap <C-u>  <C-g>u<C-u>
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <c-b> <Esc>i
-nmap <Space>   [Space]
 nmap <C-a> <SID>(increment)
 nmap <C-w>  <Plug>(choosewin)
 nmap <C-x> <SID>(decrement)
 nmap <F8> :TagbarToggle<CR>
+nmap <Space>   [Space]
 nmap <silent> <F6> :silent NextWordy<CR>
 nmap <silent> <F7> :call ToggleSpell()<CR>
 nmap <silent>sa <Plug>(operator-surround-append)a
@@ -210,22 +210,21 @@ nmap gc <Plug>(caw:prefix)
 nmap gcc <Plug>(caw:hatpos:toggle)
 nmap j gj
 nmap k gk
-nnoremap <silent> <Space>m :Buffers<CR>
 nnoremap  [Space]   <Nop>
 nnoremap * :silent set hlsearch<CR>*<C-o>
 nnoremap ,  <Nop>
+nnoremap 99 :Make!<CR>
 nnoremap ;  <Nop>
 nnoremap ;d :bdelete<CR>
 nnoremap ;s :split<CR>
 nnoremap ;t :tabe<CR>
 nnoremap ;v :vsplit<CR>
-nnoremap 99 :Make!<CR>
-nnoremap m! :Make!<CR>
 nnoremap <C-o> <C-o>zz
 nnoremap <Down> :res -5<CR>
 nnoremap <Esc><Esc> :nohlsearch<CR>
 nnoremap <F1> <Esc>
 nnoremap <F9> :silent make! <bar> redraw!<CR>
+nnoremap <Leader>ar :<C-u>setlocal autoread<CR>
 nnoremap <Leader>w :<C-u>call ToggleOption('wrap')<CR>
 nnoremap <Left> :10winc<<CR>
 nnoremap <Right> :10winc><CR>
@@ -233,43 +232,43 @@ nnoremap <SID>(command-line-enter) q:
 nnoremap <SID>(command-line-norange) q:<C-u>
 nnoremap <Tab> <Tab>zz
 nnoremap <Up> :res +5<CR>
+nnoremap <leader>do :diffoff<CR>
+nnoremap <leader>dt :diffthis<CR>
+nnoremap <leader>du :diffupdate<CR>
 nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
 nnoremap <leader>t :term<CR>
 nnoremap <leader>u :diffupdate<CR>
-nnoremap <leader>du :diffupdate<CR>
-nnoremap <leader>dt :diffthis<CR>
-nnoremap <leader>do :diffoff<CR>
 nnoremap <silent> / :BLines<CR>
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 nnoremap <silent> <Leader>. :<C-u>call ToggleOption('number')<CR>
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:set nohlsearch<CR>:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
+nnoremap <silent> <Space>m :Buffers<CR>
 nnoremap <silent> <c-t> :tabe<CR>
-nnoremap <silent> [Space]t :FZF<CR>
 nnoremap <silent> [Space]l :call ToggleList("Location List", 'l')<CR>
 nnoremap <silent> [Space]q :call ToggleList("Quickfix List", 'c')<CR>
+nnoremap <silent> [Space]t :FZF<CR>
 nnoremap <silent> z/ :Zeavim<CR>
 nnoremap > >>
 nnoremap Q  q " Disable Ex-mode.
 nnoremap [Quickfix]   <Nop> " q: Quickfix
 nnoremap [Space]/  :Ag<CR>
 nnoremap [Space]O :FZFFavorites<CR>
-nnoremap <Leader>ar :<C-u>setlocal autoread<CR>
 nnoremap [Space]o :FZFGit<CR>
 nnoremap [Space]w :silent Neomake<CR>
 nnoremap \  `
 nnoremap dh :diffget //3<CR>
 nnoremap dl :diffget //2<CR>
+nnoremap m! :Make!<CR>
 omap ab <Plug>(textobj-multiblock-a)
 omap ib <Plug>(textobj-multiblock-i)
 silent! nnoremap < <<
- tmap <c-r> <c-u>`cat ~/.bash_history \| fzf`<CR>
 vmap gcc <Plug>(caw:hatpos:toggle)
 vnoremap ; <Esc>
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left>
-vnoremap dp :'<,'>diffput<CR>:diffupdate<CR>
 vnoremap do :'<,'>diffget<CR>:diffupdate<CR>
+vnoremap dp :'<,'>diffput<CR>:diffupdate<CR>
 xmap  <Space>   [Space]
 xmap <Enter> <Plug>(EasyAlign)
 xmap A  <Plug>(niceblock-A)
