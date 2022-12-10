@@ -408,16 +408,6 @@ function! ToggleList(bufname, pfx)
   endif
 endfunction
 
-function! ToggleColorScheme()
-  if exists('g:syntax_on')
-    syntax off
-  else
-    syntax enable
-
-    call s:ApplyCustomColorScheme()
-  endif
-endfunction
-
 function! s:toggle_quickfix_window()
   let l:_ = winnr('$')
   cclose
@@ -594,15 +584,6 @@ function! s:tags_sink(line)
   let &magic = l:magic
 endfunction
 
-function! s:ApplyCustomColorScheme()
-  if g:default_colorscheme ==# 'mayansmoke'
-    highlight Comment ctermfg=27
-    highlight Conceal ctermfg=019 ctermbg=255
-    highlight SpecialKey ctermfg=247 ctermbg=255
-    highlight Search term=bold ctermfg=015 ctermbg=134
-  endif
-endfunction
-
 let &titlestring="
   \ %{expand('%:p:.:~')}%(%m%r%w%)
   \ %<\(%{".s:SID_PREFIX()."strwidthpart(fnamemodify(getcwd(), ':~'),
@@ -611,8 +592,6 @@ let &statusline=' '
   \ . "%{(&previewwindow?'[preview] ':'').expand('%')}"
   \ . "%=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
   \ . "%{printf(' %4d/%d',line('.'),line('$'))} %c"
-
-call s:ApplyCustomColorScheme()
 
 " ctrl-v
 vnoremap <C-C> "+y
@@ -627,7 +606,7 @@ noremap <c-Q> <C-V>
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "<Tab>"
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? "<c-n> " : "<TAB>"
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
