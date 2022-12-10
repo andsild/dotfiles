@@ -1,4 +1,30 @@
-import numpy as np
+import sys
+import os
+try:
+    import pandas
+except ImportError:
+    print ("Not importing pandas - missing dependency")
+
+try:
+    import numpy as np
+except ImportError:
+    print ("Not importing numpy - missing dependency")
+
+try:
+    import scipy
+except ImportError:
+    print ("Not importing scipy - missing dependency")
+
+try:
+    import torch
+except ImportError:
+    print ("Not importing torch - missing dependency")
+
+try:
+    import torch.nn.functional as F
+except ImportError:
+    print ("Not importing torch.nn.functional - missing dependency")
+
 from itertools import *
 
 def flatten(listOfLists):
