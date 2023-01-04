@@ -26,16 +26,13 @@ PURPLE="$(printf '%b' '\e[00;35m')"
 SMILEY="${GREEN}:)"
 FROWNY="${RED}:("
 case $(hostname) in
-    drusus*)
+    antipater)
         HOSTNAME="${YELLOW}"
-        ;;
-    de*|ash*|tja*)
-        HOSTNAME="${RED}"
         ;;
     antipater)
         HOSTNAME="${BLUE}"
         ;;
-    cassander)
+    094)
         HOSTNAME="${PURPLE}"
         ;;
     *)
@@ -87,7 +84,7 @@ fi
 export SCIPY_PIL_IMAGE_VIEWER="xdg-open"
 export XDG_CONFIG_HOME="${HOME}/.config/" XDG_DATA_DIR="${HOME}/.local/share/" XDG_DATA_HOME="${HOME}/.local/share/" XDG_CACHE_HOME="${HOME}/.cache"
 export FZF_DEFAULT_OPTS='--extended -i --exact' FZF_COMPLETION_OPTS='--extended --exact'
-export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_COMMAND='fdfind --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 [ -e "${HOME}/.bash-git-prompt/gitprompt.sh" ] && . "${HOME}/.bash-git-prompt/gitprompt.sh"
@@ -97,9 +94,6 @@ fi
 GIT_PROMPT_START="$(printf "%s %s" "\`whoami\`" "\`date +%H:%M\`")"
 GIT_PROMPT_END="$(printf " %s%s%s\n:" "${TEAL}" "\`pwd | sed 's#$HOME/##'\`" "${WHITE}")"
 export GIT_PROMPT_START GIT_PROMPT_END GIT_PROMPT_ONLY_IN_REPO=1
-
-[ -n "$NVIM_LISTEN_ADDRESS" ] && alias :='~/.nvimex.py'
-[ -f "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
 
 _pip_completion()
 {
@@ -112,24 +106,7 @@ complete -o default -F _pip_completion pip
 [ -f "/etc/bash_completion.d/git-prompt" ] && . /etc/bash_completion.d/git-prompt
 [ -f "/etc/bash_completion.d/bazel" ] && . /etc/bash_completion.d/bazel
 [ -f "/home/andsild/.bazel/bin/bazel-complete.bash" ] && . /home/andsild/.bazel/bin/bazel-complete.bash 
-[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
-
-
-if [[ "$(hostname)" == "094" ]]
-then
-__conda_setup="$('/home/andsild/.anaconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/andsild/.anaconda/etc/profile.d/conda.sh" ]; then
-      . "/home/andsild/.anaconda/etc/profile.d/conda.sh"
-    else
-      export PATH="/home/andsild/.anaconda/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-fi
+# [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
 
 
 export ANSIBLE_NOCOWS=1
@@ -137,7 +114,7 @@ source "${HOME}/.bash_profile"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-if [[ "$(hostname)" == "minix" ]]
+if [[ "$(hostname)" == "minix" || "$(hostname)" == "094" ]]
 then
   __conda_setup="$('/home/andsild/.anaconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
   if [ $? -eq 0 ]; then
