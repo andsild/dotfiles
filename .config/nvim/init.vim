@@ -3,6 +3,7 @@ set termencoding=utf-8
 set background=dark
 let g:mapleader = ','
 
+let g:default_colorscheme = 'koehler'
 if has('vim_starting')
   set encoding=utf-8
   scriptencoding utf8
@@ -274,7 +275,6 @@ xmap A  <Plug>(niceblock-A)
 xmap I  <Plug>(niceblock-I)
 xmap ab <Plug>(textobj-multiblock-a)
 xmap ib <Plug>(textobj-multiblock-i)
-" xmap p <Plug>(operator-replace)
 xnoremap  [Space]   <Nop>
 xnoremap ,  <Nop>
 xnoremap ;  <Nop>
@@ -606,7 +606,51 @@ noremap <c-Q> <C-V>
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? "<c-n> " : "<TAB>"
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? "<c-n>" : "<TAB>"
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+augroup mygroup
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocActionAsync('format')
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
