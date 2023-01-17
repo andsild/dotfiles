@@ -29,7 +29,7 @@ case $(hostname) in
     antipater)
         HOSTNAME="${YELLOW}"
         ;;
-    antipater)
+    minix)
         HOSTNAME="${BLUE}"
         ;;
     094)
