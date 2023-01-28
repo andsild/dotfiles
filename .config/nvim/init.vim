@@ -9,7 +9,7 @@ if has('vim_starting')
   scriptencoding utf8
 
   filetype plugin indent on
-  exe 'silent! colorscheme ' . g:default_colorscheme
+  colorscheme koehler
 endif
 
 augroup DefaultAuGroup
