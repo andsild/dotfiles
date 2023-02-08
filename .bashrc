@@ -73,21 +73,14 @@ export HISTFILE_SIZE=100000000
 
 shopt -s cdspell # Enable directory autocorrection
 
-if [ -e "/etc/NIXOS" ]
-then
-  if command -v fzf-share >/dev/null; then
-    source "$(fzf-share)/key-bindings.bash"
-  fi
-else
-  [ -f ~/.fzf.bash ] && . ~/.fzf.bash
-fi
+[ -f ~/.fzf.bash ] && . ~/.fzf.bash
+
 export SCIPY_PIL_IMAGE_VIEWER="xdg-open"
 export XDG_CONFIG_HOME="${HOME}/.config/" XDG_DATA_DIR="${HOME}/.local/share/" XDG_DATA_HOME="${HOME}/.local/share/" XDG_CACHE_HOME="${HOME}/.cache"
 export FZF_DEFAULT_OPTS='--extended -i --exact' FZF_COMPLETION_OPTS='--extended --exact'
 export FZF_DEFAULT_COMMAND='fdfind --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-[ -e "${HOME}/.bash-git-prompt/gitprompt.sh" ] && . "${HOME}/.bash-git-prompt/gitprompt.sh"
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
