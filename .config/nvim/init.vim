@@ -55,19 +55,6 @@ Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
-let g:deoplete#enable_at_startup = 1
-
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-
 call plug#end()
 
 filetype on
@@ -186,7 +173,7 @@ cnoremap <C-n>          <Down>
 cnoremap <C-p>          <Up>
 cnoremap <C-y>          <C-r>*
 imap <F1> <Esc>
-imap <expr><c-s> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+imap <C-s> <Plug>(coc-snippets-expand)
 imap jj <Esc>
 imap kk <Esc>
 inoremap <C-6> <Esc><C-6>zz
@@ -320,7 +307,6 @@ let g:livepreview_previewer = 'zathura'
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let g:myLang=0
 let g:myLangList=['nospell','en_us', 'nb', 'weak']
-let g:neosnippet#snippets_directory=expand($XDG_CONFIG_HOME) . '/nvim/snippets'
 let g:python_highlight_all = 1
 let g:vimsyntax_noerror = 1
 let s:my_split = {'is_selectable': 1}
