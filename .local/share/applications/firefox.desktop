@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Firefox
+Comment=web browser
+Icon=/opt/firefox/browser/chrome/icons/default/default64.png
+Exec=/opt/firefox/firefox
+Terminal=false
+Categories=web
+
