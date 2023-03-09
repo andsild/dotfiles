@@ -155,7 +155,7 @@ newkeys = [
     , ((myModMask,	       xK_s	), spawn "spotify")
     , ((myModMask,	       xK_u	), spawn "qutebrowser")
     , ((myModMask,	       xK_c	), spawn "chromium-browser")
-    , ((myModMask,               xK_p     ), spawn "dmenu_run")
+    , ((myModMask,               xK_p     ), spawn "rofi -show run")
     , ((myModMask,               xK_i     ), spawn "slock")
  
     -- Push window back into tiling
