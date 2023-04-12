@@ -17,4 +17,3 @@ bindkey ^[[1;3B focus bottom
 
 altscreen on # prevent vim, etc, from appearing in scrollback
 maptimeout 5
-term xterm

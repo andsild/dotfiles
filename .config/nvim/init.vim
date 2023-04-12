@@ -225,16 +225,20 @@ nnoremap <leader>du :diffupdate<CR>
 nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
 nnoremap <leader>t :term<CR>
 nnoremap <leader>u :diffupdate<CR>
-nnoremap <silent> / :BLines<CR>
+command! -bang -nargs=* LinesWithPreview
+    \ call fzf#vim#grep(
+    \   'rg --with-filename --column --line-number --no-heading --color=always --smart-case . '.fnameescape(expand('%')), 1,
+    \   1)
+nnoremap <silent> / :LinesWithPreview<CR>
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 nnoremap <silent> <Leader>. :<C-u>call ToggleOption('number')<CR>
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:set nohlsearch<CR>:echo 'Took away whitespace'<CR>
 nnoremap <silent> <SID>(decrement)   :AddNumbers -1<CR>
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
-nnoremap <silent> <Space>m :Buffers<CR>
+nnoremap <silent> [Space]m :Buffers<CR>
 nnoremap <silent> <c-t> :tabe<CR>
-nnoremap <silent> [Space]l :call ToggleList("Location List", 'l')<CR>
-nnoremap <silent> [Space]q :call ToggleList("Quickfix List", 'c')<CR>
+nnoremap <silent> [Space]l :lopen<CR>
+nnoremap <silent> [Space]q :copen<CR>
 nnoremap <silent> [Space]t :FZF<CR>
 nnoremap <silent> z/ :Zeavim<CR>
 nnoremap > >>
@@ -262,7 +266,7 @@ xmap A  <Plug>(niceblock-A)
 xmap I  <Plug>(niceblock-I)
 xmap ab <Plug>(textobj-multiblock-a)
 xmap ib <Plug>(textobj-multiblock-i)
-xnoremap  [Space]   <Nop>
+xnoremap  [Space] <Nop>
 xnoremap ,  <Nop>
 xnoremap ;  <Nop>
 xnoremap < <gv
@@ -329,12 +333,6 @@ command! FZFFavorites call fzf#run({
   \ 'down':    '40%' })
 command! -range -nargs=1 AddNumbers
   \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
-command! FZFLines mksession! /tmp/layout.vim | call fzf#run({
-\   'source':  <sid>buffer_lines(),
-\   'sink':    function('<sid>line_handler'),
-\   'options': '--extended --nth=3..',
-\   'down':    '60%'
-\})
 command! Wa wa
 command! WQa wqa
 command! Qa qa
@@ -365,43 +363,6 @@ endfunction
 
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
-
-function! GetBufferList()
-  redir => l:buflist
-  silent! ls
-  redir END
-  return l:buflist
-endfunction
-
-function! ToggleList(bufname, pfx)
-  let l:buflist = GetBufferList()
-  for l:bufnum in map(filter(split(l:buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(l:bufnum) != -1
-      exec(a:pfx.'close')
-      return
-    endif
-  endfor
-  if a:pfx ==# 'l' && len(getloclist(0)) == 0
-      echohl ErrorMsg
-      echo 'Location List is Empty.'
-      return
-  endif
-  let l:winnr = winnr()
-  exec(a:pfx.'open')
-  if winnr() != l:winnr
-    wincmd p
-  endif
-endfunction
-
-function! s:toggle_quickfix_window()
-  let l:_ = winnr('$')
-  cclose
-  if l:_ == winnr('$')
-    copen
-    setlocal nowrap
-    setlocal whichwrap=b,s
-  endif
 endfunction
 
 function! s:add_numbers(num)
@@ -479,95 +440,6 @@ endfunction
 
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
-
-function! s:line_handler(l)
-  let l:keys = split(a:l, ':\t')
-  exec 'buf' l:keys[0]
-  exec l:keys[1]
-  normal! ^zz
-endfunction
-
-function! s:buffer_lines()
-  let l:res = []
-  for l:b in filter(range(1, bufnr('$')), 'buflisted(v:val)')
-    call extend(l:res, map(getbufline(l:b,0,'$'), 'l:b . ":\t" . (v:key + 1) . ":\t" . v:val '))
-  endfor
-  return l:res
-endfunction
-
-function! s:ag_to_qf(line)
-  let l:parts = split(a:line, ':')
-  return {'filename': l:parts[0], 'lnum': l:parts[1], 'col': l:parts[2],
-        \ 'text': join(l:parts[3:], ':')}
-endfunction
-
-function! s:ag_handler(lines)
-  if len(a:lines) < 2 | return | endif
-
-  " I want to keep the window layout (the fzf popup moves everything around)
-  " Therefore I make a vim session and restore it
-  " However, if a terminal is open,
-  " I get a bug related to: https://github.com/neovim/neovim/issues/4895
-  let l:openWindows=[]
-  windo call add(l:openWindows, winnr())
-  let l:terminalIsOpen=0
-  for l:winnr in l:openWindows
-    if bufname(winbufnr(l:winnr)) =~# 'term://'
-        let l:terminalIsOpen=1
-    endif
-  endfor
-  if l:terminalIsOpen == 0
-    source /tmp/layout.vim " keep windows the way they were!
-  else
-    wincmd p " go back to previous window before switching to search result
-  endif
-
-  let l:cmd = get({'ctrl-x': 'split',
-               \ 'ctrl-v': 'vertical split',
-               \ 'ctrl-t': 'tabe'}, a:lines[0], 'e')
-  let l:list = map(a:lines[1:], 's:ag_to_qf(v:val)')
-  let l:chosen_result = l:list[0]
-
-  execute l:cmd escape(l:chosen_result.filename, ' %#\')
-  execute l:chosen_result.lnum
-  execute 'normal!' l:chosen_result.col.'|zz'
-
-  if len(l:list) > 1
-    call setqflist(l:list)
-    copen
-    wincmd p
-  endif
-endfunction
-
-function! s:buflist()
-  redir => l:ls
-  silent ls
-  redir END
-  return split(l:ls, '\n')
-endfunction
-
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-command! -complete=file -nargs=* Ag mksession! /tmp/layout.vim | call fzf#run({
-\ 'source':  printf('ag --nogroup --column --nocolor "^(?=.)" "%s"',
-\                   escape(empty(<q-args>) ? '.' : <q-args>, '"\')),
-\ 'sink*':    function('<sid>ag_handler'),
-\ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --delimiter : --nth 4.. '.
-\            '--multi --bind ctrl-a:select-all,ctrl-d:deselect-all '.
-\            '--color hl:68,hl+:110',
-\ 'down':    '50%'
-\ })
-
-function! s:tags_sink(line)
-  let l:parts = split(a:line, '\t\zs')
-  let l:excmd = matchstr(l:parts[2:], '^.*\ze;"\t')
-  execute 'silent e' l:parts[1][:-2]
-  let [l:magic, &magic] = [&magic, 0]
-  execute l:excmd
-  let &magic = l:magic
 endfunction
 
 let &titlestring="

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+
+find "${1:-.}" -printf "%T@ %Tc %p\n" | sort -n
