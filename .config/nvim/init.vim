@@ -296,22 +296,22 @@ let g:Gitv_OpenHorizontal = 'auto'
 let g:Gitv_WipeAllOnClose = 1
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
-let g:echodoc_enable_at_startup = 0
 let g:formatters_javascript = ['jscs']
 let g:haddock_browser = 'firefox'
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:intero_stack_yaml='stack.yaml'
 let g:jsx_ext_required = 0
-let g:localvimrc_sandbox=0
-let g:localvimrc_whitelist='.*'
+let g:livepreview_previewer = 'zathura'
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let g:myLang=0
-let g:myLangList=['nospell','en_us', 'nb', 'weak']
+let g:myLangList=['nospell','en_us', 'nb']
+let g:python_highlight_all = 1
 let g:vimsyntax_noerror = 1
 let s:my_split = {'is_selectable': 1}
 
 command! -bang -complete=file -nargs=* FZFGit call fzf#run({
-  \ 'source':  printf('(cd %s ; git ls-files --no-empty-directory --exclude-standard . | egrep -v "\.zip$|\.gz$|\.jpg$|\.png$|\.jar$" | sed -e s,^,%s/,)',
+  \ 'source':  printf('(cd %s ; git ls-files --no-empty-directory --exclude-standard . | grep -Ev "\.zip$|\.gz$|\.jpg$|\.png$|\.jar$" | sed -e s,^,%s/,)',
   \ escape(empty(<q-args>) ? '.' : <q-args>, '"\'), escape(empty(<q-args>) ? '.' : <q-args>, '"\')),
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
