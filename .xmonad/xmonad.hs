@@ -186,5 +186,5 @@ main = do
       , "setxkbmap  -option eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no"
       ]
     
-    xmproc <- spawnPipe "`which xmobar` ~/.xmonad/xmobarrc"
+    xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
     xmonad defaults

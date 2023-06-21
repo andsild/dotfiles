@@ -35,6 +35,9 @@ case $(hostname) in
     094)
         HOSTNAME="${PURPLE}"
         ;;
+    093)
+        HOSTNAME="${TEAL}"
+        ;;
     *)
         HOSTNAME="${WHITE}"
         ;;
