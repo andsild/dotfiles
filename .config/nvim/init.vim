@@ -12,6 +12,8 @@ if has('vim_starting')
   colorscheme koehler
 endif
 
+colorscheme koehler
+
 augroup DefaultAuGroup
     autocmd!
 
