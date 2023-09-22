@@ -62,7 +62,7 @@ alias wtf="ping -c1 google.com"
 alias py="/usr/bin/env -S python3 -m IPython"
 alias rmdir='rmdir'
 alias scren='screen -T xterm'
-alias screen='screen -T xterm'
+alias screen='screen -UT xterm'
 alias sp=": split  "
 alias stream="vlc --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
 alias us="setxkbmap us"

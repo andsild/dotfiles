@@ -16,5 +16,6 @@
        "reportGeneralTypeIssues": "none",
        "reportOptionalMemberAccess": "none"
   },
-  "diagnostic.level": "information"
+  "diagnostic.level": "information",
+  "snippets.ultisnips.pythonPrompt": false
 }

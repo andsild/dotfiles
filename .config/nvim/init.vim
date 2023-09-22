@@ -40,7 +40,6 @@ Plug 'github/copilot.vim'
 Plug '907th/vim-auto-save'
 Plug 'andsild/missing-spellfiles-neovim'
 Plug 'andsild/suckless.vim'
-Plug 'andsild/vim-choosewin'
 Plug 'andsild/vim-unimpaired'
 Plug 'embear/vim-localvimrc'
 Plug 'habamax/vim-godot'
@@ -185,7 +184,6 @@ inoremap <C-u>  <C-g>u<C-u>
 inoremap <C-w>  <C-g>u<C-w>
 inoremap <c-b> <Esc>i
 nmap <C-a> <SID>(increment)
-nmap <C-w>  <Plug>(choosewin)
 nmap <C-x> <SID>(decrement)
 nmap <F8> :TagbarToggle<CR>
 nmap <Space>   [Space]
@@ -295,26 +293,20 @@ endif
 let &undodir=&directory
 let g:Gitv_DoNotMapCtrlKey = 1
 let g:Gitv_OpenHorizontal = 'auto'
-let g:echodoc_enable_at_startup = 0
 let g:Gitv_WipeAllOnClose = 1
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
-let g:choosewin_blink_on_land = 0
-let g:choosewin_overlay_clear_multibyte = 1
-let g:localvimrc_whitelist='.*'
-let g:localvimrc_sandbox=0
-let g:choosewin_overlay_enable = 1
+let g:echodoc_enable_at_startup = 0
 let g:formatters_javascript = ['jscs']
 let g:haddock_browser = 'firefox'
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:intero_stack_yaml='stack.yaml'
 let g:jsx_ext_required = 0
-let g:livepreview_previewer = 'zathura'
+let g:localvimrc_sandbox=0
+let g:localvimrc_whitelist='.*'
 let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
 let g:myLang=0
 let g:myLangList=['nospell','en_us', 'nb', 'weak']
-let g:python_highlight_all = 1
 let g:vimsyntax_noerror = 1
 let s:my_split = {'is_selectable': 1}
 
