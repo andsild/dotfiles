@@ -141,7 +141,6 @@ newkeys = [
     , ((myModMask,               xK_Tab   ), windows W.focusDown)
     , ((myModMask,               xK_j     ), windows W.focusDown)
     , ((myModMask,               xK_k     ), windows W.focusUp  )
-    , ((myModMask,               xK_m     ), windows W.focusMaster  )
     , ((myModMask,               xK_Return), windows W.swapMaster)
     , ((myModMask .|. shiftMask, xK_j     ), windows W.swapDown  )
     , ((myModMask .|. shiftMask, xK_k     ), windows W.swapUp    )
@@ -149,12 +148,11 @@ newkeys = [
     , ((myModMask,               xK_l     ), sendMessage Expand)
     , ((myModMask,               xK_comma ), sendMessage (IncMasterN 1))
     , ((myModMask,               xK_period), sendMessage (IncMasterN (-1)))
-    , ((myModMask .|. shiftMask, xK_q     ), restart "xmonad" True)
     , ((myModMask,	             xK_f	), spawn "firefox")
     , ((myModMask,	             xK_d	), spawn "d")
     , ((myModMask,	       xK_s	), spawn "spotify")
     , ((myModMask,	       xK_u	), spawn "qutebrowser")
-    , ((myModMask,	       xK_c	), spawn "chromium-browser")
+    , ((myModMask,               xK_o     ), spawn "~/dotfiles/Bash/rofiFiles.sh")
     , ((myModMask,               xK_p     ), spawn "rofi -show run")
     , ((myModMask,               xK_i     ), spawn "slock")
  
@@ -182,7 +180,7 @@ newkeys = [
 main :: IO ()
 main = do
     mapM_ spawn [
-      "feh --bg-scale $(find /home/andsild/.images/ -type f | shuf | head -n1)"
+      "feh --bg-scale $(find ~/.images/ -type f | shuf | head -n1)"
       , "setxkbmap  -option eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no"
       ]
     
