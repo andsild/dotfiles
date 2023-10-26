@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+NoDisplay=true
+Name=nvim
+Comment=open a file
+GenericName=text editor
+Exec=/home/andsild/.local/bin/vimfile.sh %u
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=NVIM
+MimeType=text/markdown;text/plain;
+StartupNotify=true
+StartupWMClass=xterm
+Actions=new-window;new-private-window;
