@@ -13,7 +13,7 @@
   stat = true
 [core]
   editor = vim
-  excludesfile = ~/dotfiles/git/gitexclude
+  excludesfile = ~/dotfiles/.gitignore
   whitespace = trailing-space
   attributes = ~/dotfiles/git/gitattributes
 [alias]

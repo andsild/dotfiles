@@ -1,3 +1,5 @@
+.vim/
+analysis_out/
 *.pyc
 .tmp/
 *.log
