@@ -5,7 +5,7 @@ configuration {
   kb-mode-next: "Alt+Right,Shift+Right,Control+Tab";
   kb-mode-previous: "Alt+Left,Shift+Left,Control+ISO_Left_Tab";
   /* kb-row-select:; */
-  modi: "run,filebrowser";
+  modi: "run";
   combi-modi: "window,drun";
   show: "combi";
   monitor: "-4";

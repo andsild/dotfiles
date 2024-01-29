@@ -153,7 +153,7 @@ newkeys = [
     , ((myModMask,	       xK_s	), spawn "spotify")
     , ((myModMask,	       xK_u	), spawn "qutebrowser")
     , ((myModMask,               xK_o     ), spawn "~/dotfiles/Bash/rofiFiles.sh")
-    , ((myModMask,               xK_p     ), spawn "rofi -show run")
+    , ((myModMask,               xK_p     ), spawn "rofi -modi run -show run")
     , ((myModMask,               xK_i     ), spawn "slock")
  
     -- Push window back into tiling
