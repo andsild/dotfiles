@@ -546,3 +546,9 @@ omap ac <Plug>(coc-classobj-a)
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocActionAsync('format')
+
+let g:copilot_filetypes = {
+      \ 'latex': v:false,
+      \ 'tex': v:false,
+      \ 'txt': v:false,
+      \ }

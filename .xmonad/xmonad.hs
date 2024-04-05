@@ -30,7 +30,7 @@ import		 XMonad.Layout.Tabbed	    -- for "tabbed"
 import 		 XMonad.Hooks.SetWMName
 
 defaultTerminal :: String
-defaultTerminal = "st"
+defaultTerminal = "gnome-terminal"
  
 -- The default is mod1Mask ("left alt"), mod3 is right alt, windows key is mod4
 myModMask :: KeyMask

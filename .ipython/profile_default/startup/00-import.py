@@ -1,5 +1,7 @@
 import sys
 import os
+from collections import defaultdict
+
 try:
     import pandas
 except ImportError:
@@ -29,4 +31,3 @@ from itertools import *
 
 def flatten(listOfLists):
     return list(chain.from_iterable(listOfLists))
-
