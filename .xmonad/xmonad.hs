@@ -17,7 +17,7 @@ import qualified XMonad.StackSet                 as W
 import           XMonad.Util.Run                 (spawnPipe)
 import           XMonad.Util.Scratchpad
 import           XMonad.Util.EZConfig(additionalKeys)
--- import qualified Data.Map                        as M
+import qualified Data.Map                        as M
 import           Data.Ratio
 import           System.Exit
 import           System.IO
@@ -37,7 +37,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
  
 workspaceNames :: [String]
-workspaceNames = [ "1.term", "2.web", "3.code", "4.misc", "5.pdf", "6.misc", "7.torrent", "8.misc" , "9.spotify" ]
+workspaceNames = [ "1.term", "2.web", "3.code", "4.misc", "5.pdf", "6.misc", "7.background", "8.social" , "9.spotify" ]
 
 -- default tiling algorithm partitions the screen into two panes
 basic :: Tall a
@@ -71,7 +71,7 @@ myLayoutPrompt = inputPromptWithCompl myXPConfig "Layout"
     }
 
 myManageHook :: ManageHook
-myManageHook = scratchpadManageHookDefault <+> (className =? "Vlc" --> doFloat) <+> manageDocks
+myManageHook = scratchpadManageHookDefault <+> (className =? "vlc" --> doFloat) <+> manageDocks
                <+> fullscreenManageHook <+> myFloatHook
                <+> manageHook defaultConfig
   where fullscreenManageHook = composeOne [ isFullscreen -?> doFullFloat ]
@@ -81,11 +81,14 @@ myManageHook = scratchpadManageHookDefault <+> (className =? "Vlc" --> doFloat) 
 myFloatHook = composeAll
     [
       className =? "Spotify"		   --> moveToSpotify
-      , className =? "slack" --> moveTo2
-      , className =? "Mail" --> moveTo2
+      , className =? "Godot_Engine" --> floatMe
+      , className =? "slack" --> moveTo8
+      , className =? "slack" --> moveTo8
+      , className =? "Mail" --> moveTo8
     , manageDocks]
   where
-    moveTo2   = doF $ W.shift "2.web"
+    floatMe   = doF $ W.shift "7.background"
+    moveTo8   = doF $ W.shift "8.social"
     moveToSpotify = doF $ W.shift "9.spotify"
  
     classNotRole :: (String, String) -> Query Bool
@@ -133,6 +136,10 @@ defaults = defaultConfig {
     , startupHook        = return () >> setWMName "LG3D"
     } `additionalKeys` newkeys
 
+toggleFloat w = windows (\s -> if M.member w (W.floating s)
+                then W.sink w s
+                else (W.float w (W.RationalRect (1/3) (1/4) (1/2) (4/5)) s))
+
 newkeys = [ 
       ((myModMask .|. shiftMask, xK_Return), spawn defaultTerminal)
     , ((myModMask .|. shiftMask, xK_c     ), kill)
@@ -158,6 +165,8 @@ newkeys = [
  
     -- Push window back into tiling
     , ((myModMask,               xK_t     ), withFocused $ windows . W.sink)
+    , ((myModMask .|. shiftMask, xK_f     ), withFocused $ toggleFloat)
+
 
     ]
     ++
