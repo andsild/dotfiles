@@ -8,7 +8,11 @@ RUN apt-get update && apt-get install -y \
     gnupg2 \
     ca-certificates \
     lsb-release \
-    python3-nvim \
+    python3-neovim \
+    fd-find \
+    ripgrep \
+    silversearcher-ag \
+    git \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
@@ -25,5 +29,29 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install -y yarn && \
     rm -rf /var/lib/apt/lists/*
 
-# Set the default command to open Neovim
-CMD ["nvim"]
+ENV PYTHONUNBUFFERED=1
+
+RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+RUN mkdir -p ~/.config/nvim ~/.local ~/.cache ~/code
+
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all && ln -s /root/.fzf/bin/fzf /usr/bin/fzf
+
+RUN git clone https://github.com/andsild/dotfiles.git /tmp/dotfiles && \
+    cp -r /tmp/dotfiles/.config/nvim/* ~/.config/nvim/ && \
+    rm -rf /tmp/dotfiles ~/.config/nvim/Dockerfile
+
+RUN nvim -c ":PlugInstall! | qa" && nvim -c ":UpdateRemotePlugins | qa"
+RUN mkdir -p ~/.config/coc/extensions && \
+  cd ~/.config/coc/extensions && \
+  echo '{"dependencies":{}}'> package.json && \
+  npm install coc-snippets coc-pyright coc-json --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod 
+
+RUN mkdir -p /opt/conda_env
+ENV PATH /opt/conda_env/bin:$PATH
+
+WORKDIR /code
+SHELL ["/bin/bash", "-c"]
+ENV SHELL=/bin/bash
+CMD ["/usr/bin/env", "bash", "-c", "nvim"]

@@ -1,7 +1,19 @@
-## Getting neovim
-Go to their github page and get their ppa which is usually more up to date than Ubuntu's default
+# Getting neovim
+## Docker
+The dockerfile should work if you want that. To make it seamless between the docker environment and the host, run something a la
+```bash
+docker run --rm --name editor -v ${PWD}:/code -v ${HOME}/dotfiles:/root/dotfiles -v ${HOME}/.gitconfig:/root/.gitconfig -v ${HOME}/miniconda3/envs/simple_triton_gpu3:/opt/conda_env -v ${HOME}/.config/github-copilot:/root/.config/github-copilot --user root -it editor:anders
+```
 
-## To install vim-plug:
+Note that this will also try to mount a conda environment named `simple_triton_gpu3`. This is if you code in python and want autocompletionsfor that.
+
+## Install manually on Linux:
+### Dependencies (ubuntu)
+```bash
+sudo apt install -y python3-neovim fd-find
+```
+Go to the neovim github page and get their ppa which is usually more up to date than Ubuntu's default.  
+Then, install vim-plug:
 ```bash
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -13,13 +25,7 @@ Re-open nvim.
 
 If you use this repo and have any questions, I'd be happy to answer it.
 
-## Other dependencies (ubuntu)
-```bash
-sudo apt install -y python3-neovim fd-find
-```
-
-
-## Some of my most used plugins
+# Some of my most used plugins
 * [plug](https://github.com/junegunn/vim-plug) for plugins
 * [coc](https://github.com/neoclide/coc.nvim) for autocomplete, etc
 * [fzf](https://github.com/junegunn/fzf.vim) for opening files and doing text-searches  
