@@ -3,16 +3,12 @@ set termencoding=utf-8
 set background=dark
 let g:mapleader = ','
 
-let g:default_colorscheme = 'koehler'
 if has('vim_starting')
   set encoding=utf-8
   scriptencoding utf8
 
   filetype plugin indent on
-  colorscheme koehler
 endif
-
-colorscheme koehler
 
 augroup DefaultAuGroup
     autocmd!
@@ -38,16 +34,11 @@ augroup END
 call plug#begin()
 Plug 'github/copilot.vim'
 Plug '907th/vim-auto-save'
-Plug 'andsild/missing-spellfiles-neovim'
-Plug 'andsild/suckless.vim'
-Plug 'andsild/vim-unimpaired'
+Plug 'andsild/suckless.vim' " window mm
 Plug 'embear/vim-localvimrc'
-Plug 'habamax/vim-godot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'kana/vim-niceblock/'
-Plug 'kana/vim-textobj-user'
+Plug 'junegunn/vim-easy-align' 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/committia.vim'
 Plug 't9md/vim-smalls'
@@ -68,9 +59,6 @@ set backupdir-=.
 set breakat=\ \ ;:,!?
 set cmdheight=2
 set cmdwinheight=5
-" set complete=.
-" set completeopt=menu
-"set conceallevel=2 concealcursor=iv
 set cpoptions-=m " Highlight when CursorMoved.
 set directory-=. " Set swap directory.
 set display=lastline
@@ -253,8 +241,6 @@ nnoremap \  `
 nnoremap dh :diffget //3<CR>
 nnoremap dl :diffget //2<CR>
 nnoremap m! :Make!<CR>
-omap ab <Plug>(textobj-multiblock-a)
-omap ib <Plug>(textobj-multiblock-i)
 silent! nnoremap < <<
 vmap gcc <Plug>(caw:hatpos:toggle)
 vnoremap ; <Esc>
@@ -265,8 +251,6 @@ xmap  <Space>   [Space]
 xmap <Enter> <Plug>(EasyAlign)
 xmap A  <Plug>(niceblock-A)
 xmap I  <Plug>(niceblock-I)
-xmap ab <Plug>(textobj-multiblock-a)
-xmap ib <Plug>(textobj-multiblock-i)
 xnoremap  [Space] <Nop>
 xnoremap ,  <Nop>
 xnoremap ;  <Nop>
@@ -291,24 +275,11 @@ if has('mouse')
 endif
 
 let &undodir=&directory
-let g:Gitv_DoNotMapCtrlKey = 1
-let g:Gitv_OpenHorizontal = 'auto'
-let g:Gitv_WipeAllOnClose = 1
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
 let g:formatters_javascript = ['jscs']
-let g:haddock_browser = 'firefox'
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:intero_stack_yaml='stack.yaml'
-let g:jsx_ext_required = 0
-let g:livepreview_previewer = 'zathura'
-let g:maplocalleader = 'm' " Use <LocalLeader> in filetype plugin.
-let g:myLang=0
-let g:myLangList=['nospell','en_us', 'nb']
-let g:python_highlight_all = 1
-let g:vimsyntax_noerror = 1
-let s:my_split = {'is_selectable': 1}
+let g:myLangList=['nospell','en_us']
+" let s:my_split = {'is_selectable': 1}
 
 command! -bang -complete=file -nargs=* FZFGit call fzf#run({
   \ 'source':  printf('(cd %s ; git ls-files --no-empty-directory --exclude-standard . | grep -Ev "\.zip$|\.gz$|\.jpg$|\.png$|\.jar$" | sed -e s,^,%s/,)',
@@ -384,24 +355,6 @@ function! ToggleOption(option_name)
   execute 'setlocal' a:option_name.'!'
   execute 'setlocal' a:option_name.'?'
 endfunction
-
-function! ToggleVariable(variable_name)
-  if eval(a:variable_name)
-    execute 'let' a:variable_name.' = 0'
-  else
-    execute 'let' a:variable_name.' = 1'
-  endif
-endfunction
-
-if executable('pdftotext')
-  command! -complete=file -nargs=1 Pdf call s:read_pdf(<q-args>)
-  function! s:read_pdf(file)
-    enew
-    execute 'read !pdftotext -nopgbrk -layout' a:file '-'
-    setlocal nomodifiable
-    setlocal nomodified
-  endfunction
-endif
 
 function! s:strwidthpart(str, width)
   if a:width <= 0
@@ -551,4 +504,5 @@ let g:copilot_filetypes = {
       \ 'latex': v:false,
       \ 'tex': v:false,
       \ 'txt': v:false,
+      \ 'markdown': v:false,
       \ }

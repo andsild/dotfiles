@@ -7,6 +7,12 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
+Now `ln -s dotfiles/.config/nvim ~/.config/`.
+Then, when vim opens, ignore the error messages, and call `:PlugInstall` before `:UpdateRemotePlugins`.
+Re-open nvim.
+
+If you use this repo and have any questions, I'd be happy to answer it.
+
 ## Other dependencies (ubuntu)
 ```bash
 sudo apt install -y python3-neovim fd-find
@@ -24,3 +30,7 @@ sudo apt install -y python3-neovim fd-find
 * **Read up on viewports and buffers in vim  
     (https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/)**
 * **Disable the arrow keys. This will accelerate your vim-foo**
+
+# My vim philosophy
+  * https://qwde.no/blog/my-vim-journey.html
+  * https://qwde.no/blog/using-vim-to-review-git-commits.html
