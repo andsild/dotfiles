@@ -36,6 +36,7 @@ Plug 'github/copilot.vim'
 Plug '907th/vim-auto-save'
 Plug 'andsild/suckless.vim' " window mm
 Plug 'embear/vim-localvimrc'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align' 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
