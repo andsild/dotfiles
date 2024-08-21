@@ -7,10 +7,9 @@ Configuration files; pick as you please
 
 | Program     | Desc                                                                                                                                                  |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mitmproxy` | web interceptor |
 | `neovim`    | See `.config/nvim` directory |
 | `slock`     | lock your computer |
-| `zathura`   | It has vim-bindings and color-invert. |
+| `zathura`   | It has vim-bindings and color-invert. And actually shows the PDF without half the space being title- or sidebars |
 
 ## License
 I chose the most open one.
