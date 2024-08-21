@@ -3,7 +3,6 @@
 
 # If not running interactively, don't read preferences.
 [ -z "$PS1" ] && return
-[ -z "$IN_NIX_SHELL" ] || return
 
 bind -f "${HOME}/dotfiles/.inputrc"
 for file in $HOME/dotfiles/Bash/Sourced/* "${HOME}/dotfiles/.bash_aliases" ; do . "${file}"; done
@@ -29,7 +28,7 @@ case $(hostname) in
     antipater)
         HOSTNAME="${YELLOW}"
         ;;
-    minix)
+    gpu3)
         HOSTNAME="${BLUE}"
         ;;
     094)
@@ -45,34 +44,27 @@ esac
 export SCREENDIR=${HOME}/.screen
 HOSTNAME="${HOSTNAME}$(hostname)${WHITE}"
 SMILEYFROWNY="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
-NIX_SHELL_PACKAGES="echo ${nativeBuildInputs:-} | tr ' ' '\n' | sed 's/[^-]*-\(.*\)-[0-9].*/\1/'"
-NIX_SHELL="if [ -n \"$IN_NIX_SHELL\" ]; then printf \"[nix-shell: %s]\" \"\\\`${NIX_SHELL_PACKAGES}\\\`\"; fi"
 PS1=$(printf "%s %s\[%s\]%s@%s\[${WHITE}\]:%s\n \n" \
          "\`${SMILEYFROWNY}\`" \
-         "\`${NIX_SHELL}\`" \
 	 "\`if [ \"$(whoami)\" == \"root\" ]; then echo \"${RED}\"; else echo \"${WHITE}\"; fi\`" \
          "\u" \
          "${HOSTNAME}" \
          "\w" \
 )
 HISTIGNORE="ls:l:clear"
-export GOPATH="${HOME}/.go"
-PATH="${HOME}/.cabal/bin:${HOME}/dotfiles/Bash:${GOROOT:-/go}/bin:${GOPATH:-/go}/bin:${HOME}/.local/bin:${HOME}/bin/:${HOME}/work/config/bin:${HOME}/bin/:${PATH}"
+PATH="${HOME}/dotfiles/Bash:${HOME}/.local/bin:${HOME}/bin/:${PATH}"
 PROMPT_COMMAND='history -a'
-export HISTCONTROL="ignoreboth:erasedups"
+export HISTCONTROL="ignoreboth"
 export EDITOR="nvim"
 
 # Disable Software Flow Control (xon) (give me back Ctrl+s and Ctrl+q)
 stty -ixon
 
-# XMonad needs this to run java nicely
-export _JAVA_AWT_WM_NONREPARENTING=1
-
 # My jedi-vim needs this(ugh!)
 export IPYTHONDIR="${HOME}/.ipython"
 
-export HISTSIZE=10000000
-export HISTFILE_SIZE=100000000
+export HISTSIZE=1000000
+export HISTFILE_SIZE=1000000
 
 shopt -s cdspell # Enable directory autocorrection
 
@@ -87,9 +79,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
-GIT_PROMPT_START="$(printf "%s %s" "\`whoami\`" "\`date +%H:%M\`")"
-GIT_PROMPT_END="$(printf " %s%s%s\n:" "${TEAL}" "\`pwd | sed 's#$HOME/##'\`" "${WHITE}")"
-export GIT_PROMPT_START GIT_PROMPT_END GIT_PROMPT_ONLY_IN_REPO=1
 
 _pip_completion()
 {
@@ -98,12 +87,6 @@ _pip_completion()
                  PIP_AUTO_COMPLETE=1 $1 ) )
 }
 complete -o default -F _pip_completion pip
-
-[ -f "/etc/bash_completion.d/git-prompt" ] && . /etc/bash_completion.d/git-prompt
-[ -f "/etc/bash_completion.d/bazel" ] && . /etc/bash_completion.d/bazel
-[ -f "/home/andsild/.bazel/bin/bazel-complete.bash" ] && . /home/andsild/.bazel/bin/bazel-complete.bash 
-# [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
-
 
 export ANSIBLE_NOCOWS=1
 source "${HOME}/.bash_profile"
@@ -143,8 +126,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-[ -f "/home/andsild/.ghcup/env" ] && source "/home/andsild/.ghcup/env" # ghcup-env
-
-export NVM_DIR="$HOME/.config//nvm"
+export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
