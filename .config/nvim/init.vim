@@ -214,11 +214,7 @@ nnoremap <leader>du :diffupdate<CR>
 nnoremap <leader>hs :call <C-u>call ToggleOption('hlsearch')<CR>
 nnoremap <leader>t :term<CR>
 nnoremap <leader>u :diffupdate<CR>
-command! -bang -nargs=* LinesWithPreview
-    \ call fzf#vim#grep(
-    \   'rg --with-filename --column --line-number --no-heading --color=always --smart-case . '.fnameescape(expand('%')), 1,
-    \   1)
-nnoremap <silent> / :LinesWithPreview<CR>
+nnoremap <silent> / :BLines<CR>
 nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 nnoremap <silent> <Leader>. :<C-u>call ToggleOption('number')<CR>
 nnoremap <silent> <Leader>ss mm:%s/\s\+$//g<CR>`mmmzzmm:set nohlsearch<CR>:echo 'Took away whitespace'<CR>
