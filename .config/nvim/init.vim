@@ -229,7 +229,7 @@ nnoremap <silent> z/ :Zeavim<CR>
 nnoremap > >>
 nnoremap Q  q " Disable Ex-mode.
 nnoremap [Quickfix]   <Nop> " q: Quickfix
-nnoremap [Space]/  :Ag<CR>
+nnoremap [Space]/  :Rg<CR>
 nnoremap [Space]O :FZFFavorites<CR>
 nnoremap [Space]o :FZFGit<CR>
 nnoremap [Space]w :silent Neomake<CR>
