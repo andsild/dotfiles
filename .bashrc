@@ -52,7 +52,7 @@ PS1=$(printf "%s %s\[%s\]%s@%s\[${WHITE}\]:%s\n \n" \
          "\w" \
 )
 HISTIGNORE="ls:l:clear"
-PATH="${HOME}/dotfiles/Bash:${HOME}/.local/bin:${HOME}/bin/:${PATH}"
+PATH="${HOME}/dotfiles/Bash:${HOME}/.local/bin:${HOME}/bin/:${PATH}:/usr/local/bin/"
 PROMPT_COMMAND='history -a'
 export HISTCONTROL="ignoreboth"
 export EDITOR="nvim"
