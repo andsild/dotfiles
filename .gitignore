@@ -1,3 +1,7 @@
+*out.csv
+tensorboard_out
+inputs.tsv
+*.tfr
 benchmark_out/
 .vim/
 analysis_out/
