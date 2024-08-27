@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-conda_map=""
+set conda_map=""
 if command -v conda >/dev/null 2>&1; then
   if [[ -n "$CONDA_PREFIX" ]]; then
-    conda_map = "-v ${HOME}/miniconda3/envs/simple_triton_gpu6:/opt/conda_env"
+    conda_map="-v ${HOME}/miniconda3/envs/simple_triton_gpu6:/opt/conda_env"
   fi
 fi
 
-eval docker run --rm --name editor -v ${PWD}:/code -v ${HOME}/dotfiles:/root/dotfiles -v ${HOME}/.gitconfig:/root/.gitconfig $conda_map -v ${HOME}/.config/github-copilot:/root/.config/github-copilot --user root -it pesktux/nvim:latest
+eval docker run --rm --name editor -v ${PWD}:/code -v ${HOME}/dotfiles:/root/dotfiles -v ${HOME}/.gitconfig:/root/.gitconfig "${conda_map}" -v ${HOME}/.config/github-copilot:/root/.config/github-copilot --user root -it pesktux/nvim:latest
