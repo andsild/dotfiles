@@ -38,9 +38,7 @@ RUN mkdir -p ~/.config/nvim ~/.local ~/.cache ~/code
 
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all && ln -s /root/.fzf/bin/fzf /usr/bin/fzf
 
-RUN git clone https://github.com/andsild/dotfiles.git /tmp/dotfiles && \
-    cp -r /tmp/dotfiles/.config/nvim/* ~/.config/nvim/ && \
-    rm -rf /tmp/dotfiles ~/.config/nvim/Dockerfile
+COPY . /root/.config/nvim/
 
 RUN nvim -c ":PlugInstall! | qa" && nvim -c ":UpdateRemotePlugins | qa"
 RUN mkdir -p ~/.config/coc/extensions && \
