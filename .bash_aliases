@@ -5,20 +5,15 @@ then
   alias fd=fdfind
 fi
 
-alias apt="apt -y"
 alias bc='bc -lq'
 alias cal3="cal -3"
 alias check="aspell check -d en_US"
 alias checkNO="aspell check -d no"
-# alias curl=$'curl -sw "`curl -w`: HTTP %{http_code}"'
-#alias curl=$'curl -sw "\n(curl -sw): %{http_code}\n"'
 alias df="df -h"
 alias diffsmooth="diff --side-by-side --suppress-common-lines --ignore-trailing-space --ignore-space-change --ignore-all-space"
 alias dnf="dnf -y"
 alias dc="cd"
 alias du="du -h"
-alias e=": edit"
-alias emerge="sudo apt install -y"
 alias ga="git add ."
 alias gac="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\""
 alias gacp="git add . && git commit -m \"\$(fortune | tr '\n' ' ')\" && git push" # for private repos, I do not care what the commit message is
@@ -33,7 +28,6 @@ alias hindent="hindent --style johan-tibell"
 alias jkm='make'
 alias kjm='make'
 alias km='make'
-alias mutt='neomutt'
 alias ipy='ipython'
 alias l='ls'
 alias la='ls -A'
@@ -54,26 +48,14 @@ alias nvmi="nvim"
 alias nvi="nvim"
 alias nmiv="nvim"
 alias no="setxkbmap no"
-alias nstack='nice stack'
-alias paste="xclip -o && echo"
 alias pg="ps aux | grep "
 alias pirate="youtube-dl --no-playlist --extract-audio --audio-format mp3"
-alias wtf="ping -c1 google.com"
 alias py="/usr/bin/env -S python3 -m IPython"
-alias rmdir='rmdir'
 alias scren='screen -T xterm'
 alias screen='screen -UT xterm'
-alias sp=": split  "
-alias stream="vlc --sout-display-delay=30000 --sout-transcode-venc=mp4 v4l2:///dev/video0"
 alias us="setxkbmap us"
-alias vim="nvim"
-alias vs=": vsplit"
-alias wo="cd /mnt/c/msys64/home/anderss/"
-alias da="cd /mnt/c/Users/anderss/data"
 
 function smallimg()
 {
     convert -size 32x32 "xc:${2:-orange}" "${1:-empty.jpg}"
 }
-
-alias mountVm="sudo sshfs -p 2222 -o allow_other,IdentityFile=~/.ssh/id_rsa,Ciphers=arcfour tdt4258@127.0.0.1:4258Group10 /mnt/vm/"
