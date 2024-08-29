@@ -13,14 +13,11 @@ endif
 augroup DefaultAuGroup
     autocmd!
 
-    autocmd FileType javascript,css,java,nix nmap <silent> ;; <Plug>(cosco-commaOrSemiColon)
-    autocmd FileType javascript,css,java,nix imap <silent> ;; <c-o><Plug>(cosco-commaOrSemiColon)<C-\><C-n>
     autocmd FileType gitcommit setlocal textwidth=72
     autocmd BufWritePost,FileWritePost *.vim    if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePost,FileWritePost *.lvimrc if &autoread | source <afile> | echo 'source ' . bufname('%') | endif
     autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
     autocmd FileType gitcommit,qfreplace setlocal nofoldenable
-    autocmd FileType pdf Pdf '%'
     autocmd TermOpen term://* setlocal norelativenumber
 
     autocmd BufWritePost *
@@ -118,7 +115,6 @@ set tabstop=2 " Substitute <Tab> with blanks.
 set tags=./tags,tags,../tags
 set timeout timeoutlen=3000 ttimeoutlen=100 " Keymapping timeout.
 set title
-set titlelen=95
 set ttyfast
 set undofile
 set updatetime=1000 " CursorHold time.
@@ -274,13 +270,10 @@ endif
 let &undodir=&directory
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
-let g:formatters_javascript = ['jscs']
 let g:myLangList=['nospell','en_us']
-" let s:my_split = {'is_selectable': 1}
 
 command! -bang -complete=file -nargs=* FZFGit call fzf#run({
-  \ 'source':  printf('(cd %s ; git ls-files --no-empty-directory --exclude-standard . | grep -Ev "\.zip$|\.gz$|\.jpg$|\.png$|\.jar$" | sed -e s,^,%s/,)',
-  \ escape(empty(<q-args>) ? '.' : <q-args>, '"\'), escape(empty(<q-args>) ? '.' : <q-args>, '"\')),
+  \ 'source':  'git ls-files --no-empty-directory --exclude-standard . ',
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
@@ -301,7 +294,6 @@ command! WQa wqa
 command! Qa qa
 command! Wqa wqa
 command! W w
-command! GS execute 'Gstatus | res +10'
 
 function! s:mkdir_as_necessary(dir, force)
   if !isdirectory(a:dir) && &l:buftype ==? '' &&
