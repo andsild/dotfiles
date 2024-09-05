@@ -37,9 +37,11 @@ cd() #@ Change directory, saving location on the directory stack
 
     returnVal="$?"
 
-    # auto cd from neovim terminal, if any
-    test -n "NVIM_LISTEN_ADDRESS" && test -e "${HOME}/.nvimex.py" && \
-        "${HOME}/.nvimex.py" "cd ${PWD}"
+    # addendum: automatically activate a conda environment if I appended a small file there with the conda environment name
+    if [ -f "${PWD}/.conda_config" ]; then
+        export CONDACONFIGDIR=$PWD
+        conda activate $(cat .conda_config)
+    fi
 
     clear > /dev/fd/0
     ls --color=auto > /dev/fd/0

@@ -131,5 +131,12 @@ export NVM_DIR="$HOME/.config/nvm"
 
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
-  export GIT_EDITOR=nvim
+fi
+
+command -v nvim >/dev/null && export GIT_EDITOR=nvim
+
+# addendum: automatically activate a conda environment if I appended a small file there with the conda environment name
+if [ -f "${PWD}/.conda_config" ]; then
+    export CONDACONFIGDIR=$PWD
+    conda activate $(cat .conda_config)
 fi

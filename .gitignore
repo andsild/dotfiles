@@ -1,3 +1,4 @@
+.conda_config
 *out.csv
 tensorboard_out
 inputs.tsv
