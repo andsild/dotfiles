@@ -131,4 +131,5 @@ export NVM_DIR="$HOME/.config/nvm"
 
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
+  export GIT_EDITOR=nvim
 fi
