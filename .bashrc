@@ -92,38 +92,20 @@ export ANSIBLE_NOCOWS=1
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/aza4423/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('${HOME}/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/aza4423/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/aza4423/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "${HOME}/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "${HOME}/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/aza4423/miniconda3/bin:$PATH"
+        export PATH="${PATH}/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
 test -d "$HOME/.cargo/env" && . "$HOME/.cargo/env"
-
-# !! Contents within this block are managed by 'conda init' !!
-if [[ "$(hostname)" == "antipater" ]]
-then
-  __conda_setup="$('/home/andsild/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-  if [ $? -eq 0 ]; then
-      eval "$__conda_setup"
-  else
-      if [ -f "/home/andsild/anaconda3/etc/profile.d/conda.sh" ]; then
-        true
-        # . "/home/andsild/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
-      else
-          export PATH="/home/andsild/anaconda3/bin:$PATH"
-      fi
-  fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
