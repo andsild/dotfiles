@@ -4,6 +4,8 @@ tensorboard_out
 inputs.tsv
 *.tfr
 benchmark_out/
+examples/models/
+*.zip
 .vim/
 analysis_out/
 *.pyc
