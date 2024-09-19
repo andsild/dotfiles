@@ -1,3 +1,5 @@
+*.svs
+examples/feature_extraction.py
 tb_*/
 .conda_config
 *out.csv

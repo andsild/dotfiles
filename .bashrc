@@ -28,7 +28,13 @@ case $(hostname) in
     antipater)
         HOSTNAME="${YELLOW}"
         ;;
-    gpu3)
+    fsmt640a)
+        HOSTNAME="${BLUE}"
+        ;;
+    cooperlabgpu3)
+        HOSTNAME="${BLUE}"
+        ;;
+    cooperlabgpu5)
         HOSTNAME="${BLUE}"
         ;;
     094)
@@ -44,7 +50,7 @@ esac
 export SCREENDIR=${HOME}/.screen
 HOSTNAME="${HOSTNAME}$(hostname)${WHITE}"
 SMILEYFROWNY="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
-PS1=$(printf "%s %s\[%s\]%s@%s\[${WHITE}\]:%s\n \n" \
+PS1=$(printf "%s %s\[%s\]@%s %s\[${WHITE}\]:%s\n \n" \
          "\`${SMILEYFROWNY}\`" \
 	 "\`if [ \"$(whoami)\" == \"root\" ]; then echo \"${RED}\"; else echo \"${WHITE}\"; fi\`" \
          "\u" \
@@ -59,9 +65,6 @@ export EDITOR="nvim"
 
 # Disable Software Flow Control (xon) (give me back Ctrl+s and Ctrl+q)
 stty -ixon
-
-# My jedi-vim needs this(ugh!)
-export IPYTHONDIR="${HOME}/.ipython"
 
 export HISTSIZE=1000000
 export HISTFILE_SIZE=1000000
@@ -117,7 +120,7 @@ fi
 
 command -v nvim >/dev/null && export GIT_EDITOR=nvim
 
-# addendum: automatically activate a conda environment if I appended a small file there with the conda environment name
+# automatically activate a conda environment if I appended a small file there with the conda environment name
 if [ -f "${PWD}/.conda_config" ]; then
     export CONDACONFIGDIR=$PWD
     conda activate $(cat .conda_config)
