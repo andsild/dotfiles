@@ -1,3 +1,4 @@
+qodana.yaml
 *.tensorflow
 assets/
 *.svs
