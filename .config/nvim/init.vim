@@ -1,5 +1,3 @@
-set termencoding=utf-8
-
 set background=dark
 let g:mapleader = ','
 
