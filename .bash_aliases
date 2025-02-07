@@ -22,7 +22,6 @@ alias gc="git commit -m \"\$(fortune | tr '\n' ' ')\""
 alias gclean='(git gc --prune=now  ; git remote prune origin) && git pull'
 alias gdb="gdb --quiet"
 alias gpg="gpg2"
-alias grep="grep --color=always"
 alias gs="git status"
 alias hindent="hindent --style johan-tibell"
 alias jkm='make'

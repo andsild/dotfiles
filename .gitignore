@@ -1,3 +1,5 @@
+*.tensorflow
+assets/
 *.svs
 examples/feature_extraction.py
 tb_*/

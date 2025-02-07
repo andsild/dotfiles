@@ -43,6 +43,7 @@ Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'kana/vim-niceblock/'
+Plug 'neovimhaskell/haskell-vim'
 
 call plug#end()
 
@@ -253,9 +254,6 @@ xnoremap > >gv
 xnoremap m  <Nop>
 xnoremap r <C-v> " Select rectangle.
 
-if has('clipboard')
-  xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
-endif
 if has('mouse')
   set mouse=a
 
@@ -285,6 +283,7 @@ command! FZFFavorites call fzf#run({
   \ 'sink':    'edit',
   \ 'options': '-m -x +s -e',
   \ 'down':    '40%' })
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 command! -range -nargs=1 AddNumbers
   \ call s:add_numbers((<line2>-<line1>+1) * eval(<args>))
 command! Wa wa
