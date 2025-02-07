@@ -23,7 +23,6 @@ alias gclean='(git gc --prune=now  ; git remote prune origin) && git pull'
 alias gdb="gdb --quiet"
 alias gpg="gpg2"
 alias gs="git status"
-alias hindent="hindent --style johan-tibell"
 alias jkm='make'
 alias kjm='make'
 alias km='make'
@@ -41,7 +40,6 @@ alias mjk='make'
 alias mk='make'
 alias mkdir='mkdir'
 alias mkj='make'
-alias mountusb='sudo mount -o umask=000'
 alias mv='mv -vi'
 alias nvmi="nvim"
 alias nvi="nvim"
