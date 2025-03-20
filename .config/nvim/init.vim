@@ -27,7 +27,6 @@ augroup DefaultAuGroup
 augroup END
 
 call plug#begin()
-Plug 'github/copilot.vim'
 Plug '907th/vim-auto-save'
 Plug 'andsild/suckless.vim' " window mm
 Plug 'embear/vim-localvimrc'
