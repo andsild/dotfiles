@@ -30,6 +30,8 @@ case $(hostname) in
         ;;
     fsmt640a)
         HOSTNAME="${BLUE}"
+        export PIP_CACHE_DIR="/data/aza4423_anders/cache"
+        export XDG_CACHE_DIR="/data/aza4423_anders/cache"
         ;;
     cooperlabgpu3)
         HOSTNAME="${BLUE}"
@@ -107,6 +109,18 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+__conda_setup="$('/data/aza4423_anders/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/data/aza4423_anders/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/data/aza4423_anders//miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="${PATH}/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
 
 test -d "$HOME/.cargo/env" && . "$HOME/.cargo/env"
 
