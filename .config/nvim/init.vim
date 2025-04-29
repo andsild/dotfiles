@@ -266,6 +266,7 @@ endif
 let &undodir=&directory
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
+let g:myLang = 'en_us'
 let g:myLangList=['nospell','en_us']
 
 command! -bang -complete=file -nargs=* FZFGit call fzf#run({

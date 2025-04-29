@@ -34,6 +34,7 @@ alias ll='ls -alh'
 alias ls='ls --color=auto -h'
 alias lt='ls -t -r'
 alias m="make"
+alias mc="make clean"
 alias mj='make'
 alias mj='make'
 alias mjk='make'
