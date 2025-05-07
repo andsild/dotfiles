@@ -1,3 +1,4 @@
+*.pyg
 mnist_data/
 buildtrigger
 launch.sh
