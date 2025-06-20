@@ -128,3 +128,5 @@ if [ -f "${PWD}/.conda_config" ]; then
     export CONDACONFIGDIR=$PWD
     conda activate $(cat .conda_config)
 fi
+
+[ -f "/Users/aza4423/.ghcup/env" ] && . "/Users/aza4423/.ghcup/env" # ghcup-env
