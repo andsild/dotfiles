@@ -1,12 +1,9 @@
 import           XMonad                          hiding ((|||))
-import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.FadeInactive       as FI
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
-import           XMonad.Hooks.UrgencyHook
 import           XMonad.Layout.DecorationMadness
-import           XMonad.Layout.IM
-import           XMonad.Layout.LayoutCombinators (JumpToLayout (..), (|||))
+import           XMonad.Layout.LayoutCombinators ((|||))
 import           XMonad.Layout.Named
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.PerWorkspace
@@ -14,6 +11,7 @@ import           XMonad.Layout.Reflect
 import           XMonad.Prompt
 import           XMonad.Prompt.Input
 import qualified XMonad.StackSet                 as W
+import           XMonad.Util.Themes
 import           XMonad.Util.Run                 (spawnPipe)
 import           XMonad.Util.Scratchpad
 import           XMonad.Util.EZConfig(additionalKeys)
@@ -23,7 +21,6 @@ import           System.Exit
 import           System.IO
 import           System.Cmd (system)
 
-import     Control.Monad.Writer	    -- for writer
 import 		 XMonad.Layout.MultiToggle  -- for transformer
 import		 XMonad.Layout.Master	    -- for mastered
 import		 XMonad.Layout.Tabbed	    -- for "tabbed"
@@ -61,13 +58,13 @@ webLayout = named "webby" -- $ avoidStruts $ Mirror basic
  
 myLayoutPrompt :: X ()
 myLayoutPrompt = inputPromptWithCompl myXPConfig "Layout"
-                 (mkComplFunFromList' allLayouts) ?+ (sendMessage . JumpToLayout)
+                 (mkComplFunFromList' myXPConfig allLayouts) ?+ (sendMessage . JumpToLayout)
   where
     allLayouts = ["tall", "wide", "circle", "full"]
  
     myXPConfig :: XPConfig
-    myXPConfig = defaultXPConfig {
-        autoComplete= Just 1000
+    myXPConfig = def {
+        autoComplete = Just 1000
     }
 
 myManageHook :: ManageHook
@@ -104,42 +101,14 @@ colorBlack           = "#020202" --Background (Dzen_BG)
 colorBlackAlt        = "#1c1c1c" --Black Xdefaults
 colorGray            = "#444444" --Gray       (Dzen_FG2)
 colorWhiteAlt        = "#9d9d9d" --White dark (Dzen_FG)
-colorGreen           = "#66ff66"
-
-myTitleTheme :: Theme
-myTitleTheme = defaultTheme
-	{
-	 fontName            = dzenFont
-        , inactiveBorderColor = colorBlackAlt
-        , inactiveColor       = colorBlack
-        , inactiveTextColor   = colorGray
-        , activeBorderColor   = colorGray
-        , activeColor         = colorBlackAlt
-        , activeTextColor     = colorWhiteAlt
-        , urgentBorderColor   = colorGray
-        , urgentTextColor     = colorGreen
-        , decoHeight          = 14 
-} 
  
-defaults = defaultConfig {
-   -- simple stuff
-      terminal           = defaultTerminal
-    , focusFollowsMouse  = True
-    , borderWidth        = 1
-    , modMask            = myModMask
-    , workspaces         = workspaceNames
-    , normalBorderColor  = "black"
-    , focusedBorderColor = "red"
-    , layoutHook         = myLayout
-    , manageHook         = myManageHook
---    , logHook            = myLogHook
-    , startupHook        = return () >> setWMName "LG3D"
-    } `additionalKeys` newkeys
-
+-- Add type signatures
+toggleFloat :: Window -> X ()
 toggleFloat w = windows (\s -> if M.member w (W.floating s)
                 then W.sink w s
                 else (W.float w (W.RationalRect (1/3) (1/4) (1/2) (4/5)) s))
 
+newkeys :: [((KeyMask, KeySym), X ())]
 newkeys = [ 
       ((myModMask .|. shiftMask, xK_Return), spawn defaultTerminal)
     , ((myModMask .|. shiftMask, xK_c     ), kill)
@@ -193,5 +162,19 @@ main = do
       , "setxkbmap  -option eurosign:e,grp:switch,grp:alt_shift_toggle,grp_led:scroll us,no"
       ]
     
-    xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
-    xmonad defaults
+    _ <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
+    let cfg = def {
+           -- simple stuff
+              terminal           = defaultTerminal
+            , focusFollowsMouse  = True
+            , borderWidth        = 1
+            , modMask            = myModMask
+            , workspaces         = workspaceNames
+            , normalBorderColor  = "black"
+            , focusedBorderColor = "red"
+            , layoutHook         = myLayout
+            , manageHook         = myManageHook
+    --      , logHook            = myLogHook
+            , startupHook        = return () >> setWMName "LG3D"
+            } `additionalKeys` newkeys
+    xmonad cfg

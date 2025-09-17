@@ -1,4 +1,9 @@
 # /etc/skel/.bash_profile
+#
+if [ -z "$PS1" ]; then
+    # Commands here will NOT be executed in non-interactive shells
+    return
+fi
 
 if [[ -z "${BASH_PROFILE_SOURCED}" ]]
 then
