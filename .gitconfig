@@ -60,3 +60,4 @@
 	required = true
 [safe]
 	directory = /code
+	directory = /extradata/hasktorch-stonks

@@ -13,17 +13,19 @@ pdfautoopen()
     do 
         file="$(find "${watchedFolder}" -maxdepth 1 -type f -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1)"
         # file="$(ls -t -r -1 "${watchedFolder}" | tail -n1)"
-        [[ "${out}" == *"chromium"* ]] || [[ "${file}" == *".crdownload" ]] \
+        [[ "${out}" == *"chromium"* ]] || [[ "${file}" == *"vivaldi"* ]] || [[ "${file}" == *".crdownload" ]] \
             && continue
 
-        filetype="$(xdg-mime query filetype "${watchedFolder}${file}")"
+        filetype="$(xdg-mime query filetype "${file}")"
         if [ "${filetype}" = "application/pdf" ]
         then 
-            pdf "${watchedFolder}${file}"
+            echo "opening ${file}"
+            pdf "${file}"
         elif [ "${filetype}" = "application/zip" ]
         then
-            mkdir "${watchedFolder}${file}EXTRACTED"
-            unzip "${watchedFolder}${file}" -d "${watchedFolder}${file}EXTRACTED"
+            mkdir "${file}EXTRACTED"
+            echo "unzipping ${file}"
+            unzip "${file}" -d "${file}EXTRACTED"
         fi
     done
 } #2> /dev/null

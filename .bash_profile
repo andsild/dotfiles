@@ -29,10 +29,6 @@ then
       start_agent;
   fi
 
-  GPG_TTY=$(tty)
-  export GPG_TTY
-  if [ -e /home/andsild/.nix-profile/etc/profile.d/nix.sh ]; then . /home/andsild/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
   export BASH_PROFILE_SOURCED=1
 
   # This file is sourced by bash for login shells.  The following line
