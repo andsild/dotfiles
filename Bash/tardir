@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+set -xe
+tar cvzf "${2:-my_tar_file.tar.gz}" "${1:?param1: name of dir to tar}"
