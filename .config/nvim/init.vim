@@ -171,6 +171,7 @@ nmap <C-x> <SID>(decrement)
 nmap <F8> :TagbarToggle<CR>
 nmap <Space>   [Space]
 nmap <silent> <F6> :silent NextWordy<CR>
+nmap <silent> <F3> :call TogglePaste()<CR>
 nmap <silent> <F7> :call ToggleSpell()<CR>
 nmap <silent>sa <Plug>(operator-surround-append)a
 nmap <silent>sc <Plug>(operator-surround-replace)a
@@ -267,6 +268,7 @@ let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
 let g:myLang = 'en_us'
 let g:myLangList=['nospell','en_us']
+let g:is_paste = 0
 
 command! -bang -complete=file -nargs=* FZFGit call fzf#run({
   \ 'source':  'git ls-files --no-empty-directory --exclude-standard . ',
@@ -299,6 +301,21 @@ function! s:mkdir_as_necessary(dir, force)
     call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
   endif
 endfunction
+
+function! TogglePaste()
+  let g:is_paste=g:is_paste+1
+  if g:is_paste==2
+    let g:is_paste=0
+  endif
+  if g:is_paste==0
+    execute 'setlocal nopaste'
+    echo 'nopaste'
+  else
+    setlocal paste
+    echo 'paste'
+  endif
+endfunction
+
 
 function! ToggleSpell()
   let g:myLang=g:myLang+1
