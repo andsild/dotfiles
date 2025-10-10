@@ -182,7 +182,7 @@ newkeys = [
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     [((m .|. myModMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_q, xK_e, xK_w, xK_r] [0..]
+      | (key, sc) <- zip [xK_e, xK_q, xK_w, xK_r] [0..]
     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
     ]
 
