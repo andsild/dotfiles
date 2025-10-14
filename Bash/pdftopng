@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
+filename="${1:?input pdf}"
+pngfile="${filename%.pdf}"
 set -xe
-pdftoppm "${1:?input pdf}" "${2:?output png}" -png
+pdftoppm "${filename}" "${pngfile}" -png
