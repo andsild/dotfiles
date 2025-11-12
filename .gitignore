@@ -1,3 +1,4 @@
+triton_results/
 *.pyg
 mnist_data/
 buildtrigger

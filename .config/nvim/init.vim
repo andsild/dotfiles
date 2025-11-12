@@ -170,7 +170,6 @@ nmap <C-a> <SID>(increment)
 nmap <C-x> <SID>(decrement)
 nmap <F8> :TagbarToggle<CR>
 nmap <Space>   [Space]
-nmap <silent> <F6> :silent NextWordy<CR>
 nmap <silent> <F3> :call TogglePaste()<CR>
 nmap <silent> <F7> :call ToggleSpell()<CR>
 nmap <silent>sa <Plug>(operator-surround-append)a
